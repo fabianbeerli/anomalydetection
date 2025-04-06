@@ -1,0 +1,149 @@
+#!/usr/bin/env python
+"""
+Script to process and prepare data for anomaly detection.
+"""
+import os
+import sys
+import logging
+import json
+from pathlib import Path
+
+# Add the project root directory to the Python path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from src.data.preparation import (
+    process_all_data,
+    load_ticker_data,
+    create_subsequence_dataset,
+    create_multi_ts_subsequences,
+    save_subsequence_dataset
+)
+from src import config
+
+# Configure logging
+logging.basicConfig(
+    level=getattr(logging, config.LOG_LEVEL),
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
+
+def main():
+    """
+    Main function to process and prepare data.
+    """
+    logger.info("Starting data preparation process")
+    
+    # Process all data
+    processed_data = process_all_data()
+    
+    if processed_data.get('sp500_processed'):
+        logger.info(f"S&P 500 index data processed and saved to {processed_data['sp500_processed']}")
+    else:
+        logger.warning("No processed S&P 500 index data available")
+    
+    if processed_data.get('constituent_processed'):
+        logger.info(f"Processed {len(processed_data['constituent_processed'])} constituent stock files")
+    else:
+        logger.warning("No processed constituent stock data available")
+    
+    # Create subsequence directory
+    subseq_dir = config.PROCESSED_DATA_DIR / 'subsequences'
+    subseq_dir.mkdir(exist_ok=True, parents=True)
+    
+    # Create subsequences for the S&P 500 index
+    if processed_data.get('sp500_processed'):
+        sp500_df = load_ticker_data(processed_data['sp500_processed'])
+        
+        if sp500_df is not None:
+            # Define feature columns for subsequences
+            feature_columns = [
+                'daily_return_zscore', 
+                'volume_change_zscore', 
+                'high_low_range'
+            ]
+            
+            # Filter to include only selected features
+            sp500_features = sp500_df[[col for col in feature_columns if col in sp500_df.columns]]
+            
+            # Create subsequences with different lengths
+            for length in [3, 5, 10]:
+                logger.info(f"Creating subsequences of length {length} for S&P 500 index")
+                
+                # Overlapping subsequences (step=1)
+                subseqs_overlap = create_subsequence_dataset(
+                    sp500_features, 
+                    subsequence_length=length, 
+                    step=1
+                )
+                
+                # Save overlapping subsequences
+                save_subsequence_dataset(
+                    subseqs_overlap,
+                    subseq_dir,
+                    prefix=f'sp500_len{length}_overlap'
+                )
+                
+                # Non-overlapping subsequences (step=length)
+                subseqs_nonoverlap = create_subsequence_dataset(
+                    sp500_features, 
+                    subsequence_length=length, 
+                    step=length
+                )
+                
+                # Save non-overlapping subsequences
+                save_subsequence_dataset(
+                    subseqs_nonoverlap,
+                    subseq_dir,
+                    prefix=f'sp500_len{length}_nonoverlap'
+                )
+    
+    # Create multi-TS subsequences for analysis across multiple stocks
+    if processed_data.get('constituent_processed') and len(processed_data['constituent_processed']) > 0:
+        # Load processed constituent data
+        constituent_dfs = []
+        constituent_tickers = []
+        
+        for file_path in processed_data['constituent_processed'][:10]:  # Limit to 10 stocks for demonstration
+            ticker = Path(file_path).stem.replace('_processed', '')
+            df = load_ticker_data(file_path)
+            
+            if df is not None:
+                constituent_dfs.append(df)
+                constituent_tickers.append(ticker)
+        
+        if constituent_dfs:
+            # Define feature columns for multi-TS subsequences
+            feature_columns = [
+                'daily_return_zscore', 
+                'volume_change_zscore', 
+                'high_low_range'
+            ]
+            
+            # Create multi-TS subsequences
+            logger.info(f"Creating multi-TS subsequences for {len(constituent_dfs)} stocks")
+            
+            # Length 5 with step 1 (overlapping)
+            multi_ts_subseqs = create_multi_ts_subsequences(
+                constituent_dfs,
+                constituent_tickers,
+                feature_columns,
+                subsequence_length=5,
+                step=1
+            )
+            
+            # Save multi-TS subsequences
+            multi_ts_dir = config.PROCESSED_DATA_DIR / 'multi_ts'
+            multi_ts_dir.mkdir(exist_ok=True, parents=True)
+            
+            save_subsequence_dataset(
+                multi_ts_subseqs,
+                multi_ts_dir,
+                prefix='multi_ts_len5_overlap'
+            )
+    
+    logger.info("Data preparation and subsequence creation completed")
+
+
+if __name__ == "__main__":
+    main()
