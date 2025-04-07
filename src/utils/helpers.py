@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from datetime import datetime, timedelta
 
-from .. import config
+from src import config
 
 # Configure logging
 logging.basicConfig(

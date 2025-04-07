@@ -5,10 +5,11 @@ import os
 import logging
 import pandas as pd
 import numpy as np
+import json
 from pathlib import Path
 import glob
 
-from .. import config
+from src import config
 
 # Configure logging
 logging.basicConfig(
@@ -39,6 +40,10 @@ def load_ticker_data(file_path):
         if missing_columns:
             logger.warning(f"Missing columns in {file_path}: {missing_columns}")
         
+        # Convert all numeric columns to float
+        for col in df.columns:
+            df[col] = pd.to_numeric(df[col], errors='coerce')
+        
         logger.info(f"Loaded {len(df)} records from {file_path}")
         return df
     
@@ -66,6 +71,10 @@ def preprocess_data(df):
         
         # Make a copy to avoid modifying the original
         df_processed = df.copy()
+        
+        # Convert all columns to numeric
+        for col in df_processed.columns:
+            df_processed[col] = pd.to_numeric(df_processed[col], errors='coerce')
         
         # Forward fill missing price values
         for col in ['Open', 'High', 'Low', 'Close', 'Adj Close']:
@@ -113,6 +122,11 @@ def engineer_features(df, ticker=None, sp500_df=None):
         # Make a copy to avoid modifying the original
         df_feat = df.copy()
         
+        # Convert all columns to numeric if they're not already
+        for col in df_feat.columns:
+            if not pd.api.types.is_numeric_dtype(df_feat[col]):
+                df_feat[col] = pd.to_numeric(df_feat[col], errors='coerce')
+        
         # 1. Return Metrics
         # Daily returns
         df_feat['daily_return'] = df_feat['Close'].pct_change()
@@ -155,8 +169,9 @@ def engineer_features(df, ticker=None, sp500_df=None):
                 roll_mean = df_feat[feature].rolling(window=config.WINDOW_SIZES['returns']).mean()
                 roll_std = df_feat[feature].rolling(window=config.WINDOW_SIZES['returns']).std()
                 
-                # Calculate z-score
-                df_feat[f'{feature}_zscore'] = (df_feat[feature] - roll_mean) / roll_std
+                # Calculate z-score (with handling for division by zero)
+                roll_std_safe = np.where(roll_std == 0, np.nan, roll_std)
+                df_feat[f'{feature}_zscore'] = (df_feat[feature] - roll_mean) / roll_std_safe
         
         # Z-score normalization for volume-based features
         volume_features = ['volume_change', 'relative_volume']
@@ -166,15 +181,24 @@ def engineer_features(df, ticker=None, sp500_df=None):
                 roll_mean = df_feat[feature].rolling(window=config.WINDOW_SIZES['volume']).mean()
                 roll_std = df_feat[feature].rolling(window=config.WINDOW_SIZES['volume']).std()
                 
-                # Calculate z-score
-                df_feat[f'{feature}_zscore'] = (df_feat[feature] - roll_mean) / roll_std
+                # Calculate z-score (with handling for division by zero)
+                roll_std_safe = np.where(roll_std == 0, np.nan, roll_std)
+                df_feat[f'{feature}_zscore'] = (df_feat[feature] - roll_mean) / roll_std_safe
         
         # Logarithmic transformation for volume
         if 'Volume' in df_feat.columns:
-            df_feat['log_volume'] = np.log1p(df_feat['Volume'])  # log(1+x) to handle zeros
+            # Ensure volume is positive before taking log
+            volume_positive = np.maximum(df_feat['Volume'], 1e-10)  # Small positive value to avoid log(0)
+            df_feat['log_volume'] = np.log1p(volume_positive)  # log(1+x) to handle zeros
         
         # Remove the first few rows that have NaN due to rolling window calculations
         df_feat = df_feat.iloc[max(config.WINDOW_SIZES.values()):]
+        
+        # Replace any remaining infinities with NaN
+        df_feat.replace([np.inf, -np.inf], np.nan, inplace=True)
+        
+        # Fill any remaining NaNs with 0
+        df_feat.fillna(0, inplace=True)
         
         logger.info(f"Feature engineering complete, {len(df_feat)} records with {len(df_feat.columns)} features")
         return df_feat
@@ -314,7 +338,7 @@ def process_all_data():
     
     for file_path in raw_files:
         # Skip the S&P 500 index file as it's already processed
-        if sp500_file and file_path.sameas(sp500_file):
+        if sp500_file and file_path == sp500_file:
             continue
         
         # Extract ticker from filename
@@ -469,10 +493,10 @@ def create_multi_ts_subsequences(df_list, ticker_list, feature_columns, subseque
             
             # Add metadata
             metadata = {
-                'start_idx': i,
-                'end_idx': i + subsequence_length - 1,
-                'start_date': common_idx[i],
-                'end_date': common_idx[i + subsequence_length - 1],
+                'start_idx': int(i),
+                'end_idx': int(i + subsequence_length - 1),
+                'start_date': common_idx[i],  # This will be converted to string in save_subsequence_dataset
+                'end_date': common_idx[i + subsequence_length - 1],  # This will be converted to string in save_subsequence_dataset
                 'tickers': aligned_tickers,
                 'features': feature_columns
             }
@@ -522,10 +546,19 @@ def save_subsequence_dataset(subsequences, output_path, prefix='subsequence'):
             # For multi-TS subsequence matrices
             elif isinstance(subsequence, dict) and 'matrix' in subsequence and 'metadata' in subsequence:
                 filename = output_path / f"{prefix}_{i}.npz"
+                
+                # Convert timestamp objects to strings in metadata
+                metadata = subsequence['metadata'].copy()
+                if 'start_date' in metadata and isinstance(metadata['start_date'], pd.Timestamp):
+                    metadata['start_date'] = metadata['start_date'].strftime('%Y-%m-%d')
+                if 'end_date' in metadata and isinstance(metadata['end_date'], pd.Timestamp):
+                    metadata['end_date'] = metadata['end_date'].strftime('%Y-%m-%d')
+                
+                # Save the numpy array and metadata
                 np.savez(
                     filename, 
                     matrix=subsequence['matrix'], 
-                    metadata=json.dumps(subsequence['metadata'])
+                    metadata=json.dumps(metadata)
                 )
                 saved_paths.append(filename)
             
