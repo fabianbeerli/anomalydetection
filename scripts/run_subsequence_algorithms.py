@@ -125,7 +125,7 @@ def run_aida(feature_array, subsequence_dates, output_dir):
     Returns:
         tuple: (success, execution_time, output_files)
             success: Boolean indicating if execution was successful
-            execution_time: Execution time in seconds
+            execution_time: Model execution time from C++ (in seconds)
             output_files: Dictionary with paths to output files
     """
     logger.info("Running AIDA algorithm on subsequences...")
@@ -140,10 +140,7 @@ def run_aida(feature_array, subsequence_dates, output_dir):
     try:
         # Save feature array to CSV
         with open(temp_input_file, 'w') as f:
-            # Write header
             f.write(','.join([f'feature_{i}' for i in range(feature_array.shape[1])]) + '\n')
-            
-            # Write feature vectors
             for i in range(feature_array.shape[0]):
                 f.write(','.join([str(val) for val in feature_array[i]]) + '\n')
         
@@ -156,16 +153,13 @@ def run_aida(feature_array, subsequence_dates, output_dir):
         # Check if executable exists, if not attempt to compile
         if not aida_executable.exists():
             logger.info("AIDA executable not found. Attempting to compile...")
-            
-            # Create source file for AIDA subsequence analysis
             src_models_cpp_dir = config.ROOT_DIR / "src" / "models" / "cpp"
             os.makedirs(src_models_cpp_dir, exist_ok=True)
-            
             analysis_source_file = src_models_cpp_dir / "aida_subsequence_detection.cpp"
             
-            # Basic source code for AIDA subsequence analysis
-            aida_source_code = """/* AIDA Anomaly Detection for Subsequences */
-
+            # Use the updated C++ code (your latest version)
+            with open(analysis_source_file, "w") as f:
+                f.write("""/* AIDA Anomaly Detection for Subsequences */
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -174,152 +168,99 @@ def run_aida(feature_array, subsequence_dates, output_dir):
 #include <algorithm>
 #include <cmath>
 #include <chrono>
-
 #include "aida_class.h"
-
 using namespace std;
 using namespace std::chrono;
 
 int main(int argc, char** argv) {
-    // Check if input file is provided
     if (argc < 2) {
         cerr << "Usage: " << argv[0] << " <input_csv_file>" << endl;
         return 1;
     }
-
-    // Input CSV file path
     string input_file = argv[1];
-    
-    // Output file paths
     string output_scores_file = input_file + "_AIDA_scores.dat";
     string output_anomalies_file = input_file + "_AIDA_anomalies.csv";
-
-    // Start timing
-    auto start_time = high_resolution_clock::now();
-
-    // Read the CSV file
     ifstream file(input_file);
     if (!file.is_open()) {
         cerr << "Error: Could not open input file " << input_file << endl;
         return 1;
     }
-
-    // Parse CSV header
     string header_line;
     getline(file, header_line);
-    
-    // Count the number of features
     stringstream header_stream(header_line);
     string feature_name;
     int nFnum = 0;
     while (getline(header_stream, feature_name, ',')) {
         nFnum++;
     }
-    
-    // Vectors to store data
     vector<vector<double>> numerical_data;
     string line;
-    
-    // Read numerical data
     while (getline(file, line)) {
         stringstream ss(line);
         string cell;
         vector<double> row;
-        
         while (getline(ss, cell, ',')) {
             try {
-                // Convert string to double
                 row.push_back(stod(cell));
             } catch (const std::invalid_argument& e) {
-                // Skip non-numeric cells or handle as needed
                 row.push_back(0.0);
             }
         }
-        
         if (!row.empty()) {
             numerical_data.push_back(row);
         }
     }
     file.close();
-
-    // Prepare data for AIDA
     int n = numerical_data.size();
-    int nFnom = 1;  // Nominal features (set to 1 with all zeros)
-
+    int nFnom = 1;
     cout << "Data loaded: " << n << " subsequences, " << nFnum << " features per subsequence" << endl;
-
-    // Allocate memory for numerical and nominal features
     double* Xnum = new double[n * nFnum];
     int* Xnom = new int[n * nFnom];
-
-    // Fill numerical features
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < nFnum; ++j) {
             Xnum[j + i * nFnum] = numerical_data[i][j];
         }
-        // Fill nominal features with zeros
         Xnom[i] = 0;
     }
-
-    // AIDA Parameters
-    int N = 100;  // Number of subsamples
+    int N = 100;
     string aggregate_type = "aom";
     string score_function = "variance";
     double alpha_min = 1.0;
     double alpha_max = 1.0;
-    string distance_metric = "manhattan";
-
-    // Anomaly detection parameters
+    string distance_metric = "euclidean";
     int subsample_min = 50;
-    int subsample_max = min(512, n);  // Limit to dataset size
-    int dmin = min(nFnum, max(2, nFnum / 2));  // At least 2 features
+    int subsample_max = min(256, n);
+    int dmin = min(nFnum, max(2, nFnum / 2));
     int dmax = nFnum;
-
-    // Allocate memory for scores
     double* scoresAIDA = new double[n];
-
     try {
         cout << "Training AIDA..." << endl;
-        
-        // Train AIDA
+        auto start_time = high_resolution_clock::now();
         AIDA aida(N, aggregate_type, score_function, alpha_min, alpha_max, distance_metric);
         aida.fit(n, nFnum, Xnum, nFnom, Xnom, subsample_min, subsample_max, dmin, dmax, nFnom, nFnom);
-        
         cout << "Computing anomaly scores..." << endl;
-        
-        // Compute anomaly scores
         aida.score_samples(n, scoresAIDA, Xnum, Xnom);
-
-        // Write scores to file
+        auto end_time = high_resolution_clock::now();
+        auto duration = duration_cast<milliseconds>(end_time - start_time);
         ofstream fres(output_scores_file);
         fres << n << endl;
         for (int i = 0; i < n; ++i) {
             fres << scoresAIDA[i] << endl;
         }
         fres.close();
-
-        // Detect anomalies (simple threshold-based approach)
         double mean_score = 0.0;
         double std_score = 0.0;
-        
-        // Compute mean and standard deviation
         for (int i = 0; i < n; ++i) {
             mean_score += scoresAIDA[i];
         }
         mean_score /= n;
-        
         for (int i = 0; i < n; ++i) {
             std_score += (scoresAIDA[i] - mean_score) * (scoresAIDA[i] - mean_score);
         }
         std_score = sqrt(std_score / n);
-
-        // Threshold: 2 standard deviations
         double threshold = mean_score + 2 * std_score;
-
-        // Write anomalies to file
         ofstream fanom(output_anomalies_file);
         int anomaly_count = 0;
-        
         fanom << "index,subsequence_idx,score" << endl;
         for (int i = 0; i < n; ++i) {
             if (scoresAIDA[i] > threshold) {
@@ -328,72 +269,46 @@ int main(int argc, char** argv) {
             }
         }
         fanom.close();
-
-        // Stop timing
-        auto end_time = high_resolution_clock::now();
-        auto duration = duration_cast<milliseconds>(end_time - start_time);
-        
         cout << "AIDA Subsequence Analysis Complete:" << endl;
         cout << "Total subsequences: " << n << endl;
         cout << "Anomalies detected: " << anomaly_count << endl;
-        cout << "Execution time: " << duration.count() / 1000.0 << " seconds" << endl;
+        cout << "Model execution time: " << duration.count() / 1000.0 << " seconds" << endl;
         cout << "Scores saved to: " << output_scores_file << endl;
         cout << "Anomalies saved to: " << output_anomalies_file << endl;
-        
-        // Save execution time to file
         ofstream ftime(input_file + "_AIDA_time.txt");
         ftime << duration.count() / 1000.0 << endl;
         ftime.close();
     }
     catch (const std::exception& e) {
         cerr << "Error during AIDA processing: " << e.what() << endl;
-        
-        // Clean up
         delete[] Xnum;
         delete[] Xnom;
         delete[] scoresAIDA;
-        
         return 1;
     }
-
-    // Clean up
     delete[] Xnum;
     delete[] Xnom;
     delete[] scoresAIDA;
-
     return 0;
 }
-"""
+""")
             
-            # Write the source code to file
-            with open(analysis_source_file, "w") as f:
-                f.write(aida_source_code)
-                
             logger.info(f"Created source file at {analysis_source_file}")
             
-            # Platform-specific compilation
-            if sys.platform == 'darwin':  # macOS
-                # For macOS, check for OpenMP
+            # Compilation (unchanged)
+            if sys.platform == 'darwin':
                 try:
-                    # Check if OpenMP is installed via Homebrew
                     subprocess.run(["brew", "--version"], check=True, capture_output=True)
-                    
                     try:
-                        # Check if libomp is installed
                         result = subprocess.run(["brew", "list", "libomp"], check=True, capture_output=True)
                         logger.info("OpenMP found via Homebrew")
                     except subprocess.CalledProcessError:
-                        # Install OpenMP
                         logger.info("Installing OpenMP via Homebrew...")
                         subprocess.run(["brew", "install", "libomp"], check=True)
-                    
-                    # Get OpenMP paths
                     libomp_prefix = subprocess.run(["brew", "--prefix", "libomp"], 
                                                 check=True, 
                                                 capture_output=True, 
                                                 text=True).stdout.strip()
-                    
-                    # macOS compilation with OpenMP support
                     compile_cmd = [
                         "g++", "-std=c++11", "-O3", "-Xpreprocessor", "-fopenmp",
                         f"-I{aida_cpp_dir/'include'}",
@@ -408,11 +323,8 @@ int main(int argc, char** argv) {
                         str(aida_cpp_dir/"src"/"rng_class.cpp"),
                         "-o", str(aida_executable)
                     ]
-                    
                 except (subprocess.CalledProcessError, FileNotFoundError):
-                    logger.warning("Homebrew not found, using basic macOS compilation (OpenMP may not work)")
-                    
-                    # Basic macOS compilation without OpenMP
+                    logger.warning("Homebrew not found, using basic macOS compilation")
                     compile_cmd = [
                         "g++", "-std=c++11", "-O3",
                         f"-I{aida_cpp_dir/'include'}",
@@ -424,9 +336,7 @@ int main(int argc, char** argv) {
                         str(aida_cpp_dir/"src"/"rng_class.cpp"),
                         "-o", str(aida_executable)
                     ]
-            
-            elif sys.platform.startswith('win'):  # Windows
-                # Windows compilation
+            elif sys.platform.startswith('win'):
                 compile_cmd = [
                     "g++", "-std=c++11", "-O3", "-fopenmp",
                     f"-I{aida_cpp_dir/'include'}",
@@ -438,9 +348,7 @@ int main(int argc, char** argv) {
                     str(aida_cpp_dir/"src"/"rng_class.cpp"),
                     "-o", str(aida_executable)
                 ]
-            
-            else:  # Linux
-                # Linux compilation
+            else:
                 compile_cmd = [
                     "g++", "-std=c++11", "-O3", "-fopenmp",
                     f"-I{aida_cpp_dir/'include'}",
@@ -457,13 +365,8 @@ int main(int argc, char** argv) {
             result = subprocess.run(compile_cmd, check=True)
             logger.info("AIDA compilation successful")
         
-        # Start timing
-        start_time = time.time()
-        
         # Execute AIDA
         logger.info(f"Running AIDA on {temp_input_file}")
-        
-        # Set environment variables for macOS OpenMP support
         env = os.environ.copy()
         if sys.platform == 'darwin':
             try:
@@ -477,44 +380,35 @@ int main(int argc, char** argv) {
             except (subprocess.CalledProcessError, FileNotFoundError):
                 logger.warning("Could not set OpenMP library path")
         
-        # Run AIDA
         cmd = [str(aida_executable), str(temp_input_file)]
         result = subprocess.run(cmd, env=env, check=True)
         
-        # End timing
-        end_time = time.time()
-        execution_time = end_time - start_time
+        # Read execution time from C++ output
+        time_file = Path(str(temp_input_file) + "_AIDA_time.txt")
+        if time_file.exists():
+            with open(time_file, 'r') as f:
+                execution_time = float(f.read())
+            logger.info(f"AIDA model execution time: {execution_time:.6f} seconds")
+        else:
+            logger.error("AIDA time file not found")
+            return False, -1, {}
         
-        # Save execution time
-        time_file = aida_output_dir / "aida_execution_time.txt"
-        with open(time_file, 'w') as f:
-            f.write(f"{execution_time:.6f}")
-            
-        logger.info(f"AIDA execution time: {execution_time:.6f} seconds")
-        
-        # Check if output files exist
+        # Check output files
         scores_file = Path(str(temp_input_file) + "_AIDA_scores.dat")
         anomalies_file = Path(str(temp_input_file) + "_AIDA_anomalies.csv")
         
         if scores_file.exists() and anomalies_file.exists():
-            # Copy to standardized names
             output_scores = aida_output_dir / "aida_scores.dat"
             output_anomalies = aida_output_dir / "aida_anomalies.csv"
-            
             import shutil
             shutil.copy2(scores_file, output_scores)
             shutil.copy2(anomalies_file, output_anomalies)
             
-            # Process anomalies to add date information
             try:
-                # Load anomalies
                 anomalies_df = pd.read_csv(output_anomalies)
-                
-                # Add date information
                 if 'subsequence_idx' in anomalies_df.columns and len(subsequence_dates) > 0:
                     start_dates = []
                     end_dates = []
-                    
                     for idx in anomalies_df['subsequence_idx']:
                         if 0 <= idx < len(subsequence_dates):
                             start_dates.append(subsequence_dates[idx][0])
@@ -522,14 +416,10 @@ int main(int argc, char** argv) {
                         else:
                             start_dates.append(None)
                             end_dates.append(None)
-                    
                     anomalies_df['start_date'] = start_dates
                     anomalies_df['end_date'] = end_dates
-                    
-                    # Save updated anomalies
                     anomalies_df.to_csv(output_anomalies, index=False)
                     logger.info(f"Added date information to AIDA anomalies")
-                
             except Exception as e:
                 logger.error(f"Error adding date information to AIDA anomalies: {e}")
             
@@ -537,17 +427,14 @@ int main(int argc, char** argv) {
             return True, execution_time, {"scores": output_scores, "anomalies": output_anomalies, "time": time_file}
         else:
             logger.error("AIDA execution failed: Output files not found")
-            return False, execution_time, {}
+            return False, -1, {}
         
     except subprocess.CalledProcessError as e:
-        execution_time = time.time() - start_time
         logger.error(f"AIDA execution failed: {e}")
-        return False, execution_time, {}
+        return False, -1, {}
     except Exception as e:
-        execution_time = time.time() - start_time
         logger.error(f"AIDA execution error: {e}")
-        return False, execution_time, {}
-
+        return False, -1, {}
 
 def run_isolation_forest(feature_array, subsequence_dates, output_dir):
     """
