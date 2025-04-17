@@ -53,13 +53,266 @@ def run_aida(input_file, output_dir):
         logger.info("AIDA executable not found. Attempting to compile...")
         try:
             os.makedirs(aida_cpp_dir / "build", exist_ok=True)
-            # Determine platform for appropriate compilation command
-            if sys.platform.startswith('win'):
+            
+            # Check if we need to create the analysis source file
+            src_models_cpp_dir = config.ROOT_DIR / "src" / "models" / "cpp"
+            os.makedirs(src_models_cpp_dir, exist_ok=True)
+            
+            analysis_source_file = src_models_cpp_dir / "aida_sp500_anomaly_detection.cpp"
+            
+            # If the source file doesn't exist, we need to create it first
+            if not analysis_source_file.exists():
+                logger.info("Creating AIDA S&P 500 analysis source file...")
+                
+                # Basic source code for AIDA S&P 500 analysis
+                aida_source_code = """/* AIDA Anomaly Detection for S&P 500 */
+
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <cmath>
+
+#include "aida_class.h"
+
+using namespace std;
+
+int main(int argc, char** argv) {
+    // Check if input file is provided
+    if (argc < 2) {
+        cerr << "Usage: " << argv[0] << " <input_csv_file>" << endl;
+        return 1;
+    }
+
+    // Input CSV file path
+    string input_file = argv[1];
+    
+    // Output file paths
+    string output_scores_file = input_file + "_AIDA_scores.dat";
+    string output_anomalies_file = input_file + "_AIDA_anomalies.dat";
+
+    // Read the CSV file
+    ifstream file(input_file);
+    if (!file.is_open()) {
+        cerr << "Error: Could not open input file " << input_file << endl;
+        return 1;
+    }
+
+    // Parse CSV header
+    string header_line;
+    getline(file, header_line);
+    
+    // Vectors to store data
+    vector<vector<double>> numerical_data;
+    string line;
+    
+    // Read numerical data
+    while (getline(file, line)) {
+        stringstream ss(line);
+        string cell;
+        vector<double> row;
+        
+        // Skip the first column (likely a date/timestamp)
+        getline(ss, cell, ',');
+        
+        while (getline(ss, cell, ',')) {
+            try {
+                // Convert string to double
+                row.push_back(stod(cell));
+            } catch (const std::invalid_argument& e) {
+                // Skip non-numeric cells or handle as needed
+                row.push_back(0.0);
+            }
+        }
+        
+        if (!row.empty()) {
+            numerical_data.push_back(row);
+        }
+    }
+    file.close();
+
+    // Prepare data for AIDA
+    int n = numerical_data.size();
+    int nFnum = numerical_data[0].size();
+    int nFnom = 1;  // Nominal features (set to 1 with all zeros)
+
+    cout << "Data loaded: " << n << " rows, " << nFnum << " numerical features" << endl;
+
+    // Allocate memory for numerical and nominal features
+    double* Xnum = new double[n * nFnum];
+    int* Xnom = new int[n * nFnom];
+
+    // Fill numerical features
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < nFnum; ++j) {
+            Xnum[j + i * nFnum] = numerical_data[i][j];
+        }
+        // Fill nominal features with zeros
+        Xnom[i] = 0;
+    }
+
+    // AIDA Parameters
+    int N = 100;  // Number of subsamples
+    string aggregate_type = "aom";
+    string score_function = "variance";
+    double alpha_min = 1.0;
+    double alpha_max = 1.0;
+    string distance_metric = "manhattan";
+
+    // Anomaly detection parameters
+    int subsample_min = 50;
+    int subsample_max = min(512, n);  // Limit to dataset size
+    int dmin = min(nFnum, max(2, nFnum / 2));  // At least 2 features
+    int dmax = nFnum;
+
+    // Allocate memory for scores
+    double* scoresAIDA = new double[n];
+
+    try {
+        cout << "Training AIDA..." << endl;
+        
+        // Train AIDA
+        AIDA aida(N, aggregate_type, score_function, alpha_min, alpha_max, distance_metric);
+        aida.fit(n, nFnum, Xnum, nFnom, Xnom, subsample_min, subsample_max, dmin, dmax, nFnom, nFnom);
+        
+        cout << "Computing anomaly scores..." << endl;
+        
+        // Compute anomaly scores
+        aida.score_samples(n, scoresAIDA, Xnum, Xnom);
+
+        // Write scores to file
+        ofstream fres(output_scores_file);
+        fres << n << endl;
+        for (int i = 0; i < n; ++i) {
+            fres << scoresAIDA[i] << endl;
+        }
+        fres.close();
+
+        // Detect anomalies (simple threshold-based approach)
+        double mean_score = 0.0;
+        double std_score = 0.0;
+        
+        // Compute mean and standard deviation
+        for (int i = 0; i < n; ++i) {
+            mean_score += scoresAIDA[i];
+        }
+        mean_score /= n;
+        
+        for (int i = 0; i < n; ++i) {
+            std_score += (scoresAIDA[i] - mean_score) * (scoresAIDA[i] - mean_score);
+        }
+        std_score = sqrt(std_score / n);
+
+        // Threshold: 2 standard deviations
+        double threshold = mean_score + 2 * std_score;
+
+        // Write anomalies to file
+        ofstream fanom(output_anomalies_file);
+        int anomaly_count = 0;
+        
+        fanom << "index,score" << endl;
+        for (int i = 0; i < n; ++i) {
+            if (scoresAIDA[i] > threshold) {
+                fanom << i << "," << scoresAIDA[i] << endl;
+                anomaly_count++;
+            }
+        }
+        fanom.close();
+
+        cout << "AIDA Anomaly Detection Complete:" << endl;
+        cout << "Total samples: " << n << endl;
+        cout << "Anomalies detected: " << anomaly_count << endl;
+        cout << "Scores saved to: " << output_scores_file << endl;
+        cout << "Anomalies saved to: " << output_anomalies_file << endl;
+    }
+    catch (const std::exception& e) {
+        cerr << "Error during AIDA processing: " << e.what() << endl;
+        
+        // Clean up
+        delete[] Xnum;
+        delete[] Xnom;
+        delete[] scoresAIDA;
+        
+        return 1;
+    }
+
+    // Clean up
+    delete[] Xnum;
+    delete[] Xnom;
+    delete[] scoresAIDA;
+
+    return 0;
+}
+"""
+                
+                # Write the source code to file
+                with open(analysis_source_file, "w") as f:
+                    f.write(aida_source_code)
+                    
+                logger.info(f"Created source file at {analysis_source_file}")
+                
+            # Platform-specific compilation
+            if sys.platform == 'darwin':  # macOS
+                # For macOS, we need to install OpenMP first
+                try:
+                    # Check if OpenMP is installed via Homebrew
+                    subprocess.run(["brew", "--version"], check=True, capture_output=True)
+                    
+                    try:
+                        # Check if libomp is installed
+                        result = subprocess.run(["brew", "list", "libomp"], check=True, capture_output=True)
+                        logger.info("OpenMP found via Homebrew")
+                    except subprocess.CalledProcessError:
+                        # Install OpenMP
+                        logger.info("Installing OpenMP via Homebrew...")
+                        subprocess.run(["brew", "install", "libomp"], check=True)
+                    
+                    # Get OpenMP paths
+                    libomp_prefix = subprocess.run(["brew", "--prefix", "libomp"], 
+                                                check=True, 
+                                                capture_output=True, 
+                                                text=True).stdout.strip()
+                    
+                    # macOS compilation with OpenMP support
+                    compile_cmd = [
+                        "g++", "-std=c++11", "-O3", "-Xpreprocessor", "-fopenmp",
+                        f"-I{aida_cpp_dir/'include'}",
+                        f"-I{libomp_prefix}/include",
+                        f"-L{libomp_prefix}/lib",
+                        "-lomp",
+                        str(analysis_source_file),
+                        str(aida_cpp_dir/"src"/"aida_class.cpp"),
+                        str(aida_cpp_dir/"src"/"distance_metrics.cpp"),
+                        str(aida_cpp_dir/"src"/"isolation_formulas.cpp"),
+                        str(aida_cpp_dir/"src"/"aggregation_functions.cpp"),
+                        str(aida_cpp_dir/"src"/"rng_class.cpp"),
+                        "-o", str(aida_executable)
+                    ]
+                    
+                except (subprocess.CalledProcessError, FileNotFoundError):
+                    logger.warning("Homebrew not found, using basic macOS compilation (OpenMP may not work)")
+                    
+                    # Basic macOS compilation without OpenMP
+                    compile_cmd = [
+                        "g++", "-std=c++11", "-O3",
+                        f"-I{aida_cpp_dir/'include'}",
+                        str(analysis_source_file),
+                        str(aida_cpp_dir/"src"/"aida_class.cpp"),
+                        str(aida_cpp_dir/"src"/"distance_metrics.cpp"),
+                        str(aida_cpp_dir/"src"/"isolation_formulas.cpp"),
+                        str(aida_cpp_dir/"src"/"aggregation_functions.cpp"),
+                        str(aida_cpp_dir/"src"/"rng_class.cpp"),
+                        "-o", str(aida_executable)
+                    ]
+            
+            elif sys.platform.startswith('win'):  # Windows
                 # Windows compilation
                 compile_cmd = [
                     "g++", "-std=c++11", "-O3", "-fopenmp",
                     f"-I{aida_cpp_dir/'include'}",
-                    str(aida_cpp_dir/"src"/"aida_sp500_anomaly_detection.cpp"),
+                    str(analysis_source_file),
                     str(aida_cpp_dir/"src"/"aida_class.cpp"),
                     str(aida_cpp_dir/"src"/"distance_metrics.cpp"),
                     str(aida_cpp_dir/"src"/"isolation_formulas.cpp"),
@@ -67,12 +320,13 @@ def run_aida(input_file, output_dir):
                     str(aida_cpp_dir/"src"/"rng_class.cpp"),
                     "-o", str(aida_executable)
                 ]
-            else:
-                # Unix compilation
+            
+            else:  # Linux
+                # Linux compilation
                 compile_cmd = [
                     "g++", "-std=c++11", "-O3", "-fopenmp",
                     f"-I{aida_cpp_dir/'include'}",
-                    str(aida_cpp_dir/"src"/"aida_sp500_anomaly_detection.cpp"),
+                    str(analysis_source_file),
                     str(aida_cpp_dir/"src"/"aida_class.cpp"),
                     str(aida_cpp_dir/"src"/"distance_metrics.cpp"),
                     str(aida_cpp_dir/"src"/"isolation_formulas.cpp"),
@@ -100,10 +354,30 @@ def run_aida(input_file, output_dir):
         # Make sure output directory exists
         ensure_directory_exists(output_dir)
         
+        # Check if executable exists after compilation attempts
+        if not aida_executable.exists():
+            logger.error(f"AIDA executable not found at {aida_executable}")
+            return False, {}
+        
         # Execute AIDA
         logger.info(f"Running AIDA on {input_file}")
+        
+        # Set environment variables for macOS OpenMP support
+        env = os.environ.copy()
+        if sys.platform == 'darwin':
+            try:
+                result = subprocess.run(["brew", "--prefix", "libomp"], 
+                                     check=True, 
+                                     capture_output=True, 
+                                     text=True)
+                libomp_prefix = result.stdout.strip()
+                env["DYLD_LIBRARY_PATH"] = f"{libomp_prefix}/lib"
+                logger.info(f"Set DYLD_LIBRARY_PATH to {libomp_prefix}/lib for OpenMP support")
+            except (subprocess.CalledProcessError, FileNotFoundError):
+                logger.warning("Could not set OpenMP library path")
+        
         cmd = [str(aida_executable), str(input_file)]
-        result = subprocess.run(cmd, check=True)
+        result = subprocess.run(cmd, env=env, check=True)
         
         # Copy output files to the output directory
         if Path(scores_file).exists() and Path(anomalies_file).exists():
@@ -423,7 +697,9 @@ def main():
     logger.info("\nAlgorithm execution summary:")
     for algo, result in results.items():
         if algo == "temporal":
-            logger.info(f"{algo.upper()}: {result}")
+            for temporal_algo, temporal_result in result.items():
+                success = temporal_result.get("success", False)
+                logger.info(f"Temporal {temporal_algo.upper()}: {'Success' if success else 'Failed'}")
         else:
             success = result.get("success", False)
             logger.info(f"{algo.upper()}: {'Success' if success else 'Failed'}")
