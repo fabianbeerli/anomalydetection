@@ -1,26 +1,45 @@
-from setuptools import setup, find_packages
+from setuptools import setup, Extension
+import sys
+import os
+import pybind11
 
-with open("README.md", "r", encoding="utf-8") as fh:
-    long_description = fh.read()
+class get_pybind_include:
+    """Helper class to determine the pybind11 include path"""
+    def __str__(self):
+        return pybind11.get_include()
 
-with open("requirements.txt", "r", encoding="utf-8") as fh:
-    requirements = fh.read().splitlines()
+# Source files for the extension
+sources = [
+    'C++/aida_wrapper.cpp',
+    'C++/src/aida_class.cpp',
+    'C++/src/distance_metrics.cpp',
+    'C++/src/isolation_formulas.cpp',
+    'C++/src/aggregation_functions.cpp',
+    'C++/src/rng_class.cpp'
+]
+
+# C++ extension module
+ext_modules = [
+    Extension(
+        'aida_cpp',
+        sources=sources,
+        include_dirs=[
+            # Path to pybind11 headers
+            pybind11.get_include(),
+            'C++/include'
+        ],
+        language='c++',
+        extra_compile_args=['-std=c++11'],
+    ),
+]
 
 setup(
-    name="anomaly_detection_sp500",
-    version="0.1.0",
-    author="Fabian Beerli",
-    author_email="your.email@example.com",
-    description="Unsupervised Anomaly Detection in S&P 500: A Comparative Approach",
-    long_description=long_description,
-    long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/anomaly_detection_sp500",
-    packages=find_packages(),
-    classifiers=[
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
-    ],
-    python_requires=">=3.8",
-    install_requires=requirements,
+    name='aida_cpp',
+    version='0.1.0',
+    author='Fabian Beerli',
+    author_email='your.email@example.com',
+    description='Python bindings for AIDA C++ implementation',
+    ext_modules=ext_modules,
+    install_requires=['pybind11>=2.5.0'],
+    zip_safe=False,
 )
