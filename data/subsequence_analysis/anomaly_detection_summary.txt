@@ -1,0 +1,12 @@
+Subsequence Anomaly Detection Summary
+====================================
+
+Execution Times:
+AIDA: 0.3915 seconds
+IFOREST: 0.1003 seconds
+LOF: 0.0158 seconds
+
+Anomaly Counts:
+AIDA: 17 anomalies
+IFOREST: 28 anomalies
+LOF: 28 anomalies
