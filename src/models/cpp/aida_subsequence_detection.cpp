@@ -35,7 +35,7 @@ int main(int argc, char** argv) {
     getline(file, header_line);
     stringstream header_stream(header_line);
     string feature_name;
-    int nFnum = 14;
+    int nFnum = 0;
     while (getline(header_stream, feature_name, ',')) {
         nFnum++;
     }
@@ -74,18 +74,21 @@ int main(int argc, char** argv) {
         Xnom[i] = 0;
     }
 
+    int *Xnom = NULL; // No nominal features
+    omp_set_num_threads(6);
+
     // AIDA Parameters
-    int N = 500;
+
+    int N = 50;
     string aggregate_type = "aom";
-    string score_function = "expectation";
-    double alpha_min = 0.5;
-    double alpha_max = 1.5;
+    string score_function = "variance";
+    double alpha_min = 1.0;
+    double alpha_max = 1.0;
     string distance_metric = "euclidean";  // Updated as recommended
-    int subsample_min = 256;
-    int subsample_max = min(1024, n / 2);
-    int dmin = (nFnum>5)?nFnum/2:nFnum;  // Dimensions to use in feature bagging.
+    int subsample_min = 50;
+    int subsample_max = min(512, n );
+	int dmin = (nFnum>5)?nFnum/2:nFnum;  // Dimensions to use in feature bagging.
 	int dmax = (nFnum>5)?nFnum-1:nFnum;
-    int max_depth = 100;  // Or ceil(log2(n))
 
     double* scoresAIDA = new double[n];
 
@@ -96,7 +99,7 @@ int main(int argc, char** argv) {
         auto start_time = high_resolution_clock::now();
 
         AIDA aida(N, aggregate_type, score_function, alpha_min, alpha_max, distance_metric);
-        aida.fit(n, nFnum, Xnum, nFnom, Xnom, subsample_min, subsample_max, dmin, dmax, nFnom, nFnom, max_depth);
+        aida.fit(n, nFnum, Xnum, nFnom, Xnom, subsample_min, subsample_max, dmin, dmax, nFnom, nFnom);
         cout << "Computing anomaly scores..." << endl;
         aida.score_samples(n, scoresAIDA, Xnum, Xnom);
 

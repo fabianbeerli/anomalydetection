@@ -2,11 +2,11 @@ Detailed Anomaly Detection Statistics
 ====================================
 
 AIDA Anomaly Statistics:
-  Total Anomalies: 14
-  Mean Score: 2.6035
-  Score Standard Deviation: 0.2003
-  Min Score: 2.3295
-  Max Score: 3.1356
+  Total Anomalies: 17
+  Mean Score: 2.5319
+  Score Standard Deviation: 0.2098
+  Min Score: 2.3003
+  Max Score: 3.0539
 
 IFOREST Anomaly Statistics:
   Total Anomalies: 28
