@@ -20,7 +20,3 @@ $(OBJ):
 
 clean:
 	rm $(OBJECTFILES)	
-
-# Compile the executable
-aida_example: $(OBJ) tests/aida_example.cpp
-	$(CC) $(INC) $(OBJ) tests/aida_example.cpp -o bin/aida_example
