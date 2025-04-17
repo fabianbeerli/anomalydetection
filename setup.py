@@ -3,10 +3,8 @@ import sys
 import os
 import pybind11
 
-class get_pybind_include:
-    """Helper class to determine the pybind11 include path"""
-    def __str__(self):
-        return pybind11.get_include()
+# Ensure pybind11 is imported correctly
+pybind11_include_dir = pybind11.get_include()
 
 # Source files for the extension
 sources = [
@@ -25,11 +23,12 @@ ext_modules = [
         sources=sources,
         include_dirs=[
             # Path to pybind11 headers
-            pybind11.get_include(),
+            pybind11_include_dir,
+            pybind11.get_include(user=True),
             'C++/include'
         ],
         language='c++',
-        extra_compile_args=['-std=c++11'],
+        extra_compile_args=['-std=c++11', '-O3']
     ),
 ]
 
@@ -37,9 +36,9 @@ setup(
     name='aida_cpp',
     version='0.1.0',
     author='Fabian Beerli',
-    author_email='your.email@example.com',
     description='Python bindings for AIDA C++ implementation',
     ext_modules=ext_modules,
+    setup_requires=['pybind11>=2.5.0'],
     install_requires=['pybind11>=2.5.0'],
     zip_safe=False,
 )
