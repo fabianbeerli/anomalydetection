@@ -1,495 +1,473 @@
 #!/usr/bin/env python
 """
-Script to compare anomaly detection results between different subsequence configurations.
+Compare and visualize anomaly detection results for subsequence analysis.
+Supports selecting specific window sizes and overlap settings.
 """
 import os
 import sys
+import json
 import logging
 import argparse
-import json
-from pathlib import Path
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from matplotlib.dates import date2num, DateFormatter
+from pathlib import Path
+from matplotlib.dates import DateFormatter
 
 # Add the project root directory to the Python path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from src import config
 from src.data.preparation import load_ticker_data
-from src.utils.helpers import ensure_directory_exists
+from src.utils.helpers import ensure_directory_exists, plot_time_series
 
 # Configure logging
 logging.basicConfig(
-    level=getattr(logging, config.LOG_LEVEL),
+    level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
 
 
-def load_configuration_results(base_dir, configs):
+def load_original_data(data_file):
     """
-    Load results for different subsequence configurations.
+    Load the original S&P 500 data.
     
     Args:
-        base_dir (Path): Base directory containing results
-        configs (list): List of configuration strings (e.g., "w3_overlap", "w5_nonoverlap")
+        data_file (Path): Path to the original data file
         
     Returns:
-        dict: Dictionary of configuration results
+        pandas.DataFrame: Original time series data
     """
-    config_results = {}
+    try:
+        logger.info(f"Loading original data from {data_file}")
+        df = load_ticker_data(data_file)
+        
+        if df is None or df.empty:
+            logger.error(f"Failed to load data from {data_file}")
+            return None
+        
+        # Ensure we have a 'Close' column for visualization
+        if 'Close' not in df.columns and 'Adj Close' in df.columns:
+            df['Close'] = df['Adj Close']
+        
+        logger.info(f"Loaded data with shape {df.shape}")
+        return df
+    except Exception as e:
+        logger.error(f"Error loading original data: {e}")
+        return None
+
+
+def load_anomaly_results(results_dir, window_size, overlap_type):
+    """
+    Load anomaly results for different algorithms.
     
-    for config in configs:
-        config_dir = base_dir / config
-        if not config_dir.exists():
-            logger.warning(f"Configuration directory {config_dir} does not exist. Skipping.")
-            continue
+    Args:
+        results_dir (Path): Base directory for results
+        window_size (int): Window size to analyze
+        overlap_type (str): 'overlap' or 'nonoverlap'
         
-        # Load execution times
-        execution_times_file = config_dir / "execution_times.json"
-        execution_times = {}
-        if execution_times_file.exists():
-            try:
-                with open(execution_times_file, 'r') as f:
-                    execution_times = json.load(f)
-            except Exception as e:
-                logger.error(f"Error loading execution times for {config}: {e}")
-        
-        # Load algorithm results
-        algo_results = {}
-        for algo in ["aida", "iforest", "lof"]:
-            algo_dir = base_dir / algo / config
-            if not algo_dir.exists():
-                logger.warning(f"Algorithm directory {algo_dir} does not exist. Skipping.")
-                continue
+    Returns:
+        dict: Dictionary of anomaly results for each algorithm
+    """
+    algorithms = ['aida', 'iforest', 'lof']
+    anomaly_results = {}
+    
+    for algo in algorithms:
+        try:
+            # Corrected path structure: results_dir/algo/w{window_size}_{overlap_type}
+            config_dir = results_dir / algo / f"w{window_size}_{overlap_type}"
             
             # Load anomalies
-            anomalies_file = algo_dir / f"{algo}_anomalies.csv"
+            anomalies_file = config_dir / f"{algo}_anomalies.csv"
             if anomalies_file.exists():
-                try:
-                    anomalies = pd.read_csv(anomalies_file)
-                    if 'start_date' in anomalies.columns:
-                        anomalies['start_date'] = pd.to_datetime(anomalies['start_date'])
-                    if 'end_date' in anomalies.columns:
-                        anomalies['end_date'] = pd.to_datetime(anomalies['end_date'])
-                    algo_results[algo] = anomalies
-                except Exception as e:
-                    logger.error(f"Error loading anomalies for {algo} in {config}: {e}")
-        
-        config_results[config] = {
-            "execution_times": execution_times,
-            "algorithm_results": algo_results
-        }
+                anomalies_df = pd.read_csv(anomalies_file)
+                # Convert date columns to datetime
+                for date_col in ['start_date', 'end_date']:
+                    if date_col in anomalies_df.columns:
+                        anomalies_df[date_col] = pd.to_datetime(anomalies_df[date_col])
+                anomaly_results[algo] = anomalies_df
+                logger.info(f"Loaded {len(anomalies_df)} anomalies for {algo}")
+            else:
+                logger.warning(f"No anomalies file found for {algo} at {anomalies_file}")
+        except Exception as e:
+            logger.error(f"Error loading {algo} anomalies: {e}")
     
-    return config_results
+    return anomaly_results
 
 
-def compare_execution_times(config_results, output_dir):
+def load_execution_times(results_dir, window_size, overlap_type):
     """
-    Compare execution times across configurations and algorithms.
+    Load execution times for different algorithms.
     
     Args:
-        config_results (dict): Dictionary of configuration results
-        output_dir (Path): Directory to save comparison results
+        results_dir (Path): Base directory for results
+        window_size (int): Window size to analyze
+        overlap_type (str): 'overlap' or 'nonoverlap'
         
     Returns:
-        Path: Path to the saved comparison plot
+        dict: Dictionary of execution times
     """
-    # Extract execution times
-    configs = []
-    algos = set()
-    times = {}
+    algorithms = ['aida', 'iforest', 'lof']
+    execution_times = {}
     
-    for config, results in config_results.items():
-        configs.append(config)
-        for algo, time_val in results["execution_times"].items():
-            algos.add(algo)
-            if algo not in times:
-                times[algo] = []
-            times[algo].append(time_val)
+    for algo in algorithms:
+        try:
+            # Corrected path structure: results_dir/algo/w{window_size}_{overlap_type}
+            config_dir = results_dir / algo / f"w{window_size}_{overlap_type}"
+            
+            # Try JSON first
+            execution_times_file = config_dir / "execution_times.json"
+            if execution_times_file.exists():
+                with open(execution_times_file, 'r') as f:
+                    return json.load(f)
+            
+            # Fallback to individual time files
+            time_file = config_dir / f"{algo}_execution_time.txt"
+            if time_file.exists():
+                with open(time_file, 'r') as f:
+                    execution_times[algo] = float(f.read().strip())
+            
+        except Exception as e:
+            logger.error(f"Error loading {algo} execution time: {e}")
     
-    # Create DataFrame for plotting
-    df_times = pd.DataFrame({algo: times.get(algo, [np.nan] * len(configs)) for algo in algos}, index=configs)
-    
-    # Create plot
-    plt.figure(figsize=(12, 6))
-    ax = df_times.plot(kind='bar')
-    plt.title('Execution Times by Algorithm and Configuration')
-    plt.xlabel('Configuration')
-    plt.ylabel('Execution Time (seconds)')
-    plt.legend(title='Algorithm')
-    plt.grid(axis='y', alpha=0.3)
-    
-    # Add values on top of bars
-    for i, container in enumerate(ax.containers):
-        ax.bar_label(container, fmt='%.2f', padding=3)
-    
-    plt.tight_layout()
-    
-    # Save plot
-    plot_file = output_dir / "execution_time_comparison.png"
-    plt.savefig(plot_file, dpi=300, bbox_inches='tight')
-    plt.close()
-    
-    # Save data
-    csv_file = output_dir / "execution_time_comparison.csv"
-    df_times.to_csv(csv_file)
-    
-    return plot_file
+    return execution_times
 
 
-def compare_anomaly_counts(config_results, output_dir):
+def visualize_anomalies(data, anomaly_results, execution_times, window_size, overlap_type, output_dir):
     """
-    Compare anomaly counts across configurations and algorithms.
+    Create a comprehensive visualization of anomalies with offset markers and connecting lines.
     
     Args:
-        config_results (dict): Dictionary of configuration results
-        output_dir (Path): Directory to save comparison results
-        
-    Returns:
-        Path: Path to the saved comparison plot
-    """
-    # Extract anomaly counts
-    configs = []
-    algos = set()
-    counts = {}
-    
-    for config, results in config_results.items():
-        configs.append(config)
-        for algo, anomalies in results["algorithm_results"].items():
-            algos.add(algo)
-            if algo not in counts:
-                counts[algo] = []
-            counts[algo].append(len(anomalies))
-    
-    # Create DataFrame for plotting
-    df_counts = pd.DataFrame({algo: counts.get(algo, [0] * len(configs)) for algo in algos}, index=configs)
-    
-    # Create plot
-    plt.figure(figsize=(12, 6))
-    ax = df_counts.plot(kind='bar')
-    plt.title('Anomaly Counts by Algorithm and Configuration')
-    plt.xlabel('Configuration')
-    plt.ylabel('Number of Anomalies')
-    plt.legend(title='Algorithm')
-    plt.grid(axis='y', alpha=0.3)
-    
-    # Add values on top of bars
-    for i, container in enumerate(ax.containers):
-        ax.bar_label(container, fmt='%d', padding=3)
-    
-    plt.tight_layout()
-    
-    # Save plot
-    plot_file = output_dir / "anomaly_count_comparison.png"
-    plt.savefig(plot_file, dpi=300, bbox_inches='tight')
-    plt.close()
-    
-    # Save data
-    csv_file = output_dir / "anomaly_count_comparison.csv"
-    df_counts.to_csv(csv_file)
-    
-    return plot_file
-
-
-def visualize_anomalies_by_configuration(config_results, data_df, output_dir):
-    """
-    Visualize anomalies across different configurations.
-    
-    Args:
-        config_results (dict): Dictionary of configuration results
-        data_df (pandas.DataFrame): Original time series data
+        data (pandas.DataFrame): Original time series data
+        anomaly_results (dict): Dictionary of anomaly results for each algorithm
+        execution_times (dict): Dictionary of execution times
+        window_size (int): Window size used
+        overlap_type (str): 'overlap' or 'nonoverlap'
         output_dir (Path): Directory to save visualizations
-        
-    Returns:
-        dict: Dictionary mapping configurations to plot files
     """
-    plot_files = {}
+    # Ensure output directory exists
+    ensure_directory_exists(output_dir)
     
-    # Define colors and markers for algorithms
-    algo_styles = {
-        'aida': {'color': 'red', 'marker': 'o', 'label': 'AIDA'},
-        'iforest': {'color': 'green', 'marker': '^', 'label': 'Isolation Forest'},
-        'lof': {'color': 'blue', 'marker': 's', 'label': 'LOF'}
-    }
+    # Create a figure with two subplots
+    plt.figure(figsize=(16, 10))
     
-    # Create visualizations for each configuration
-    for config, results in config_results.items():
-        plt.figure(figsize=(16, 8))
-        
-        # Plot the original time series
-        plt.plot(data_df.index, data_df['Close'], color='gray', alpha=0.5, label='S&P 500 Close')
-        
-        # Plot anomalies for each algorithm
-        for algo, anomalies in results["algorithm_results"].items():
-            style = algo_styles.get(algo, {'color': 'black', 'marker': 'x', 'label': algo})
-            
-            if 'start_date' in anomalies.columns:
-                # Convert dates to datetime if needed
-                if not pd.api.types.is_datetime64_any_dtype(anomalies['start_date']):
-                    anomalies['start_date'] = pd.to_datetime(anomalies['start_date'])
-                
-                # Find corresponding close prices for these dates
-                anomaly_dates = anomalies['start_date'].tolist()
-                anomaly_prices = []
-                
-                for date in anomaly_dates:
-                    # Find the closest date in the original data
-                    closest_idx = data_df.index.get_indexer([date], method='nearest')[0]
-                    if 0 <= closest_idx < len(data_df):
-                        anomaly_prices.append(data_df['Close'].iloc[closest_idx])
-                    else:
-                        anomaly_prices.append(np.nan)
-                
-                plt.scatter(
-                    anomaly_dates,
-                    anomaly_prices,
-                    color=style['color'],
-                    marker=style['marker'],
-                    s=100,
-                    alpha=0.7,
-                    label=f"{style['label']} ({len(anomalies)} anomalies)"
-                )
-        
-        plt.title(f'Anomalies Detected in Configuration: {config}')
-        plt.xlabel('Date')
-        plt.ylabel('Close Price')
-        plt.legend(loc='best')
-        plt.grid(True, alpha=0.3)
-        
-        # Format date axis
-        plt.gca().xaxis.set_major_formatter(DateFormatter('%Y-%m-%d'))
-        plt.gcf().autofmt_xdate()
-        
-        plt.tight_layout()
-        
-        # Save plot
-        plot_file = output_dir / f"anomalies_{config}.png"
-        plt.savefig(plot_file, dpi=300, bbox_inches='tight')
-        plt.close()
-        
-        plot_files[config] = plot_file
-    
-    return plot_files
-
-
-def create_anomaly_timeline(config_results, output_dir):
-    """
-    Create a timeline of anomalies across configurations.
-    
-    Args:
-        config_results (dict): Dictionary of configuration results
-        output_dir (Path): Directory to save visualizations
-        
-    Returns:
-        Path: Path to the saved timeline
-    """
-    # Collect all anomaly dates across configurations
-    all_dates = []
-    all_configs = []
-    all_algos = []
-    
-    for config, results in config_results.items():
-        for algo, anomalies in results["algorithm_results"].items():
-            if 'start_date' in anomalies.columns:
-                dates = pd.to_datetime(anomalies['start_date']).tolist()
-                all_dates.extend(dates)
-                all_configs.extend([config] * len(dates))
-                all_algos.extend([algo] * len(dates))
-    
-    if not all_dates:
-        logger.warning("No anomaly dates found across configurations")
-        return None
-    
-    # Create DataFrame
-    timeline_df = pd.DataFrame({
-        'date': all_dates,
-        'config': all_configs,
-        'algorithm': all_algos
-    })
-    
-    # Sort by date
-    timeline_df = timeline_df.sort_values('date')
-    
-    # Create a figure with shared x-axis
-    fig, axes = plt.subplots(len(config_results), 1, figsize=(16, 10), sharex=True)
-    
-    # If only one configuration, put axes in a list for consistent indexing
-    if len(config_results) == 1:
-        axes = [axes]
-    
-    # Define colors for algorithms
-    algo_colors = {
-        'aida': 'red',
-        'iforest': 'green',
-        'lof': 'blue'
-    }
-    
-    # Plot anomalies for each configuration
-    for i, config in enumerate(sorted(config_results.keys())):
-        ax = axes[i]
-        
-        # Filter data for this configuration
-        config_data = timeline_df[timeline_df['config'] == config]
-        
-        # Create scatter plot grouped by algorithm
-        for algo in sorted(config_data['algorithm'].unique()):
-            algo_data = config_data[config_data['algorithm'] == algo]
-            
-            # Convert dates to numbers for plotting
-            dates_as_num = date2num(algo_data['date'].tolist())
-            
-            ax.scatter(
-                dates_as_num,
-                [0.5] * len(dates_as_num),  # All points at same height
-                s=100,
-                color=algo_colors.get(algo, 'black'),
-                marker='o',
-                alpha=0.7,
-                label=f"{algo.upper()} ({len(algo_data)})"
-            )
-        
-        ax.set_title(f'Configuration: {config}')
-        ax.set_yticks([])  # No y-ticks needed
-        ax.grid(axis='x', alpha=0.3)
-        ax.legend(loc='upper right')
-        
-        # Add a line at the bottom
-        ax.axhline(y=0, color='gray', linestyle='-', alpha=0.3)
-    
-    # Format the date axis
-    plt.gca().xaxis.set_major_formatter(DateFormatter('%Y-%m-%d'))
-    plt.gcf().autofmt_xdate()
-    
+    # Plot 1: Time series with anomalies
+    plt.subplot(2, 1, 1)
+    plt.plot(data.index, data['Close'], label='S&P 500 Close Price', color='blue', alpha=0.7)
+    plt.title(f'S&P 500 Subsequence Anomalies (Window Size: {window_size}, {overlap_type})')
     plt.xlabel('Date')
+    plt.ylabel('Close Price')
+    
+    # Format x-axis dates
+    plt.gca().xaxis.set_major_formatter(DateFormatter('%Y-%m-%d'))
+    plt.xticks(rotation=45)
+    
+    # Markers and colors for each algorithm
+    markers = {
+        'aida': ('o', 'red', 'AIDA', -1),
+        'iforest': ('^', 'green', 'Isolation Forest', 0),
+        'lof': ('s', 'purple', 'LOF', 1)
+    }
+    
+    # Calculate vertical offset
+    price_range = data['Close'].max() - data['Close'].min()
+    vertical_offset = price_range * 0.05  # 5% of price range
+    
+    # Detailed anomaly statistics
+    anomaly_stats = {}
+    
+    # Collect anomalies for each algorithm
+    for algo, (marker, color, label, position) in markers.items():
+        if algo not in anomaly_results or anomaly_results[algo].empty:
+            continue
+            
+        anomaly_df = anomaly_results[algo]
+        
+        # Ensure we have start_date column
+        if 'start_date' not in anomaly_df.columns:
+            logger.warning(f"No 'start_date' column in {algo} anomalies, skipping visualization")
+            continue
+        
+        # Find the actual close prices for these dates
+        date_values = []
+        prices = []
+        
+        for _, row in anomaly_df.iterrows():
+            date = row['start_date']
+            
+            # Find closest date in data
+            if date in data.index:
+                matched_date = date
+            else:
+                # Find closest date (for cases where anomaly date is not exactly in data)
+                closest_idx = (data.index - date).abs().argmin()
+                matched_date = data.index[closest_idx]
+            
+            date_values.append(matched_date)
+            prices.append(data.loc[matched_date, 'Close'])
+        
+        # Calculate statistics for this algorithm's anomaly scores
+        all_scores = anomaly_df['score']
+        mean_score = all_scores.mean()
+        std_score = all_scores.std()
+        
+        # Store detailed statistics
+        anomaly_stats[algo] = {
+            'count': len(date_values),
+            'mean_score': mean_score,
+            'std_score': std_score,
+            'min_score': all_scores.min(),
+            'max_score': all_scores.max()
+        }
+        
+        # Calculate vertical position
+        offset_prices = [price + (position * vertical_offset) for price in prices]
+        
+        # Plot connecting lines
+        for date, orig_price, offset_price in zip(date_values, prices, offset_prices):
+            plt.plot([date, date], [orig_price, offset_price], 
+                     color=color, linestyle=':', linewidth=1, alpha=0.5)
+        
+        # Plot offset markers
+        plt.scatter(
+            date_values, 
+            offset_prices, 
+            marker=marker, 
+            color=color, 
+            label=f"{label} ({len(date_values)} anomalies)", 
+            s=100, 
+            alpha=0.7
+        )
+    
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+    
+    # Plot 2: Execution Times
+    plt.subplot(2, 1, 2)
+    plt.title(f'Algorithm Execution Times (Window Size: {window_size}, {overlap_type})')
+    
+    if execution_times:
+        colors = {'aida': 'red', 'iforest': 'green', 'lof': 'purple'}
+        bars = plt.bar(
+            list(execution_times.keys()), 
+            list(execution_times.values()), 
+            color=[colors.get(algo, 'gray') for algo in execution_times.keys()]
+        )
+        plt.xlabel('Algorithm')
+        plt.ylabel('Execution Time (seconds)')
+        
+        # Add exact times as text on top of bars
+        for bar in bars:
+            height = bar.get_height()
+            plt.text(bar.get_x() + bar.get_width()/2., height,
+                     f'{height:.2f}s',
+                     ha='center', va='bottom')
+    else:
+        plt.text(0.5, 0.5, 'No execution time data available', 
+                 ha='center', va='center', transform=plt.gca().transAxes,
+                 fontsize=14, color='gray')
+    
     plt.tight_layout()
     
-    # Save the plot
-    timeline_file = output_dir / "anomaly_timeline.png"
-    plt.savefig(timeline_file, dpi=300, bbox_inches='tight')
+    # Save the comprehensive plot
+    output_file = output_dir / f"subsequence_anomalies_w{window_size}_{overlap_type}.png"
+    plt.savefig(output_file, dpi=300, bbox_inches='tight')
     plt.close()
     
-    # Save timeline data
-    csv_file = output_dir / "anomaly_timeline.csv"
-    timeline_df.to_csv(csv_file, index=False)
+    logger.info(f"Saved comprehensive anomaly visualization to {output_file}")
     
-    return timeline_file
-
-
-def analyze_anomaly_overlap(config_results, output_dir):
-    """
-    Analyze the overlap of anomalies across configurations.
-    
-    Args:
-        config_results (dict): Dictionary of configuration results
-        output_dir (Path): Directory to save visualizations
-        
-    Returns:
-        Path: Path to the saved overlap analysis
-    """
-    # Extract anomalies by date for each configuration and algorithm
-    anomaly_dates = {}
-    
-    for config, results in config_results.items():
-        anomaly_dates[config] = {}
-        for algo, anomalies in results["algorithm_results"].items():
-            if 'start_date' in anomalies.columns:
-                dates = set(pd.to_datetime(anomalies['start_date']).dt.date)
-                anomaly_dates[config][algo] = dates
-    
-    # Create overlap analysis
-    overlap_data = []
-    
-    # Compare configurations for each algorithm
-    for algo in ['aida', 'iforest', 'lof']:
-        config_list = sorted([c for c in anomaly_dates if algo in anomaly_dates[c]])
-        
-        for i, config1 in enumerate(config_list):
-            for j, config2 in enumerate(config_list[i+1:], i+1):
-                dates1 = anomaly_dates[config1].get(algo, set())
-                dates2 = anomaly_dates[config2].get(algo, set())
+    # Create a more detailed visualization for each algorithm
+    for algo in anomaly_results:
+        if anomaly_results[algo].empty:
+            continue
+            
+        try:
+            plt.figure(figsize=(16, 8))
+            
+            # Plot the whole time series
+            plt.plot(data.index, data['Close'], label='S&P 500 Close Price', color='blue', alpha=0.5)
+            
+            # Get anomaly dates
+            anomaly_df = anomaly_results[algo]
+            start_dates = pd.to_datetime(anomaly_df['start_date'])
+            
+            if 'end_date' in anomaly_df.columns:
+                end_dates = pd.to_datetime(anomaly_df['end_date'])
+            else:
+                # If no end date, use start date + window size
+                end_dates = [date + pd.Timedelta(days=window_size) for date in start_dates]
+            
+            # Highlight anomaly windows
+            for i, (start, end) in enumerate(zip(start_dates, end_dates)):
+                # Find closest dates in the data
+                if start not in data.index:
+                    closest_start_idx = (data.index - start).abs().argmin()
+                    start = data.index[closest_start_idx]
                 
-                if dates1 and dates2:
-                    intersection = dates1.intersection(dates2)
-                    union = dates1.union(dates2)
-                    jaccard = len(intersection) / len(union) if union else 0
+                if end not in data.index:
+                    closest_end_idx = (data.index - end).abs().argmin()
+                    end = data.index[closest_end_idx]
+                
+                # Get price range for this window
+                window_data = data.loc[start:end]
+                if not window_data.empty:
+                    plt.axvspan(start, end, alpha=0.2, color='red')
                     
-                    overlap_data.append({
-                        'algorithm': algo.upper(),
-                        'config1': config1,
-                        'config2': config2,
-                        'anomalies1': len(dates1),
-                        'anomalies2': len(dates2),
-                        'overlap': len(intersection),
-                        'jaccard': jaccard
-                    })
+                    # Annotate with anomaly score
+                    score = anomaly_df.iloc[i]['score']
+                    mid_point = start + (end - start) / 2
+                    y_pos = window_data['Close'].max() * 1.02
+                    plt.annotate(f"Score: {score:.2f}", (mid_point, y_pos), 
+                                ha='center', fontsize=8, color='red')
+            
+            plt.title(f'{algo.upper()} Anomalies (Window Size: {window_size}, {overlap_type})')
+            plt.xlabel('Date')
+            plt.ylabel('Close Price')
+            plt.grid(True, alpha=0.3)
+            plt.xticks(rotation=45)
+            plt.tight_layout()
+            
+            # Save the detailed plot
+            detailed_file = output_dir / f"{algo}_anomalies_w{window_size}_{overlap_type}.png"
+            plt.savefig(detailed_file, dpi=300, bbox_inches='tight')
+            plt.close()
+            
+            logger.info(f"Saved detailed {algo} visualization to {detailed_file}")
+        except Exception as e:
+            logger.error(f"Error creating detailed visualization for {algo}: {e}")
     
-    if not overlap_data:
-        logger.warning("No overlap data to analyze")
-        return None
+    # Create a detailed time series visualization showing specific anomaly windows
+    try:
+        # Collect all anomaly dates from all algorithms
+        all_anomaly_dates = []
+        for algo in anomaly_results:
+            if 'start_date' in anomaly_results[algo].columns:
+                dates = pd.to_datetime(anomaly_results[algo]['start_date'])
+                all_anomaly_dates.extend(dates)
+        
+        if all_anomaly_dates:
+            # Sort and get unique dates
+            all_anomaly_dates = sorted(set(all_anomaly_dates))
+            
+            # Create multiple plots of anomaly windows
+            for i, anomaly_date in enumerate(all_anomaly_dates[:min(10, len(all_anomaly_dates))]):
+                # Get a window around the anomaly date (±30 days)
+                start_date = anomaly_date - pd.Timedelta(days=15)
+                end_date = anomaly_date + pd.Timedelta(days=15)
+                
+                # Get data for this window
+                window_data = data.loc[start_date:end_date]
+                if window_data.empty:
+                    continue
+                
+                # Plot the anomaly window
+                plt.figure(figsize=(12, 6))
+                plt.plot(window_data.index, window_data['Close'], label='S&P 500 Close', marker='o')
+                
+                # Highlight the anomaly date
+                anomaly_price = window_data.loc[window_data.index[window_data.index.get_indexer([anomaly_date], method='nearest')[0]], 'Close']
+                plt.scatter([anomaly_date], [anomaly_price], color='red', s=100, zorder=5, label='Anomaly')
+                
+                # Add algorithm information
+                algo_info = []
+                for algo, results in anomaly_results.items():
+                    if 'start_date' in results.columns:
+                        if any(pd.to_datetime(results['start_date']).isin([anomaly_date])):
+                            scores = results.loc[pd.to_datetime(results['start_date']) == anomaly_date, 'score']
+                            algo_info.append(f"{algo.upper()}: Score={scores.iloc[0]:.2f}")
+                
+                if algo_info:
+                    plt.annotate('\n'.join(algo_info), (0.02, 0.02), xycoords='axes fraction',
+                                bbox=dict(boxstyle="round,pad=0.3", fc="white", alpha=0.8))
+                
+                plt.title(f'Anomaly Window: {anomaly_date.strftime("%Y-%m-%d")}')
+                plt.xlabel('Date')
+                plt.ylabel('Close Price')
+                plt.grid(True, alpha=0.3)
+                plt.xticks(rotation=45)
+                plt.legend()
+                plt.tight_layout()
+                
+                # Save the window plot
+                window_file = output_dir / f"anomaly_window_{i+1}_w{window_size}_{overlap_type}.png"
+                plt.savefig(window_file, dpi=300, bbox_inches='tight')
+                plt.close()
+            
+            logger.info(f"Saved anomaly window visualizations to {output_dir}")
+    except Exception as e:
+        logger.error(f"Error creating anomaly window visualizations: {e}")
     
-    # Create DataFrame
-    overlap_df = pd.DataFrame(overlap_data)
+    # Detailed summary file
+    summary_file = output_dir / f"anomaly_detection_summary_w{window_size}_{overlap_type}.txt"
+    with open(summary_file, 'w') as f:
+        f.write(f"Subsequence Anomaly Detection Summary\n")
+        f.write(f"Window Size: {window_size}, Type: {overlap_type}\n")
+        f.write("=" * 50 + "\n\n")
+        
+        f.write("Execution Times:\n")
+        for algo, time_val in execution_times.items():
+            f.write(f"{algo.upper()}: {time_val:.4f} seconds\n")
+        
+        f.write("\nAnomaly Counts:\n")
+        for algo, anomalies in anomaly_results.items():
+            f.write(f"{algo.upper()}: {len(anomalies)} anomalies\n")
+        
+        f.write("\nDetailed Anomaly Statistics:\n")
+        for algo, stats in anomaly_stats.items():
+            f.write(f"\n{algo.upper()}:\n")
+            for key, value in stats.items():
+                f.write(f"  {key.replace('_', ' ').title()}: {value}\n")
     
-    # Create plot
-    plt.figure(figsize=(12, 6))
-    ax = sns.barplot(data=overlap_df, x='algorithm', y='jaccard', hue='config1')
-    plt.title('Anomaly Overlap Between Configurations (Jaccard Index)')
-    plt.xlabel('Algorithm')
-    plt.ylabel('Jaccard Index')
-    plt.ylim(0, 1)
-    plt.grid(axis='y', alpha=0.3)
-    plt.tight_layout()
-    
-    # Save plot
-    plot_file = output_dir / "anomaly_overlap.png"
-    plt.savefig(plot_file, dpi=300, bbox_inches='tight')
-    plt.close()
-    
-    # Save overlap data
-    csv_file = output_dir / "anomaly_overlap.csv"
-    overlap_df.to_csv(csv_file, index=False)
-    
-    return plot_file
+    logger.info(f"Saved anomaly detection summary to {summary_file}")
 
 
 def main():
     """
-    Main function to compare anomaly detection results.
+    Main function to compare and visualize subsequence anomaly detection results.
     """
     parser = argparse.ArgumentParser(description="Compare subsequence anomaly detection results")
     parser.add_argument(
-        "--results-dir", 
+        "--results-base", 
         type=str, 
         default=str(config.DATA_DIR / "subsequence_results"),
-        help="Directory containing algorithm results"
-    )
-    parser.add_argument(
-        "--configs",
-        nargs="+",
-        default=["w3_overlap", "w3_nonoverlap", "w5_overlap", "w5_nonoverlap"],
-        help="Configurations to compare (e.g., w3_overlap, w5_nonoverlap)"
+        help="Base directory containing all subsequence results"
     )
     parser.add_argument(
         "--data", 
         type=str, 
         default=str(config.PROCESSED_DATA_DIR / "index_GSPC_processed.csv"),
-        help="Path to the original S&P 500 data"
+        help="Path to the original processed S&P 500 data"
     )
     parser.add_argument(
         "--output", 
         type=str, 
-        default=str(config.DATA_DIR / "subsequence_comparison"),
-        help="Directory to save comparison results"
+        default=str(config.DATA_DIR / "subsequence_analysis"),
+        help="Directory to save analysis results"
+    )
+    parser.add_argument(
+        "--window-size",
+        type=int,
+        default=3,
+        help="Window size to analyze"
+    )
+    parser.add_argument(
+        "--overlap-type",
+        choices=["overlap", "nonoverlap"],
+        default="overlap",
+        help="Overlap type to analyze"
+    )
+    parser.add_argument(
+        "--all-configs",
+        action="store_true",
+        help="Analyze all available window sizes and overlap types"
     )
     
     args = parser.parse_args()
     
     # Convert paths to Path objects
-    results_dir = Path(args.results_dir)
+    results_base_dir = Path(args.results_base)
     data_file = Path(args.data)
     output_dir = Path(args.output)
     
@@ -497,52 +475,184 @@ def main():
     ensure_directory_exists(output_dir)
     
     # Load original data
-    logger.info(f"Loading S&P 500 data from {data_file}")
-    data_df = load_ticker_data(data_file)
+    data = load_original_data(data_file)
     
-    if data_df is None or data_df.empty:
-        logger.error("Failed to load S&P 500 data")
+    if data is None or data.empty:
+        logger.error("Failed to load original data. Exiting.")
         return
     
-    # Load results for configurations
-    logger.info(f"Loading results for configurations: {', '.join(args.configs)}")
-    config_results = load_configuration_results(results_dir, args.configs)
+    # Determine configurations to analyze
+    configs_to_analyze = []
     
-    if not config_results:
-        logger.error("No configuration results loaded")
-        return
+    if args.all_configs:
+        # Find all available configurations
+        for directory in results_base_dir.iterdir():
+            if directory.is_dir() and directory.name.startswith('w'):
+                try:
+                    # Parse window size and overlap type from directory name
+                    # Format expected: w{size}_{overlap_type}
+                    parts = directory.name.split('_')
+                    if len(parts) == 2:
+                        window_size = int(parts[0][1:])  # Remove 'w' prefix
+                        overlap_type = parts[1]
+                        configs_to_analyze.append((window_size, overlap_type))
+                except ValueError:
+                    logger.warning(f"Couldn't parse configuration from directory name: {directory.name}")
+        
+        logger.info(f"Found {len(configs_to_analyze)} configurations to analyze")
+    else:
+        # Use the single configuration specified in arguments
+        configs_to_analyze = [(args.window_size, args.overlap_type)]
     
-    # Create comparison reports
-    logger.info("Creating comparison reports")
+    # Process each configuration
+    for window_size, overlap_type in configs_to_analyze:
+        logger.info(f"Analyzing configuration: Window Size = {window_size}, Overlap Type = {overlap_type}")
+        
+        # Create specific output directory for this configuration
+        config_output_dir = output_dir / f"w{window_size}_{overlap_type}"
+        ensure_directory_exists(config_output_dir)
+        
+        # Load anomaly results
+        anomaly_results = load_anomaly_results(results_base_dir, window_size, overlap_type)
+        
+        if not anomaly_results:
+            logger.warning(f"No anomaly results found for w{window_size}_{overlap_type}")
+            continue
+        
+        # Load execution times
+        execution_times = load_execution_times(results_base_dir, window_size, overlap_type)
+        
+        # Visualize and compare results
+        visualize_anomalies(data, anomaly_results, execution_times, window_size, overlap_type, config_output_dir)
+        
+        logger.info(f"Completed analysis for w{window_size}_{overlap_type}")
     
-    # Compare execution times
-    logger.info("Comparing execution times")
-    execution_time_plot = compare_execution_times(config_results, output_dir)
-    logger.info(f"Execution time comparison saved to {execution_time_plot}")
+    # If we analyzed multiple configurations, create a comparative summary
+    if len(configs_to_analyze) > 1:
+        try:
+            # Collect summary statistics for each configuration
+            summary_data = []
+            
+            for window_size, overlap_type in configs_to_analyze:
+                config_summary = {}
+                config_summary['window_size'] = window_size
+                config_summary['overlap_type'] = overlap_type
+                
+                # Load anomaly results to get counts
+                anomaly_results = load_anomaly_results(results_base_dir, window_size, overlap_type)
+                for algo in ['aida', 'iforest', 'lof']:
+                    config_summary[f'{algo}_count'] = len(anomaly_results.get(algo, pd.DataFrame()))
+                
+                # Load execution times
+                execution_times = load_execution_times(results_base_dir, window_size, overlap_type)
+                for algo in ['aida', 'iforest', 'lof']:
+                    config_summary[f'{algo}_time'] = execution_times.get(algo, 0)
+                
+                summary_data.append(config_summary)
+            
+            # Create summary DataFrame
+            if summary_data:
+                summary_df = pd.DataFrame(summary_data)
+                
+                # Save to CSV
+                summary_csv = output_dir / "configuration_comparison.csv"
+                summary_df.to_csv(summary_csv, index=False)
+                logger.info(f"Saved configuration comparison to {summary_csv}")
+                
+                # Create comparative visualizations
+                plt.figure(figsize=(14, 10))
+                
+                # Anomaly Count Comparison
+                plt.subplot(2, 1, 1)
+                plt.title("Anomaly Count Comparison by Configuration")
+                
+                # Prepare data for grouped bar chart
+                algo_counts = []
+                
+                for index, row in summary_df.iterrows():
+                    window_size = row['window_size']
+                    overlap_type = row['overlap_type']
+                    config_label = f"w{window_size}_{overlap_type}"
+                    
+                    for algo in ['aida', 'iforest', 'lof']:
+                        algo_counts.append({
+                            'Configuration': config_label,
+                            'Algorithm': algo.upper(),
+                            'Count': row[f'{algo}_count']
+                        })
+                
+                counts_df = pd.DataFrame(algo_counts)
+                sns.barplot(x='Configuration', y='Count', hue='Algorithm', data=counts_df)
+                plt.grid(True, alpha=0.3)
+                
+                # Execution Time Comparison
+                plt.subplot(2, 1, 2)
+                plt.title("Execution Time Comparison by Configuration")
+                
+                # Prepare data for grouped bar chart
+                algo_times = []
+                
+                for index, row in summary_df.iterrows():
+                    window_size = row['window_size']
+                    overlap_type = row['overlap_type']
+                    config_label = f"w{window_size}_{overlap_type}"
+                    
+                    for algo in ['aida', 'iforest', 'lof']:
+                        algo_times.append({
+                            'Configuration': config_label,
+                            'Algorithm': algo.upper(),
+                            'Time (s)': row[f'{algo}_time']
+                        })
+                
+                times_df = pd.DataFrame(algo_times)
+                sns.barplot(x='Configuration', y='Time (s)', hue='Algorithm', data=times_df)
+                plt.grid(True, alpha=0.3)
+                
+                plt.tight_layout()
+                plt.savefig(output_dir / "configuration_comparison.png", dpi=300, bbox_inches='tight')
+                plt.close()
+                
+                logger.info(f"Saved configuration comparison visualization to {output_dir / 'configuration_comparison.png'}")
+                
+                # Additional visualizations: scatter plots showing relationship between window size and anomaly count
+                plt.figure(figsize=(10, 6))
+                plt.title("Window Size vs. Anomaly Count by Algorithm")
+                
+                for algo in ['aida', 'iforest', 'lof']:
+                    overlap_data = summary_df[summary_df['overlap_type'] == 'overlap']
+                    plt.scatter(
+                        overlap_data['window_size'], 
+                        overlap_data[f'{algo}_count'],
+                        label=f"{algo.upper()} (overlap)",
+                        marker='o',
+                        s=80,
+                        alpha=0.7
+                    )
+                    
+                    non_overlap_data = summary_df[summary_df['overlap_type'] == 'nonoverlap']
+                    plt.scatter(
+                        non_overlap_data['window_size'], 
+                        non_overlap_data[f'{algo}_count'],
+                        label=f"{algo.upper()} (non-overlap)",
+                        marker='x',
+                        s=80,
+                        alpha=0.7
+                    )
+                
+                plt.xlabel("Window Size")
+                plt.ylabel("Anomaly Count")
+                plt.legend()
+                plt.grid(True, alpha=0.3)
+                plt.tight_layout()
+                plt.savefig(output_dir / "window_size_vs_anomaly_count.png", dpi=300, bbox_inches='tight')
+                plt.close()
+                
+                logger.info(f"Saved window size analysis to {output_dir / 'window_size_vs_anomaly_count.png'}")
+        
+        except Exception as e:
+            logger.error(f"Error creating comparative summary: {e}")
     
-    # Compare anomaly counts
-    logger.info("Comparing anomaly counts")
-    anomaly_count_plot = compare_anomaly_counts(config_results, output_dir)
-    logger.info(f"Anomaly count comparison saved to {anomaly_count_plot}")
-    
-    # Visualize anomalies by configuration
-    logger.info("Visualizing anomalies by configuration")
-    anomaly_plots = visualize_anomalies_by_configuration(config_results, data_df, output_dir)
-    logger.info(f"Created {len(anomaly_plots)} anomaly visualizations")
-    
-    # Create anomaly timeline
-    logger.info("Creating anomaly timeline")
-    timeline_plot = create_anomaly_timeline(config_results, output_dir)
-    if timeline_plot:
-        logger.info(f"Anomaly timeline saved to {timeline_plot}")
-    
-    # Analyze anomaly overlap
-    logger.info("Analyzing anomaly overlap")
-    overlap_plot = analyze_anomaly_overlap(config_results, output_dir)
-    if overlap_plot:
-        logger.info(f"Anomaly overlap analysis saved to {overlap_plot}")
-    
-    logger.info(f"All comparison results saved to {output_dir}")
+    logger.info(f"All analyses completed and saved to {output_dir}")
 
 
 if __name__ == "__main__":
