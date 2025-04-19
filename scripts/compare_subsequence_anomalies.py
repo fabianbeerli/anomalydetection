@@ -14,6 +14,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from pathlib import Path
 from matplotlib.dates import DateFormatter
+import matplotlib.gridspec as gridspec  # For custom subplot sizes
 
 # Add the project root directory to the Python path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -117,17 +118,23 @@ def load_execution_times(results_dir, window_size, overlap_type):
             # Corrected path structure: results_dir/algo/w{window_size}_{overlap_type}
             config_dir = results_dir / algo / f"w{window_size}_{overlap_type}"
             
-            # Try JSON first
-            execution_times_file = config_dir / "execution_times.json"
-            if execution_times_file.exists():
-                with open(execution_times_file, 'r') as f:
-                    return json.load(f)
+            # For AIDA, check for _AIDA_time.txt file first
+            if algo == 'aida':
+                # Try finding the specific AIDA time file
+                aida_time_files = list(config_dir.glob("*_AIDA_time.txt"))
+                if aida_time_files:
+                    with open(aida_time_files[0], 'r') as f:
+                        execution_times[algo] = float(f.read().strip())
+                    logger.info(f"Loaded AIDA execution time: {execution_times[algo]:.2f} seconds")
+                    continue
             
-            # Fallback to individual time files
+            # Try standard time file
             time_file = config_dir / f"{algo}_execution_time.txt"
             if time_file.exists():
                 with open(time_file, 'r') as f:
                     execution_times[algo] = float(f.read().strip())
+            else:
+                logger.warning(f"No execution time file found for {algo} at {time_file}")
             
         except Exception as e:
             logger.error(f"Error loading {algo} execution time: {e}")
@@ -150,19 +157,22 @@ def visualize_anomalies(data, anomaly_results, execution_times, window_size, ove
     # Ensure output directory exists
     ensure_directory_exists(output_dir)
     
-    # Create a figure with two subplots
-    plt.figure(figsize=(16, 10))
+    # Create a figure with two subplots - make execution time subplot smaller
+    fig = plt.figure(figsize=(16, 10))
     
-    # Plot 1: Time series with anomalies
-    plt.subplot(2, 1, 1)
-    plt.plot(data.index, data['Close'], label='S&P 500 Close Price', color='blue', alpha=0.7)
-    plt.title(f'S&P 500 Subsequence Anomalies (Window Size: {window_size}, {overlap_type})')
-    plt.xlabel('Date')
-    plt.ylabel('Close Price')
+    # Use gridspec to create custom subplot sizes
+    gs = gridspec.GridSpec(2, 1, height_ratios=[5, 1], hspace=0.3)
+    
+    # Plot 1: Time series with anomalies (takes 5/6 of the vertical space)
+    ax1 = fig.add_subplot(gs[0])
+    ax1.plot(data.index, data['Close'], label='S&P 500 Close Price', color='blue', alpha=0.7)
+    ax1.set_title(f'S&P 500 Subsequence Anomalies (Window Size: {window_size}, {overlap_type})')
+    ax1.set_xlabel('Date')
+    ax1.set_ylabel('Close Price')
     
     # Format x-axis dates
-    plt.gca().xaxis.set_major_formatter(DateFormatter('%Y-%m-%d'))
-    plt.xticks(rotation=45)
+    ax1.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d'))
+    ax1.tick_params(axis='x', rotation=45)
     
     # Markers and colors for each algorithm
     markers = {
@@ -227,11 +237,11 @@ def visualize_anomalies(data, anomaly_results, execution_times, window_size, ove
         
         # Plot connecting lines
         for date, orig_price, offset_price in zip(date_values, prices, offset_prices):
-            plt.plot([date, date], [orig_price, offset_price], 
+            ax1.plot([date, date], [orig_price, offset_price], 
                      color=color, linestyle=':', linewidth=1, alpha=0.5)
         
         # Plot offset markers
-        plt.scatter(
+        ax1.scatter(
             date_values, 
             offset_prices, 
             marker=marker, 
@@ -241,35 +251,36 @@ def visualize_anomalies(data, anomaly_results, execution_times, window_size, ove
             alpha=0.7
         )
     
-    plt.legend()
-    plt.grid(True, alpha=0.3)
+    ax1.legend()
+    ax1.grid(True, alpha=0.3)
     
-    # Plot 2: Execution Times
-    plt.subplot(2, 1, 2)
-    plt.title(f'Algorithm Execution Times (Window Size: {window_size}, {overlap_type})')
+    # Plot 2: Execution Times (takes 1/6 of the vertical space)
+    ax2 = fig.add_subplot(gs[1])
+    ax2.set_title(f'Algorithm Execution Times (Window Size: {window_size}, {overlap_type})')
     
     if execution_times:
         colors = {'aida': 'red', 'iforest': 'green', 'lof': 'purple'}
-        bars = plt.bar(
+        bars = ax2.bar(
             list(execution_times.keys()), 
             list(execution_times.values()), 
             color=[colors.get(algo, 'gray') for algo in execution_times.keys()]
         )
-        plt.xlabel('Algorithm')
-        plt.ylabel('Execution Time (seconds)')
+        ax2.set_xlabel('Algorithm')
+        ax2.set_ylabel('Time (s)')
         
         # Add exact times as text on top of bars
         for bar in bars:
             height = bar.get_height()
-            plt.text(bar.get_x() + bar.get_width()/2., height,
+            ax2.text(bar.get_x() + bar.get_width()/2., height,
                      f'{height:.2f}s',
-                     ha='center', va='bottom')
+                     ha='center', va='bottom', fontsize=10)
+            
+        # Add grid
+        ax2.grid(True, alpha=0.3, axis='y')
     else:
-        plt.text(0.5, 0.5, 'No execution time data available', 
-                 ha='center', va='center', transform=plt.gca().transAxes,
+        ax2.text(0.5, 0.5, 'No execution time data available', 
+                 ha='center', va='center', transform=ax2.transAxes,
                  fontsize=14, color='gray')
-    
-    plt.tight_layout()
     
     # Save the comprehensive plot
     output_file = output_dir / f"subsequence_anomalies_w{window_size}_{overlap_type}.png"
@@ -486,18 +497,21 @@ def main():
     
     if args.all_configs:
         # Find all available configurations
-        for directory in results_base_dir.iterdir():
-            if directory.is_dir() and directory.name.startswith('w'):
-                try:
-                    # Parse window size and overlap type from directory name
-                    # Format expected: w{size}_{overlap_type}
-                    parts = directory.name.split('_')
-                    if len(parts) == 2:
-                        window_size = int(parts[0][1:])  # Remove 'w' prefix
-                        overlap_type = parts[1]
-                        configs_to_analyze.append((window_size, overlap_type))
-                except ValueError:
-                    logger.warning(f"Couldn't parse configuration from directory name: {directory.name}")
+        for algo_dir in results_base_dir.iterdir():
+            if algo_dir.is_dir() and algo_dir.name in ['aida', 'iforest', 'lof']:
+                for config_dir in algo_dir.iterdir():
+                    if config_dir.is_dir() and config_dir.name.startswith('w'):
+                        try:
+                            # Parse window size and overlap type from directory name
+                            # Format expected: w{size}_{overlap_type}
+                            parts = config_dir.name.split('_')
+                            if len(parts) == 2:
+                                window_size = int(parts[0][1:])  # Remove 'w' prefix
+                                overlap_type = parts[1]
+                                if (window_size, overlap_type) not in configs_to_analyze:
+                                    configs_to_analyze.append((window_size, overlap_type))
+                        except ValueError:
+                            logger.warning(f"Couldn't parse configuration from directory name: {config_dir.name}")
         
         logger.info(f"Found {len(configs_to_analyze)} configurations to analyze")
     else:

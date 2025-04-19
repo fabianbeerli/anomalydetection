@@ -3,6 +3,7 @@ Window Size: 3, Type: overlap
 ==================================================
 
 Execution Times:
+AIDA: 0.1640 seconds
 IFOREST: 0.1103 seconds
 LOF: 0.0130 seconds
 
