@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 Script to run anomaly detection algorithms on subsequences of S&P 500 data.
-Specifically focuses on 3-day overlapping windows.
+Handles both overlapping and non-overlapping subsequences with configurable window sizes.
 """
 import os
 import sys
@@ -31,13 +31,14 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-def load_subsequence_dataset(subsequence_dir, prefix="sp500_len3_overlap"):
+def load_subsequence_dataset(subsequence_dir, window_size=3, overlap=True):
     """
     Load subsequence data for anomaly detection.
     
     Args:
         subsequence_dir (Path): Directory containing subsequence files
-        prefix (str): Prefix for subsequence files
+        window_size (int): Size of the subsequence window (3, 5, etc.)
+        overlap (bool): Whether to use overlapping or non-overlapping subsequences
         
     Returns:
         tuple: (subsequence_data, subsequence_dates)
@@ -45,6 +46,12 @@ def load_subsequence_dataset(subsequence_dir, prefix="sp500_len3_overlap"):
             subsequence_dates: List of date ranges for subsequences
     """
     try:
+        # Determine prefix based on parameters
+        overlap_str = "overlap" if overlap else "nonoverlap"
+        prefix = f"sp500_len{window_size}_{overlap_str}"
+        
+        logger.info(f"Loading subsequence dataset with prefix: {prefix}")
+        
         # Get list of subsequence files
         subseq_files = get_file_list(subsequence_dir, f"{prefix}*.csv")
         
@@ -113,7 +120,7 @@ def prepare_subsequence_features(subsequence_data):
         return None
 
 
-def run_aida(feature_array, subsequence_dates, output_dir):
+def run_aida(feature_array, subsequence_dates, output_dir, window_size, overlap):
     """
     Run AIDA algorithm on subsequence features.
     
@@ -121,6 +128,8 @@ def run_aida(feature_array, subsequence_dates, output_dir):
         feature_array (numpy.ndarray): Array of feature vectors
         subsequence_dates (list): List of date ranges for subsequences
         output_dir (Path): Directory to save results
+        window_size (int): Size of the subsequence window
+        overlap (bool): Whether subsequences are overlapping
         
     Returns:
         tuple: (success, execution_time, output_files)
@@ -128,10 +137,12 @@ def run_aida(feature_array, subsequence_dates, output_dir):
             execution_time: Model execution time from C++ (in seconds)
             output_files: Dictionary with paths to output files
     """
-    logger.info("Running AIDA algorithm on subsequences...")
+    # Create subdirectory name based on parameters
+    subdir_name = f"w{window_size}_{'overlap' if overlap else 'nonoverlap'}"
+    logger.info(f"Running AIDA algorithm on subsequences ({subdir_name})...")
     
     # Ensure output directory exists
-    aida_output_dir = output_dir / "aida"
+    aida_output_dir = output_dir / "aida" / subdir_name
     ensure_directory_exists(aida_output_dir)
     
     # Create temporary input file for AIDA
@@ -157,7 +168,7 @@ def run_aida(feature_array, subsequence_dates, output_dir):
             os.makedirs(src_models_cpp_dir, exist_ok=True)
             analysis_source_file = src_models_cpp_dir / "aida_subsequence_detection.cpp"
             
-            # Use the updated C++ code (your latest version)
+            # Basic C++ code for AIDA subsequence detection
             with open(analysis_source_file, "w") as f:
                 f.write("""/* AIDA Anomaly Detection for Subsequences */
 #include <iostream>
@@ -295,8 +306,8 @@ int main(int argc, char** argv) {
             
             logger.info(f"Created source file at {analysis_source_file}")
             
-            # Compilation (unchanged)
-            if sys.platform == 'darwin':
+            # Platform-specific compilation
+            if sys.platform == 'darwin':  # macOS
                 try:
                     subprocess.run(["brew", "--version"], check=True, capture_output=True)
                     try:
@@ -336,7 +347,7 @@ int main(int argc, char** argv) {
                         str(aida_cpp_dir/"src"/"rng_class.cpp"),
                         "-o", str(aida_executable)
                     ]
-            elif sys.platform.startswith('win'):
+            elif sys.platform.startswith('win'):  # Windows
                 compile_cmd = [
                     "g++", "-std=c++11", "-O3", "-fopenmp",
                     f"-I{aida_cpp_dir/'include'}",
@@ -348,7 +359,7 @@ int main(int argc, char** argv) {
                     str(aida_cpp_dir/"src"/"rng_class.cpp"),
                     "-o", str(aida_executable)
                 ]
-            else:
+            else:  # Linux
                 compile_cmd = [
                     "g++", "-std=c++11", "-O3", "-fopenmp",
                     f"-I{aida_cpp_dir/'include'}",
@@ -436,7 +447,8 @@ int main(int argc, char** argv) {
         logger.error(f"AIDA execution error: {e}")
         return False, -1, {}
 
-def run_isolation_forest(feature_array, subsequence_dates, output_dir):
+
+def run_isolation_forest(feature_array, subsequence_dates, output_dir, window_size, overlap):
     """
     Run Isolation Forest algorithm on subsequence features.
     
@@ -444,6 +456,8 @@ def run_isolation_forest(feature_array, subsequence_dates, output_dir):
         feature_array (numpy.ndarray): Array of feature vectors
         subsequence_dates (list): List of date ranges for subsequences
         output_dir (Path): Directory to save results
+        window_size (int): Size of the subsequence window
+        overlap (bool): Whether subsequences are overlapping
         
     Returns:
         tuple: (success, execution_time, output_files)
@@ -451,10 +465,12 @@ def run_isolation_forest(feature_array, subsequence_dates, output_dir):
             execution_time: Execution time in seconds
             output_files: Dictionary with paths to output files
     """
-    logger.info("Running Isolation Forest algorithm on subsequences...")
+    # Create subdirectory name based on parameters
+    subdir_name = f"w{window_size}_{'overlap' if overlap else 'nonoverlap'}"
+    logger.info(f"Running Isolation Forest algorithm on subsequences ({subdir_name})...")
     
     # Ensure output directory exists
-    iforest_output_dir = output_dir / "iforest"
+    iforest_output_dir = output_dir / "iforest" / subdir_name
     ensure_directory_exists(iforest_output_dir)
     
     try:
@@ -523,7 +539,7 @@ def run_isolation_forest(feature_array, subsequence_dates, output_dir):
         return False, execution_time, {}
 
 
-def run_lof(feature_array, subsequence_dates, output_dir):
+def run_lof(feature_array, subsequence_dates, output_dir, window_size, overlap):
     """
     Run Local Outlier Factor algorithm on subsequence features.
     
@@ -531,6 +547,8 @@ def run_lof(feature_array, subsequence_dates, output_dir):
         feature_array (numpy.ndarray): Array of feature vectors
         subsequence_dates (list): List of date ranges for subsequences
         output_dir (Path): Directory to save results
+        window_size (int): Size of the subsequence window
+        overlap (bool): Whether subsequences are overlapping
         
     Returns:
         tuple: (success, execution_time, output_files)
@@ -538,10 +556,12 @@ def run_lof(feature_array, subsequence_dates, output_dir):
             execution_time: Execution time in seconds
             output_files: Dictionary with paths to output files
     """
-    logger.info("Running Local Outlier Factor algorithm on subsequences...")
+    # Create subdirectory name based on parameters
+    subdir_name = f"w{window_size}_{'overlap' if overlap else 'nonoverlap'}"
+    logger.info(f"Running Local Outlier Factor algorithm on subsequences ({subdir_name})...")
     
     # Ensure output directory exists
-    lof_output_dir = output_dir / "lof"
+    lof_output_dir = output_dir / "lof" / subdir_name
     ensure_directory_exists(lof_output_dir)
     
     try:
@@ -622,10 +642,20 @@ def main():
         help="Directory containing subsequence data"
     )
     parser.add_argument(
-        "--prefix", 
-        type=str, 
-        default="sp500_len3_overlap",
-        help="Prefix for subsequence files"
+        "--window-size", 
+        type=int, 
+        default=3,
+        help="Size of subsequence window (e.g., 3, 5, 10)"
+    )
+    parser.add_argument(
+        "--overlap", 
+        action="store_true",
+        help="Use overlapping subsequences (default: False)"
+    )
+    parser.add_argument(
+        "--no-overlap", 
+        action="store_true",
+        help="Use non-overlapping subsequences"
     )
     parser.add_argument(
         "--output", 
@@ -648,18 +678,34 @@ def main():
     if "all" in algorithms:
         algorithms = ["aida", "iforest", "lof"]
     
+    # Determine overlap setting
+    # If neither --overlap nor --no-overlap is specified, default to overlapping (3-day window)
+    # If --no-overlap is specified, use non-overlapping
+    # If both are specified, --no-overlap takes precedence
+    overlap = True
+    if args.no_overlap:
+        overlap = False
+    elif args.overlap:
+        overlap = True
+    
     # Convert paths to Path objects
     subsequence_dir = Path(args.subsequence_dir)
     output_dir = Path(args.output)
     
-    # Ensure output directory exists
-    ensure_directory_exists(output_dir)
+    # Create a subdirectory for results based on parameters
+    config_dir = f"w{args.window_size}_{'overlap' if overlap else 'nonoverlap'}"
+    results_dir = output_dir / config_dir
+    ensure_directory_exists(results_dir)
     
     # Load subsequence dataset
-    subsequence_data, subsequence_dates = load_subsequence_dataset(subsequence_dir, args.prefix)
+    subsequence_data, subsequence_dates = load_subsequence_dataset(
+        subsequence_dir, 
+        window_size=args.window_size, 
+        overlap=overlap
+    )
     
     if subsequence_data is None or not subsequence_data:
-        logger.error("Failed to load subsequence dataset. Exiting.")
+        logger.error(f"Failed to load subsequence dataset for window_size={args.window_size}, overlap={overlap}. Exiting.")
         return
     
     # Prepare subsequence features
@@ -674,7 +720,9 @@ def main():
     
     # Run algorithms
     if "aida" in algorithms:
-        success, execution_time, output_files = run_aida(feature_array, subsequence_dates, output_dir)
+        success, execution_time, output_files = run_aida(
+            feature_array, subsequence_dates, output_dir, args.window_size, overlap
+        )
         results["aida"] = {
             "success": success, 
             "execution_time": execution_time, 
@@ -682,7 +730,9 @@ def main():
         }
     
     if "iforest" in algorithms:
-        success, execution_time, output_files = run_isolation_forest(feature_array, subsequence_dates, output_dir)
+        success, execution_time, output_files = run_isolation_forest(
+            feature_array, subsequence_dates, output_dir, args.window_size, overlap
+        )
         results["iforest"] = {
             "success": success, 
             "execution_time": execution_time, 
@@ -690,7 +740,9 @@ def main():
         }
     
     if "lof" in algorithms:
-        success, execution_time, output_files = run_lof(feature_array, subsequence_dates, output_dir)
+        success, execution_time, output_files = run_lof(
+            feature_array, subsequence_dates, output_dir, args.window_size, overlap
+        )
         results["lof"] = {
             "success": success, 
             "execution_time": execution_time, 
@@ -698,7 +750,7 @@ def main():
         }
     
     # Print summary
-    logger.info("\nAlgorithm execution summary:")
+    logger.info(f"\nAlgorithm execution summary for {config_dir}:")
     for algo, result in results.items():
         success = result.get("success", False)
         execution_time = result.get("execution_time", -1)
@@ -710,11 +762,11 @@ def main():
         for algo, result in results.items()
     }
     
-    execution_times_file = output_dir / "execution_times.json"
+    execution_times_file = results_dir / "execution_times.json"
     with open(execution_times_file, 'w') as f:
         json.dump(execution_times, f, indent=2)
     
-    logger.info(f"All results saved to {output_dir}")
+    logger.info(f"All results saved to {results_dir}")
     logger.info(f"Execution times saved to {execution_times_file}")
 
 

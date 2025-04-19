@@ -1,16 +1,20 @@
+
 # Unsupervised Anomaly Detection in S&P 500: A Comparative Approach
 
-## Project Overview
-This project implements a comparative analysis of anomaly detection algorithms (AIDA, Isolation Forest, and Local Outlier Factor) on S&P 500 market data.
+## 📈 Project Overview
+This project performs a comparative analysis of three unsupervised anomaly detection algorithms — **AIDA**, **Isolation Forest**, and **Local Outlier Factor (LOF)** — applied to subsequences derived from S&P 500 stock data. The aim is to evaluate their effectiveness and performance in identifying anomalous patterns in financial time series.
 
-## Prerequisites
+---
+
+## 📦 Prerequisites
 - Python 3.8+
-- C++ Compiler (g++)
-- OpenMP support (for AIDA)
+- C++ Compiler with OpenMP support (e.g., `g++`)
 - Homebrew (for macOS users to install OpenMP)
-- Virtual environment recommended
+- Recommended: Python virtual environment
 
-## Setup and Installation
+---
+
+## ⚙️ Setup and Installation
 
 ### 1. Create Virtual Environment
 ```bash
@@ -23,133 +27,139 @@ source venv/bin/activate  # On Windows use: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### 3. macOS Users: Install OpenMP Support (required for AIDA)
+### 3. macOS Users: Install OpenMP Support (Required for AIDA)
 ```bash
 brew install libomp
 ```
 
-## Workflow Steps
+---
 
-### Step 1: Data Retrieval
-**Script:** `scripts/retrieve_data.py`  
-**Purpose:** Download S&P 500 index and constituent stock data  
-**Output:** Raw CSV files in `data/raw/` directory
+## 🚀 Workflow Steps
+
+### ✅ Step 1: Data Retrieval
+Download S&P 500 index and constituent stock data.
 ```bash
 python scripts/retrieve_data.py
 ```
 
-### Step 2: Data Preprocessing
-**Script:** `scripts/prepare_data.py`  
-**Purpose:** Process raw data, engineer features, create subsequence datasets  
-**Output:** Processed CSV files in `data/processed/` directory
+### 🔧 Step 2: Data Preprocessing
+Process raw data and engineer features. This generates subsequence datasets.
 ```bash
 python scripts/prepare_data.py
 ```
 
-### Step 3: Anomaly Detection
-
-#### Run All Algorithms
-**Script:** `scripts/run_all_algorithms.py`  
-**Purpose:** Run all anomaly detection algorithms (AIDA, Isolation Forest, LOF, and temporal variants)  
-**Output:** Results for all algorithms in `data/algorithm_results/`
-```bash
-python scripts/run_all_algorithms.py
-```
-
-Parameters:
-- `--data`: Path to the processed S&P 500 CSV file
-- `--output`: Directory to save algorithm results
-- `--algorithms`: Algorithms to run (options: aida, iforest, lof, temporal)
-- `--window-size`: Window size for temporal algorithms
-- `--step`: Step size for temporal algorithms
-
-Example with custom parameters:
-```bash
-python scripts/run_all_algorithms.py --data data/processed/index_GSPC_processed.csv --output data/custom_results --algorithms iforest lof --window-size 10 --step 2
-```
-
-### Step 4: Process and Analyze Results
-**Script:** `scripts/process_results.py`  
-**Purpose:** Analyze and visualize results from different algorithms  
-**Output:** Comparative analysis and visualizations in `data/analysis_results/`
-```bash
-python scripts/process_results.py
-```
-
-Parameters:
-- `--results`: Directory containing algorithm results
-- `--output`: Directory to save analysis results
-- `--data`: Path to the original processed data file (for time index)
-- `--window-size`: Window size used in temporal analysis
-- `--step`: Step size used in temporal analysis
-
-### Step 5: Time Series Analysis
-Temporal analysis is supported for both Isolation Forest and LOF algorithms. This allows for sliding window anomaly detection, which is particularly useful for identifying anomalies that occur over sequences of trading days.
+### 🤖 Step 3: Run Anomaly Detection
+Execute anomaly detection algorithms with custom window sizes and overlap settings.
 
 ```bash
-# Run temporal analysis with default window size (5) and step (1)
-python scripts/run_all_algorithms.py --algorithms temporal
+# All algorithms, window size 3, with overlap
+python scripts/run_subsequence_algorithms.py --window-size 3 --overlap --algorithms all
 
-# Run with custom window size and step
-python scripts/run_all_algorithms.py --algorithms temporal --window-size 3 --step 1
+# All algorithms, window size 3, without overlap
+python scripts/run_subsequence_algorithms.py --window-size 3 --no-overlap --algorithms all
+
+# Specific algorithms (e.g., AIDA and LOF), window size 5
+python scripts/run_subsequence_algorithms.py --window-size 5 --overlap --algorithms aida lof
+
+# Larger window size
+python scripts/run_subsequence_algorithms.py --window-size 10 --overlap --algorithms all
 ```
 
-The temporal analysis creates overlapping subsequences (e.g., days 1,2,3 compared to 2,3,4, etc.) which helps identify anomalies in the time series patterns rather than just individual data points.
+#### Parameters:
+- `--window-size`: Size of the subsequence window (default: 3)
+- `--overlap` / `--no-overlap`: Control overlapping behavior (default: overlap)
+- `--algorithms`: Choose from `aida`, `iforest`, `lof`, or `all`
+- `--subsequence-dir`: Optional path to precomputed subsequences
+- `--output`: Optional directory to save results
 
-## About the Algorithms
+---
 
-### AIDA (Analytic Isolation and Distance-based Anomaly)
-AIDA is a parameter-free unsupervised anomaly detection algorithm that combines metrics of distance with isolation principles. The implementation used is based on the original C++ code by Souto Arias et al. (2023). AIDA offers robust performance across diverse data distributions and provides the TIX (Tempered Isolation-based eXplanation) framework for explaining anomalies.
+### 📊 Step 4: Analyze and Compare Results
+Visualize anomalies and compare detection performance.
 
-### Isolation Forest
-Isolation Forest is an unsupervised algorithm based on the principle that anomalies are "few and different" and therefore easier to isolate than normal points. It constructs isolation trees and measures the path length required to isolate each data point, with shorter paths indicating likely anomalies.
+```bash
+# Overlapping windows, size 3
+python scripts/compare_subsequence_anomalies.py --results-base data/subsequence_results --window-size 3 --overlap-type overlap
 
-### Local Outlier Factor (LOF)
-LOF is a density-based anomaly detection algorithm that compares the local density of a point to the local densities of its neighbors. Points with substantially lower density than their neighbors receive a higher LOF score, indicating they are more likely to be anomalies.
+# Non-overlapping windows, size 3
+python scripts/compare_subsequence_anomalies.py --results-base data/subsequence_results --window-size 3 --overlap-type nonoverlap
 
-## Project Structure
-- `data/`
-  - `raw/`: Original downloaded data
-  - `processed/`: Preprocessed and feature-engineered data
-  - `algorithm_results/`: Results from running anomaly detection algorithms
-  - `analysis_results/`: Comparative analysis and visualizations
-- `scripts/`: Execution scripts
-- `src/`: Core project modules
-  - `data/`: Data retrieval and preprocessing
-  - `models/`: Anomaly detection algorithms
-    - `isolation_forest.py`: Isolation Forest implementation
-    - `lof.py`: Local Outlier Factor implementation
-    - `cpp/`: C++ interface for AIDA
-  - `utils/`: Utility functions
-- `AIDA/`: Original AIDA algorithm implementation (C++)
+# Larger window, with output directory
+python scripts/compare_subsequence_anomalies.py --results-base data/subsequence_results --window-size 10 --overlap-type overlap --output data/analysis_results/w10_overlap
+```
 
-## Troubleshooting
+#### Parameters:
+- `--results-base`: Base directory for results (default: `data/subsequence_results`)
+- `--window-size`: Window size used for comparison (default: 3)
+- `--overlap-type`: `overlap` or `non-overlap`
+- `--data`: Optional path to raw data
+- `--output`: Optional directory to save analysis results
+
+---
+
+## 📁 Directory Structure
+```
+data/
+├── raw/                         # Original downloaded data
+├── processed/                   # Preprocessed & feature-engineered data
+│   └── subsequences/            # Subsequence datasets
+├── subsequence_results/         # Results from algorithms
+│   ├── w3_overlap/
+│   │   ├── aida/
+│   │   ├── iforest/
+│   │   └── lof/
+│   ├── w3_nonoverlap/
+│   └── ...
+└── analysis_results/            # Comparative visualizations & summaries
+```
+
+---
+
+## 📄 Output Files
+
+- `*_scores.dat`: Raw anomaly scores
+- `*_anomalies.csv`: Detected anomalies and subsequence info
+- `*_execution_time.txt`: Timing for each algorithm
+- `subsequence_anomalies_comparison.png`: Anomaly visualization
+- `anomaly_detection_detailed_summary.txt`: Statistical summary
+
+---
+
+## 🧠 About the Algorithms
+
+### 🔹 AIDA (Analytic Isolation and Distance-based Anomaly)
+A parameter-free anomaly detection method combining distance and isolation principles. Robust and versatile across different data types.
+
+### 🔹 Isolation Forest
+Based on the principle that anomalies are easier to isolate. Efficient for high-dimensional data.
+
+### 🔹 Local Outlier Factor (LOF)
+Density-based algorithm that highlights deviations in local neighborhood density. Ideal for datasets with variable density.
+
+---
+
+## 🛠️ Troubleshooting
 
 ### AIDA Compilation Issues
-If you encounter issues compiling AIDA:
-
-1. **macOS Users**: Make sure OpenMP is properly installed:
-   ```bash
-   brew install libomp
-   ```
-
-2. **Windows Users**: Ensure MinGW or another C++ compiler with OpenMP support is in your PATH.
-
-3. **If AIDA fails**: You can still run the Python-based algorithms:
-   ```bash
-   python scripts/run_all_algorithms.py --algorithms iforest lof temporal
-   ```
+- **macOS**: Make sure OpenMP is installed (`brew install libomp`)
+- **Windows**: Use MinGW or another compiler with OpenMP support
+- If issues persist, run with other algorithms:  
+  ```bash
+  --algorithms iforest lof
+  ```
 
 ### Data Issues
-If you encounter issues with data loading or processing:
+- Ensure data files exist in expected paths
+- Check for proper CSV formatting and required columns
+- Review terminal/log output for error messages
 
-1. Check that the data files exist in the expected locations.
-2. Ensure the CSV files have the expected format and column names.
-3. Check the log output for specific error messages.
+---
 
-## Citing the Research
-If you use this code in your research, please cite the bachelor's thesis:
-Beerli, F. (2025). Unsupervised Anomaly Detection in S&P 500: A Comparative Approach. ZHAW – Zurich University of Applied Sciences.
+## 📚 Citation
+> Beerli, F. (2025). *Unsupervised Anomaly Detection in S&P 500: A Comparative Approach*.  
+> ZHAW – Zurich University of Applied Sciences.
 
-## License
-[Add your license information here]
+---
+
+## 🧾 License
+This project is provided for academic and research purposes. For licensing details, please consult the LICENSE file if present.
