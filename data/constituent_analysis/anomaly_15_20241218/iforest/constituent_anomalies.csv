@@ -1,0 +1,3 @@
+window_index,anomaly_score,start_date,end_date,top_anomalous_stocks
+13,3.089283052110265,2024-12-18,2024-12-20,"AMZN (0.0324), JPM (0.0287), GOOG (0.0266)"
+15,2.2371405381552543,2024-12-20,2024-12-24,"META (0.0218), LLY (0.0191), NVDA (0.0175)"

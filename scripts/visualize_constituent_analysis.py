@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Script to visualize results from matrix-based constituent analysis.
+Script to visualize constituent analysis results.
 """
 import os
 import sys
@@ -8,379 +8,242 @@ import json
 import logging
 import argparse
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from pathlib import Path
-import numpy as np
 from datetime import datetime
+from matplotlib.dates import DateFormatter
 
 # Add the project root directory to the Python path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from src import config
 from src.utils.helpers import ensure_directory_exists
-from src.data.preparation import load_ticker_data
 
 # Configure logging
 logging.basicConfig(
-    level=getattr(logging, config.LOG_LEVEL),
+    level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
 
 
-def visualize_classification_distribution(summary, output_dir):
-    """Create a bar chart showing the distribution of anomaly classifications."""
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6))
+def create_summary_visualizations(summary_data, output_dir):
+    """
+    Create summary visualizations from the analysis summary.
     
-    # Isolation Forest classifications
-    iforest_counts = summary['iforest_classifications']
-    categories = list(iforest_counts.keys())
-    values = list(iforest_counts.values())
-    
-    bars1 = ax1.bar(categories, values, color=['#1f77b4', '#ff7f0e', '#2ca02c'])
-    ax1.set_title('Isolation Forest Anomaly Classifications')
-    ax1.set_ylabel('Count')
-    ax1.set_xlabel('Classification Type')
-    
-    # Add value labels on bars
-    for bar in bars1:
-        height = bar.get_height()
-        ax1.text(bar.get_x() + bar.get_width()/2., height,
-                f'{int(height)}',
-                ha='center', va='bottom')
-    
-    # LOF classifications
-    lof_counts = summary['lof_classifications']
-    values = [lof_counts[cat] for cat in categories]
-    
-    bars2 = ax2.bar(categories, values, color=['#d62728', '#9467bd', '#8c564b'])
-    ax2.set_title('LOF Anomaly Classifications')
-    ax2.set_ylabel('Count')
-    ax2.set_xlabel('Classification Type')
-    
-    # Add value labels on bars
-    for bar in bars2:
-        height = bar.get_height()
-        ax2.text(bar.get_x() + bar.get_width()/2., height,
-                f'{int(height)}',
-                ha='center', va='bottom')
-    
-    plt.tight_layout()
-    plt.savefig(output_dir / 'classification_distribution.png', dpi=300, bbox_inches='tight')
-    plt.close()
-
-
-def visualize_algorithm_agreement(results, output_dir):
-    """Create a visualization showing agreement between algorithms."""
-    dates = [r['anomaly_date'] for r in results]
-    iforest_anomalies = [r['iforest_is_anomaly'] for r in results]
-    lof_anomalies = [r['lof_is_anomaly'] for r in results]
-    
-    # Convert to datetime for better plotting
-    dates_dt = [pd.to_datetime(date) for date in dates]
-    
-    plt.figure(figsize=(14, 6))
-    
-    # Plot anomalies for both algorithms
-    plt.scatter(dates_dt, [0] * len(dates), s=100, 
-               c=iforest_anomalies, cmap='RdYlGn_r', marker='o', 
-               label='Isolation Forest')
-    plt.scatter(dates_dt, [1] * len(dates), s=100, 
-               c=lof_anomalies, cmap='RdYlGn_r', marker='s', 
-               label='LOF')
-    
-    # Highlight agreements/disagreements
-    agreements = [iforest_anomalies[i] == lof_anomalies[i] for i in range(len(results))]
-    for i, (date, agree) in enumerate(zip(dates_dt, agreements)):
-        if not agree:
-            plt.axvline(x=date, color='red', alpha=0.3, linestyle='--')
-    
-    plt.yticks([0, 1], ['Isolation Forest', 'LOF'])
-    plt.xticks(rotation=45)
-    plt.title('Algorithm Agreement on Constituent Anomalies')
-    plt.grid(True, alpha=0.3)
-    plt.tight_layout()
-    
-    plt.savefig(output_dir / 'algorithm_agreement.png', dpi=300, bbox_inches='tight')
-    plt.close()
-
-
-def visualize_anomaly_scores(results, output_dir):
-    """Create a scatter plot of anomaly scores from both algorithms."""
-    iforest_scores = [r['iforest_score'] for r in results]
-    lof_scores = [r['lof_score'] for r in results]
-    dates = [r['anomaly_date'] for r in results]
-    
-    plt.figure(figsize=(10, 8))
-    
-    # Create scatter plot
-    scatter = plt.scatter(iforest_scores, lof_scores, 
-                         c=range(len(results)), cmap='viridis', 
-                         s=100, alpha=0.7)
-    
-    # Add diagonal line
-    min_val = min(min(iforest_scores), min(lof_scores))
-    max_val = max(max(iforest_scores), max(lof_scores))
-    plt.plot([min_val, max_val], [min_val, max_val], 'k--', alpha=0.5)
-    
-    # Add annotations for points
-    for i, date in enumerate(dates):
-        plt.annotate(date, (iforest_scores[i], lof_scores[i]), 
-                    xytext=(5, 5), textcoords='offset points', 
-                    fontsize=8, alpha=0.7)
-    
-    plt.xlabel('Isolation Forest Score')
-    plt.ylabel('LOF Score')
-    plt.title('Comparison of Anomaly Scores')
-    plt.grid(True, alpha=0.3)
-    
-    # Add colorbar
-    cbar = plt.colorbar(scatter)
-    cbar.set_label('Chronological Order')
-    
-    plt.tight_layout()
-    plt.savefig(output_dir / 'anomaly_scores_comparison.png', dpi=300, bbox_inches='tight')
-    plt.close()
-
-
-def visualize_temporal_pattern(results, output_dir):
-    """Create a temporal visualization of anomalies and classifications."""
-    # Extract data
-    dates = [pd.to_datetime(r['anomaly_date']) for r in results]
-    classifications_if = [r['classification_iforest'] for r in results]
-    classifications_lof = [r['classification_lof'] for r in results]
-    n_stocks = [r['n_stocks'] for r in results]
-    
-    # Create the plot
-    fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(14, 12), height_ratios=[2, 2, 1])
-    
-    # Plot Isolation Forest classifications over time
-    colors_if = {'widespread': 'red', 'isolated': 'blue', 'moderate': 'orange'}
-    for i, (date, classification) in enumerate(zip(dates, classifications_if)):
-        ax1.scatter(date, 1, c=colors_if[classification], s=100, 
-                   marker='o', edgecolors='black')
-    
-    ax1.set_yticks([])
-    ax1.set_title('Isolation Forest Classifications Over Time')
-    
-    # Create legend for classifications
-    handles = [plt.Line2D([0], [0], marker='o', color='w', 
-                         markerfacecolor=color, markersize=10, 
-                         label=classification.capitalize())
-              for classification, color in colors_if.items()]
-    ax1.legend(handles=handles, loc='upper right')
-    
-    # Plot LOF classifications over time
-    colors_lof = {'widespread': 'red', 'isolated': 'blue', 'moderate': 'orange'}
-    for i, (date, classification) in enumerate(zip(dates, classifications_lof)):
-        ax2.scatter(date, 1, c=colors_lof[classification], s=100, 
-                   marker='s', edgecolors='black')
-    
-    ax2.set_yticks([])
-    ax2.set_title('LOF Classifications Over Time')
-    ax2.legend(handles=handles, loc='upper right')
-    
-    # Plot number of stocks analyzed
-    ax3.plot(dates, n_stocks, 'g-', marker='o')
-    ax3.set_ylabel('Number of Stocks')
-    ax3.set_title('Number of Stocks Analyzed per Anomaly')
-    ax3.grid(True, alpha=0.3)
-    
-    # Format x-axis
-    for ax in [ax1, ax2, ax3]:
-        ax.grid(True, axis='x', alpha=0.3)
-        ax.tick_params(axis='x', rotation=45)
-    
-    plt.tight_layout()
-    plt.savefig(output_dir / 'temporal_pattern.png', dpi=300, bbox_inches='tight')
-    plt.close()
-
-
-def create_detailed_summary(results, summary, output_dir):
-    """Create a detailed text summary of the analysis."""
-    with open(output_dir / 'detailed_summary.txt', 'w') as f:
-        f.write("Constituent Anomaly Analysis Summary\n")
-        f.write("=" * 50 + "\n\n")
+    Args:
+        summary_data (dict): Summary data from analysis
+        output_dir (Path): Directory to save visualizations
+    """
+    try:
+        # Create a summary figure
+        plt.figure(figsize=(10, 8))
         
-        f.write(f"Total index anomalies analyzed: {summary['analyzed_anomalies']}\n")
-        f.write(f"Average number of stocks analyzed per anomaly: {summary['average_stocks_analyzed']:.1f}\n\n")
+        # Plot total anomalies by algorithm
+        labels = ['Isolation Forest', 'LOF']
+        anomaly_counts = [
+            summary_data.get('total_iforest_constituent_anomalies', 0),
+            summary_data.get('total_lof_constituent_anomalies', 0)
+        ]
         
-        f.write("Classification Results:\n")
-        f.write("-" * 30 + "\n")
-        f.write("Isolation Forest:\n")
-        for classification, count in summary['iforest_classifications'].items():
-            f.write(f"  {classification.capitalize()}: {count} ({count/summary['analyzed_anomalies']*100:.1f}%)\n")
+        plt.bar(labels, anomaly_counts, color=['green', 'purple'])
+        plt.title("Total Constituent Anomalies Detected by Algorithm")
+        plt.ylabel("Number of Anomalies")
+        plt.grid(True, alpha=0.3, axis='y')
         
-        f.write("\nLOF:\n")
-        for classification, count in summary['lof_classifications'].items():
-            f.write(f"  {classification.capitalize()}: {count} ({count/summary['analyzed_anomalies']*100:.1f}%)\n")
+        # Add counts as text
+        for i, count in enumerate(anomaly_counts):
+            plt.text(i, count + max(anomaly_counts) * 0.02, str(count), 
+                    ha='center', va='bottom', fontsize=11)
         
-        f.write(f"\nAlgorithm Agreement: {summary['anomaly_agreement']} out of {summary['analyzed_anomalies']} "
-                f"({summary['anomaly_agreement']/summary['analyzed_anomalies']*100:.1f}%)\n\n")
+        # Add summary text
+        analysis_date = summary_data.get('analysis_date', 'Unknown')
+        plt.figtext(0.5, 0.01, 
+                   f"Analysis Date: {analysis_date}\nTotal Anomalies Analyzed: {summary_data.get('total_anomalies_analyzed', 0)}", 
+                   ha='center', fontsize=10)
         
-        f.write("Individual Anomaly Details:\n")
-        f.write("-" * 30 + "\n")
-        for result in results:
-            f.write(f"\nDate: {result['anomaly_date']}\n")
-            f.write(f"Stocks analyzed: {result['n_stocks']}\n")
-            f.write(f"Isolation Forest: {result['classification_iforest']} "
-                    f"(Anomaly: {'Yes' if result['iforest_is_anomaly'] else 'No'}, "
-                    f"Score: {result['iforest_score']:.3f})\n")
-            f.write(f"LOF: {result['classification_lof']} "
-                    f"(Anomaly: {'Yes' if result['lof_is_anomaly'] else 'No'}, "
-                    f"Score: {result['lof_score']:.3f})\n")
-            f.write(f"Number of windows analyzed: {result['n_windows']}\n")
-            f.write(f"Anomalous windows - IF: {result['n_iforest_anomalies']}, LOF: {result['n_lof_anomalies']}\n")
-            if 'stocks' in result:
-                f.write(f"Stocks: {', '.join(result['stocks'])}\n")
+        # Save the figure
+        plt.tight_layout(rect=[0, 0.05, 1, 0.95])  # Adjust layout to make room for the text
+        plt.savefig(output_dir / "anomaly_summary.png", dpi=300, bbox_inches='tight')
+        plt.close()
+        
+        logger.info(f"Created summary visualization at {output_dir / 'anomaly_summary.png'}")
+        
+    except Exception as e:
+        logger.error(f"Error creating summary visualizations: {e}")
 
 
-def create_stock_frequency_analysis(results, output_dir):
-    """Analyze which stocks are most frequently involved in anomalies."""
-    if not results or 'stocks' not in results[0]:
-        logger.warning("No stock information available for frequency analysis")
-        return
+def create_detailed_visualizations(results_data, output_dir):
+    """
+    Create detailed visualizations from the analysis results.
     
-    # Count stock occurrences
-    stock_counts = {}
-    for result in results:
-        for stock in result['stocks']:
-            stock_counts[stock] = stock_counts.get(stock, 0) + 1
-    
-    # Sort by frequency
-    sorted_stocks = sorted(stock_counts.items(), key=lambda x: x[1], reverse=True)
-    stocks, counts = zip(*sorted_stocks)
-    
-    # Create bar chart
-    plt.figure(figsize=(12, 6))
-    bars = plt.bar(stocks, counts)
-    plt.xticks(rotation=45, ha='right')
-    plt.xlabel('Stock Ticker')
-    plt.ylabel('Number of Anomalies')
-    plt.title('Stock Frequency in Anomalous Events')
-    
-    # Add value labels on bars
-    for bar in bars:
-        height = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width()/2., height,
-                 f'{int(height)}',
-                 ha='center', va='bottom')
-    
-    plt.tight_layout()
-    plt.savefig(output_dir / 'stock_frequency_analysis.png', dpi=300, bbox_inches='tight')
-    plt.close()
-
-
-def create_classification_heatmap(results, output_dir):
-    """Create a heatmap showing classification patterns over time."""
-    # Extract data
-    dates = [r['anomaly_date'] for r in results]
-    classifications_if = [r['classification_iforest'] for r in results]
-    classifications_lof = [r['classification_lof'] for r in results]
-    
-    # Create classification mapping
-    class_map = {'isolated': 0, 'moderate': 1, 'widespread': 2}
-    
-    # Convert to numeric
-    data_if = [class_map[c] for c in classifications_if]
-    data_lof = [class_map[c] for c in classifications_lof]
-    
-    # Create matrix for heatmap
-    matrix = np.array([data_if, data_lof])
-    
-    # Create heatmap
-    plt.figure(figsize=(14, 6))
-    sns.heatmap(matrix, annot=False, cmap='RdYlGn_r', 
-                yticklabels=['Isolation Forest', 'LOF'],
-                xticklabels=dates, cbar=False)
-    
-    # Add custom colorbar
-    from matplotlib.colors import ListedColormap
-    import matplotlib.patches as mpatches
-    
-    colors = ['#2ca02c', '#ff7f0e', '#d62728']  # green, orange, red
-    labels = ['Isolated', 'Moderate', 'Widespread']
-    patches = [mpatches.Patch(color=colors[i], label=labels[i]) for i in range(len(labels))]
-    plt.legend(handles=patches, loc='center left', bbox_to_anchor=(1, 0.5))
-    
-    plt.xticks(rotation=45, ha='right')
-    plt.title('Classification Patterns Over Time')
-    
-    plt.tight_layout()
-    plt.savefig(output_dir / 'classification_heatmap.png', dpi=300, bbox_inches='tight')
-    plt.close()
+    Args:
+        results_data (list): List of anomaly results
+        output_dir (Path): Directory to save visualizations
+    """
+    try:
+        # Convert to DataFrame for easier manipulation
+        results_df = pd.DataFrame(results_data)
+        
+        if results_df.empty:
+            logger.warning("No results data to visualize")
+            return
+        
+        # Add date field for sorting
+        try:
+            results_df['date'] = pd.to_datetime(results_df['anomaly_date'], format='%Y%m%d')
+            results_df = results_df.sort_values('date')
+        except:
+            logger.warning("Could not parse anomaly dates, using order in file")
+        
+        # 1. Timeline of Anomalies
+        plt.figure(figsize=(14, 8))
+        
+        # Plot iForest and LOF anomaly counts by date/ID
+        x = range(len(results_df))
+        width = 0.35
+        
+        plt.bar([i - width/2 for i in x], results_df['iforest_anomaly_count'], width, label='Isolation Forest', color='green', alpha=0.7)
+        plt.bar([i + width/2 for i in x], results_df['lof_anomaly_count'], width, label='LOF', color='purple', alpha=0.7)
+        
+        # Use dates as labels if available, otherwise use IDs
+        if 'date' in results_df.columns:
+            plt.xticks(x, results_df['date'].dt.strftime('%Y-%m-%d'), rotation=45)
+        else:
+            plt.xticks(x, [f"Anomaly {id}" for id in results_df['anomaly_id']], rotation=45)
+        
+        plt.title("Constituent Anomalies Timeline")
+        plt.ylabel("Number of Anomalies")
+        plt.xlabel("Index Anomaly Date")
+        plt.legend()
+        plt.grid(True, alpha=0.3, axis='y')
+        
+        plt.tight_layout()
+        plt.savefig(output_dir / "anomalies_timeline.png", dpi=300, bbox_inches='tight')
+        plt.close()
+        
+        # 2. Top Anomalous Stocks
+        # Extract all mentioned stocks
+        all_stocks = []
+        
+        for _, row in results_df.iterrows():
+            if 'top_anomalous_stocks' in row and isinstance(row['top_anomalous_stocks'], list):
+                stocks = [s.split(' ')[0] for s in row['top_anomalous_stocks']]
+                all_stocks.extend(stocks)
+        
+        if all_stocks:
+            # Count occurrences
+            stock_counts = pd.Series(all_stocks).value_counts()
+            
+            # Plot top 10 stocks
+            plt.figure(figsize=(12, 6))
+            stock_counts.head(10).plot(kind='bar', color='darkblue')
+            plt.title("Top 10 Anomalous Stocks")
+            plt.ylabel("Frequency in Anomalous Windows")
+            plt.xlabel("Stock")
+            plt.grid(True, alpha=0.3, axis='y')
+            
+            plt.tight_layout()
+            plt.savefig(output_dir / "top_anomalous_stocks.png", dpi=300, bbox_inches='tight')
+            plt.close()
+        
+        # 3. Comparative Algorithm Performance
+        plt.figure(figsize=(10, 6))
+        
+        # Create a scatter plot comparing iForest vs LOF anomaly counts
+        plt.scatter(results_df['iforest_anomaly_count'], results_df['lof_anomaly_count'], 
+                   alpha=0.7, s=80, c='darkblue')
+        
+        # Add a diagonal line representing equal performance
+        max_val = max(results_df['iforest_anomaly_count'].max(), results_df['lof_anomaly_count'].max())
+        plt.plot([0, max_val], [0, max_val], 'r--', alpha=0.5, label='Equal performance')
+        
+        # Add anomaly IDs as labels
+        for idx, row in results_df.iterrows():
+            plt.annotate(str(row['anomaly_id']), 
+                        (row['iforest_anomaly_count'], row['lof_anomaly_count']),
+                        xytext=(5, 5), textcoords='offset points')
+        
+        plt.title("Algorithm Comparison: iForest vs. LOF")
+        plt.xlabel("Isolation Forest Anomaly Count")
+        plt.ylabel("LOF Anomaly Count")
+        plt.grid(True, alpha=0.3)
+        plt.legend()
+        
+        plt.tight_layout()
+        plt.savefig(output_dir / "algorithm_comparison.png", dpi=300, bbox_inches='tight')
+        plt.close()
+        
+        logger.info(f"Created detailed visualizations in {output_dir}")
+        
+    except Exception as e:
+        logger.error(f"Error creating detailed visualizations: {e}")
 
 
 def visualize_results(results_file, summary_file, output_dir):
-    """Main function to create all visualizations."""
-    ensure_directory_exists(output_dir)
+    """
+    Visualize constituent analysis results.
     
-    # Load results
-    with open(results_file, 'r') as f:
-        results = json.load(f)
-    
-    with open(summary_file, 'r') as f:
-        summary = json.load(f)
-    
-    # Create visualizations
-    logger.info("Creating classification distribution chart")
-    visualize_classification_distribution(summary, output_dir)
-    
-    logger.info("Creating algorithm agreement visualization")
-    visualize_algorithm_agreement(results, output_dir)
-    
-    logger.info("Creating anomaly scores comparison")
-    visualize_anomaly_scores(results, output_dir)
-    
-    logger.info("Creating temporal pattern visualization")
-    visualize_temporal_pattern(results, output_dir)
-    
-    logger.info("Creating detailed summary")
-    create_detailed_summary(results, summary, output_dir)
-    
-    logger.info("Creating stock frequency analysis")
-    create_stock_frequency_analysis(results, output_dir)
-    
-    logger.info("Creating classification heatmap")
-    create_classification_heatmap(results, output_dir)
-    
-    logger.info(f"All visualizations saved to {output_dir}")
+    Args:
+        results_file (str): Path to results JSON file
+        summary_file (str): Path to summary JSON file
+        output_dir (str): Directory to save visualizations
+    """
+    try:
+        # Ensure output directory exists
+        output_path = Path(output_dir)
+        ensure_directory_exists(output_path)
+        
+        # Load results data
+        with open(results_file, 'r') as f:
+            results_data = json.load(f)
+        
+        # Load summary data
+        with open(summary_file, 'r') as f:
+            summary_data = json.load(f)
+        
+        # Create summary visualizations
+        create_summary_visualizations(summary_data, output_path)
+        
+        # Create detailed visualizations
+        create_detailed_visualizations(results_data, output_path)
+        
+        logger.info("Visualization of constituent analysis results completed")
+        
+    except Exception as e:
+        logger.error(f"Error visualizing results: {e}")
 
 
 def main():
-    """Main function to visualize constituent analysis results."""
+    """
+    Main function to visualize constituent analysis results.
+    """
     parser = argparse.ArgumentParser(description="Visualize constituent analysis results")
     parser.add_argument(
         "--results", 
         type=str, 
-        default=str(config.DATA_DIR / "constituent_analysis" / "constituent_analysis_results.json"),
-        help="Path to results JSON file"
+        required=True,
+        help="Path to the constituent analysis results JSON file"
     )
     parser.add_argument(
         "--summary", 
         type=str, 
-        default=str(config.DATA_DIR / "constituent_analysis" / "constituent_analysis_summary.json"),
-        help="Path to summary JSON file"
+        required=True,
+        help="Path to the constituent analysis summary JSON file"
     )
     parser.add_argument(
         "--output", 
         type=str, 
-        default=str(config.DATA_DIR / "constituent_analysis" / "visualizations"),
+        default=str(config.DATA_DIR / "constituent_analysis/visualizations"),
         help="Directory to save visualizations"
     )
     
     args = parser.parse_args()
     
-    # Convert to Path objects
-    results_file = Path(args.results)
-    summary_file = Path(args.summary)
-    output_dir = Path(args.output)
-    
-    # Create visualizations
-    visualize_results(results_file, summary_file, output_dir)
-    
-    logger.info("Visualization completed")
+    # Visualize results
+    visualize_results(args.results, args.summary, args.output)
 
 
 if __name__ == "__main__":

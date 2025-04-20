@@ -1,0 +1,189 @@
+[
+  {
+    "anomaly_id": 15,
+    "anomaly_date": "20241218",
+    "iforest_anomaly_count": 2,
+    "top_anomalous_stocks": [
+      "AMZN (0.0324)",
+      "JPM (0.0287)",
+      "GOOG (0.0266)"
+    ],
+    "lof_anomaly_count": 2
+  },
+  {
+    "anomaly_id": 14,
+    "anomaly_date": "20241216",
+    "iforest_anomaly_count": 2,
+    "top_anomalous_stocks": [
+      "AMZN (0.0324)",
+      "JPM (0.0287)",
+      "GOOG (0.0266)"
+    ],
+    "lof_anomaly_count": 2
+  },
+  {
+    "anomaly_id": 8,
+    "anomaly_date": "20240829",
+    "iforest_anomaly_count": 2,
+    "top_anomalous_stocks": [
+      "NVDA (0.0388)",
+      "AMZN (0.0355)",
+      "META (0.0235)"
+    ],
+    "lof_anomaly_count": 2
+  },
+  {
+    "anomaly_id": 10,
+    "anomaly_date": "20240918",
+    "iforest_anomaly_count": 2,
+    "top_anomalous_stocks": [
+      "NVDA (0.0388)",
+      "AMZN (0.0355)",
+      "META (0.0235)"
+    ],
+    "lof_anomaly_count": 2
+  },
+  {
+    "anomaly_id": 11,
+    "anomaly_date": "20240919",
+    "iforest_anomaly_count": 2,
+    "top_anomalous_stocks": [
+      "NVDA (0.0388)",
+      "AMZN (0.0355)",
+      "META (0.0235)"
+    ],
+    "lof_anomaly_count": 2
+  },
+  {
+    "anomaly_id": 12,
+    "anomaly_date": "20241104",
+    "iforest_anomaly_count": 2,
+    "top_anomalous_stocks": [
+      "JPM (0.0694)",
+      "BRK-B (0.0381)",
+      "GOOGL (0.0267)"
+    ],
+    "lof_anomaly_count": 2
+  },
+  {
+    "anomaly_id": 17,
+    "anomaly_date": "20250320",
+    "iforest_anomaly_count": 1,
+    "top_anomalous_stocks": [
+      "NVDA (0.0675)",
+      "JPM (0.0309)",
+      "AMZN (0.0256)"
+    ],
+    "lof_anomaly_count": 1
+  },
+  {
+    "anomaly_id": 3,
+    "anomaly_date": "20231127",
+    "iforest_anomaly_count": 2,
+    "top_anomalous_stocks": [
+      "NVDA (0.0185)",
+      "LLY (0.0136)",
+      "META (0.0135)"
+    ],
+    "lof_anomaly_count": 2
+  },
+  {
+    "anomaly_id": 13,
+    "anomaly_date": "20241105",
+    "iforest_anomaly_count": 2,
+    "top_anomalous_stocks": [
+      "JPM (0.0694)",
+      "BRK-B (0.0381)",
+      "GOOGL (0.0267)"
+    ],
+    "lof_anomaly_count": 2
+  },
+  {
+    "anomaly_id": 6,
+    "anomaly_date": "20231214",
+    "iforest_anomaly_count": 2,
+    "top_anomalous_stocks": [
+      "LLY (0.0274)",
+      "AMZN (0.0191)",
+      "MSFT (0.0187)"
+    ],
+    "lof_anomaly_count": 2
+  },
+  {
+    "anomaly_id": 1,
+    "anomaly_date": "20231122",
+    "iforest_anomaly_count": 2,
+    "top_anomalous_stocks": [
+      "NVDA (0.0185)",
+      "LLY (0.0136)",
+      "META (0.0135)"
+    ],
+    "lof_anomaly_count": 2
+  },
+  {
+    "anomaly_id": 16,
+    "anomaly_date": "20241220",
+    "iforest_anomaly_count": 2,
+    "top_anomalous_stocks": [
+      "AMZN (0.0324)",
+      "JPM (0.0287)",
+      "GOOG (0.0266)"
+    ],
+    "lof_anomaly_count": 2
+  },
+  {
+    "anomaly_id": 2,
+    "anomaly_date": "20231124",
+    "iforest_anomaly_count": 2,
+    "top_anomalous_stocks": [
+      "NVDA (0.0185)",
+      "LLY (0.0136)",
+      "META (0.0135)"
+    ],
+    "lof_anomaly_count": 2
+  },
+  {
+    "anomaly_id": 7,
+    "anomaly_date": "20230309",
+    "iforest_anomaly_count": 2,
+    "top_anomalous_stocks": [
+      "META (0.0431)",
+      "JPM (0.0361)",
+      "NVDA (0.0272)"
+    ],
+    "lof_anomaly_count": 2
+  },
+  {
+    "anomaly_id": 9,
+    "anomaly_date": "20240830",
+    "iforest_anomaly_count": 2,
+    "top_anomalous_stocks": [
+      "NVDA (0.0388)",
+      "AMZN (0.0355)",
+      "META (0.0235)"
+    ],
+    "lof_anomaly_count": 2
+  },
+  {
+    "anomaly_id": 5,
+    "anomaly_date": "20231213",
+    "iforest_anomaly_count": 2,
+    "top_anomalous_stocks": [
+      "LLY (0.0274)",
+      "AMZN (0.0191)",
+      "MSFT (0.0187)"
+    ],
+    "lof_anomaly_count": 2
+  },
+  {
+    "anomaly_id": 4,
+    "anomaly_date": "20231212",
+    "iforest_anomaly_count": 2,
+    "top_anomalous_stocks": [
+      "NVDA (0.0185)",
+      "LLY (0.0136)",
+      "META (0.0135)"
+    ],
+    "lof_anomaly_count": 2
+  }
+]

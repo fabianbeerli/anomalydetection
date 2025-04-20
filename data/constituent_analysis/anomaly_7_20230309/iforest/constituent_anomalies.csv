@@ -1,0 +1,3 @@
+window_index,anomaly_score,start_date,end_date,top_anomalous_stocks
+17,2.1885832190005488,2023-03-15,2023-03-17,"META (0.0431), JPM (0.0361), NVDA (0.0272)"
+18,2.033780541864092,2023-03-16,2023-03-20,"META (0.0419), MSFT (0.0332), JPM (0.0308)"

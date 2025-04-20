@@ -152,24 +152,40 @@ def main():
                 logger.info(f"Creating multi-TS subsequences for {len(valid_dfs)} stocks")
                 
                 try:
-                    # Length 5 with step 1 (overlapping)
-                    multi_ts_subseqs = create_multi_ts_subsequences(
-                        valid_dfs,
-                        valid_tickers,
-                        [col for col in feature_columns if col in valid_dfs[0].columns],
-                        subsequence_length=5,
-                        step=1
-                    )
-                    
-                    # Save multi-TS subsequences
+                    # Create multi-TS directory
                     multi_ts_dir = config.PROCESSED_DATA_DIR / 'multi_ts'
                     multi_ts_dir.mkdir(exist_ok=True, parents=True)
                     
-                    save_subsequence_dataset(
-                        multi_ts_subseqs,
-                        multi_ts_dir,
-                        prefix='multi_ts_len5_overlap'
-                    )
+                    # Define the lengths and step options we want to generate
+                    subsequence_configs = [
+                        # (length, step, overlap_label)
+                        (3, 1, 'overlap'),      # Length 3, overlapping
+                        (3, 3, 'nonoverlap'),   # Length 3, non-overlapping
+                        (5, 1, 'overlap'),      # Length 5, overlapping
+                        (5, 5, 'nonoverlap')    # Length 5, non-overlapping
+                    ]
+                    
+                    # Generate all combinations
+                    for length, step, overlap_label in subsequence_configs:
+                        logger.info(f"Creating multi-TS subsequences with length={length}, step={step} ({overlap_label})")
+                        
+                        multi_ts_subseqs = create_multi_ts_subsequences(
+                            valid_dfs,
+                            valid_tickers,
+                            [col for col in feature_columns if col in valid_dfs[0].columns],
+                            subsequence_length=length,
+                            step=step
+                        )
+                        
+                        # Save these subsequences
+                        save_subsequence_dataset(
+                            multi_ts_subseqs,
+                            multi_ts_dir,
+                            prefix=f'multi_ts_len{length}_{overlap_label}'
+                        )
+                        
+                        logger.info(f"Saved {len(multi_ts_subseqs)} multi-TS subsequences with length={length}, {overlap_label}")
+                        
                 except Exception as e:
                     logger.error(f"Error creating multi-TS subsequences: {e}")
             else:

@@ -1,0 +1,3 @@
+window_index,anomaly_score,start_date,end_date,top_anomalous_stocks
+9,-2.366529097932498,2024-10-29,2024-10-31,"MSFT (0.0394), LLY (0.0361), META (0.0337)"
+10,-2.5226203594255066,2024-10-30,2024-11-01,"AMZN (0.0474), MSFT (0.0384), NVDA (0.0336)"

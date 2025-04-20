@@ -1,0 +1,2 @@
+window_index,anomaly_score,start_date,end_date,top_anomalous_stocks
+0,2.1544700452298975,2025-02-28,2025-03-04,"NVDA (0.0675), JPM (0.0309), AMZN (0.0256)"
