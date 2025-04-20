@@ -4,11 +4,11 @@
     "start_date": "2023-02-03T00:00:00",
     "end_date": "2023-02-07T00:00:00",
     "constituent_anomalies": {
-      "AMZN": {
+      "MSFT": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "DGX": {
+      "AMZN": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -20,19 +20,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "DGX": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "BRK-B": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "MSFT": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "GOOGL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "DLR": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -48,11 +44,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "META": {
+      "HAL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "HAL": {
+      "DLR": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "META": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -100,11 +100,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "JPM": {
+      "ATO": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "ATO": {
+      "JPM": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -144,15 +144,23 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "TECH": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "MSFT": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
       "DGX": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "TECH": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "BRK-B": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "GOOGL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -164,11 +172,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "AAPL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "BALL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "HAL": {
+      "NVDA": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -176,19 +188,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "META": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "CCI": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "CAG": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "AAPL": {
+      "CCI": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -208,19 +212,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "VTR": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "BRK-B": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "GOOGL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "MDT": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "VTR": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -232,7 +228,31 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "JPM": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "GOOG": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "BG": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "AZO": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "HAL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "META": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "NWS": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -243,26 +263,6 @@
       "STZ": {
         "anomaly_count": 0,
         "has_anomaly": false
-      },
-      "BG": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "NWS": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "GOOG": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "NVDA": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "JPM": {
-        "anomaly_count": 1,
-        "has_anomaly": true
       }
     },
     "summary": {
@@ -284,19 +284,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "AAPL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "TECH": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
       "BRK-B": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "GOOGL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -308,15 +300,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "BALL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "index_GSPC": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "NVDA": {
+      "AAPL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "BALL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -324,7 +316,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "ALLE": {
+      "GOOGL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "NVDA": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -332,7 +328,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "META": {
+      "LLY": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -340,19 +336,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "LLY": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "AKAM": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "ALGN": {
+      "LDOS": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "LDOS": {
+      "ALGN": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -364,15 +356,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "PWR": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "ORCL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "NWS": {
+      "PWR": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "META": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -380,15 +372,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "JPM": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "NWS": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "GOOG": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "STZ": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "AZO": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -396,7 +388,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "JPM": {
+      "AZO": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "ALLE": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "STZ": {
         "anomaly_count": 1,
         "has_anomaly": true
       }
@@ -412,19 +412,15 @@
     "start_date": "2023-10-27T00:00:00",
     "end_date": "2023-10-31T00:00:00",
     "constituent_anomalies": {
+      "AMZN": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "MSFT": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "DGX": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "AAPL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "AMZN": {
+      "TECH": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -436,11 +432,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "index_GSPC": {
+      "DLR": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "NVDA": {
+      "index_GSPC": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -448,11 +444,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "DLR": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "META": {
+      "NVDA": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -460,19 +452,31 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "META": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "ALLE": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "CCI": {
+      "DGX": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "LDOS": {
+      "AAPL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "LLY": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
       "AKAM": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "LDOS": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -484,31 +488,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "LLY": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "MDT": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "PWR": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "JPM": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "TECH": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "ORCL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "ATO": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "NWS": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -528,11 +516,23 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "MDT": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "CCI": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "CAG": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "NWS": {
+      "JPM": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "ORCL": {
         "anomaly_count": 1,
         "has_anomaly": true
       }
@@ -548,19 +548,7 @@
     "start_date": "2023-10-31T00:00:00",
     "end_date": "2023-11-02T00:00:00",
     "constituent_anomalies": {
-      "AMZN": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "TECH": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "MSFT": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "BRK-B": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -568,11 +556,31 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "DGX": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "BALL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "BRK-B": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "GOOGL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "DGX": {
+      "HAL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "AMZN": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "TECH": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -584,15 +592,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "BALL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "NVDA": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "HAL": {
+      "ALLE": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -600,19 +600,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "ALLE": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "CCI": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "CAG": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "AKAM": {
+      "CCI": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -624,11 +616,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "VTR": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "MDT": {
+      "AKAM": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -636,7 +624,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "NWS": {
+      "VTR": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "MDT": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -648,11 +640,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "PWR": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "ATO": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "STZ": {
+      "NWS": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -660,7 +656,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "BG": {
+      "STZ": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -668,7 +664,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "PWR": {
+      "BG": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "NVDA": {
         "anomaly_count": 1,
         "has_anomaly": true
       }
@@ -688,35 +688,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "MSFT": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "index_GSPC": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "BALL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "DGX": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "AAPL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "TECH": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "BRK-B": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "META": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -724,27 +696,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "ALLE": {
+      "MSFT": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "CCI": {
+      "TECH": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "CAG": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "LDOS": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "DLR": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "AKAM": {
+      "AAPL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -752,15 +712,23 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "VTR": {
+      "ALLE": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "MDT": {
+      "META": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "PWR": {
+      "CCI": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "index_GSPC": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "CAG": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -768,11 +736,51 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "AKAM": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "BRK-B": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "DLR": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "ALGN": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "LDOS": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "PWR": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "ORCL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "MDT": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "NWS": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "NVDA": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "BALL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "GOOG": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -784,7 +792,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "NWS": {
+      "STZ": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "VTR": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -792,19 +804,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "NVDA": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "STZ": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "AZO": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "GOOG": {
         "anomaly_count": 1,
         "has_anomaly": true
       }
@@ -824,11 +824,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "MSFT": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "DGX": {
+      "GOOGL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -840,11 +836,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "META": {
+      "BRK-B": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "index_GSPC": {
+      "MSFT": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "DGX": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -852,35 +852,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "ALLE": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "CCI": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "TECH": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "CAG": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "GOOGL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "BRK-B": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "LDOS": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "AKAM": {
+      "ALLE": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -888,15 +864,19 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "ALGN": {
+      "META": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "VTR": {
+      "CCI": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "MDT": {
+      "AKAM": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "LDOS": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -904,7 +884,35 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "JPM": {
+      "DLR": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "ALGN": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "index_GSPC": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "MDT": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "VTR": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "BALL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "CAG": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "PWR": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -912,7 +920,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "PWR": {
+      "NWS": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -924,23 +932,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "AZO": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "BG": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "NWS": {
+      "JPM": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "DLR": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "BALL": {
+      "AZO": {
         "anomaly_count": 1,
         "has_anomaly": true
       }
@@ -960,23 +960,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "DGX": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "AAPL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "TECH": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "BRK-B": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "GOOGL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -988,15 +972,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "DGX": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "BALL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "MSFT": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "HAL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1004,7 +984,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "CCI": {
+      "AAPL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "BRK-B": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "HAL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1012,11 +1000,19 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "CAG": {
+      "NVDA": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "LDOS": {
+      "MSFT": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "LLY": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "GOOGL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1024,7 +1020,23 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "VTR": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "LDOS": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "ORCL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "CAG": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "MDT": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1036,39 +1048,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "NVDA": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "ATO": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "AZO": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "AKAM": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "MDT": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "BG": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "LLY": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "NWS": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "VTR": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1076,7 +1056,27 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "NWS": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "GOOG": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "AZO": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "BG": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "CCI": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "AKAM": {
         "anomaly_count": 1,
         "has_anomaly": true
       }
@@ -1096,11 +1096,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "TECH": {
+      "MSFT": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "BRK-B": {
+      "TECH": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1108,23 +1108,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "DLR": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "DGX": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "MSFT": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "NVDA": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "BALL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1132,7 +1116,19 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "AAPL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "BALL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "HAL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "NVDA": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1141,6 +1137,18 @@
         "has_anomaly": true
       },
       "CCI": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "ALLE": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "BRK-B": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "CAG": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1156,15 +1164,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "VTR": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "ALGN": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "ALLE": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1172,11 +1172,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "PWR": {
+      "DLR": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "ORCL": {
+      "PWR": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1188,11 +1188,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "GOOG": {
+      "NWS": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "NWS": {
+      "GOOG": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1208,11 +1208,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "CAG": {
+      "VTR": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "AAPL": {
+      "ORCL": {
         "anomaly_count": 1,
         "has_anomaly": true
       }
@@ -1236,31 +1236,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "TECH": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "BRK-B": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "AAPL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "GOOGL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "DGX": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "DLR": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "BALL": {
+      "index_GSPC": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1276,19 +1256,19 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "CAG": {
+      "TECH": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "index_GSPC": {
+      "META": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "LLY": {
+      "AAPL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "AKAM": {
+      "CCI": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1300,6 +1280,14 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "LLY": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "AKAM": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "MDT": {
         "anomaly_count": 1,
         "has_anomaly": true
@@ -1308,11 +1296,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "ORCL": {
+      "VTR": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "JPM": {
+      "CAG": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "GOOGL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1320,11 +1312,27 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "NWS": {
+      "JPM": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "GOOG": {
+      "ORCL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "BRK-B": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "BALL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "STZ": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "NWS": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1336,19 +1344,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "STZ": {
+      "GOOG": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "VTR": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "META": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "CCI": {
+      "DLR": {
         "anomaly_count": 1,
         "has_anomaly": true
       }
@@ -1368,7 +1368,19 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "GOOGL": {
+      "DGX": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "index_GSPC": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "AAPL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "MSFT": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1380,11 +1392,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "MSFT": {
+      "GOOGL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "HAL": {
+      "NVDA": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "ALLE": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1392,7 +1408,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "ALLE": {
+      "LLY": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "LDOS": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1404,11 +1424,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "NVDA": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "LLY": {
+      "TECH": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1416,15 +1432,19 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "VTR": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "ALGN": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "LDOS": {
+      "JPM": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "VTR": {
+      "MDT": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1436,39 +1456,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "MDT": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "TECH": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "BG": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "NWS": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "JPM": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "AAPL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "BRK-B": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "DGX": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "index_GSPC": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1476,11 +1464,23 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "STZ": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "BG": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "AZO": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "STZ": {
+      "NWS": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "HAL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1504,11 +1504,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "BRK-B": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "TECH": {
+      "AAPL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1516,23 +1512,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "AAPL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "DGX": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "GOOGL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "HAL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "BALL": {
+      "DLR": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1540,7 +1524,19 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "META": {
+      "DGX": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "BALL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "NVDA": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "HAL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1556,23 +1552,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "AKAM": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "LDOS": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "LLY": {
+      "AKAM": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "DLR": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "MDT": {
+      "ALGN": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1584,15 +1572,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "JPM": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "ORCL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "NWS": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1600,7 +1580,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "NWS": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "GOOG": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "MDT": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1616,11 +1604,23 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "ALGN": {
+      "META": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "NVDA": {
+      "TECH": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "BRK-B": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "LLY": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "JPM": {
         "anomaly_count": 1,
         "has_anomaly": true
       }
@@ -1648,27 +1648,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "AAPL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "TECH": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "BRK-B": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "GOOGL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "DLR": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "index_GSPC": {
+      "AAPL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1676,7 +1660,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "NVDA": {
+      "BRK-B": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1684,11 +1668,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "META": {
+      "TECH": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "ALLE": {
+      "META": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1696,7 +1680,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "CAG": {
+      "ALLE": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1704,43 +1688,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "CAG": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "AKAM": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "LDOS": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "VTR": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "MDT": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "PWR": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "ORCL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "JPM": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "ATO": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "NWS": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "GOOG": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1748,7 +1700,47 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "BG": {
+      "VTR": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "ORCL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "PWR": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "MDT": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "ATO": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "GOOGL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "GOOG": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "JPM": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "NWS": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "index_GSPC": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "STZ": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1756,7 +1748,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "STZ": {
+      "BG": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "LDOS": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "NVDA": {
         "anomaly_count": 1,
         "has_anomaly": true
       }
@@ -1776,11 +1776,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "MSFT": {
+      "GOOGL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
       "AAPL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "index_GSPC": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1792,19 +1796,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "BRK-B": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "GOOGL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "index_GSPC": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "BALL": {
+      "MSFT": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1812,11 +1804,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "NVDA": {
+      "BRK-B": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "META": {
+      "HAL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1824,7 +1816,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "CAG": {
+      "META": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "CCI": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1832,7 +1828,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "LDOS": {
+      "CAG": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1844,43 +1840,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "LDOS": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "MDT": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "PWR": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "ORCL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "ATO": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "CCI": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "JPM": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "GOOG": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "STZ": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "HAL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "BG": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1888,11 +1852,47 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "AZO": {
+      "PWR": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "ATO": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "ORCL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "JPM": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
       "NWS": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "GOOG": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "AZO": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "BG": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "STZ": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "NVDA": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "BALL": {
         "anomaly_count": 1,
         "has_anomaly": true
       }
@@ -1912,7 +1912,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "AAPL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "TECH": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "MSFT": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1924,19 +1932,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "MSFT": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "DGX": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "AAPL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "HAL": {
+      "DLR": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1952,11 +1952,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "DLR": {
+      "ALLE": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
       "CCI": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "index_GSPC": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1968,6 +1972,10 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "LDOS": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "AKAM": {
         "anomaly_count": 1,
         "has_anomaly": true
@@ -1976,15 +1984,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "ALLE": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "VTR": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "index_GSPC": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -1996,15 +1996,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "GOOG": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "JPM": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "BG": {
+      "ORCL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2012,11 +2008,19 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "BG": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "STZ": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "AZO": {
+      "GOOG": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "HAL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2024,11 +2028,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "LDOS": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "ORCL": {
+      "AZO": {
         "anomaly_count": 1,
         "has_anomaly": true
       }
@@ -2052,15 +2052,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "AAPL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "DGX": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "GOOGL": {
+      "AAPL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "TECH": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2068,7 +2068,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "GOOGL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "DLR": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "index_GSPC": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2080,11 +2088,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "META": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "index_GSPC": {
+      "HAL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2092,11 +2096,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "LLY": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "AKAM": {
+      "CCI": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2104,11 +2104,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "AKAM": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "LDOS": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "CCI": {
+      "ALGN": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2117,6 +2121,10 @@
         "has_anomaly": true
       },
       "MDT": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "PWR": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2132,31 +2140,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "BG": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "STZ": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "AZO": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "TECH": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "HAL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "ALGN": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "PWR": {
+      "NWS": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2164,7 +2148,23 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "NWS": {
+      "STZ": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "BG": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "META": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "AZO": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "LLY": {
         "anomaly_count": 1,
         "has_anomaly": true
       }
@@ -2184,15 +2184,11 @@
         "anomaly_count": 0,
         "has_anomaly": false
       },
-      "TECH": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "MSFT": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "DGX": {
+      "TECH": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2200,7 +2196,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "BRK-B": {
+      "DGX": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2208,15 +2204,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "DLR": {
+      "BALL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "GOOGL": {
+      "BRK-B": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "META": {
+      "NVDA": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2224,11 +2220,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "META": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "ALLE": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "CCI": {
+      "GOOGL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2236,15 +2236,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "AKAM": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "LLY": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "LDOS": {
+      "AKAM": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2260,15 +2256,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "ATO": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "MDT": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "NWS": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "BALL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2276,11 +2268,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "ATO": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "GOOG": {
+      "LDOS": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2288,7 +2276,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "AZO": {
+      "NWS": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "GOOG": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2296,11 +2288,19 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "AZO": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "BG": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "NVDA": {
+      "DLR": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "CCI": {
         "anomaly_count": 1,
         "has_anomaly": true
       }
@@ -2320,35 +2320,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "MSFT": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "DGX": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "index_GSPC": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "AAPL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "DLR": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "TECH": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "GOOGL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "HAL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2356,43 +2328,19 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "ALLE": {
+      "MSFT": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "META": {
+      "DLR": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "CAG": {
+      "GOOGL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "CCI": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "LLY": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "AKAM": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "LDOS": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "VTR": {
-        "anomaly_count": 0,
-        "has_anomaly": false
-      },
-      "ALGN": {
-        "anomaly_count": 0,
-        "has_anomaly": false
-      },
-      "MDT": {
+      "index_GSPC": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2400,19 +2348,59 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "ATO": {
+      "NVDA": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "NWS": {
+      "HAL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "STZ": {
+      "DGX": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "BG": {
+      "META": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "ALLE": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "LLY": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "CCI": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "AAPL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "CAG": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "ALGN": {
+        "anomaly_count": 0,
+        "has_anomaly": false
+      },
+      "LDOS": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "AKAM": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "VTR": {
+        "anomaly_count": 0,
+        "has_anomaly": false
+      },
+      "JPM": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2424,7 +2412,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "JPM": {
+      "ATO": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "NWS": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "BG": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2432,11 +2428,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "STZ": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "AZO": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "NVDA": {
+      "MDT": {
         "anomaly_count": 1,
         "has_anomaly": true
       }
@@ -2456,15 +2456,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "TECH": {
-        "anomaly_count": 0,
-        "has_anomaly": false
-      },
-      "MSFT": {
+      "AAPL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "DGX": {
+      "MSFT": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2472,19 +2468,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "BRK-B": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "GOOGL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "BALL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "AAPL": {
+      "DGX": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2492,19 +2480,19 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "META": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "CCI": {
-        "anomaly_count": 1,
-        "has_anomaly": true
+      "TECH": {
+        "anomaly_count": 0,
+        "has_anomaly": false
       },
       "HAL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "CAG": {
+      "BRK-B": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "index_GSPC": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2512,17 +2500,21 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "LLY": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "CCI": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "CAG": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "AKAM": {
         "anomaly_count": 0,
         "has_anomaly": false
-      },
-      "LDOS": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "ALGN": {
-        "anomaly_count": 1,
-        "has_anomaly": true
       },
       "MDT": {
         "anomaly_count": 1,
@@ -2532,7 +2524,19 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "LLY": {
+      "ALGN": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "LDOS": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "GOOGL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "ORCL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2540,7 +2544,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "ORCL": {
+      "NWS": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2552,11 +2556,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "GOOG": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "STZ": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "NWS": {
+      "META": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2564,15 +2572,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "GOOG": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "AZO": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "index_GSPC": {
         "anomaly_count": 1,
         "has_anomaly": true
       }
@@ -2592,15 +2592,19 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "GOOGL": {
+      "AAPL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "DLR": {
+      "MSFT": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "index_GSPC": {
+      "TECH": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "DGX": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2608,7 +2612,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "NVDA": {
+      "BRK-B": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "GOOGL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2624,15 +2632,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "NVDA": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "CCI": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "CAG": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "LLY": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "AKAM": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2640,11 +2648,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "MSFT": {
+      "AKAM": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "AAPL": {
+      "LLY": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2656,19 +2664,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "PWR": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "MDT": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "BRK-B": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "DGX": {
+      "PWR": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2680,15 +2680,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "TECH": {
+      "ATO": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "GOOG": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "NWS": {
+      "DLR": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2696,19 +2692,23 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "BG": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "AZO": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "ATO": {
+      "NWS": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "CCI": {
+      "index_GSPC": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "BG": {
+      "GOOG": {
         "anomaly_count": 1,
         "has_anomaly": true
       }
@@ -2728,6 +2728,10 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "MSFT": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "DGX": {
         "anomaly_count": 1,
         "has_anomaly": true
@@ -2776,6 +2780,10 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "CAG": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "AAPL": {
         "anomaly_count": 1,
         "has_anomaly": true
@@ -2784,43 +2792,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "MSFT": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "LDOS": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "MDT": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "VTR": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "ALGN": {
-        "anomaly_count": 0,
-        "has_anomaly": false
-      },
-      "JPM": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "PWR": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "ORCL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "NWS": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "GOOG": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2828,11 +2800,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "CAG": {
+      "LLY": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "LLY": {
+      "ORCL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "GOOG": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2840,13 +2816,37 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "BG": {
+      "NWS": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
       "AZO": {
         "anomaly_count": 0,
         "has_anomaly": false
+      },
+      "BG": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "ALGN": {
+        "anomaly_count": 0,
+        "has_anomaly": false
+      },
+      "VTR": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "MDT": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "PWR": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "JPM": {
+        "anomaly_count": 1,
+        "has_anomaly": true
       }
     },
     "summary": {
@@ -2864,11 +2864,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "DGX": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "MSFT": {
+      "GOOGL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2876,15 +2872,23 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "GOOGL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "DLR": {
+      "AAPL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
       "BRK-B": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "MSFT": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "DGX": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "BALL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2896,19 +2900,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "BALL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "META": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "ALLE": {
+      "CCI": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "CCI": {
+      "ALLE": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2917,6 +2917,10 @@
         "has_anomaly": true
       },
       "CAG": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "HAL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2932,7 +2936,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "AAPL": {
+      "MDT": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2940,15 +2944,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "MDT": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "JPM": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "NWS": {
+      "PWR": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2956,7 +2952,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "GOOG": {
+      "JPM": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "DLR": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2964,7 +2964,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "HAL": {
+      "NWS": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "GOOG": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -2977,10 +2981,6 @@
         "has_anomaly": true
       },
       "ATO": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "PWR": {
         "anomaly_count": 1,
         "has_anomaly": true
       }
@@ -3000,15 +3000,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "AAPL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "TECH": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "BRK-B": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "AAPL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3016,19 +3012,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "DGX": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "GOOGL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "DLR": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "BALL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "index_GSPC": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3036,11 +3024,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "HAL": {
+      "ALLE": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "ALLE": {
+      "TECH": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "CCI": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3048,11 +3040,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "DGX": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "CCI": {
+      "CAG": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3064,11 +3052,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "CAG": {
+      "index_GSPC": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "ALGN": {
+      "DLR": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3076,7 +3064,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "ORCL": {
+      "ALGN": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "LDOS": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3084,7 +3076,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "LDOS": {
+      "PWR": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "ORCL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "STZ": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3100,7 +3100,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "STZ": {
+      "BALL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "JPM": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3112,11 +3116,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "PWR": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "JPM": {
+      "HAL": {
         "anomaly_count": 1,
         "has_anomaly": true
       }
@@ -3136,15 +3136,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "AAPL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "MSFT": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "DLR": {
+      "AAPL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3152,7 +3148,23 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "DGX": {
+      "BRK-B": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "DLR": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "index_GSPC": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "BALL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "NVDA": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3176,15 +3188,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "BRK-B": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "LLY": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "GOOGL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3200,11 +3204,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "BALL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "MDT": {
+      "DGX": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3212,11 +3212,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "ATO": {
+      "MDT": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "PWR": {
+      "ORCL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3224,7 +3224,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "ORCL": {
+      "NWS": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "GOOGL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3236,23 +3240,19 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "BG": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "NWS": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "AZO": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "index_GSPC": {
+      "BG": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "NVDA": {
+      "ATO": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "PWR": {
         "anomaly_count": 1,
         "has_anomaly": true
       }
@@ -3272,27 +3272,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "DLR": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "DGX": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "BRK-B": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "HAL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "MSFT": {
-        "anomaly_count": 0,
-        "has_anomaly": false
-      },
-      "BALL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3300,43 +3280,63 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "NVDA": {
+      "TECH": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "index_GSPC": {
+      "BRK-B": {
         "anomaly_count": 1,
         "has_anomaly": true
+      },
+      "MSFT": {
+        "anomaly_count": 0,
+        "has_anomaly": false
       },
       "GOOGL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "ALLE": {
+      "DLR": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "BALL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "NVDA": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "HAL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "META": {
         "anomaly_count": 0,
         "has_anomaly": false
       },
-      "TECH": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "CCI": {
-        "anomaly_count": 1,
-        "has_anomaly": true
+      "ALLE": {
+        "anomaly_count": 0,
+        "has_anomaly": false
       },
       "CAG": {
         "anomaly_count": 0,
         "has_anomaly": false
       },
-      "AKAM": {
+      "CCI": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "ALGN": {
+      "LDOS": {
+        "anomaly_count": 0,
+        "has_anomaly": false
+      },
+      "index_GSPC": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "LLY": {
+      "VTR": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3348,11 +3348,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "JPM": {
+      "ORCL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "NWS": {
+      "JPM": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3360,11 +3360,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "ORCL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "GOOG": {
+      "NWS": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3372,7 +3368,19 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "GOOG": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "BG": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "LLY": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "AKAM": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3380,17 +3388,9 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "VTR": {
+      "ALGN": {
         "anomaly_count": 1,
         "has_anomaly": true
-      },
-      "META": {
-        "anomaly_count": 0,
-        "has_anomaly": false
-      },
-      "LDOS": {
-        "anomaly_count": 0,
-        "has_anomaly": false
       }
     },
     "summary": {
@@ -3408,11 +3408,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "TECH": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "DGX": {
+      "MSFT": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3420,11 +3416,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "MSFT": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "DLR": {
+      "BRK-B": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3432,7 +3424,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "BRK-B": {
+      "DLR": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3440,15 +3432,15 @@
         "anomaly_count": 0,
         "has_anomaly": false
       },
-      "NVDA": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "BALL": {
         "anomaly_count": 0,
         "has_anomaly": false
       },
-      "META": {
+      "NVDA": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "DGX": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3456,7 +3448,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "CAG": {
+      "ALLE": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3464,7 +3456,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "ALLE": {
+      "CAG": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "META": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3476,6 +3472,10 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "TECH": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "LDOS": {
         "anomaly_count": 1,
         "has_anomaly": true
@@ -3484,19 +3484,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "ALGN": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "VTR": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "ATO": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "JPM": {
+      "PWR": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3504,7 +3492,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "PWR": {
+      "ALGN": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "JPM": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "VTR": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3512,11 +3508,15 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "GOOG": {
+      "STZ": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "STZ": {
+      "BG": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "GOOG": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3524,7 +3524,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "BG": {
+      "ATO": {
         "anomaly_count": 1,
         "has_anomaly": true
       }
@@ -3544,15 +3544,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "BRK-B": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "MSFT": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "GOOGL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3560,15 +3552,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "TECH": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "DLR": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "index_GSPC": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "NVDA": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3576,7 +3564,19 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "BALL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "NVDA": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "HAL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "BRK-B": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3584,19 +3584,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "LLY": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "AKAM": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "ALLE": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "LDOS": {
+      "CAG": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3604,19 +3596,27 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "ALGN": {
+      "LLY": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "TECH": {
+      "GOOGL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "VTR": {
+      "AKAM": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "LDOS": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
       "MDT": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "ALGN": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3625,6 +3625,10 @@
         "has_anomaly": true
       },
       "PWR": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "JPM": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3640,11 +3644,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "JPM": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "CAG": {
+      "BG": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3656,11 +3656,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "BALL": {
+      "index_GSPC": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "BG": {
+      "VTR": {
         "anomaly_count": 1,
         "has_anomaly": true
       }
@@ -3680,10 +3680,6 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "MSFT": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "DGX": {
         "anomaly_count": 1,
         "has_anomaly": true
@@ -3700,10 +3696,6 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "GOOGL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
       "DLR": {
         "anomaly_count": 1,
         "has_anomaly": true
@@ -3712,19 +3704,19 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "MSFT": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "BALL": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "NVDA": {
+      "META": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
       "HAL": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "META": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3744,7 +3736,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "AKAM": {
+      "GOOGL": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "NVDA": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3752,11 +3748,23 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
+      "VTR": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "AKAM": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "MDT": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
       "ALGN": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "VTR": {
+      "ATO": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3768,7 +3776,11 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "GOOG": {
+      "JPM": {
+        "anomaly_count": 1,
+        "has_anomaly": true
+      },
+      "NWS": {
         "anomaly_count": 1,
         "has_anomaly": true
       },
@@ -3784,19 +3796,7 @@
         "anomaly_count": 1,
         "has_anomaly": true
       },
-      "NWS": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "JPM": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "ATO": {
-        "anomaly_count": 1,
-        "has_anomaly": true
-      },
-      "MDT": {
+      "GOOG": {
         "anomaly_count": 1,
         "has_anomaly": true
       }

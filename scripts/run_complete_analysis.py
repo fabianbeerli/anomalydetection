@@ -199,7 +199,10 @@ def load_execution_times(results_bases, window_size, overlap, algorithms):
     try:
         # Load S&P 500 subsequence times
         for algorithm in algorithms:
-            time_file = Path(results_bases['subsequence']) / algorithm / config_str / f"{algorithm}_execution_time.txt"
+            if algorithm == "aida":
+                time_file = Path(results_bases['subsequence']) / algorithm / config_str / "subsequence_features.csv_AIDA_time.txt"
+            else:
+                time_file = Path(results_bases['subsequence']) / algorithm / config_str / f"{algorithm}_execution_time.txt"
             
             if time_file.exists():
                 with open(time_file, 'r') as f:
@@ -207,10 +210,14 @@ def load_execution_times(results_bases, window_size, overlap, algorithms):
             else:
                 logger.warning(f"No execution time file found for {algorithm} subsequence analysis")
                 execution_times[algorithm]['subsequence'] = None
+
         
         # Load matrix times
         for algorithm in algorithms:
-            time_file = Path(results_bases['matrix']) / algorithm / config_str / f"{algorithm}_execution_time.txt"
+            if algorithm == "aida":
+                time_file = Path(results_bases['matrix']) / algorithm / config_str / "matrix_features.csv_AIDA_time.txt"
+            else:
+                time_file = Path(results_bases['matrix']) / algorithm / config_str / f"{algorithm}_execution_time.txt"
             
             if time_file.exists():
                 with open(time_file, 'r') as f:
@@ -218,6 +225,7 @@ def load_execution_times(results_bases, window_size, overlap, algorithms):
             else:
                 logger.warning(f"No execution time file found for {algorithm} matrix analysis")
                 execution_times[algorithm]['matrix'] = None
+
         
         # Load constituent times
         for algorithm in algorithms:

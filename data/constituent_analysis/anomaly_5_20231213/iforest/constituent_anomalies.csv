@@ -1,3 +1,0 @@
-window_index,anomaly_score,start_date,end_date,top_anomalous_stocks
-14,1.718734883107491,2023-12-14,2023-12-18,"LLY (0.0274), AMZN (0.0191), MSFT (0.0187)"
-16,1.8001004047292295,2023-12-18,2023-12-20,"NVDA (0.0274), AMZN (0.0200), META (0.0162)"
