@@ -1,0 +1,36 @@
+AIDA Index-Constituent Anomaly Analysis
+==================================================
+
+Total anomalies analyzed: 4
+Results summary:
+  Unknown: 2 anomalies
+  Widespread: 2 anomalies
+
+Anomaly 1: 2024-06-20
+  Type: Unknown
+  Index Score: 2.7461
+  Affected Constituents: 14 (46.7%)
+  Top Constituents Affected: 5/10 (50.0%)
+  Affected Constituents: AAPL, ALLE, GOOG, NWS, VTR, AKAM, HAL, BRK-B, GOOGL, MDT, AZO, BALL, BG, JPM
+
+Anomaly 2: 2024-11-05
+  Type: Unknown
+  Index Score: 2.6266
+  Affected Constituents: 10 (33.3%)
+  Top Constituents Affected: 3/10 (30.0%)
+  Affected Constituents: ALLE, DLR, LLY, AKAM, HAL, BRK-B, BG, PWR, LDOS, JPM
+
+Anomaly 3: 2024-12-23
+  Type: Widespread
+  Index Score: 2.5159
+  Affected Constituents: 24 (80.0%)
+  Top Constituents Affected: 10/10 (100.0%)
+  Affected Constituents: AMZN, AAPL, ALLE, GOOG, CAG, DLR, VTR, LLY, HAL, BRK-B, DGX, GOOGL, MSFT, META, AZO, BALL, NVDA, BG, LDOS, ATO, TECH, JPM, CCI, STZ
+
+Anomaly 4: 2023-12-13
+  Type: Widespread
+  Index Score: 2.9456
+  Affected Constituents: 18 (60.0%)
+  Top Constituents Affected: 6/10 (60.0%)
+  Affected Constituents: AMZN, AAPL, ALLE, GOOG, NWS, DLR, BRK-B, DGX, MSFT, ALGN, ORCL, MDT, AZO, BALL, ATO, TECH, JPM, CCI
+

@@ -57,7 +57,7 @@ def load_index_anomalies(results_dir, algorithms=None):
     
     for algo in algorithms:
         try:
-            algo_dir = results_dir / algo
+            algo_dir = results_dir / algo / "w3_nonoverlap"
             
             if not algo_dir.exists() or not algo_dir.is_dir():
                 logger.warning(f"No directory found for {algo} at {algo_dir}")
@@ -68,6 +68,7 @@ def load_index_anomalies(results_dir, algorithms=None):
             
             if not anomalies_files:
                 logger.warning(f"No anomalies file found for {algo}")
+                logger.warning(algo_dir)
                 continue
                 
             # Load the first anomalies file found
@@ -188,7 +189,7 @@ def get_ticker_sector_info(tickers):
 
 
 def analyze_index_constituent_relationship(index_anomalies, constituent_anomalies, sector_info, 
-                                          window_days=5, output_dir=None, algorithms=None):
+                                          window_days=3, output_dir=None, algorithms=None):
     """
     Analyze the relationship between index anomalies and constituent anomalies.
     
@@ -779,7 +780,7 @@ def main():
     parser.add_argument(
         "--window-days", 
         type=int, 
-        default=5,
+        default=3,
         help="Number of days to look around each index anomaly"
     )
     parser.add_argument(

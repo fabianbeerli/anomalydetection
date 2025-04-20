@@ -52,7 +52,7 @@ def main():
     parser.add_argument(
         "--window-days", 
         type=int, 
-        default=5,
+        default=3,
         help="Number of days to look around each index anomaly"
     )
     parser.add_argument(
@@ -72,7 +72,7 @@ def main():
     # Call the constituent analysis script
     cmd = [
         sys.executable,
-        str(Path(__file__).resolve().parent / "analyze_constituent_anomalies.py"),
+        str(Path(__file__).resolve().parent / "analyze_constituent_relationships.py"),
         "--index-results", args.index_results,
         "--constituent-results", args.constituent_results,
         "--output", args.output,

@@ -11,7 +11,7 @@ cd /d "%~dp0"
 set INDEX_RESULTS=..\data\subsequence_results
 set CONSTITUENT_RESULTS=..\data\constituent_results
 set OUTPUT_DIR=..\data\constituent_analysis
-set WINDOW_DAYS=5
+set WINDOW_DAYS=3
 set ALGORITHMS=all
 
 :: Parse command line arguments

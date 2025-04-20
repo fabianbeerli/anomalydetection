@@ -1,0 +1,5 @@
+index_anomaly_date,index_anomaly_score,num_affected,percentage_affected,is_sector_specific,dominant_sector,num_top_affected,pct_top_affected,anomaly_type,affected_constituents,sector_Communication_Services,sector_Technology,sector_Financial_Services,sector_Consumer_Cyclical,sector_Industrials,sector_Real_Estate,sector_Energy,sector_Healthcare,sector_Consumer_Defensive,sector_Utilities
+2024-06-20,2.74611,14,46.666666666666664,False,,5,50.0,Unknown,"AAPL,ALLE,GOOG,NWS,VTR,AKAM,HAL,BRK-B,GOOGL,MDT,AZO,BALL,BG,JPM",3.0,2,2,2.0,1,1,1.0,1,1.0,
+2024-11-05,2.6266,10,33.33333333333333,False,,3,30.0,Unknown,"ALLE,DLR,LLY,AKAM,HAL,BRK-B,BG,PWR,LDOS,JPM",,2,2,,2,1,1.0,1,1.0,
+2024-12-23,2.51586,24,80.0,False,,10,100.0,Widespread,"AMZN,AAPL,ALLE,GOOG,CAG,DLR,VTR,LLY,HAL,BRK-B,DGX,GOOGL,MSFT,META,AZO,BALL,NVDA,BG,LDOS,ATO,TECH,JPM,CCI,STZ",3.0,4,2,3.0,1,3,1.0,3,3.0,1.0
+2023-12-13,2.94562,18,60.0,False,,6,60.0,Widespread,"AMZN,AAPL,ALLE,GOOG,NWS,DLR,BRK-B,DGX,MSFT,ALGN,ORCL,MDT,AZO,BALL,ATO,TECH,JPM,CCI",2.0,3,2,3.0,1,2,,4,,1.0

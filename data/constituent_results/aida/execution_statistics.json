@@ -1,0 +1,11 @@
+{
+  "total_tickers": 30,
+  "successful_tickers": 30,
+  "failed_tickers": 0,
+  "total_anomalies": 893,
+  "mean_execution_time": 0.15233333333333332,
+  "median_execution_time": 0.151,
+  "min_execution_time": 0.142,
+  "max_execution_time": 0.167,
+  "total_execution_time": 4.5699999999999985
+}

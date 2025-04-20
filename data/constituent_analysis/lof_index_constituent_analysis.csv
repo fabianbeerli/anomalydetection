@@ -1,0 +1,11 @@
+index_anomaly_date,index_anomaly_score,num_affected,percentage_affected,is_sector_specific,dominant_sector,num_top_affected,pct_top_affected,anomaly_type,affected_constituents
+2024-06-20,3.9220892607421542,0,0,False,,0,0.0,Index-only,
+2024-09-19,3.762104912757792,0,0,False,,0,0.0,Index-only,
+2024-11-05,3.0465258443224097,0,0,False,,0,0.0,Index-only,
+2024-12-23,2.508495624650693,0,0,False,,0,0.0,Index-only,
+2025-02-26,2.783532523416648,0,0,False,,0,0.0,Index-only,
+2023-04-24,2.5082837468564505,0,0,False,,0,0.0,Index-only,
+2023-08-23,1.9278744115056392,0,0,False,,0,0.0,Index-only,
+2023-09-14,2.836402822819184,0,0,False,,0,0.0,Index-only,
+2023-10-31,1.9710877373188531,0,0,False,,0,0.0,Index-only,
+2023-12-13,2.190119545236227,0,0,False,,0,0.0,Index-only,

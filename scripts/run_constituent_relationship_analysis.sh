@@ -11,7 +11,7 @@ cd "$SCRIPT_DIR"
 INDEX_RESULTS="../data/subsequence_results"
 CONSTITUENT_RESULTS="../data/constituent_results"
 OUTPUT_DIR="../data/constituent_analysis"
-WINDOW_DAYS=5
+WINDOW_DAYS=3
 ALGORITHMS="all"
 
 # Parse command line arguments

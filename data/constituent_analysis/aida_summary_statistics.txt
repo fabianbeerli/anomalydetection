@@ -1,0 +1,21 @@
+AIDA Summary Statistics
+=========================
+
+Total index anomalies: 4
+
+Anomaly Type Distribution:
+  Unknown: 2 (50.0%)
+  Widespread: 2 (50.0%)
+
+Constituent Impact Statistics:
+  Average constituents affected: 16.50
+  Median constituents affected: 16.00
+  Max constituents affected: 24
+  Min constituents affected: 10
+
+Sector-specific anomalies: 0 (0.0%)
+
+Top Constituent Impact Statistics:
+  Average top constituents affected: 6.00
+  Median top constituents affected: 5.50
+  Max top constituents affected: 10
