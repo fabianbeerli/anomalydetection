@@ -36,6 +36,24 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
+# Custom JSON encoder to handle datetime and pandas Timestamp objects
+class DateTimeEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, (datetime, pd.Timestamp)):
+            return obj.isoformat()
+        # Add handling for numpy integer types
+        elif isinstance(obj, np.integer):
+            return int(obj)
+        elif isinstance(obj, np.floating):
+            return float(obj)
+        elif isinstance(obj, np.ndarray):
+            return obj.tolist()
+        # Add handling for numpy boolean type
+        elif isinstance(obj, np.bool_):
+            return bool(obj)
+        return super(DateTimeEncoder, self).default(obj)
+
+
 def load_sp500_anomalies(results_dir, algorithm, window_size, overlap):
     """
     Load anomalies detected in the S&P 500 index.
@@ -312,20 +330,24 @@ def run_constituent_analysis(sp500_anomalies, constituent_data, window_size, alg
                        f"{anomalous_constituents}/{total_constituents} constituents have anomalies "
                        f"({anomaly_result['summary']['anomaly_percentage']:.1f}%)")
         
-        # Save results
+        # Save results - using the custom JSONEncoder to handle datetime objects
         results_file = output_dir / f"{algorithm}_constituent_analysis.json"
         with open(results_file, 'w') as f:
-            json.dump(results, f, indent=2)
+            json.dump(results, f, cls=DateTimeEncoder, indent=2)
         
         logger.info(f"Saved constituent analysis results to {results_file}")
         
         # Also save a CSV summary
         summary_data = []
         for result in results:
+            # Convert Timestamp objects to strings for the summary DataFrame
+            start_date_str = result['start_date'].isoformat() if isinstance(result['start_date'], pd.Timestamp) else result['start_date']
+            end_date_str = result['end_date'].isoformat() if isinstance(result['end_date'], pd.Timestamp) else result['end_date']
+            
             row = {
                 'sp500_anomaly_index': result['sp500_anomaly_index'],
-                'start_date': result['start_date'],
-                'end_date': result['end_date'],
+                'start_date': start_date_str,
+                'end_date': end_date_str,
                 'total_constituents': result['summary']['total_constituents'],
                 'anomalous_constituents': result['summary']['anomalous_constituents'],
                 'anomaly_percentage': result['summary']['anomaly_percentage']
@@ -405,7 +427,11 @@ def create_visualizations(results, output_dir, algorithm):
         
         # 3. Timeline of S&P 500 anomalies with constituent anomaly percentages
         if results:
-            # Sort results by date
+            # Sort results by date - ensure we're working with datetime objects for sorting
+            for result in results:
+                if isinstance(result['start_date'], str):
+                    result['start_date'] = pd.to_datetime(result['start_date'])
+            
             sorted_results = sorted(results, key=lambda x: x['start_date'])
             
             dates = [result['start_date'] for result in sorted_results]
