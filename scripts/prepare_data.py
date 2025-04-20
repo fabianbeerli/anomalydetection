@@ -56,7 +56,6 @@ def main():
         sp500_df = load_ticker_data(processed_data['sp500_processed'])
         
         if sp500_df is not None:
-            # Define feature columns for subsequences
             feature_columns = [
                 'daily_return', 
                 'volume_change', 
@@ -65,110 +64,143 @@ def main():
                 'volume_change_zscore'
             ]
             
-            # Check if the required features exist
             available_features = [col for col in feature_columns if col in sp500_df.columns]
             
             if not available_features:
                 logger.warning(f"No required features found in S&P 500 data. Available columns: {sp500_df.columns.tolist()}")
             else:
-                # Filter to include only selected features
                 sp500_features = sp500_df[available_features]
                 
-                # Create subsequences with different lengths
                 for length in [3, 5, 10]:
                     logger.info(f"Creating subsequences of length {length} for S&P 500 index")
                     
-                    # Overlapping subsequences (step=1)
                     subseqs_overlap = create_subsequence_dataset(
                         sp500_features, 
                         subsequence_length=length, 
                         step=1
                     )
                     
-                    # Save overlapping subsequences
                     save_subsequence_dataset(
                         subseqs_overlap,
                         subseq_dir,
                         prefix=f'sp500_len{length}_overlap'
                     )
                     
-                    # Non-overlapping subsequences (step=length)
                     subseqs_nonoverlap = create_subsequence_dataset(
                         sp500_features, 
                         subsequence_length=length, 
                         step=length
                     )
                     
-                    # Save non-overlapping subsequences
                     save_subsequence_dataset(
                         subseqs_nonoverlap,
                         subseq_dir,
                         prefix=f'sp500_len{length}_nonoverlap'
                     )
     
-    # Create multi-TS subsequences for analysis across multiple stocks
-    if processed_data.get('constituent_processed') and len(processed_data['constituent_processed']) > 0:
-        # Load processed constituent data
-        constituent_dfs = []
-        constituent_tickers = []
-        
-        for file_path in processed_data['constituent_processed'][:10]:  # Limit to 10 stocks for demonstration
+    # Create individual subsequences for each constituent stock
+    if processed_data.get('constituent_processed'):
+        for file_path in processed_data['constituent_processed']:
             ticker = Path(file_path).stem.replace('_processed', '')
             df = load_ticker_data(file_path)
             
+            if df is not None and not df.empty:
+                feature_columns = [
+                    'daily_return', 
+                    'volume_change', 
+                        'high_low_range',
+                        'daily_return_zscore',
+                        'volume_change_zscore'
+                ]
+            
+                available_features = [col for col in feature_columns if col in df.columns]
+                
+                if available_features:
+                    df_features = df[available_features]
+
+                    for length in [3]:
+                        logger.info(f"Creating subsequences of length {length} for ticker {ticker}")
+
+                        subseqs_overlap = create_subsequence_dataset(
+                            df_features,
+                            subsequence_length=length,
+                            step=1
+                        )
+                        
+                        save_subsequence_dataset(
+                            subseqs_overlap,
+                            subseq_dir,
+                            prefix=f'{ticker}_len{length}_overlap'
+                        )
+                        
+                        subseqs_nonoverlap = create_subsequence_dataset(
+                            df_features,
+                            subsequence_length=length,
+                            step=length
+                        )
+
+                        save_subsequence_dataset(
+                            subseqs_nonoverlap,
+                            subseq_dir,
+                            prefix=f'{ticker}_len{length}_nonoverlap'
+                        )
+                else:
+                    logger.warning(f"No required features available for {ticker}. Available columns: {df.columns.tolist()}")
+            else:
+                logger.warning(f"No data available for {ticker} or DataFrame is empty.")
+
+    # Create multi-TS subsequences for analysis across multiple stocks
+    if processed_data.get('constituent_processed') and len(processed_data['constituent_processed']) > 0:
+        constituent_dfs = []
+        constituent_tickers = []
+
+        for file_path in processed_data['constituent_processed'][:10]:
+            ticker = Path(file_path).stem.replace('_processed', '')
+            df = load_ticker_data(file_path)
+
             if df is not None:
-                # Check if DataFrame has any content
                 if not df.empty:
                     constituent_dfs.append(df)
                     constituent_tickers.append(ticker)
                 else:
                     logger.warning(f"Empty DataFrame for {ticker}, skipping")
-        
+
         if constituent_dfs:
-            # Define feature columns for multi-TS subsequences
             feature_columns = [
-                'daily_return', 
-                'volume_change', 
+                'daily_return',
+                'volume_change',
                 'high_low_range'
             ]
-            
-            # For each DataFrame, check if it has the required features
+
             valid_dfs = []
             valid_tickers = []
-            
+
             for i, (df, ticker) in enumerate(zip(constituent_dfs, constituent_tickers)):
-                # Check which features are available
                 available_features = [col for col in feature_columns if col in df.columns]
-                
+
                 if available_features:
-                    # Keep only the available features
                     valid_dfs.append(df[available_features])
                     valid_tickers.append(ticker)
                 else:
                     logger.warning(f"No required features available for {ticker}. Available columns: {df.columns.tolist()}")
-            
+
             if valid_dfs:
-                # Create multi-TS subsequences
                 logger.info(f"Creating multi-TS subsequences for {len(valid_dfs)} stocks")
-                
+
                 try:
-                    # Create multi-TS directory
                     multi_ts_dir = config.PROCESSED_DATA_DIR / 'multi_ts'
                     multi_ts_dir.mkdir(exist_ok=True, parents=True)
-                    
-                    # Define the lengths and step options we want to generate
+
                     subsequence_configs = [
-                        # (length, step, overlap_label)
-                        (3, 1, 'overlap'),      # Length 3, overlapping
-                        (3, 3, 'nonoverlap'),   # Length 3, non-overlapping
-                        (5, 1, 'overlap'),      # Length 5, overlapping
-                        (5, 5, 'nonoverlap')    # Length 5, non-overlapping
+                        (3, 1, 'overlap'),
+                        (3, 3, 'nonoverlap'),
+                        (5, 1, 'overlap'),
+                        (5, 5, 'nonoverlap')
                     ]
-                    
-                    # Generate all combinations
+
                     for length, step, overlap_label in subsequence_configs:
                         logger.info(f"Creating multi-TS subsequences with length={length}, step={step} ({overlap_label})")
-                        
+
                         multi_ts_subseqs = create_multi_ts_subsequences(
                             valid_dfs,
                             valid_tickers,
@@ -176,16 +208,15 @@ def main():
                             subsequence_length=length,
                             step=step
                         )
-                        
-                        # Save these subsequences
+
                         save_subsequence_dataset(
                             multi_ts_subseqs,
                             multi_ts_dir,
                             prefix=f'multi_ts_len{length}_{overlap_label}'
                         )
-                        
+
                         logger.info(f"Saved {len(multi_ts_subseqs)} multi-TS subsequences with length={length}, {overlap_label}")
-                        
+
                 except Exception as e:
                     logger.error(f"Error creating multi-TS subsequences: {e}")
             else:
