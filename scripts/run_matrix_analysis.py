@@ -84,193 +84,87 @@ def load_multi_ts_data(multi_ts_dir, prefix='multi_ts_len5_overlap'):
         return None, None
 
 
-def flatten_multi_ts_matrices(multi_ts_data):
+def detect_anomalies_aida(multi_ts_data, metadata_list, multi_ts_dir, contamination=0.05):
     """
-    Flatten multi-TS 3D matrices to 2D feature vectors for anomaly detection.
-    Each 3D matrix [n_stocks, seq_length, n_features] becomes a single flattened vector.
-    
-    Args:
-        multi_ts_data (list): List of 3D matrices
-        
-    Returns:
-        numpy.ndarray: 2D array where each row is a flattened matrix
+    Detect anomalies in multi-TS data using AIDA matrix detection.
+    Each matrix is saved as a separate CSV and analyzed individually.
     """
     try:
-        flattened_data = []
-        
-        for matrix in multi_ts_data:
-            # Flatten the entire 3D matrix into a 1D vector
-            flattened = matrix.flatten()
-            flattened_data.append(flattened)
-        
-        # Convert to numpy array
-        feature_array = np.array(flattened_data)
-        
-        logger.info(f"Flattened multi-TS data to shape {feature_array.shape}")
-        return feature_array
-        
-    except Exception as e:
-        logger.error(f"Error flattening multi-TS data: {e}")
-        return None
+        logger.info(f"Running AIDA on {len(multi_ts_data)} multi-TS matrices (matrix mode)")
 
-
-def detect_anomalies_iforest(feature_array, metadata_list, contamination=0.05):
-    """
-    Run Isolation Forest on multi-TS data and return anomaly scores and periods.
-    """
-    from sklearn.ensemble import IsolationForest
-    import numpy as np
-
-    model = IsolationForest(contamination=contamination, random_state=42)
-    labels = model.fit_predict(feature_array)
-    scores = -model.decision_function(feature_array)
-
-    anomaly_periods = []
-    for i, (score, label, metadata) in enumerate(zip(scores, labels, metadata_list)):
-        if label == -1:
-            # Calculate per-ticker contributions for this window
-            # Assume feature_array[i] is a flattened matrix: [stock1_feat1, stock1_feat2, ..., stockN_featM]
-            # You need to know n_stocks and n_features to reshape
-            n_stocks = len(metadata['tickers'])
-            n_features = int(len(feature_array[i]) / n_stocks)
-            matrix = feature_array[i].reshape((n_stocks, n_features))
-            # Example: use sum of absolute values as "contribution"
-            contributions = np.sum(np.abs(matrix), axis=1)
-            top_indices = np.argsort(contributions)[-10:][::-1]
-            top_tickers = [metadata['tickers'][j] for j in top_indices]
-
-            anomaly_periods.append({
-                'time_period_idx': i,
-                'score': float(score),
-                'start_date': metadata['start_date'],
-                'end_date': metadata['end_date'],
-                'tickers': top_tickers
-            })
-    return scores, np.where(labels == -1)[0], anomaly_periods, None  # add timing if needed
-
-
-
-def detect_anomalies_lof(feature_array, metadata_list, contamination=0.05):
-    """
-    Detect anomalies in flattened multi-TS data using Local Outlier Factor.
-    Treats each time period as a potential anomaly.
-    """
-    from sklearn.neighbors import LocalOutlierFactor
-    import numpy as np
-
-    lof = LocalOutlierFactor(
-        n_neighbors=min(20, feature_array.shape[0] - 1),
-        contamination=contamination,
-        n_jobs=-1,
-        novelty=False
-    )
-    labels = lof.fit_predict(feature_array)
-    scores = -lof.negative_outlier_factor_
-
-    anomaly_periods = []
-    for i, (score, label, metadata) in enumerate(zip(scores, labels, metadata_list)):
-        if label == -1:
-            n_stocks = len(metadata['tickers'])
-            n_features = int(len(feature_array[i]) / n_stocks)
-            matrix = feature_array[i].reshape((n_stocks, n_features))
-            contributions = np.sum(np.abs(matrix), axis=1)
-            top_indices = np.argsort(contributions)[-10:][::-1]
-            top_tickers = [metadata['tickers'][j] for j in top_indices]
-
-            anomaly_periods.append({
-                'time_period_idx': i,
-                'score': float(score),
-                'start_date': metadata['start_date'],
-                'end_date': metadata['end_date'],
-                'tickers': top_tickers
-            })
-    return scores, np.where(labels == -1)[0], anomaly_periods, None
-
-def detect_anomalies_aida(feature_array, metadata_list, multi_ts_dir, contamination=0.05):
-    """
-    Detect anomalies in flattened multi-TS data using AIDA.
-    Treats each time period as a potential anomaly.
-    """
-    try:
-        logger.info(f"Running AIDA on {len(feature_array)} multi-TS matrices")
-        
-        # Create temporary input file for AIDA
         temp_dir = Path(multi_ts_dir) / "temp_aida"
         temp_dir.mkdir(exist_ok=True, parents=True)
-        temp_input_file = temp_dir / "multi_ts_features.csv"
-        
-        # Save feature array to CSV for AIDA
-        with open(temp_input_file, 'w') as f:
-            f.write(','.join([f'feature_{i}' for i in range(feature_array.shape[1])]) + '\n')
-            for i in range(feature_array.shape[0]):
-                f.write(','.join([str(val) for val in feature_array[i]]) + '\n')
-        
-        # Set up paths for AIDA
-        root_dir = Path(multi_ts_dir).parent.parent.parent  # Adjust based on your project structure
+
+        root_dir = Path(multi_ts_dir).parent.parent.parent  # Adjust if needed
         aida_cpp_dir = root_dir / "AIDA" / "C++"
-        aida_executable = aida_cpp_dir / "build" / "aida_subsequence_detection"
-        
-        # Execute AIDA
-        start_time = time.time()
-        cmd = [str(aida_executable), str(temp_input_file)]
-        subprocess.run(cmd, check=True)
-        
-        # Read results
-        scores_file = Path(str(temp_input_file) + "_AIDA_scores.dat")
-        anomalies_file = Path(str(temp_input_file) + "_AIDA_anomalies.csv")
-        
-        # Read scores
-        scores = None
-        if scores_file.exists():
-            with open(scores_file, 'r') as f:
-                lines = f.readlines()
-                if len(lines) > 1:
-                    scores = np.array([float(line.strip()) for line in lines[1:]])
-        
-        # Read anomalies
+        aida_executable = aida_cpp_dir / "build" / "aida_matrix_detection"
+
+        scores = []
         anomaly_indices = []
-        if anomalies_file.exists():
-            anomalies_df = pd.read_csv(anomalies_file)
-            if 'index' in anomalies_df.columns:
-                anomaly_indices = anomalies_df['index'].values
-        
-        end_time = time.time()
-        execution_time = end_time - start_time
-        
-        # Get default scores if AIDA failed
-        if scores is None:
-            logger.warning("AIDA scores not found, using default values")
-            scores = np.zeros(len(feature_array))
-            anomaly_indices = []
-        
-        # Extract anomaly information with dynamic top tickers
         anomaly_periods = []
-        for idx in anomaly_indices:
-            if idx < len(metadata_list):
+        start_time = time.time()
+
+        for idx, matrix in enumerate(multi_ts_data):
+            # Save each matrix as a CSV file (flatten to 2D if needed)
+            matrix_file = temp_dir / f"matrix_{idx}.csv"
+
+            save_matrix_as_csv(matrix, matrix_file)
+
+            # Call AIDA matrix detection
+            cmd = [str(aida_executable), str(matrix_file)]
+            subprocess.run(cmd, check=True)
+
+            # Read results for this matrix
+            scores_file = Path(str(matrix_file) + "_AIDA_scores.dat")
+            anomalies_file = Path(str(matrix_file) + "_AIDA_anomalies.csv")
+
+            # Read score (should be a single score per matrix)
+            score = 0.0
+            if scores_file.exists():
+                with open(scores_file, 'r') as f:
+                    lines = f.readlines()
+                    if len(lines) > 1:
+                        score = float(lines[1].strip())
+            scores.append(score)
+
+            # Read anomaly (if this matrix is anomalous, record it)
+            is_anomaly = False
+            if anomalies_file.exists():
+                anomalies_df = pd.read_csv(anomalies_file)
+                if not anomalies_df.empty and 'index' in anomalies_df.columns:
+                    is_anomaly = True
+
+            if is_anomaly and idx < len(metadata_list):
                 metadata = metadata_list[idx]
-                n_stocks = len(metadata['tickers'])
-                n_features = int(len(feature_array[idx]) / n_stocks)
-                matrix = feature_array[idx].reshape((n_stocks, n_features))
-                contributions = np.sum(np.abs(matrix), axis=1)
-                top_indices = np.argsort(contributions)[-10:][::-1]
-                top_tickers = [metadata['tickers'][j] for j in top_indices]
                 period_info = {
                     'time_period_idx': idx,
-                    'score': float(scores[idx]) if idx < len(scores) else 0,
+                    'score': score,
                     'start_date': metadata.get('start_date', 'Unknown'),
                     'end_date': metadata.get('end_date', 'Unknown'),
-                    'tickers': top_tickers,
                 }
+                anomaly_indices.append(idx)
                 anomaly_periods.append(period_info)
-        
+
+        end_time = time.time()
+        execution_time = end_time - start_time
+
         logger.info(f"AIDA execution time: {execution_time:.2f} seconds")
-        
-        return scores, anomaly_indices, anomaly_periods, execution_time
-        
+
+        return np.array(scores), anomaly_indices, anomaly_periods, execution_time
+
     except Exception as e:
         logger.error(f"Error detecting anomalies with AIDA: {e}")
         return None, None, None, -1
+    
 
+def save_matrix_as_csv(matrix, csv_path):
+    # matrix shape: (n_stocks, window_size, n_features)
+    # flatten only the last two dims for each stock (row-major)
+    n_stocks, window_size, n_features = matrix.shape
+    # Reshape to (n_stocks, window_size * n_features)
+    matrix_2d = matrix.reshape(n_stocks, window_size * n_features)
+    df = pd.DataFrame(matrix_2d)
+    df.to_csv(csv_path, index=False, header=False)
 
 def save_multi_ts_results(algorithm, scores, anomaly_periods, execution_time, output_dir):
     """
@@ -309,9 +203,7 @@ def save_multi_ts_results(algorithm, scores, anomaly_periods, execution_time, ou
                     'time_period_idx': period['time_period_idx'],
                     'score': period['score'],
                     'start_date': period['start_date'],
-                    'end_date': period['end_date'],
-                    'num_tickers': len(period.get('tickers', [])),
-                    'top_tickers': ','.join(period.get('tickers', [])[:5]) if period.get('tickers') else 'Unknown'
+                    'end_date': period['end_date']
                 })
             
             # Save as CSV
@@ -319,7 +211,7 @@ def save_multi_ts_results(algorithm, scores, anomaly_periods, execution_time, ou
         else:
             # Create empty file
             with open(anomalies_file, 'w') as f:
-                f.write("index,time_period_idx,score,start_date,end_date,num_tickers,top_tickers\n")
+                f.write("index,time_period_idx,score,start_date,end_date\n")
         
         # Save execution time
         time_file = algo_dir / f"{algorithm}_multi_ts_execution_time.txt"
@@ -359,7 +251,7 @@ def run_multi_ts_analysis(multi_ts_dir, output_dir, window_size=5, overlap=True,
         dict: Results summary
     """
     if algorithms is None:
-        algorithms = ['aida', 'iforest', 'lof']  # Added AIDA to default algorithms
+        algorithms = ['aida', 'iforest', 'lof'] 
     
     # Create output directory
     overlap_str = "overlap" if overlap else "nonoverlap"
@@ -375,41 +267,18 @@ def run_multi_ts_analysis(multi_ts_dir, output_dir, window_size=5, overlap=True,
         logger.error(f"Failed to load multi-TS data. Exiting.")
         return {'status': 'error', 'message': 'Failed to load multi-TS data'}
     
-    # Flatten multi-TS matrices for anomaly detection
-    feature_array = flatten_multi_ts_matrices(multi_ts_data)
-    
-    if feature_array is None:
-        logger.error(f"Failed to flatten multi-TS data. Exiting.")
-        return {'status': 'error', 'message': 'Failed to flatten multi-TS data'}
+
+    if multi_ts_data is None:
+        logger.error(f"Failed to load multi-TS data. Exiting.")
+        return {'status': 'error', 'message': 'Failed to load multi-TS data'}
+
     
     # Initialize results
     results = {'status': 'success', 'algorithms': {}}
     
-    # Run each algorithm
-    if 'iforest' in algorithms:
-        scores, indices, periods, time_taken = detect_anomalies_iforest(feature_array, metadata_list)
-        if scores is not None:
-            files = save_multi_ts_results('iforest', scores, periods, time_taken, results_dir)
-            results['algorithms']['iforest'] = {
-                'success': True,
-                'anomaly_count': len(indices) if indices is not None else 0,
-                'execution_time': time_taken,
-                'files': files
-            }
-    
-    if 'lof' in algorithms:
-        scores, indices, periods, time_taken = detect_anomalies_lof(feature_array, metadata_list)
-        if scores is not None:
-            files = save_multi_ts_results('lof', scores, periods, time_taken, results_dir)
-            results['algorithms']['lof'] = {
-                'success': True,
-                'anomaly_count': len(indices) if indices is not None else 0,
-                'execution_time': time_taken,
-                'files': files
-            }
     
     if 'aida' in algorithms:
-        scores, indices, periods, time_taken = detect_anomalies_aida(feature_array, metadata_list, multi_ts_dir)
+        scores, indices, periods, time_taken = detect_anomalies_aida(multi_ts_data, metadata_list, multi_ts_dir)
         if scores is not None:
             files = save_multi_ts_results('aida', scores, periods, time_taken, results_dir)
             results['algorithms']['aida'] = {
