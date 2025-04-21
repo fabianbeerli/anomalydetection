@@ -446,17 +446,6 @@ def main():
         help="Directory for analysis results"
     )
     
-    # Data preparation arguments
-    parser.add_argument(
-        "--skip-data-retrieval", 
-        action="store_true",
-        help="Skip data retrieval step"
-    )
-    parser.add_argument(
-        "--skip-data-processing", 
-        action="store_true",
-        help="Skip data processing step"
-    )
     
     # Workflow selection
     parser.add_argument(
@@ -541,49 +530,6 @@ def main():
     
     # Create output directory
     ensure_directory_exists(args.output_dir)
-    
-    # 1. Data Retrieval (if not skipped)
-    if not args.skip_data_retrieval:
-        logger.info("Starting data retrieval")
-        
-        # Retrieve S&P 500 index data
-        sp500_file = retrieve_sp500_index_data()
-        if sp500_file:
-            logger.info(f"Retrieved S&P 500 index data: {sp500_file}")
-        else:
-            logger.error("Failed to retrieve S&P 500 index data")
-            return
-        
-        # Retrieve constituent data
-        constituents = select_constituent_stocks(top_n=10, additional_n=20)
-        constituent_files = retrieve_constituent_data(constituents)
-        
-        logger.info(f"Retrieved data for {len(constituent_files)} constituent stocks")
-    else:
-        logger.info("Skipping data retrieval")
-    
-    # 2. Data Processing (if not skipped)
-    if not args.skip_data_processing:
-        logger.info("Starting data processing")
-        
-        # Process all data
-        processed_data = process_all_data()
-        
-        if processed_data.get('sp500_processed'):
-            logger.info(f"Processed S&P 500 index data: {processed_data['sp500_processed']}")
-        else:
-            logger.warning("No processed S&P 500 index data available")
-        
-        if processed_data.get('constituent_processed'):
-            logger.info(f"Processed {len(processed_data['constituent_processed'])} constituent stock files")
-        else:
-            logger.warning("No processed constituent stock data available")
-        
-        # Create subsequence datasets
-        # This is typically done in prepare_data.py, assumed to be already run
-        logger.info("Data processing completed")
-    else:
-        logger.info("Skipping data processing")
     
     # 3. Run Analysis Workflows
     workflows_to_run = []
