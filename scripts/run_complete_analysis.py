@@ -15,6 +15,7 @@ from pathlib import Path
 import pandas as pd
 import numpy as np
 import time
+import subprocess
 
 # Add the project root directory to the Python path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -390,6 +391,18 @@ def run_multi_ts_analysis_workflow(config_args):
         with open(multi_ts_results_dir / "all_results.json", 'w') as f:
             json.dump(json_results, f, indent=2)
         
+        # After multi-TS analysis is complete
+        compare_multi_ts_cmd = [
+            sys.executable,
+            str(Path(__file__).parent / "compare_multi_ts_anomalies.py"),
+            "--results-base", str(Path(config_args.output_dir) / "multi_ts_results"),
+            "--output", str(Path(config_args.output_dir) / "multi_ts_analysis"),
+            "--window-size", "3",  # or loop over all window sizes if you want
+            "--overlap-type", "overlap"  # or "nonoverlap", or loop over both
+        ]
+        logger.info(f"Running multi-TS comparison: {' '.join(compare_multi_ts_cmd)}")
+        subprocess.run(compare_multi_ts_cmd, check=True)
+
         logger.info("Multi-TS Subsequence Analysis Workflow completed successfully")
         return True
         
