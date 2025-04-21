@@ -27,6 +27,8 @@ from src.models.lof import LOF
 from src import config
 from src.data.preparation import load_ticker_data, create_subsequence_dataset
 from src.utils.helpers import ensure_directory_exists, get_file_list
+from src.models.aida_helper import run_aida_on_constituent
+
 
 # Configure logging
 logging.basicConfig(
@@ -131,57 +133,56 @@ def load_constituent_data(constituent_dir):
         return None
 
 
-def create_window_subsequences(df, start_date, end_date, window_size):
-    """
-    Create subsequences for a specific time window in the data.
-    
-    Args:
-        df (pandas.DataFrame): DataFrame containing time series data
-        start_date (datetime): Start date of the window
-        end_date (datetime): End date of the window
-        window_size (int): Size of subsequence window
-        
-    Returns:
-        list: List of subsequence DataFrames
-    """
-    try:
-        # Extract data for the specified window
-        window_data = df.loc[start_date:end_date].copy()
-        
-        if window_data.empty or len(window_data) < window_size:
-            logger.warning(f"Insufficient data for window {start_date} to {end_date}")
-            return []
-        
-        # Create subsequences (overlapping)
-        subsequences = create_subsequence_dataset(
-            window_data, 
-            subsequence_length=window_size, 
-            step=1
-        )
-        
-        return subsequences
-        
-    except Exception as e:
-        logger.error(f"Error creating window subsequences: {e}")
-        return []
-
 
 def detect_anomalies_in_constituent(ticker, subsequences, algorithm):
-    """
-    Detect anomalies in a constituent's subsequence data.
-    
-    Args:
-        ticker (str): Ticker symbol
-        subsequences (list): List of subsequence DataFrames
-        algorithm (str): Algorithm to use ('aida', 'iforest', or 'lof')
-        
-    Returns:
-        tuple: (ticker, anomaly_count, anomaly_scores)
-            ticker: Ticker symbol
-            anomaly_count: Number of anomalies detected
-            anomaly_scores: List of anomaly scores
-    """
     try:
+        if algorithm.lower() == 'aida':
+            # Convert subsequences to proper format for AIDA
+            feature_data = pd.concat(subsequences)
+            
+            # Create temporary directory for this analysis
+            temp_dir = Path(config.DATA_DIR) / "temp" / "constituent_analysis" / ticker
+            ensure_directory_exists(temp_dir)
+            
+            # Run AIDA using the existing implementation
+            result = run_aida_on_constituent(ticker, feature_data, temp_dir)
+            
+            if not result or not isinstance(result, dict):
+                logger.error(f"Invalid result format from AIDA for {ticker}")
+                return ticker, 0, []
+                
+            if not result.get('success', False):
+                logger.error(f"AIDA analysis failed for {ticker}: {result.get('error', 'Unknown error')}")
+                return ticker, 0, []
+            
+            # Use the output_dir from the AIDA result
+            output_dir = result['output_dir']
+            anomalies_file = output_dir / "aida_anomalies.csv"
+            scores_file = output_dir / "aida_scores.dat"
+            
+            if not anomalies_file.exists():
+                logger.error(f"Anomalies file not found for {ticker}: {anomalies_file}")
+                return ticker, 0, []
+            
+            try:
+                anomalies_df = pd.read_csv(anomalies_file)
+                anomaly_count = len(anomalies_df)
+                
+                # Read scores if they exist
+                scores = []
+                if scores_file.exists():
+                    with open(scores_file, 'r') as f:
+                        next(f)  # Skip header
+                        scores = [float(line.strip()) for line in f]
+                
+                logger.info(f"Successfully processed AIDA results for {ticker}: {anomaly_count} anomalies found")
+                return ticker, anomaly_count, scores
+                
+            except Exception as e:
+                logger.error(f"Error processing AIDA results for {ticker}: {e}")
+                return ticker, 0, []
+
+                
         # Extract features from subsequences
         feature_vectors = []
         for subseq in subsequences:
@@ -197,23 +198,26 @@ def detect_anomalies_in_constituent(ticker, subsequences, algorithm):
         
         # Detect anomalies using specified algorithm
         if algorithm.lower() == 'iforest':
+            n_samples = feature_array.shape[0]
+            if n_samples < 2:  # Need at least 2 samples for IForest
+                return ticker, 0, [0] * n_samples
+                
             model = IForest(
                 n_estimators=100,
-                max_samples=min(256, feature_array.shape[0]),
+                max_samples=min(256, n_samples),
                 contamination=0.05
             )
         elif algorithm.lower() == 'lof':
+            n_samples = feature_array.shape[0]
+            if n_samples < 2:  # Need at least 2 samples for LOF
+                return ticker, 0, [0] * n_samples
+                
+            n_neighbors = max(1, min(20, n_samples - 1))  # Ensure at least 1 neighbor
             model = LOF(
-                n_neighbors=min(20, feature_array.shape[0] - 1),
+                n_neighbors=n_neighbors,
                 p=2,
                 contamination=0.05
             )
-        elif algorithm.lower() == 'aida':
-            # For AIDA, we need to use the C++ implementation through file I/O
-            # This is a simplified version - in practice, use run_aida_on_constituent
-            # which would be similar to run_aida in run_subsequence_algorithms.py
-            logger.warning(f"AIDA implementation for individual constituents requires custom C++ code - falling back to Isolation Forest for {ticker}")
-            model = IForest(n_estimators=100, max_samples=256, contamination=0.05)
         else:
             logger.error(f"Unknown algorithm: {algorithm}")
             return ticker, 0, []
@@ -227,145 +231,146 @@ def detect_anomalies_in_constituent(ticker, subsequences, algorithm):
         return ticker, anomaly_count, scores.tolist()
         
     except Exception as e:
-        logger.error(f"Error detecting anomalies in {ticker}: {e}")
+        logger.error(f"Error detecting anomalies in {ticker}: {str(e)}")
         return ticker, 0, []
 
 
-def run_constituent_analysis(sp500_anomalies, constituent_data, window_size, algorithm, output_dir):
-    """
-    Run analysis of constituent stocks for each S&P 500 anomaly.
-    
-    Args:
-        sp500_anomalies (pandas.DataFrame): DataFrame of S&P 500 anomalies
-        constituent_data (dict): Dictionary mapping ticker symbols to DataFrames
-        window_size (int): Size of subsequence window
-        algorithm (str): Algorithm to use ('aida', 'iforest', or 'lof')
-        output_dir (Path): Directory to save results
-        
-    Returns:
-        dict: Dictionary of analysis results
-    """
+def run_constituent_analysis(sp500_anomalies, subsequences, algorithm, output_dir):
     try:
-        # Initialize results
         results = []
         
-        # Process each S&P 500 anomaly
+        # For each SP500 anomaly detected by the algorithm
         for idx, anomaly in sp500_anomalies.iterrows():
-            if 'start_date' not in anomaly or 'end_date' not in anomaly:
-                logger.warning(f"Missing date information for anomaly at index {idx}")
-                continue
+            start_date = pd.to_datetime(anomaly['start_date'])
+            end_date = pd.to_datetime(anomaly['end_date'])
             
-            # Extract dates
-            start_date = anomaly['start_date']
-            end_date = anomaly['end_date']
+            logger.info(f"Analyzing constituents for anomaly {idx} from {start_date.date()} to {end_date.date()}")
             
-            # Extend window slightly to ensure sufficient context
-            analysis_start = start_date - timedelta(days=window_size)
-            analysis_end = end_date + timedelta(days=window_size)
-            
-            logger.info(f"Analyzing constituents for S&P 500 anomaly from {start_date.date()} to {end_date.date()}")
-            
-            # Initialize constituent results for this anomaly
-            anomaly_result = {
-                'sp500_anomaly_index': idx,
-                'start_date': start_date,
-                'end_date': end_date,
-                'constituent_anomalies': {}
-            }
-            
-            # Use multiprocessing to analyze constituents in parallel
+            # Initialize results for this anomaly period
             constituent_results = []
             
             with concurrent.futures.ProcessPoolExecutor() as executor:
                 futures = []
                 
-                for ticker, df in constituent_data.items():
-                    # Create subsequences for this window
-                    subsequences = create_window_subsequences(
-                        df, 
-                        analysis_start, 
-                        analysis_end, 
-                        window_size
-                    )
-                    
-                    if subsequences:
-                        # Submit task to executor
-                        future = executor.submit(
-                            detect_anomalies_in_constituent,
-                            ticker,
-                            subsequences,
-                            algorithm
+                # For each constituent, check the same date range
+                for ticker, ticker_subsequences in subsequences.items():
+                    # Filter subsequences that overlap with the anomaly period
+                    period_subsequences = [
+                        subseq for subseq in ticker_subsequences 
+                        if not (
+                            (subseq.index[-1] < start_date) or  # Ends before anomaly starts
+                            (subseq.index[0] > end_date)        # Starts after anomaly ends
                         )
-                        futures.append(future)
+                    ]
+                    
+                    if not period_subsequences:
+                        logger.debug(f"No subsequences found for {ticker} in period {start_date} to {end_date}")
+                        continue
+                    
+                    # Submit analysis task
+                    future = executor.submit(
+                        detect_anomalies_in_constituent,
+                        ticker,
+                        period_subsequences,
+                        algorithm
+                    )
+                    futures.append((ticker, future))
                 
-                # Process results as they complete
-                for future in concurrent.futures.as_completed(futures):
-                    ticker, anomaly_count, anomaly_scores = future.result()
-                    constituent_results.append({
-                        'ticker': ticker,
-                        'anomaly_count': anomaly_count,
-                        'has_anomaly': anomaly_count > 0
-                    })
+                # Process results
+                for ticker, future in futures:
+                    try:
+                        ticker, anomaly_count, scores = future.result()
+                        constituent_results.append({
+                            'ticker': ticker,
+                            'anomaly_count': anomaly_count,
+                            'has_anomaly': anomaly_count > 0
+                        })
+                    except Exception as e:
+                        logger.error(f"Error processing results for {ticker}: {e}")
             
-            # Add constituent results to this anomaly's results
-            for result in constituent_results:
-                anomaly_result['constituent_anomalies'][result['ticker']] = {
-                    'anomaly_count': result['anomaly_count'],
-                    'has_anomaly': result['has_anomaly']
+            # Add results for this anomaly period
+            anomaly_result = {
+                'sp500_anomaly_index': idx,
+                'start_date': start_date,
+                'end_date': end_date,
+                'constituent_anomalies': {r['ticker']: {
+                    'anomaly_count': r['anomaly_count'],
+                    'has_anomaly': r['has_anomaly']
+                } for r in constituent_results},
+                'summary': {
+                    'total_constituents': len(constituent_results),
+                    'anomalous_constituents': sum(1 for r in constituent_results if r['has_anomaly']),
                 }
-            
-            # Calculate summary statistics
-            total_constituents = len(constituent_results)
-            anomalous_constituents = sum(1 for r in constituent_results if r['has_anomaly'])
-            anomaly_result['summary'] = {
-                'total_constituents': total_constituents,
-                'anomalous_constituents': anomalous_constituents,
-                'anomaly_percentage': (anomalous_constituents / total_constituents) * 100 if total_constituents > 0 else 0
             }
+            anomaly_result['summary']['anomaly_percentage'] = (
+                (anomaly_result['summary']['anomalous_constituents'] / 
+                anomaly_result['summary']['total_constituents']) * 100 
+                if anomaly_result['summary']['total_constituents'] > 0 else 0
+            )
             
-            # Add to results list
             results.append(anomaly_result)
             
-            logger.info(f"Completed analysis for anomaly at {start_date.date()}: "
-                       f"{anomalous_constituents}/{total_constituents} constituents have anomalies "
-                       f"({anomaly_result['summary']['anomaly_percentage']:.1f}%)")
-        
-        # Save results - using the custom JSONEncoder to handle datetime objects
-        results_file = output_dir / f"{algorithm}_constituent_analysis.json"
-        with open(results_file, 'w') as f:
-            json.dump(results, f, cls=DateTimeEncoder, indent=2)
-        
-        logger.info(f"Saved constituent analysis results to {results_file}")
-        
-        # Also save a CSV summary
-        summary_data = []
-        for result in results:
-            # Convert Timestamp objects to strings for the summary DataFrame
-            start_date_str = result['start_date'].isoformat() if isinstance(result['start_date'], pd.Timestamp) else result['start_date']
-            end_date_str = result['end_date'].isoformat() if isinstance(result['end_date'], pd.Timestamp) else result['end_date']
-            
-            row = {
-                'sp500_anomaly_index': result['sp500_anomaly_index'],
-                'start_date': start_date_str,
-                'end_date': end_date_str,
-                'total_constituents': result['summary']['total_constituents'],
-                'anomalous_constituents': result['summary']['anomalous_constituents'],
-                'anomaly_percentage': result['summary']['anomaly_percentage']
-            }
-            summary_data.append(row)
-        
-        summary_df = pd.DataFrame(summary_data)
-        summary_file = output_dir / f"{algorithm}_constituent_summary.csv"
-        summary_df.to_csv(summary_file, index=False)
-        
-        logger.info(f"Saved constituent analysis summary to {summary_file}")
-        
         return results
         
     except Exception as e:
         logger.error(f"Error running constituent analysis: {e}")
         return []
 
+def load_precomputed_subsequences(subsequence_dir, window_size, overlap):
+    """
+    Load precomputed subsequences for constituents.
+    
+    Args:
+        subsequence_dir (Path): Directory containing precomputed subsequences
+        window_size (int): Size of subsequence window
+        overlap (bool): Whether overlapping subsequences were used
+        
+    Returns:
+        dict: Dictionary mapping tickers to lists of subsequence DataFrames
+    """
+    try:
+        overlap_str = "overlap" if overlap else "nonoverlap"
+        subsequence_files = get_file_list(subsequence_dir, f"*len{window_size}_{overlap_str}_*.csv")
+
+        if not subsequence_files:
+            logger.error(f"No precomputed subsequences found in {subsequence_dir}")
+            return None
+
+        subsequences = {}
+        for file_path in subsequence_files:
+            ticker = file_path.stem.split("_len")[0]
+            
+            # Load the CSV with the first column as index
+            df = pd.read_csv(file_path, index_col=0)
+            
+            # Convert index to datetime if it contains dates
+            if df.index.dtype == 'object':
+                try:
+                    df.index = pd.to_datetime(df.index)
+                except:
+                    pass
+            
+            # Initialize list for this ticker if it doesn't exist
+            if ticker not in subsequences:
+                subsequences[ticker] = []
+            
+            # Reshape the data into window_size chunks if necessary
+            n_rows = len(df)
+            n_chunks = n_rows // window_size
+            
+            for i in range(n_chunks):
+                start_idx = i * window_size
+                end_idx = start_idx + window_size
+                chunk = df.iloc[start_idx:end_idx].copy()
+                subsequences[ticker].append(chunk)
+
+        logger.info(f"Loaded subsequences for {len(subsequences)} constituents")
+        return subsequences
+
+    except Exception as e:
+        logger.error(f"Error loading precomputed subsequences: {e}")
+        return None
+    
 
 def create_visualizations(results, output_dir, algorithm):
     """
@@ -458,6 +463,7 @@ def main():
     """
     Main function to run constituent analysis for S&P 500 anomalies.
     """
+
     parser = argparse.ArgumentParser(description="Run constituent analysis for S&P 500 anomalies")
     parser.add_argument(
         "--subsequence-results", 
@@ -528,10 +534,21 @@ def main():
     ensure_directory_exists(config_dir)
     
     # Load constituent data
-    constituent_data = load_constituent_data(constituent_dir)
+    #constituent_data = load_constituent_data(constituent_dir)
     
-    if constituent_data is None or not constituent_data:
-        logger.error("Failed to load constituent data. Exiting.")
+    #if constituent_data is None or not constituent_data:
+    #    logger.error("Failed to load constituent data. Exiting.")
+    #    return
+    
+    # Load precomputed subsequences instead of creating them
+    subsequences = load_precomputed_subsequences(
+        subsequence_dir=Path(config.PROCESSED_DATA_DIR) / "subsequences",
+        window_size=args.window_size,
+        overlap=overlap
+    )
+
+    if subsequences is None:
+        logger.error("Failed to load precomputed subsequences. Exiting.")
         return
     
     # Process each algorithm
@@ -554,13 +571,12 @@ def main():
         algo_dir = config_dir / algorithm
         ensure_directory_exists(algo_dir)
         
-        # Run constituent analysis
+        # Run constituent analysis with precomputed subsequences
         start_time = time.time()
         
         results = run_constituent_analysis(
             sp500_anomalies,
-            constituent_data,
-            args.window_size,
+            subsequences,  # Pass subsequences instead of constituent_data
             algorithm,
             algo_dir
         )
