@@ -425,7 +425,7 @@ def run_multi_ts_analysis(multi_ts_dir, output_dir, window_size=5, overlap=True,
         dict: Results summary
     """
     if algorithms is None:
-        algorithms = ['iforest', 'lof']  # Default to just iforest and lof for faster execution
+        algorithms = ['aida', 'iforest', 'lof']  # Added AIDA to default algorithms
     
     # Create output directory
     overlap_str = "overlap" if overlap else "nonoverlap"

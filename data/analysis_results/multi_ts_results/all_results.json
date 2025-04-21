@@ -5,7 +5,7 @@
       "iforest": {
         "success": true,
         "anomaly_count": 28,
-        "execution_time": 0.0852663516998291,
+        "execution_time": 0.08443212509155273,
         "files": {
           "scores": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w3_overlap/iforest/iforest_multi_ts_scores.dat",
           "anomalies": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w3_overlap/iforest/iforest_multi_ts_anomalies.csv",
@@ -15,11 +15,21 @@
       "lof": {
         "success": true,
         "anomaly_count": 28,
-        "execution_time": 0.03572797775268555,
+        "execution_time": 0.02868485450744629,
         "files": {
           "scores": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w3_overlap/lof/lof_multi_ts_scores.dat",
           "anomalies": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w3_overlap/lof/lof_multi_ts_anomalies.csv",
           "time": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w3_overlap/lof/lof_multi_ts_execution_time.txt"
+        }
+      },
+      "aida": {
+        "success": true,
+        "anomaly_count": 17,
+        "execution_time": 0.253770112991333,
+        "files": {
+          "scores": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w3_overlap/aida/aida_multi_ts_scores.dat",
+          "anomalies": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w3_overlap/aida/aida_multi_ts_anomalies.csv",
+          "time": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w3_overlap/aida/aida_multi_ts_execution_time.txt"
         }
       }
     }
@@ -30,7 +40,7 @@
       "iforest": {
         "success": true,
         "anomaly_count": 10,
-        "execution_time": 0.16852688789367676,
+        "execution_time": 0.07415914535522461,
         "files": {
           "scores": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w3_nonoverlap/iforest/iforest_multi_ts_scores.dat",
           "anomalies": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w3_nonoverlap/iforest/iforest_multi_ts_anomalies.csv",
@@ -40,11 +50,21 @@
       "lof": {
         "success": true,
         "anomaly_count": 10,
-        "execution_time": 0.010575056076049805,
+        "execution_time": 0.027322053909301758,
         "files": {
           "scores": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w3_nonoverlap/lof/lof_multi_ts_scores.dat",
           "anomalies": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w3_nonoverlap/lof/lof_multi_ts_anomalies.csv",
           "time": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w3_nonoverlap/lof/lof_multi_ts_execution_time.txt"
+        }
+      },
+      "aida": {
+        "success": true,
+        "anomaly_count": 5,
+        "execution_time": 0.05600118637084961,
+        "files": {
+          "scores": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w3_nonoverlap/aida/aida_multi_ts_scores.dat",
+          "anomalies": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w3_nonoverlap/aida/aida_multi_ts_anomalies.csv",
+          "time": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w3_nonoverlap/aida/aida_multi_ts_execution_time.txt"
         }
       }
     }
@@ -55,7 +75,7 @@
       "iforest": {
         "success": true,
         "anomaly_count": 28,
-        "execution_time": 0.08828115463256836,
+        "execution_time": 0.08353734016418457,
         "files": {
           "scores": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w5_overlap/iforest/iforest_multi_ts_scores.dat",
           "anomalies": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w5_overlap/iforest/iforest_multi_ts_anomalies.csv",
@@ -65,11 +85,21 @@
       "lof": {
         "success": true,
         "anomaly_count": 28,
-        "execution_time": 0.003804922103881836,
+        "execution_time": 0.08100509643554688,
         "files": {
           "scores": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w5_overlap/lof/lof_multi_ts_scores.dat",
           "anomalies": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w5_overlap/lof/lof_multi_ts_anomalies.csv",
           "time": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w5_overlap/lof/lof_multi_ts_execution_time.txt"
+        }
+      },
+      "aida": {
+        "success": true,
+        "anomaly_count": 16,
+        "execution_time": 0.37377214431762695,
+        "files": {
+          "scores": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w5_overlap/aida/aida_multi_ts_scores.dat",
+          "anomalies": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w5_overlap/aida/aida_multi_ts_anomalies.csv",
+          "time": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w5_overlap/aida/aida_multi_ts_execution_time.txt"
         }
       }
     }
@@ -80,7 +110,7 @@
       "iforest": {
         "success": true,
         "anomaly_count": 6,
-        "execution_time": 0.07047700881958008,
+        "execution_time": 0.0793919563293457,
         "files": {
           "scores": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w5_nonoverlap/iforest/iforest_multi_ts_scores.dat",
           "anomalies": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w5_nonoverlap/iforest/iforest_multi_ts_anomalies.csv",
@@ -90,11 +120,21 @@
       "lof": {
         "success": true,
         "anomaly_count": 6,
-        "execution_time": 0.0010900497436523438,
+        "execution_time": 0.04642486572265625,
         "files": {
           "scores": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w5_nonoverlap/lof/lof_multi_ts_scores.dat",
           "anomalies": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w5_nonoverlap/lof/lof_multi_ts_anomalies.csv",
           "time": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w5_nonoverlap/lof/lof_multi_ts_execution_time.txt"
+        }
+      },
+      "aida": {
+        "success": true,
+        "anomaly_count": 2,
+        "execution_time": 0.04026079177856445,
+        "files": {
+          "scores": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w5_nonoverlap/aida/aida_multi_ts_scores.dat",
+          "anomalies": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w5_nonoverlap/aida/aida_multi_ts_anomalies.csv",
+          "time": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w5_nonoverlap/aida/aida_multi_ts_execution_time.txt"
         }
       }
     }

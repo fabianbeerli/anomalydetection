@@ -370,11 +370,11 @@ def run_multi_ts_analysis_workflow(config_args):
             overlap_settings = [False]  # Only run non-overlapping if specifically requested
         
         
-        # Define algorithms
-        algorithms = ['iforest', 'lof']  # Default: skip AIDA for multi-TS due to complexity
+        # Define algorithms - now including AIDA
+        algorithms = ['aida', 'iforest', 'lof']  # Added AIDA to default algorithms
         if config_args.multi_ts_algorithms:
             algorithms = config_args.multi_ts_algorithms.split(',')
-        
+            
         # Get paths
         multi_ts_dir = Path(config_args.processed_dir) / "multi_ts"
         

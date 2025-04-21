@@ -4,7 +4,7 @@
     "iforest": {
       "success": true,
       "anomaly_count": 28,
-      "execution_time": 0.0852663516998291,
+      "execution_time": 0.08443212509155273,
       "files": {
         "scores": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w3_overlap/iforest/iforest_multi_ts_scores.dat",
         "anomalies": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w3_overlap/iforest/iforest_multi_ts_anomalies.csv",
@@ -14,11 +14,21 @@
     "lof": {
       "success": true,
       "anomaly_count": 28,
-      "execution_time": 0.03572797775268555,
+      "execution_time": 0.02868485450744629,
       "files": {
         "scores": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w3_overlap/lof/lof_multi_ts_scores.dat",
         "anomalies": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w3_overlap/lof/lof_multi_ts_anomalies.csv",
         "time": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w3_overlap/lof/lof_multi_ts_execution_time.txt"
+      }
+    },
+    "aida": {
+      "success": true,
+      "anomaly_count": 17,
+      "execution_time": 0.253770112991333,
+      "files": {
+        "scores": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w3_overlap/aida/aida_multi_ts_scores.dat",
+        "anomalies": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w3_overlap/aida/aida_multi_ts_anomalies.csv",
+        "time": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w3_overlap/aida/aida_multi_ts_execution_time.txt"
       }
     }
   }
