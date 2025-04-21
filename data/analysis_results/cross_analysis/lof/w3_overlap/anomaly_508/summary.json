@@ -2,11 +2,23 @@
   "total_constituents_analyzed": 30,
   "constituents_with_anomalies": 17,
   "anomaly_pattern": "widespread",
-  "top_anomalous_constituents": [
+  "anomalous_constituents": [
+    "AAPL",
+    "TECH",
+    "GOOGL",
     "BALL",
-    "STZ",
-    "ALGN",
+    "HAL",
+    "META",
     "CAG",
-    "GOOGL"
+    "AKAM",
+    "ALGN",
+    "VTR",
+    "MDT",
+    "PWR",
+    "JPM",
+    "ATO",
+    "STZ",
+    "BG",
+    "AZO"
   ]
 }

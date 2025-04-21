@@ -138,9 +138,9 @@ def run_individual_subsequence_analysis(config_args):
 def run_cross_index_constituent_analysis(config_args):
     """
     Run the Cross-Index-Constituent analysis workflow for all window and overlap configurations.
-    
+
     Args:
-        config_args (argparse.Namespace): Configuration arguments        
+        config_args (argparse.Namespace): Configuration arguments
     Returns:
         bool: True if successful, False otherwise
     """
@@ -288,9 +288,7 @@ def run_cross_index_constituent_analysis(config_args):
                                 'total_constituents_analyzed': max_const,
                                 'constituents_with_anomalies': len(constituent_anomalies),
                                 'anomaly_pattern': 'widespread' if len(constituent_anomalies)>15 else 'isolated',
-                                'top_anomalous_constituents': sorted(constituent_anomalies,
-                                                                    key=lambda t: constituent_anomalies[t]['max_score'],
-                                                                    reverse=True)[:5]
+                                'anomalous_constituents': list(constituent_anomalies.keys())
                             }
                             with open(anomaly_dir / "summary.json", 'w') as f:
                                 json.dump(summary, f, indent=2)
@@ -302,6 +300,7 @@ def run_cross_index_constituent_analysis(config_args):
     except Exception as e:
         logger.error(f"Error in Cross-Index-Constituent Analysis: {e}")
         return False
+
 
 
 

@@ -2,11 +2,25 @@
   "total_constituents_analyzed": 30,
   "constituents_with_anomalies": 19,
   "anomaly_pattern": "widespread",
-  "top_anomalous_constituents": [
+  "anomalous_constituents": [
+    "AMZN",
     "MSFT",
+    "TECH",
+    "DLR",
+    "BALL",
+    "HAL",
+    "META",
+    "CAG",
+    "LLY",
+    "AKAM",
+    "LDOS",
+    "VTR",
     "MDT",
-    "ATO",
+    "PWR",
     "ORCL",
-    "NWS"
+    "ATO",
+    "NWS",
+    "STZ",
+    "BG"
   ]
 }

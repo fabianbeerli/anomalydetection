@@ -2,11 +2,17 @@
   "total_constituents_analyzed": 30,
   "constituents_with_anomalies": 11,
   "anomaly_pattern": "isolated",
-  "top_anomalous_constituents": [
-    "TECH",
+  "anomalous_constituents": [
+    "AMZN",
     "MSFT",
+    "DGX",
+    "TECH",
+    "BALL",
+    "META",
     "CAG",
+    "VTR",
     "PWR",
-    "AMZN"
+    "GOOG",
+    "STZ"
   ]
 }

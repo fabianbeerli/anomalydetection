@@ -2,11 +2,27 @@
   "total_constituents_analyzed": 30,
   "constituents_with_anomalies": 21,
   "anomaly_pattern": "widespread",
-  "top_anomalous_constituents": [
-    "ATO",
-    "CCI",
-    "NVDA",
+  "anomalous_constituents": [
+    "AMZN",
+    "MSFT",
+    "DGX",
+    "AAPL",
+    "TECH",
+    "DLR",
     "BALL",
-    "HAL"
+    "NVDA",
+    "HAL",
+    "CCI",
+    "CAG",
+    "LLY",
+    "AKAM",
+    "VTR",
+    "MDT",
+    "PWR",
+    "ATO",
+    "NWS",
+    "STZ",
+    "BG",
+    "AZO"
   ]
 }

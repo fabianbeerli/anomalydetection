@@ -2,11 +2,20 @@
   "total_constituents_analyzed": 30,
   "constituents_with_anomalies": 14,
   "anomaly_pattern": "isolated",
-  "top_anomalous_constituents": [
-    "STZ",
-    "NWS",
+  "anomalous_constituents": [
+    "MSFT",
     "AAPL",
     "BRK-B",
-    "CCI"
+    "DLR",
+    "BALL",
+    "NVDA",
+    "ALLE",
+    "CCI",
+    "CAG",
+    "PWR",
+    "ATO",
+    "NWS",
+    "STZ",
+    "AZO"
   ]
 }

@@ -2,11 +2,22 @@
   "total_constituents_analyzed": 30,
   "constituents_with_anomalies": 16,
   "anomaly_pattern": "widespread",
-  "top_anomalous_constituents": [
-    "CCI",
-    "BRK-B",
+  "anomalous_constituents": [
     "MSFT",
+    "AAPL",
+    "BRK-B",
+    "GOOGL",
+    "ALLE",
+    "CCI",
+    "CAG",
+    "LLY",
+    "LDOS",
+    "ALGN",
+    "VTR",
     "MDT",
-    "ORCL"
+    "ORCL",
+    "JPM",
+    "GOOG",
+    "AZO"
   ]
 }

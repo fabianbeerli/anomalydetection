@@ -2,11 +2,14 @@
   "total_constituents_analyzed": 30,
   "constituents_with_anomalies": 8,
   "anomaly_pattern": "isolated",
-  "top_anomalous_constituents": [
-    "VTR",
-    "BALL",
-    "MDT",
+  "anomalous_constituents": [
     "MSFT",
-    "CCI"
+    "BRK-B",
+    "BALL",
+    "HAL",
+    "CCI",
+    "ALGN",
+    "VTR",
+    "MDT"
   ]
 }

@@ -2,11 +2,23 @@
   "total_constituents_analyzed": 30,
   "constituents_with_anomalies": 17,
   "anomaly_pattern": "widespread",
-  "top_anomalous_constituents": [
-    "LLY",
-    "ATO",
+  "anomalous_constituents": [
+    "AAPL",
     "BALL",
+    "NVDA",
+    "ALLE",
+    "CCI",
+    "CAG",
+    "LLY",
+    "AKAM",
     "LDOS",
+    "VTR",
+    "PWR",
+    "ORCL",
+    "JPM",
+    "ATO",
+    "NWS",
+    "STZ",
     "AZO"
   ]
 }

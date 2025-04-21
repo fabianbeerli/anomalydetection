@@ -2,11 +2,27 @@
   "total_constituents_analyzed": 30,
   "constituents_with_anomalies": 21,
   "anomaly_pattern": "widespread",
-  "top_anomalous_constituents": [
+  "anomalous_constituents": [
+    "AMZN",
+    "MSFT",
+    "DGX",
+    "AAPL",
+    "TECH",
     "BRK-B",
-    "AZO",
-    "JPM",
     "DLR",
-    "BALL"
+    "BALL",
+    "META",
+    "ALLE",
+    "CCI",
+    "AKAM",
+    "ALGN",
+    "VTR",
+    "MDT",
+    "PWR",
+    "JPM",
+    "ATO",
+    "STZ",
+    "BG",
+    "AZO"
   ]
 }

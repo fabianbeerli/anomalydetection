@@ -2,11 +2,11 @@
   "total_constituents_analyzed": 30,
   "constituents_with_anomalies": 5,
   "anomaly_pattern": "isolated",
-  "top_anomalous_constituents": [
+  "anomalous_constituents": [
+    "CAG",
     "ORCL",
     "NWS",
     "BG",
-    "CAG",
     "AZO"
   ]
 }

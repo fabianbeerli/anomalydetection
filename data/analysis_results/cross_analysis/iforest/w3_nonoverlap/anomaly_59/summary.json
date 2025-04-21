@@ -2,11 +2,18 @@
   "total_constituents_analyzed": 30,
   "constituents_with_anomalies": 12,
   "anomaly_pattern": "isolated",
-  "top_anomalous_constituents": [
-    "STZ",
+  "anomalous_constituents": [
+    "GOOGL",
     "DLR",
-    "GOOG",
+    "HAL",
+    "CCI",
+    "LLY",
+    "ALGN",
+    "PWR",
     "ORCL",
-    "HAL"
+    "JPM",
+    "GOOG",
+    "STZ",
+    "BG"
   ]
 }

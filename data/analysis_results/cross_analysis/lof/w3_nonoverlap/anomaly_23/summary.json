@@ -2,11 +2,22 @@
   "total_constituents_analyzed": 30,
   "constituents_with_anomalies": 16,
   "anomaly_pattern": "widespread",
-  "top_anomalous_constituents": [
-    "BRK-B",
+  "anomalous_constituents": [
     "DGX",
-    "BG",
+    "AAPL",
     "TECH",
-    "AKAM"
+    "BRK-B",
+    "GOOGL",
+    "DLR",
+    "BALL",
+    "NVDA",
+    "LLY",
+    "AKAM",
+    "MDT",
+    "JPM",
+    "ATO",
+    "NWS",
+    "BG",
+    "AZO"
   ]
 }

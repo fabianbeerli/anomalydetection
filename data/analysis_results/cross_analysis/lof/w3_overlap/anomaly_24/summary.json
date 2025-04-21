@@ -2,11 +2,18 @@
   "total_constituents_analyzed": 30,
   "constituents_with_anomalies": 12,
   "anomaly_pattern": "isolated",
-  "top_anomalous_constituents": [
+  "anomalous_constituents": [
+    "AMZN",
     "MSFT",
-    "AZO",
-    "BRK-B",
     "DGX",
-    "ATO"
+    "AAPL",
+    "BRK-B",
+    "CCI",
+    "CAG",
+    "LLY",
+    "ALGN",
+    "JPM",
+    "ATO",
+    "AZO"
   ]
 }
