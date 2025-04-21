@@ -22,6 +22,48 @@ logger = logging.getLogger(__name__)
 
 ALGORITHMS = ['aida', 'iforest', 'lof']
 
+def plot_anomalies_on_sp500(data, anomaly_results, window_size, overlap_type, output_dir):
+    import numpy as np
+    overlap_str = "overlap" if overlap_type == "overlap" else "nonoverlap"
+    plt.figure(figsize=(16, 8))
+    plt.plot(data.index, data['Close'], label='S&P 500 Close', color='black', alpha=0.7)
+
+    markers = {'aida': 'o', 'iforest': '^', 'lof': 's'}
+    colors = {'aida': 'red', 'iforest': 'blue', 'lof': 'green'}
+    offsets = {'aida': 80, 'iforest': 160, 'lof': -80}
+
+    for algo in anomaly_results:
+        if anomaly_results[algo].empty:
+            continue
+        anomaly_df = anomaly_results[algo]
+        if 'start_date' not in anomaly_df.columns:
+            continue
+        dates = pd.to_datetime(anomaly_df['start_date'])
+        plot_dates = []
+        for d in dates:
+            if d >= data.index.min() and d <= data.index.max():
+                closest = data.index[np.argmin(np.abs(data.index - d))]
+                plot_dates.append(closest)
+        # Apply vertical offset
+        yvals = data.loc[plot_dates, 'Close']
+        yvals_offset = yvals + offsets.get(algo, 0)
+        plt.scatter(plot_dates, yvals_offset, 
+                    marker=markers[algo], color=colors[algo], s=120, label=f"{algo.upper()} anomaly")
+        # Draw dotted lines to the true close value
+        for x, y1, y2 in zip(plot_dates, yvals_offset, yvals):
+            plt.plot([x, x], [y1, y2], color=colors[algo], linestyle='dotted', linewidth=1)
+
+    plt.title(f"S&P 500 with Multi-TS Anomalies (w{window_size}, {overlap_str})")
+    plt.xlabel("Date")
+    plt.ylabel("S&P 500 Close Price")
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+    plt.tight_layout()
+    output_file = Path(output_dir) / f"multi_ts_anomalies_w{window_size}_{overlap_str}.png"
+    plt.savefig(output_file, dpi=300, bbox_inches='tight')
+    plt.close()
+    logger.info(f"Saved S&P 500 anomaly overlay plot to {output_file}")
+
 def load_multi_ts_anomaly_results(results_dir, window_size, overlap_type):
     """
     Load multi-TS anomaly results for different algorithms.
@@ -98,6 +140,13 @@ def main():
         default="overlap",
         help="Overlap type to analyze"
     )
+    parser.add_argument(
+        "--data",
+        type=str,
+        required=True,
+        help="Path to the original processed S&P 500 data (CSV with Date and Close columns)"
+    )
+
     args = parser.parse_args()
 
     results_dir = Path(args.results_base)
@@ -105,8 +154,11 @@ def main():
     window_size = args.window_size
     overlap_type = args.overlap_type
 
+    data = pd.read_csv(args.data, index_col=0, parse_dates=True)
+
     anomaly_results = load_multi_ts_anomaly_results(results_dir, window_size, overlap_type)
     visualize_multi_ts_anomalies(anomaly_results, window_size, overlap_type, output_dir)
+    plot_anomalies_on_sp500(data, anomaly_results, window_size, overlap_type, output_dir)
 
 if __name__ == "__main__":
     main()

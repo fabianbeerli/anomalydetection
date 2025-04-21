@@ -323,8 +323,13 @@ def save_multi_ts_results(algorithm, scores, anomaly_periods, execution_time, ou
         
         # Save execution time
         time_file = algo_dir / f"{algorithm}_multi_ts_execution_time.txt"
+        # Save execution time
+        time_file = algo_dir / f"{algorithm}_multi_ts_execution_time.txt"
         with open(time_file, 'w') as f:
-            f.write(f"{execution_time:.6f}")
+            if execution_time is not None:
+                f.write(f"{execution_time:.6f}")
+            else:
+                f.write("NA")
         
         logger.info(f"Saved {algorithm} multi-TS results to {algo_dir}")
         

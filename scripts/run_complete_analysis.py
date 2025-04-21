@@ -391,17 +391,26 @@ def run_multi_ts_analysis_workflow(config_args):
         with open(multi_ts_results_dir / "all_results.json", 'w') as f:
             json.dump(json_results, f, indent=2)
         
-        # After multi-TS analysis is complete
-        compare_multi_ts_cmd = [
-            sys.executable,
-            str(Path(__file__).parent / "compare_multi_ts_anomalies.py"),
-            "--results-base", str(Path(config_args.output_dir) / "multi_ts_results"),
-            "--output", str(Path(config_args.output_dir) / "multi_ts_analysis"),
-            "--window-size", "3",  # or loop over all window sizes if you want
-            "--overlap-type", "overlap"  # or "nonoverlap", or loop over both
-        ]
-        logger.info(f"Running multi-TS comparison: {' '.join(compare_multi_ts_cmd)}")
-        subprocess.run(compare_multi_ts_cmd, check=True)
+        # After saving all_results.json, add:
+        multi_ts_analysis_dir = Path(config_args.output_dir) / "multi_ts_analysis"
+        ensure_directory_exists(multi_ts_analysis_dir)
+
+        for window_size in window_sizes:
+            for overlap in overlap_settings:
+                overlap_str = "overlap" if overlap else "nonoverlap"
+                config_output_dir = multi_ts_analysis_dir / f"w{window_size}_{overlap_str}"
+                config_output_dir.mkdir(parents=True, exist_ok=True)
+                compare_multi_ts_cmd = [
+                    sys.executable,
+                    str(Path(__file__).parent / "compare_multi_ts_anomalies.py"),
+                    "--results-base", str(Path(config_args.output_dir) / "multi_ts_results"),
+                    "--output", str(config_output_dir),
+                    "--window-size", str(window_size),
+                    "--overlap-type", overlap_str,
+                    "--data", str(Path(config_args.processed_dir) / "index_GSPC_processed.csv")
+                ]
+                logger.info(f"Running multi-TS comparison: {' '.join(compare_multi_ts_cmd)}")
+                subprocess.run(compare_multi_ts_cmd, check=True)
 
         logger.info("Multi-TS Subsequence Analysis Workflow completed successfully")
         return True
