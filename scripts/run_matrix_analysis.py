@@ -154,85 +154,42 @@ def detect_anomalies_lof(feature_array, metadata_list, contamination=0.05):
     """
     Detect anomalies in flattened multi-TS data using Local Outlier Factor.
     Treats each time period as a potential anomaly.
-    
-    Args:
-        feature_array (numpy.ndarray): Flattened multi-TS features
-        metadata_list (list): List of metadata dictionaries
-        contamination (float): Expected proportion of anomalies
-        
-    Returns:
-        tuple: (scores, indices, anomaly_periods, execution_time)
-            - scores: Anomaly scores for each time period
-            - indices: Indices of anomalous time periods
-            - anomaly_periods: Information about anomalous periods
-            - execution_time: Time taken for execution
     """
-    try:
-        logger.info(f"Running LOF on {len(feature_array)} multi-TS matrices")
-        
-        # Initialize LOF
-        lof = LocalOutlierFactor(
-            n_neighbors=min(20, feature_array.shape[0] - 1),
-            contamination=contamination,
-            n_jobs=-1,
-            novelty=False
-        )
-        
-        # Fit and predict
-        start_time = time.time()
-        labels = lof.fit_predict(feature_array)
-        # For LOF in non-novelty mode, you need to extract the negative_outlier_factor_ directly
-        scores = -lof.negative_outlier_factor_
-        end_time = time.time()
-        
-        # Normalize scores
-        scores = (scores - np.mean(scores)) / np.std(scores)
-        
-        # Get anomalous time periods (where label is -1)
-        anomaly_indices = np.where(labels == -1)[0]
-        logger.info(f"Detected {len(anomaly_indices)} anomalous time periods")
-        
-        # Extract anomaly information
-        anomaly_periods = []
-        for idx in anomaly_indices:
-            if idx < len(metadata_list):
-                metadata = metadata_list[idx]
-                period_info = {
-                    'time_period_idx': idx,
-                    'score': float(scores[idx]),
-                    'start_date': metadata.get('start_date', 'Unknown'),
-                    'end_date': metadata.get('end_date', 'Unknown'),
-                    'tickers': metadata.get('tickers', []),
-                }
-                anomaly_periods.append(period_info)
-        
-        execution_time = end_time - start_time
-        logger.info(f"LOF execution time: {execution_time:.2f} seconds")
-        
-        return scores, anomaly_indices, anomaly_periods, execution_time
-        
-    except Exception as e:
-        logger.error(f"Error detecting anomalies with LOF: {e}")
-        return None, None, None, -1
+    from sklearn.neighbors import LocalOutlierFactor
+    import numpy as np
 
+    lof = LocalOutlierFactor(
+        n_neighbors=min(20, feature_array.shape[0] - 1),
+        contamination=contamination,
+        n_jobs=-1,
+        novelty=False
+    )
+    labels = lof.fit_predict(feature_array)
+    scores = -lof.negative_outlier_factor_
+
+    anomaly_periods = []
+    for i, (score, label, metadata) in enumerate(zip(scores, labels, metadata_list)):
+        if label == -1:
+            n_stocks = len(metadata['tickers'])
+            n_features = int(len(feature_array[i]) / n_stocks)
+            matrix = feature_array[i].reshape((n_stocks, n_features))
+            contributions = np.sum(np.abs(matrix), axis=1)
+            top_indices = np.argsort(contributions)[-10:][::-1]
+            top_tickers = [metadata['tickers'][j] for j in top_indices]
+
+            anomaly_periods.append({
+                'time_period_idx': i,
+                'score': float(score),
+                'start_date': metadata['start_date'],
+                'end_date': metadata['end_date'],
+                'tickers': top_tickers
+            })
+    return scores, np.where(labels == -1)[0], anomaly_periods, None
 
 def detect_anomalies_aida(feature_array, metadata_list, multi_ts_dir, contamination=0.05):
     """
     Detect anomalies in flattened multi-TS data using AIDA.
     Treats each time period as a potential anomaly.
-    
-    Args:
-        feature_array (numpy.ndarray): Flattened multi-TS features
-        metadata_list (list): List of metadata dictionaries
-        multi_ts_dir (Path): Directory for temporary files
-        contamination (float): Expected proportion of anomalies
-        
-    Returns:
-        tuple: (scores, indices, anomaly_periods, execution_time)
-            - scores: Anomaly scores for each time period
-            - indices: Indices of anomalous time periods
-            - anomaly_periods: Information about anomalous periods
-            - execution_time: Time taken for execution
     """
     try:
         logger.info(f"Running AIDA on {len(feature_array)} multi-TS matrices")
@@ -252,9 +209,6 @@ def detect_anomalies_aida(feature_array, metadata_list, multi_ts_dir, contaminat
         root_dir = Path(multi_ts_dir).parent.parent.parent  # Adjust based on your project structure
         aida_cpp_dir = root_dir / "AIDA" / "C++"
         aida_executable = aida_cpp_dir / "build" / "aida_subsequence_detection"
-        
-        # Check if executable exists, compile if needed
-        # Note: This part would need to be implemented similar to your existing AIDA setup
         
         # Execute AIDA
         start_time = time.time()
@@ -289,17 +243,23 @@ def detect_anomalies_aida(feature_array, metadata_list, multi_ts_dir, contaminat
             scores = np.zeros(len(feature_array))
             anomaly_indices = []
         
-        # Extract anomaly information
+        # Extract anomaly information with dynamic top tickers
         anomaly_periods = []
         for idx in anomaly_indices:
             if idx < len(metadata_list):
                 metadata = metadata_list[idx]
+                n_stocks = len(metadata['tickers'])
+                n_features = int(len(feature_array[idx]) / n_stocks)
+                matrix = feature_array[idx].reshape((n_stocks, n_features))
+                contributions = np.sum(np.abs(matrix), axis=1)
+                top_indices = np.argsort(contributions)[-10:][::-1]
+                top_tickers = [metadata['tickers'][j] for j in top_indices]
                 period_info = {
                     'time_period_idx': idx,
                     'score': float(scores[idx]) if idx < len(scores) else 0,
                     'start_date': metadata.get('start_date', 'Unknown'),
                     'end_date': metadata.get('end_date', 'Unknown'),
-                    'tickers': metadata.get('tickers', []),
+                    'tickers': top_tickers,
                 }
                 anomaly_periods.append(period_info)
         
