@@ -1,0 +1,211 @@
+{
+  "AMZN": {
+    "ticker": "AMZN",
+    "anomaly_count": 1,
+    "max_score": 1.7259667899849067,
+    "anomaly_dates": [
+      {
+        "start": "2023-10-25 00:00:00",
+        "end": "2023-10-27 00:00:00"
+      }
+    ]
+  },
+  "DGX": {
+    "ticker": "DGX",
+    "anomaly_count": 1,
+    "max_score": 1.6522545719490251,
+    "anomaly_dates": [
+      {
+        "start": "2023-10-25 00:00:00",
+        "end": "2023-10-27 00:00:00"
+      }
+    ]
+  },
+  "AAPL": {
+    "ticker": "AAPL",
+    "anomaly_count": 1,
+    "max_score": 1.6333710126218506,
+    "anomaly_dates": [
+      {
+        "start": "2023-10-25 00:00:00",
+        "end": "2023-10-27 00:00:00"
+      }
+    ]
+  },
+  "TECH": {
+    "ticker": "TECH",
+    "anomaly_count": 1,
+    "max_score": 1.0879913893895812,
+    "anomaly_dates": [
+      {
+        "start": "2023-10-30 00:00:00",
+        "end": "2023-11-01 00:00:00"
+      }
+    ]
+  },
+  "BRK-B": {
+    "ticker": "BRK-B",
+    "anomaly_count": 1,
+    "max_score": 1.6532949360422713,
+    "anomaly_dates": [
+      {
+        "start": "2023-10-26 00:00:00",
+        "end": "2023-10-30 00:00:00"
+      }
+    ]
+  },
+  "DLR": {
+    "ticker": "DLR",
+    "anomaly_count": 1,
+    "max_score": 1.424665461734202,
+    "anomaly_dates": [
+      {
+        "start": "2023-10-25 00:00:00",
+        "end": "2023-10-27 00:00:00"
+      }
+    ]
+  },
+  "META": {
+    "ticker": "META",
+    "anomaly_count": 1,
+    "max_score": 1.7607647842208618,
+    "anomaly_dates": [
+      {
+        "start": "2023-10-25 00:00:00",
+        "end": "2023-10-27 00:00:00"
+      }
+    ]
+  },
+  "ALLE": {
+    "ticker": "ALLE",
+    "anomaly_count": 1,
+    "max_score": 1.494696468790498,
+    "anomaly_dates": [
+      {
+        "start": "2023-10-31 00:00:00",
+        "end": "2023-11-02 00:00:00"
+      }
+    ]
+  },
+  "CCI": {
+    "ticker": "CCI",
+    "anomaly_count": 1,
+    "max_score": 1.291781766469729,
+    "anomaly_dates": [
+      {
+        "start": "2023-10-25 00:00:00",
+        "end": "2023-10-27 00:00:00"
+      }
+    ]
+  },
+  "CAG": {
+    "ticker": "CAG",
+    "anomaly_count": 1,
+    "max_score": 1.7912826776887298,
+    "anomaly_dates": [
+      {
+        "start": "2023-10-25 00:00:00",
+        "end": "2023-10-27 00:00:00"
+      }
+    ]
+  },
+  "LLY": {
+    "ticker": "LLY",
+    "anomaly_count": 1,
+    "max_score": 1.8852414864766662,
+    "anomaly_dates": [
+      {
+        "start": "2023-10-31 00:00:00",
+        "end": "2023-11-02 00:00:00"
+      }
+    ]
+  },
+  "LDOS": {
+    "ticker": "LDOS",
+    "anomaly_count": 1,
+    "max_score": 1.5640774742301842,
+    "anomaly_dates": [
+      {
+        "start": "2023-10-27 00:00:00",
+        "end": "2023-10-31 00:00:00"
+      }
+    ]
+  },
+  "ALGN": {
+    "ticker": "ALGN",
+    "anomaly_count": 1,
+    "max_score": 1.6154245285257327,
+    "anomaly_dates": [
+      {
+        "start": "2023-10-26 00:00:00",
+        "end": "2023-10-30 00:00:00"
+      }
+    ]
+  },
+  "MDT": {
+    "ticker": "MDT",
+    "anomaly_count": 1,
+    "max_score": 1.5123832954387717,
+    "anomaly_dates": [
+      {
+        "start": "2023-10-31 00:00:00",
+        "end": "2023-11-02 00:00:00"
+      }
+    ]
+  },
+  "JPM": {
+    "ticker": "JPM",
+    "anomaly_count": 1,
+    "max_score": 1.3893694666582512,
+    "anomaly_dates": [
+      {
+        "start": "2023-10-26 00:00:00",
+        "end": "2023-10-30 00:00:00"
+      }
+    ]
+  },
+  "ATO": {
+    "ticker": "ATO",
+    "anomaly_count": 1,
+    "max_score": 1.8861140445684603,
+    "anomaly_dates": [
+      {
+        "start": "2023-10-27 00:00:00",
+        "end": "2023-10-31 00:00:00"
+      }
+    ]
+  },
+  "NWS": {
+    "ticker": "NWS",
+    "anomaly_count": 1,
+    "max_score": 1.6327914937273655,
+    "anomaly_dates": [
+      {
+        "start": "2023-10-25 00:00:00",
+        "end": "2023-10-27 00:00:00"
+      }
+    ]
+  },
+  "BG": {
+    "ticker": "BG",
+    "anomaly_count": 1,
+    "max_score": 1.399893006690217,
+    "anomaly_dates": [
+      {
+        "start": "2023-10-25 00:00:00",
+        "end": "2023-10-27 00:00:00"
+      }
+    ]
+  },
+  "AZO": {
+    "ticker": "AZO",
+    "anomaly_count": 1,
+    "max_score": 1.571315580537473,
+    "anomaly_dates": [
+      {
+        "start": "2023-10-31 00:00:00",
+        "end": "2023-11-02 00:00:00"
+      }
+    ]
+  }
+}

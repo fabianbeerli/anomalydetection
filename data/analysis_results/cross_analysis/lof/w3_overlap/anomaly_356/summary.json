@@ -1,0 +1,12 @@
+{
+  "total_constituents_analyzed": 30,
+  "constituents_with_anomalies": 25,
+  "anomaly_pattern": "widespread",
+  "top_anomalous_constituents": [
+    "AKAM",
+    "STZ",
+    "VTR",
+    "BRK-B",
+    "PWR"
+  ]
+}

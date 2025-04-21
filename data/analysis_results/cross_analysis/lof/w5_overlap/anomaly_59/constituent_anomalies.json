@@ -1,0 +1,332 @@
+{
+  "AMZN": {
+    "ticker": "AMZN",
+    "anomaly_count": 1,
+    "max_score": 2.116974827460383,
+    "anomaly_dates": [
+      {
+        "start": "2023-08-24 00:00:00",
+        "end": "2023-08-30 00:00:00"
+      }
+    ]
+  },
+  "MSFT": {
+    "ticker": "MSFT",
+    "anomaly_count": 1,
+    "max_score": 1.7339132648514843,
+    "anomaly_dates": [
+      {
+        "start": "2023-08-24 00:00:00",
+        "end": "2023-08-30 00:00:00"
+      }
+    ]
+  },
+  "DGX": {
+    "ticker": "DGX",
+    "anomaly_count": 1,
+    "max_score": 1.484525751915186,
+    "anomaly_dates": [
+      {
+        "start": "2023-08-28 00:00:00",
+        "end": "2023-09-01 00:00:00"
+      }
+    ]
+  },
+  "AAPL": {
+    "ticker": "AAPL",
+    "anomaly_count": 1,
+    "max_score": 1.370076573325566,
+    "anomaly_dates": [
+      {
+        "start": "2023-08-24 00:00:00",
+        "end": "2023-08-30 00:00:00"
+      }
+    ]
+  },
+  "TECH": {
+    "ticker": "TECH",
+    "anomaly_count": 1,
+    "max_score": 1.0571371232508107,
+    "anomaly_dates": [
+      {
+        "start": "2023-08-28 00:00:00",
+        "end": "2023-09-01 00:00:00"
+      }
+    ]
+  },
+  "BRK-B": {
+    "ticker": "BRK-B",
+    "anomaly_count": 1,
+    "max_score": 1.8480027906797805,
+    "anomaly_dates": [
+      {
+        "start": "2023-08-24 00:00:00",
+        "end": "2023-08-30 00:00:00"
+      }
+    ]
+  },
+  "GOOGL": {
+    "ticker": "GOOGL",
+    "anomaly_count": 1,
+    "max_score": 1.5035540830641252,
+    "anomaly_dates": [
+      {
+        "start": "2023-08-24 00:00:00",
+        "end": "2023-08-30 00:00:00"
+      }
+    ]
+  },
+  "DLR": {
+    "ticker": "DLR",
+    "anomaly_count": 1,
+    "max_score": 1.8348222880297356,
+    "anomaly_dates": [
+      {
+        "start": "2023-08-24 00:00:00",
+        "end": "2023-08-30 00:00:00"
+      }
+    ]
+  },
+  "BALL": {
+    "ticker": "BALL",
+    "anomaly_count": 1,
+    "max_score": 1.4066648668955595,
+    "anomaly_dates": [
+      {
+        "start": "2023-08-21 00:00:00",
+        "end": "2023-08-25 00:00:00"
+      }
+    ]
+  },
+  "NVDA": {
+    "ticker": "NVDA",
+    "anomaly_count": 1,
+    "max_score": 1.8378924816370332,
+    "anomaly_dates": [
+      {
+        "start": "2023-08-23 00:00:00",
+        "end": "2023-08-29 00:00:00"
+      }
+    ]
+  },
+  "HAL": {
+    "ticker": "HAL",
+    "anomaly_count": 1,
+    "max_score": 1.36720619149228,
+    "anomaly_dates": [
+      {
+        "start": "2023-08-23 00:00:00",
+        "end": "2023-08-29 00:00:00"
+      }
+    ]
+  },
+  "META": {
+    "ticker": "META",
+    "anomaly_count": 1,
+    "max_score": 1.1625249924385543,
+    "anomaly_dates": [
+      {
+        "start": "2023-08-24 00:00:00",
+        "end": "2023-08-30 00:00:00"
+      }
+    ]
+  },
+  "ALLE": {
+    "ticker": "ALLE",
+    "anomaly_count": 1,
+    "max_score": 1.1639502400182444,
+    "anomaly_dates": [
+      {
+        "start": "2023-08-23 00:00:00",
+        "end": "2023-08-29 00:00:00"
+      }
+    ]
+  },
+  "CCI": {
+    "ticker": "CCI",
+    "anomaly_count": 1,
+    "max_score": 2.07333420872056,
+    "anomaly_dates": [
+      {
+        "start": "2023-08-21 00:00:00",
+        "end": "2023-08-25 00:00:00"
+      }
+    ]
+  },
+  "CAG": {
+    "ticker": "CAG",
+    "anomaly_count": 1,
+    "max_score": 1.6597735738883743,
+    "anomaly_dates": [
+      {
+        "start": "2023-08-25 00:00:00",
+        "end": "2023-08-31 00:00:00"
+      }
+    ]
+  },
+  "LLY": {
+    "ticker": "LLY",
+    "anomaly_count": 1,
+    "max_score": 1.19213643953721,
+    "anomaly_dates": [
+      {
+        "start": "2023-08-24 00:00:00",
+        "end": "2023-08-30 00:00:00"
+      }
+    ]
+  },
+  "AKAM": {
+    "ticker": "AKAM",
+    "anomaly_count": 1,
+    "max_score": 0.9312164167387846,
+    "anomaly_dates": [
+      {
+        "start": "2023-08-24 00:00:00",
+        "end": "2023-08-30 00:00:00"
+      }
+    ]
+  },
+  "LDOS": {
+    "ticker": "LDOS",
+    "anomaly_count": 1,
+    "max_score": 1.0269488291612272,
+    "anomaly_dates": [
+      {
+        "start": "2023-08-21 00:00:00",
+        "end": "2023-08-25 00:00:00"
+      }
+    ]
+  },
+  "ALGN": {
+    "ticker": "ALGN",
+    "anomaly_count": 1,
+    "max_score": 2.008666267458482,
+    "anomaly_dates": [
+      {
+        "start": "2023-08-24 00:00:00",
+        "end": "2023-08-30 00:00:00"
+      }
+    ]
+  },
+  "VTR": {
+    "ticker": "VTR",
+    "anomaly_count": 1,
+    "max_score": 1.8050682493828867,
+    "anomaly_dates": [
+      {
+        "start": "2023-08-23 00:00:00",
+        "end": "2023-08-29 00:00:00"
+      }
+    ]
+  },
+  "MDT": {
+    "ticker": "MDT",
+    "anomaly_count": 1,
+    "max_score": 1.4298531084911137,
+    "anomaly_dates": [
+      {
+        "start": "2023-08-21 00:00:00",
+        "end": "2023-08-25 00:00:00"
+      }
+    ]
+  },
+  "PWR": {
+    "ticker": "PWR",
+    "anomaly_count": 1,
+    "max_score": 1.2092777095734235,
+    "anomaly_dates": [
+      {
+        "start": "2023-08-24 00:00:00",
+        "end": "2023-08-30 00:00:00"
+      }
+    ]
+  },
+  "ORCL": {
+    "ticker": "ORCL",
+    "anomaly_count": 1,
+    "max_score": 1.3824634053852976,
+    "anomaly_dates": [
+      {
+        "start": "2023-08-23 00:00:00",
+        "end": "2023-08-29 00:00:00"
+      }
+    ]
+  },
+  "JPM": {
+    "ticker": "JPM",
+    "anomaly_count": 1,
+    "max_score": 1.7225100267412714,
+    "anomaly_dates": [
+      {
+        "start": "2023-08-28 00:00:00",
+        "end": "2023-09-01 00:00:00"
+      }
+    ]
+  },
+  "ATO": {
+    "ticker": "ATO",
+    "anomaly_count": 1,
+    "max_score": 1.7545363278960948,
+    "anomaly_dates": [
+      {
+        "start": "2023-08-25 00:00:00",
+        "end": "2023-08-31 00:00:00"
+      }
+    ]
+  },
+  "NWS": {
+    "ticker": "NWS",
+    "anomaly_count": 1,
+    "max_score": 1.3629829708484784,
+    "anomaly_dates": [
+      {
+        "start": "2023-08-23 00:00:00",
+        "end": "2023-08-29 00:00:00"
+      }
+    ]
+  },
+  "GOOG": {
+    "ticker": "GOOG",
+    "anomaly_count": 1,
+    "max_score": 1.3831464349232294,
+    "anomaly_dates": [
+      {
+        "start": "2023-08-23 00:00:00",
+        "end": "2023-08-29 00:00:00"
+      }
+    ]
+  },
+  "STZ": {
+    "ticker": "STZ",
+    "anomaly_count": 1,
+    "max_score": 0.8690908378297364,
+    "anomaly_dates": [
+      {
+        "start": "2023-08-21 00:00:00",
+        "end": "2023-08-25 00:00:00"
+      }
+    ]
+  },
+  "BG": {
+    "ticker": "BG",
+    "anomaly_count": 1,
+    "max_score": 1.929970703116109,
+    "anomaly_dates": [
+      {
+        "start": "2023-08-22 00:00:00",
+        "end": "2023-08-28 00:00:00"
+      }
+    ]
+  },
+  "AZO": {
+    "ticker": "AZO",
+    "anomaly_count": 1,
+    "max_score": 1.5474157776168302,
+    "anomaly_dates": [
+      {
+        "start": "2023-08-24 00:00:00",
+        "end": "2023-08-30 00:00:00"
+      }
+    ]
+  }
+}

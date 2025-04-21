@@ -1,0 +1,12 @@
+{
+  "total_constituents_analyzed": 30,
+  "constituents_with_anomalies": 30,
+  "anomaly_pattern": "widespread",
+  "top_anomalous_constituents": [
+    "CAG",
+    "BRK-B",
+    "ATO",
+    "JPM",
+    "NWS"
+  ]
+}

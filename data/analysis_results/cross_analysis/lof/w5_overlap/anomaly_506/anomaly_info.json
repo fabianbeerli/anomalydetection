@@ -1,0 +1,9 @@
+{
+  "index": 506,
+  "score": 2.124546249544524,
+  "start_date": "2023-04-21 00:00:00",
+  "end_date": "2023-04-27 00:00:00",
+  "algorithm": "lof",
+  "window_size": 5,
+  "overlap_type": "overlap"
+}
