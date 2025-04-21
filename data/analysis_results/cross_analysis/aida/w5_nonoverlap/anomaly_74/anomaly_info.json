@@ -1,9 +1,0 @@
-{
-  "index": 74,
-  "score": 2.13842,
-  "start_date": "2024-05-24 00:00:00",
-  "end_date": "2024-05-31 00:00:00",
-  "algorithm": "aida",
-  "window_size": 5,
-  "mode": "nonoverlap"
-}
