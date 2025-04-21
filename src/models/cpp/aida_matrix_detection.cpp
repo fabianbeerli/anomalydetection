@@ -1,15 +1,22 @@
-/* AIDA Anomaly Detection for Matrix Data */
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <vector>
-#include <string>
-#include <algorithm>
 #include <cmath>
-#include <chrono>
-#include "aida_class.h"
+#include <string>
 using namespace std;
-using namespace std::chrono;
+
+// Set these to your actual values!
+const int n_rows = 30; // e.g., number of stocks
+const int n_cols = 15; // e.g., window_size * n_features
+
+double frobenius_distance(const vector<vector<double>>& A, const vector<vector<double>>& B) {
+    double sum = 0.0;
+    for (size_t i = 0; i < A.size(); ++i)
+        for (size_t j = 0; j < A[0].size(); ++j)
+            sum += (A[i][j] - B[i][j]) * (A[i][j] - B[i][j]);
+    return sqrt(sum);
+}
 
 int main(int argc, char** argv) {
     if (argc < 2) {
@@ -17,116 +24,63 @@ int main(int argc, char** argv) {
         return 1;
     }
     string input_file = argv[1];
-    string output_scores_file = input_file + "_AIDA_scores.dat";
-    string output_anomalies_file = input_file + "_AIDA_anomalies.csv";
     ifstream file(input_file);
     if (!file.is_open()) {
         cerr << "Error: Could not open input file " << input_file << endl;
         return 1;
     }
-    string header_line;
-    getline(file, header_line);
-    stringstream header_stream(header_line);
-    string feature_name;
-    int nFnum = 0;
-    while (getline(header_stream, feature_name, ',')) {
-        nFnum++;
-    }
-    vector<vector<double>> numerical_data;
+    vector<vector<vector<double>>> matrices;
     string line;
     while (getline(file, line)) {
         stringstream ss(line);
         string cell;
-        vector<double> row;
+        vector<double> flat_row;
         while (getline(ss, cell, ',')) {
-            try {
-                row.push_back(stod(cell));
-            } catch (const std::invalid_argument& e) {
-                row.push_back(0.0);
-            }
+            flat_row.push_back(stod(cell));
         }
-        if (!row.empty()) {
-            numerical_data.push_back(row);
-        }
+        // Each row is a stock, with window_size * n_features columns
+        vector<vector<double>> mat(n_rows, vector<double>(n_cols));
+        for (int i = 0; i < n_rows; ++i)
+            for (int j = 0; j < n_cols; ++j)
+                mat[i][j] = flat_row[i * n_cols + j];
+        matrices.push_back(mat);
     }
     file.close();
-    int n = numerical_data.size();
-    int nFnom = 1;
-    cout << "Data loaded: " << n << " rows, " << nFnum << " features per row" << endl;
-    double* Xnum = new double[n * nFnum];
-    int* Xnom = new int[n * nFnom];
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < nFnum; ++j) {
-            Xnum[j + i * nFnum] = numerical_data[i][j];
+
+    // Compute anomaly scores (average Frobenius distance to all others)
+    vector<double> scores(matrices.size(), 0.0);
+    for (size_t i = 0; i < matrices.size(); ++i) {
+        double sum_dist = 0.0;
+        for (size_t j = 0; j < matrices.size(); ++j) {
+            if (i == j) continue;
+            sum_dist += frobenius_distance(matrices[i], matrices[j]);
         }
-        Xnom[i] = 0;
+        scores[i] = sum_dist / (matrices.size() - 1);
     }
-    int N = 100;
-    string aggregate_type = "aom";
-    string score_function = "variance";
-    double alpha_min = 1.0;
-    double alpha_max = 1.0;
-    string distance_metric = "euclidean";
-    int subsample_min = 50;
-    int subsample_max = min(256, n);
-    int dmin = min(nFnum, max(2, nFnum / 2));
-    int dmax = nFnum;
-    double* scoresAIDA = new double[n];
-    try {
-        cout << "Training AIDA..." << endl;
-        auto start_time = high_resolution_clock::now();
-        AIDA aida(N, aggregate_type, score_function, alpha_min, alpha_max, distance_metric);
-        aida.fit(n, nFnum, Xnum, nFnom, Xnom, subsample_min, subsample_max, dmin, dmax, nFnom, nFnom);
-        cout << "Computing anomaly scores..." << endl;
-        aida.score_samples(n, scoresAIDA, Xnum, Xnom);
-        auto end_time = high_resolution_clock::now();
-        auto duration = duration_cast<milliseconds>(end_time - start_time);
-        ofstream fres(output_scores_file);
-        fres << n << endl;
-        for (int i = 0; i < n; ++i) {
-            fres << scoresAIDA[i] << endl;
-        }
-        fres.close();
-        double mean_score = 0.0;
-        double std_score = 0.0;
-        for (int i = 0; i < n; ++i) {
-            mean_score += scoresAIDA[i];
-        }
-        mean_score /= n;
-        for (int i = 0; i < n; ++i) {
-            std_score += (scoresAIDA[i] - mean_score) * (scoresAIDA[i] - mean_score);
-        }
-        std_score = sqrt(std_score / n);
-        double threshold = mean_score + 2 * std_score;
-        ofstream fanom(output_anomalies_file);
-        int anomaly_count = 0;
-        fanom << "index,stock_idx,score" << endl;
-        for (int i = 0; i < n; ++i) {
-            if (scoresAIDA[i] > threshold) {
-                fanom << i << "," << i % 30 << "," << scoresAIDA[i] << endl;
-                anomaly_count++;
-            }
-        }
-        fanom.close();
-        cout << "AIDA Matrix Analysis Complete:" << endl;
-        cout << "Total rows: " << n << endl;
-        cout << "Anomalies detected: " << anomaly_count << endl;
-        cout << "Model execution time: " << duration.count() / 1000.0 << " seconds" << endl;
-        cout << "Scores saved to: " << output_scores_file << endl;
-        cout << "Anomalies saved to: " << output_anomalies_file << endl;
-        ofstream ftime(input_file + "_AIDA_time.txt");
-        ftime << duration.count() / 1000.0 << endl;
-        ftime.close();
+
+    // Output scores
+    ofstream fres(string(input_file) + "_AIDA_scores.dat");
+    fres << matrices.size() << endl;
+    for (size_t i = 0; i < scores.size(); ++i)
+        fres << scores[i] << endl;
+    fres.close();
+
+    // Threshold and output anomalies
+    double mean = 0.0, stddev = 0.0;
+    for (double s : scores) mean += s;
+    mean /= scores.size();
+    for (double s : scores) stddev += (s - mean) * (s - mean);
+    stddev = sqrt(stddev / scores.size());
+    double threshold = mean + 2 * stddev;
+
+    ofstream fanom(string(input_file) + "_AIDA_anomalies.csv");
+    fanom << "index,score" << endl;
+    for (size_t i = 0; i < scores.size(); ++i) {
+        if (scores[i] > threshold)
+            fanom << i << "," << scores[i] << endl;
     }
-    catch (const std::exception& e) {
-        cerr << "Error during AIDA processing: " << e.what() << endl;
-        delete[] Xnum;
-        delete[] Xnom;
-        delete[] scoresAIDA;
-        return 1;
-    }
-    delete[] Xnum;
-    delete[] Xnom;
-    delete[] scoresAIDA;
+    fanom.close();
+
+    cout << "Done. Scores and anomalies written." << endl;
     return 0;
 }

@@ -1,8 +1,11 @@
-
 # Unsupervised Anomaly Detection in S&P 500: A Comparative Approach
 
 ## 📈 Project Overview
-This project performs a comparative analysis of three unsupervised anomaly detection algorithms — **AIDA**, **Isolation Forest**, and **Local Outlier Factor (LOF)** — applied to subsequences derived from S&P 500 stock data. The aim is to evaluate their effectiveness and performance in identifying anomalous patterns in financial time series.
+This project performs a comparative analysis of three unsupervised anomaly detection algorithms — **AIDA**, **Isolation Forest**, and **Local Outlier Factor (LOF)** — applied to S&P 500 stock data. The project evaluates their effectiveness in identifying anomalous patterns in financial time series using three analysis approaches:
+
+1. **Individual Subsequence Analysis**: Detecting anomalies in temporal windows of single stocks
+2. **Cross-Index-Constituent Analysis**: Examining relationships between index anomalies and constituent stock behavior
+3. **Multi-TS Matrix Analysis**: Analyzing anomalies across multiple stocks simultaneously (matrix-based approach)
 
 ---
 
@@ -34,66 +37,72 @@ brew install libomp
 
 ---
 
-## 🚀 Workflow Steps
+## 🚀 Workflow
 
-### ✅ Step 1: Data Retrieval
-Download S&P 500 index and constituent stock data.
+### ✅ Step 1: Data Retrieval & Processing
+Download and prepare S&P 500 index and constituent stock data.
 ```bash
+# Retrieve raw data
 python scripts/retrieve_data.py
-```
 
-### 🔧 Step 2: Data Preprocessing
-Process raw data and engineer features. This generates subsequence datasets.
-```bash
+# Process and create features, subsequences, and matrices
 python scripts/prepare_data.py
 ```
 
-### 🤖 Step 3: Run Anomaly Detection
-Execute anomaly detection algorithms with custom window sizes and overlap settings.
+### 🤖 Step 2: Run Complete Analysis
+Execute the complete analysis workflow with one command:
 
 ```bash
-# All algorithms, window size 3, with overlap
-python scripts/run_subsequence_algorithms.py --window-size 3 --overlap --algorithms all
+# Run the complete analysis with default settings
+python scripts/run_complete_analysis.py --run-all
 
-# All algorithms, window size 3, without overlap
-python scripts/run_subsequence_algorithms.py --window-size 3 --no-overlap --algorithms all
-
-# Specific algorithms (e.g., AIDA and LOF), window size 5
-python scripts/run_subsequence_algorithms.py --window-size 5 --overlap --algorithms aida lof
-
-# Larger window size
-python scripts/run_subsequence_algorithms.py --window-size 10 --overlap --algorithms all
+# Customize with specific settings
+python scripts/run_complete_analysis.py --run-individual-analysis --run-cross-analysis --run-multi-ts-analysis --window-sizes 3,5 --algorithms aida,iforest,lof
 ```
 
-#### Parameters:
-- `--window-size`: Size of the subsequence window (default: 3)
-- `--overlap` / `--no-overlap`: Control overlapping behavior (default: overlap)
-- `--algorithms`: Choose from `aida`, `iforest`, `lof`, or `all`
-- `--subsequence-dir`: Optional path to precomputed subsequences
-- `--output`: Optional directory to save results
+#### Alternative: Run Each Analysis Type Separately
+
+```bash
+# Individual Subsequence Analysis
+python scripts/run_subsequence_algorithms.py --window-size 3 --overlap --algorithms all
+
+# Cross-Index-Constituent Analysis
+python scripts/run_constituent_relationship_analysis.py
+
+# Multi-TS Matrix Analysis
+python scripts/run_matrix_analysis.py
+```
+
+### 📊 Step 3: Compare and Visualize Results
+
+```bash
+# Compare subsequence anomalies
+python scripts/compare_subsequence_anomalies.py --window-size 3 --overlap-type overlap
+
+# Analyze constituent relationships
+python scripts/analyze_constituent_relationships.py
+
+# Compare multi-TS anomalies
+python scripts/compare_multi_ts_anomalies.py --window-size 3 --overlap-type overlap --data data/processed/index_GSPC_processed.csv
+```
 
 ---
 
-### 📊 Step 4: Analyze and Compare Results
-Visualize anomalies and compare detection performance.
+## 🧠 Run Scripts with Convenience Helpers
 
-```bash
-# Overlapping windows, size 3
-python scripts/compare_subsequence_anomalies.py --results-base data/subsequence_results --window-size 3 --overlap-type overlap
+The project includes convenience scripts for Windows and Unix systems:
 
-# Non-overlapping windows, size 3
-python scripts/compare_subsequence_anomalies.py --results-base data/subsequence_results --window-size 3 --overlap-type nonoverlap
-
-# Larger window, with output directory
-python scripts/compare_subsequence_anomalies.py --results-base data/subsequence_results --window-size 10 --overlap-type overlap --output data/analysis_results/w10_overlap
+### Windows (Batch Files)
+```
+scripts/run_analysis.bat          # Run complete analysis
+scripts/run_constituent_analysis.bat  # Run constituent analysis
 ```
 
-#### Parameters:
-- `--results-base`: Base directory for results (default: `data/subsequence_results`)
-- `--window-size`: Window size used for comparison (default: 3)
-- `--overlap-type`: `overlap` or `non-overlap`
-- `--data`: Optional path to raw data
-- `--output`: Optional directory to save analysis results
+### Unix (Shell Scripts)
+```
+scripts/run_analysis.sh           # Run complete analysis
+scripts/run_constituent_analysis.sh   # Run constituent analysis
+```
 
 ---
 
@@ -102,39 +111,63 @@ python scripts/compare_subsequence_anomalies.py --results-base data/subsequence_
 data/
 ├── raw/                         # Original downloaded data
 ├── processed/                   # Preprocessed & feature-engineered data
-│   └── subsequences/            # Subsequence datasets
-├── subsequence_results/         # Results from algorithms
-│   ├── w3_overlap/
-│   │   ├── aida/
-│   │   ├── iforest/
-│   │   └── lof/
-│   ├── w3_nonoverlap/
-│   └── ...
-└── analysis_results/            # Comparative visualizations & summaries
+│   ├── subsequences/            # Subsequence datasets
+│   └── multi_ts/                # Multi-TS matrices
+├── subsequence_results/         # Individual subsequence results
+│   ├── aida/
+│   ├── iforest/
+│   └── lof/
+├── constituent_analysis/        # Cross-index-constituent analysis
+└── multi_ts_results/            # Matrix-based analysis results
+
+src/
+├── data/                        # Data retrieval and processing
+├── models/                      # Algorithm implementations
+│   ├── aida_helper.py           # AIDA integration
+│   ├── isolation_forest.py      # Isolation Forest
+│   ├── lof.py                   # Local Outlier Factor
+│   └── cpp/                     # C++ implementations for AIDA
+└── utils/                       # Utility functions
+
+scripts/
+├── run_complete_analysis.py     # Main entry point for all analyses
+├── run_subsequence_algorithms.py # Individual subsequence analysis
+├── run_constituent_relationship_analysis.py # Cross-analysis 
+├── run_matrix_analysis.py       # Multi-TS matrix analysis
+└── compare_*.py                 # Results visualization scripts
 ```
 
 ---
 
-## 📄 Output Files
+## 🛠️ Algorithms
 
-- `*_scores.dat`: Raw anomaly scores
-- `*_anomalies.csv`: Detected anomalies and subsequence info
-- `*_execution_time.txt`: Timing for each algorithm
-- `subsequence_anomalies_comparison.png`: Anomaly visualization
-- `anomaly_detection_detailed_summary.txt`: Statistical summary
+### 🔹 AIDA (Analytic Isolation and Distance-based Anomaly)
+A parameter-free anomaly detection method that combines distance and isolation principles, providing robust detection across different data distributions.
+
+### 🔹 Isolation Forest
+An efficient algorithm based on the principle that anomalies are easier to isolate in feature space, performing well with high-dimensional data.
+
+### 🔹 Local Outlier Factor (LOF)
+A density-based algorithm identifying local deviations in density, effective at detecting context-dependent anomalies.
 
 ---
 
-## 🧠 About the Algorithms
+## 🔎 Analysis Methods
 
-### 🔹 AIDA (Analytic Isolation and Distance-based Anomaly)
-A parameter-free anomaly detection method combining distance and isolation principles. Robust and versatile across different data types.
+### Individual Subsequence Analysis
+Detects anomalies in temporal windows (subsequences) of individual stock time series, identifying unusual price and volume patterns.
 
-### 🔹 Isolation Forest
-Based on the principle that anomalies are easier to isolate. Efficient for high-dimensional data.
+### Cross-Index-Constituent Analysis
+Examines how anomalies detected in the S&P 500 index relate to anomalies in constituent stocks, identifying market-wide vs. stock-specific patterns.
 
-### 🔹 Local Outlier Factor (LOF)
-Density-based algorithm that highlights deviations in local neighborhood density. Ideal for datasets with variable density.
+### Multi-TS Matrix Analysis
+Treats multiple stock time series simultaneously as a matrix, detecting anomalies in collective market behavior that might be missed when looking at stocks individually.
+
+---
+
+## 🧾 Citation
+> Beerli, F. (2025). *Unsupervised Anomaly Detection in S&P 500: A Comparative Approach*.  
+> ZHAW – Zurich University of Applied Sciences.
 
 ---
 
@@ -143,23 +176,9 @@ Density-based algorithm that highlights deviations in local neighborhood density
 ### AIDA Compilation Issues
 - **macOS**: Make sure OpenMP is installed (`brew install libomp`)
 - **Windows**: Use MinGW or another compiler with OpenMP support
-- If issues persist, run with other algorithms:  
-  ```bash
-  --algorithms iforest lof
-  ```
+- If issues persist, run with other algorithms: `--algorithms iforest lof`
 
-### Data Issues
-- Ensure data files exist in expected paths
-- Check for proper CSV formatting and required columns
-- Review terminal/log output for error messages
-
----
-
-## 📚 Citation
-> Beerli, F. (2025). *Unsupervised Anomaly Detection in S&P 500: A Comparative Approach*.  
-> ZHAW – Zurich University of Applied Sciences.
-
----
-
-## 🧾 License
-This project is provided for academic and research purposes. For licensing details, please consult the LICENSE file if present.
+### Common Issues
+- Ensure data directories exist with proper permissions
+- For OpenMP-related errors, verify that C++ compiler supports OpenMP
+- If you see "Segmentation fault" with AIDA, try reducing the window size

@@ -288,7 +288,7 @@
   "GOOG": {
     "ticker": "GOOG",
     "anomaly_count": 1,
-    "max_score": 1.515225524669685,
+    "max_score": 1.508487043464019,
     "anomaly_dates": [
       {
         "start": "2025-03-04 00:00:00",

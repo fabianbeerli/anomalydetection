@@ -30,7 +30,7 @@ def plot_anomalies_on_sp500(data, anomaly_results, window_size, overlap_type, ou
 
     markers = {'aida': 'o', 'iforest': '^', 'lof': 's'}
     colors = {'aida': 'red', 'iforest': 'blue', 'lof': 'green'}
-    offsets = {'aida': 80, 'iforest': 160, 'lof': -80}
+    offsets = {'aida': 0, 'iforest': 160, 'lof': -80}
 
     for algo in anomaly_results:
         if anomaly_results[algo].empty:
