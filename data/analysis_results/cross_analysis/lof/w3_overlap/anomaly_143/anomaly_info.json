@@ -5,5 +5,5 @@
   "end_date": "2023-12-14 00:00:00",
   "algorithm": "lof",
   "window_size": 3,
-  "overlap_type": "overlap"
+  "mode": "overlap"
 }

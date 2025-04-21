@@ -1,9 +1,0 @@
-{
-  "index": 127,
-  "score": 2.21136,
-  "start_date": "2023-11-20 00:00:00",
-  "end_date": "2023-11-27 00:00:00",
-  "algorithm": "aida",
-  "window_size": 5,
-  "overlap_type": "overlap"
-}

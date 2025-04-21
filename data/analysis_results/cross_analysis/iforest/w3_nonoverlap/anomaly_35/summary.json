@@ -1,0 +1,12 @@
+{
+  "total_constituents_analyzed": 30,
+  "constituents_with_anomalies": 6,
+  "anomaly_pattern": "isolated",
+  "top_anomalous_constituents": [
+    "GOOGL",
+    "HAL",
+    "GOOG",
+    "BRK-B",
+    "ORCL"
+  ]
+}

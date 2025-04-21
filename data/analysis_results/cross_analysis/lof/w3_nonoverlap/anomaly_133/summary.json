@@ -1,0 +1,12 @@
+{
+  "total_constituents_analyzed": 30,
+  "constituents_with_anomalies": 16,
+  "anomaly_pattern": "widespread",
+  "top_anomalous_constituents": [
+    "ATO",
+    "AAPL",
+    "LDOS",
+    "CCI",
+    "PWR"
+  ]
+}

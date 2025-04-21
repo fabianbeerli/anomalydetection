@@ -1,0 +1,9 @@
+{
+  "index": 128,
+  "score": 1.9278744115056392,
+  "start_date": "2023-08-23 00:00:00",
+  "end_date": "2023-08-25 00:00:00",
+  "algorithm": "lof",
+  "window_size": 3,
+  "mode": "nonoverlap"
+}

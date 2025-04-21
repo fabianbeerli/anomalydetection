@@ -1,0 +1,12 @@
+{
+  "total_constituents_analyzed": 30,
+  "constituents_with_anomalies": 12,
+  "anomaly_pattern": "isolated",
+  "top_anomalous_constituents": [
+    "STZ",
+    "DLR",
+    "GOOG",
+    "ORCL",
+    "HAL"
+  ]
+}

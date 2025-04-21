@@ -154,12 +154,12 @@ def run_cross_index_constituent_analysis(config_args):
         subsequence_results_dir = Path(config_args.output_dir) / "subsequence_results"
         processed_dir = Path(config_args.processed_dir)
 
-        # Parameters to sweep
+        # Parameters to sweep: two window sizes and include both overlap modes
         window_sizes = [3, 5]
-        overlap_types = ['overlap', 'non_overlap']
+        overlap_types = ['overlap', 'nonoverlap']  # match subsequence-results folder naming (e.g., w3_nonoverlap)
         algorithms = ['aida', 'iforest', 'lof']
 
-        # Load constituent files
+        # Load constituent files (exclude index data)
         constituent_files = list(processed_dir.glob("*_processed.csv"))
         constituent_files = [f for f in constituent_files if "index_GSPC" not in f.name]
         if not constituent_files:
@@ -167,12 +167,12 @@ def run_cross_index_constituent_analysis(config_args):
             return False
         logger.info(f"Found {len(constituent_files)} constituent files")
 
-        # Sweep through each window size and overlap setting
+        # Sweep through each configuration
         for window_size in window_sizes:
             for overlap_type in overlap_types:
-                logger.info(f"Processing window={window_size}, overlap={overlap_type}")
+                logger.info(f"Processing window={window_size}, mode={overlap_type}")
 
-                # Load index anomalies for each algorithm
+                # Load index anomalies for current config
                 index_anomalies = {}
                 for algo in algorithms:
                     anomalies_file = (
@@ -182,35 +182,34 @@ def run_cross_index_constituent_analysis(config_args):
                         / f"{algo}_anomalies.csv"
                     )
                     if anomalies_file.exists():
-                        anomalies_df = pd.read_csv(anomalies_file)
-                        index_anomalies[algo] = anomalies_df
-                        logger.info(f"Loaded {len(anomalies_df)} index anomalies for {algo}")
+                        df = pd.read_csv(anomalies_file)
+                        index_anomalies[algo] = df
+                        logger.info(f"Loaded {len(df)} anomalies for {algo} in w{window_size}_{overlap_type}")
                     else:
-                        logger.warning(f"No anomalies file for {algo} at {anomalies_file}")
+                        logger.warning(f"Missing file for {algo}: {anomalies_file}")
 
                 if not index_anomalies:
-                    logger.warning(
-                        f"No index anomalies found for w{window_size}_{overlap_type}. Skipping."
-                    )
+                    logger.warning(f"No index anomalies for w{window_size}_{overlap_type}, skipping")
                     continue
 
-                # Cross-analyze each algorithm's anomalies (all cases)
+                # Analyze each algorithm's anomalies
                 for algo, anomalies_df in index_anomalies.items():
-                    # Process every anomaly detected
                     if anomalies_df.empty:
-                        logger.warning(f"No anomalies to process for {algo} in this setting")
+                        logger.warning(f"No anomalies to process for {algo} in this config")
                         continue
 
+                    # For non-overlap subsequences, step by window size; else step=1
+                    step = window_size if overlap_type == 'nonoverlap' else 1
+
                     for _, anomaly in anomalies_df.iterrows():
-                        # Ensure necessary fields exist
-                        if 'start_date' not in anomaly or 'end_date' not in anomaly or 'index' not in anomaly:
-                            logger.warning(f"Anomaly row missing required fields for {algo}: {anomaly}")
+                        if not {'start_date', 'end_date', 'index'}.issubset(anomaly.index):
+                            logger.warning(f"Incomplete anomaly row for {algo}: {anomaly}")
                             continue
 
                         start_date = pd.to_datetime(anomaly['start_date'])
                         end_date = pd.to_datetime(anomaly['end_date'])
 
-                        # Directory for this specific anomaly
+                        # Create anomaly directory
                         anomaly_dir = (
                             cross_analysis_dir
                             / algo
@@ -219,108 +218,91 @@ def run_cross_index_constituent_analysis(config_args):
                         )
                         ensure_directory_exists(anomaly_dir)
 
-                        # Save anomaly info
-                        anomaly_info = {
+                        # Save anomaly metadata
+                        info = {
                             'index': int(anomaly['index']),
                             'score': float(anomaly.get('score', np.nan)),
                             'start_date': str(start_date),
                             'end_date': str(end_date),
                             'algorithm': algo,
                             'window_size': window_size,
-                            'overlap_type': overlap_type,
+                            'mode': overlap_type,
                         }
                         with open(anomaly_dir / "anomaly_info.json", 'w') as f:
-                            json.dump(anomaly_info, f, indent=2)
+                            json.dump(info, f, indent=2)
 
                         constituent_anomalies = {}
-                        step = 1 if overlap_type == 'overlap' else window_size
-
-                        # Analyze each constituent within the date buffer
                         buffer_days = 5
-                        for constituent_file in constituent_files[:min(30, len(constituent_files))]:
-                            ticker = constituent_file.stem.replace('_processed', '')
+
+                        # Iterate top N constituents (or all if fewer)
+                        max_const = min(30, len(constituent_files))
+                        for fpath in constituent_files[:max_const]:
+                            ticker = fpath.stem.replace('_processed', '')
                             try:
-                                df = pd.read_csv(constituent_file, index_col=0, parse_dates=True)
-                                buffer_start = start_date - pd.Timedelta(days=buffer_days)
-                                buffer_end = end_date + pd.Timedelta(days=buffer_days)
-                                period_data = df.loc[buffer_start:buffer_end]
-                                if period_data.empty:
-                                    logger.warning(f"No data for {ticker} in anomaly period")
+                                df = pd.read_csv(fpath, index_col=0, parse_dates=True)
+                                period = df.loc[start_date - pd.Timedelta(days=buffer_days):
+                                                 end_date + pd.Timedelta(days=buffer_days)]
+                                if period.empty:
                                     continue
 
-                                # Create subsequences
-                                subsequences = []
-                                for i in range(0, len(period_data) - window_size + 1, step):
-                                    subsequences.append(period_data.iloc[i:i + window_size])
-                                if not subsequences:
+                                # Build subsequences
+                                subs = [period.iloc[i:i+window_size]
+                                        for i in range(0, len(period)-window_size+1, step)]
+                                if not subs or len(subs) < 3:
                                     continue
 
-                                # Build feature matrix
-                                feature_vectors = [
-                                    subseq[['daily_return', 'volume_change', 'high_low_range']]
-                                    .values.flatten()
-                                    for subseq in subsequences
-                                ]
-                                feature_array = np.array(feature_vectors)
-                                if feature_array.shape[0] < 3:
-                                    continue
+                                # Feature extraction
+                                feats = [s[['daily_return', 'volume_change', 'high_low_range']].values.flatten()
+                                         for s in subs]
+                                arr = np.array(feats)
 
-                                # Anomaly detection with isolation forest
-                                iforest = IForest(
-                                    n_estimators=100,
-                                    max_samples=min(256, feature_array.shape[0]),
-                                    contamination=0.1
-                                )
-                                scores, labels = iforest.fit_predict(feature_array)
+                                # IForest detection
+                                iforest = IForest(n_estimators=100,
+                                                  max_samples=min(256, arr.shape[0]),
+                                                  contamination=0.1)
+                                scores, labels = iforest.fit_predict(arr)
 
-                                # Check for anomalies overlapping the index anomaly
+                                # Collect overlapping anomalies
                                 if np.any(labels == -1):
-                                    anomaly_idxs = np.where(labels == -1)[0]
+                                    idxs = np.where(labels == -1)[0]
                                     dates = []
-                                    for idx in anomaly_idxs:
-                                        seq_start = subsequences[idx].index[0]
-                                        seq_end = subsequences[idx].index[-1]
-                                        if seq_start <= end_date and seq_end >= start_date:
-                                            dates.append((seq_start, seq_end))
+                                    for i in idxs:
+                                        s0, e0 = subs[i].index[0], subs[i].index[-1]
+                                        if s0 <= end_date and e0 >= start_date:
+                                            dates.append((s0, e0))
                                     if dates:
                                         constituent_anomalies[ticker] = {
                                             'ticker': ticker,
                                             'anomaly_count': len(dates),
-                                            'max_score': float(np.max(scores[labels == -1])),
-                                            'anomaly_dates': [
-                                                {'start': str(s), 'end': str(e)} for s, e in dates
-                                            ],
+                                            'max_score': float(np.max(scores[labels==-1])),
+                                            'anomaly_dates': [{'start': str(s), 'end': str(e)} for s,e in dates]
                                         }
-                            except Exception as e:
-                                logger.error(f"Error analyzing {ticker}: {e}")
+                            except Exception as ex:
+                                logger.error(f"Error on {ticker}: {ex}")
 
-                        # Save constituent anomalies and summary if found
+                        # Write results if any constituents flagged
                         if constituent_anomalies:
                             with open(anomaly_dir / "constituent_anomalies.json", 'w') as f:
                                 json.dump(constituent_anomalies, f, indent=2)
                             summary = {
-                                'total_constituents_analyzed': min(30, len(constituent_files)),
+                                'total_constituents_analyzed': max_const,
                                 'constituents_with_anomalies': len(constituent_anomalies),
-                                'anomaly_pattern': 'widespread' if len(constituent_anomalies) > 15 else 'isolated',
-                                'top_anomalous_constituents': sorted(
-                                    constituent_anomalies,
-                                    key=lambda x: constituent_anomalies[x]['max_score'],
-                                    reverse=True
-                                )[:5]
+                                'anomaly_pattern': 'widespread' if len(constituent_anomalies)>15 else 'isolated',
+                                'top_anomalous_constituents': sorted(constituent_anomalies,
+                                                                    key=lambda t: constituent_anomalies[t]['max_score'],
+                                                                    reverse=True)[:5]
                             }
                             with open(anomaly_dir / "summary.json", 'w') as f:
                                 json.dump(summary, f, indent=2)
-                            logger.info(
-                                f"Completed cross analysis for {algo} anomaly {int(anomaly['index'])} "
-                                f"(w{window_size}_{overlap_type}): {len(constituent_anomalies)} constituents"
-                            )
+                            logger.info(f"Cross-analysis done for {algo} anomaly {int(anomaly['index'])}"
+                                        f" (w{window_size}_{overlap_type}), found {len(constituent_anomalies)} tickers")
 
         logger.info("Cross-Index-Constituent Analysis Workflow completed successfully")
         return True
-
     except Exception as e:
         logger.error(f"Error in Cross-Index-Constituent Analysis: {e}")
         return False
+
 
 
 
