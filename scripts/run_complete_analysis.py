@@ -364,11 +364,11 @@ def run_multi_ts_analysis_workflow(config_args):
         if config_args.multi_ts_window_sizes:
             window_sizes = [int(size) for size in config_args.multi_ts_window_sizes.split(',')]
         
-        overlap_settings = [True]  # Default: only overlapping for multi-TS
+        # Changed default behavior: Always run both unless specifically told otherwise
+        overlap_settings = [True, False]  # Default: run both
         if config_args.multi_ts_nonoverlap:
-            overlap_settings = [False]
-        elif config_args.multi_ts_all_overlaps:
-            overlap_settings = [True, False]
+            overlap_settings = [False]  # Only run non-overlapping if specifically requested
+        
         
         # Define algorithms
         algorithms = ['iforest', 'lof']  # Default: skip AIDA for multi-TS due to complexity
