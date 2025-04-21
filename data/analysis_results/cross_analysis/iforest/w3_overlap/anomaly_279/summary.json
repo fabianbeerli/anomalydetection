@@ -1,0 +1,20 @@
+{
+  "total_constituents_analyzed": 30,
+  "constituents_with_anomalies": 13,
+  "anomaly_pattern": "isolated",
+  "anomalous_constituents": [
+    "TECH",
+    "DLR",
+    "BALL",
+    "CCI",
+    "CAG",
+    "LLY",
+    "AKAM",
+    "VTR",
+    "MDT",
+    "ORCL",
+    "JPM",
+    "ATO",
+    "STZ"
+  ]
+}

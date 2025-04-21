@@ -1,0 +1,200 @@
+{
+  "AMZN": {
+    "ticker": "AMZN",
+    "anomaly_count": 1,
+    "max_score": 1.513366438090634,
+    "anomaly_dates": [
+      {
+        "start": "2023-11-20 00:00:00",
+        "end": "2023-11-22 00:00:00"
+      }
+    ]
+  },
+  "DGX": {
+    "ticker": "DGX",
+    "anomaly_count": 1,
+    "max_score": 1.2888035817229238,
+    "anomaly_dates": [
+      {
+        "start": "2023-11-22 00:00:00",
+        "end": "2023-11-27 00:00:00"
+      }
+    ]
+  },
+  "AAPL": {
+    "ticker": "AAPL",
+    "anomaly_count": 1,
+    "max_score": 1.2815685265825114,
+    "anomaly_dates": [
+      {
+        "start": "2023-11-22 00:00:00",
+        "end": "2023-11-27 00:00:00"
+      }
+    ]
+  },
+  "DLR": {
+    "ticker": "DLR",
+    "anomaly_count": 1,
+    "max_score": 1.8674866000151573,
+    "anomaly_dates": [
+      {
+        "start": "2023-11-24 00:00:00",
+        "end": "2023-11-28 00:00:00"
+      }
+    ]
+  },
+  "BALL": {
+    "ticker": "BALL",
+    "anomaly_count": 1,
+    "max_score": 1.423472139624392,
+    "anomaly_dates": [
+      {
+        "start": "2023-11-20 00:00:00",
+        "end": "2023-11-22 00:00:00"
+      }
+    ]
+  },
+  "NVDA": {
+    "ticker": "NVDA",
+    "anomaly_count": 1,
+    "max_score": 1.5161378912688042,
+    "anomaly_dates": [
+      {
+        "start": "2023-11-22 00:00:00",
+        "end": "2023-11-27 00:00:00"
+      }
+    ]
+  },
+  "META": {
+    "ticker": "META",
+    "anomaly_count": 1,
+    "max_score": 1.285343824421413,
+    "anomaly_dates": [
+      {
+        "start": "2023-11-22 00:00:00",
+        "end": "2023-11-27 00:00:00"
+      }
+    ]
+  },
+  "ALLE": {
+    "ticker": "ALLE",
+    "anomaly_count": 1,
+    "max_score": 1.1045917189059267,
+    "anomaly_dates": [
+      {
+        "start": "2023-11-22 00:00:00",
+        "end": "2023-11-27 00:00:00"
+      }
+    ]
+  },
+  "CAG": {
+    "ticker": "CAG",
+    "anomaly_count": 1,
+    "max_score": 1.303993387844515,
+    "anomaly_dates": [
+      {
+        "start": "2023-11-22 00:00:00",
+        "end": "2023-11-27 00:00:00"
+      }
+    ]
+  },
+  "LLY": {
+    "ticker": "LLY",
+    "anomaly_count": 1,
+    "max_score": 1.8131956751905667,
+    "anomaly_dates": [
+      {
+        "start": "2023-11-24 00:00:00",
+        "end": "2023-11-28 00:00:00"
+      }
+    ]
+  },
+  "VTR": {
+    "ticker": "VTR",
+    "anomaly_count": 1,
+    "max_score": 1.698834025104967,
+    "anomaly_dates": [
+      {
+        "start": "2023-11-21 00:00:00",
+        "end": "2023-11-24 00:00:00"
+      }
+    ]
+  },
+  "MDT": {
+    "ticker": "MDT",
+    "anomaly_count": 1,
+    "max_score": 1.3209445778631745,
+    "anomaly_dates": [
+      {
+        "start": "2023-11-21 00:00:00",
+        "end": "2023-11-24 00:00:00"
+      }
+    ]
+  },
+  "ORCL": {
+    "ticker": "ORCL",
+    "anomaly_count": 1,
+    "max_score": 1.5510951540951687,
+    "anomaly_dates": [
+      {
+        "start": "2023-11-17 00:00:00",
+        "end": "2023-11-21 00:00:00"
+      }
+    ]
+  },
+  "ATO": {
+    "ticker": "ATO",
+    "anomaly_count": 1,
+    "max_score": 1.1642049888210073,
+    "anomaly_dates": [
+      {
+        "start": "2023-11-21 00:00:00",
+        "end": "2023-11-24 00:00:00"
+      }
+    ]
+  },
+  "NWS": {
+    "ticker": "NWS",
+    "anomaly_count": 1,
+    "max_score": 1.6134716467748713,
+    "anomaly_dates": [
+      {
+        "start": "2023-11-24 00:00:00",
+        "end": "2023-11-28 00:00:00"
+      }
+    ]
+  },
+  "STZ": {
+    "ticker": "STZ",
+    "anomaly_count": 1,
+    "max_score": 1.0921628488462594,
+    "anomaly_dates": [
+      {
+        "start": "2023-11-22 00:00:00",
+        "end": "2023-11-27 00:00:00"
+      }
+    ]
+  },
+  "BG": {
+    "ticker": "BG",
+    "anomaly_count": 1,
+    "max_score": 1.8082015720912281,
+    "anomaly_dates": [
+      {
+        "start": "2023-11-22 00:00:00",
+        "end": "2023-11-27 00:00:00"
+      }
+    ]
+  },
+  "AZO": {
+    "ticker": "AZO",
+    "anomaly_count": 1,
+    "max_score": 1.550127291567761,
+    "anomaly_dates": [
+      {
+        "start": "2023-11-22 00:00:00",
+        "end": "2023-11-27 00:00:00"
+      }
+    ]
+  }
+}

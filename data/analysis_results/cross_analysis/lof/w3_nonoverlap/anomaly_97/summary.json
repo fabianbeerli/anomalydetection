@@ -1,0 +1,14 @@
+{
+  "total_constituents_analyzed": 30,
+  "constituents_with_anomalies": 7,
+  "anomaly_pattern": "isolated",
+  "anomalous_constituents": [
+    "MSFT",
+    "HAL",
+    "ALLE",
+    "CCI",
+    "CAG",
+    "ATO",
+    "BG"
+  ]
+}

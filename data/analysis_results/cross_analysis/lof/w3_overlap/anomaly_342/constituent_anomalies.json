@@ -1,0 +1,299 @@
+{
+  "AMZN": {
+    "ticker": "AMZN",
+    "anomaly_count": 1,
+    "max_score": 1.693696736623339,
+    "anomaly_dates": [
+      {
+        "start": "2024-08-30 00:00:00",
+        "end": "2024-09-04 00:00:00"
+      }
+    ]
+  },
+  "MSFT": {
+    "ticker": "MSFT",
+    "anomaly_count": 1,
+    "max_score": 1.3656390201783224,
+    "anomaly_dates": [
+      {
+        "start": "2024-08-29 00:00:00",
+        "end": "2024-09-03 00:00:00"
+      }
+    ]
+  },
+  "AAPL": {
+    "ticker": "AAPL",
+    "anomaly_count": 1,
+    "max_score": 1.406311463633522,
+    "anomaly_dates": [
+      {
+        "start": "2024-08-29 00:00:00",
+        "end": "2024-09-03 00:00:00"
+      }
+    ]
+  },
+  "TECH": {
+    "ticker": "TECH",
+    "anomaly_count": 1,
+    "max_score": 1.3791506896571857,
+    "anomaly_dates": [
+      {
+        "start": "2024-08-29 00:00:00",
+        "end": "2024-09-03 00:00:00"
+      }
+    ]
+  },
+  "GOOGL": {
+    "ticker": "GOOGL",
+    "anomaly_count": 1,
+    "max_score": 1.333384759229082,
+    "anomaly_dates": [
+      {
+        "start": "2024-09-03 00:00:00",
+        "end": "2024-09-05 00:00:00"
+      }
+    ]
+  },
+  "DLR": {
+    "ticker": "DLR",
+    "anomaly_count": 1,
+    "max_score": 1.617067636520564,
+    "anomaly_dates": [
+      {
+        "start": "2024-08-30 00:00:00",
+        "end": "2024-09-04 00:00:00"
+      }
+    ]
+  },
+  "BALL": {
+    "ticker": "BALL",
+    "anomaly_count": 1,
+    "max_score": 1.3671099414136736,
+    "anomaly_dates": [
+      {
+        "start": "2024-08-29 00:00:00",
+        "end": "2024-09-03 00:00:00"
+      }
+    ]
+  },
+  "NVDA": {
+    "ticker": "NVDA",
+    "anomaly_count": 1,
+    "max_score": 1.2720966777900147,
+    "anomaly_dates": [
+      {
+        "start": "2024-09-03 00:00:00",
+        "end": "2024-09-05 00:00:00"
+      }
+    ]
+  },
+  "HAL": {
+    "ticker": "HAL",
+    "anomaly_count": 1,
+    "max_score": 1.9783455989660055,
+    "anomaly_dates": [
+      {
+        "start": "2024-08-28 00:00:00",
+        "end": "2024-08-30 00:00:00"
+      }
+    ]
+  },
+  "META": {
+    "ticker": "META",
+    "anomaly_count": 1,
+    "max_score": 1.5989696627554675,
+    "anomaly_dates": [
+      {
+        "start": "2024-08-30 00:00:00",
+        "end": "2024-09-04 00:00:00"
+      }
+    ]
+  },
+  "ALLE": {
+    "ticker": "ALLE",
+    "anomaly_count": 1,
+    "max_score": 1.0935785387820984,
+    "anomaly_dates": [
+      {
+        "start": "2024-08-28 00:00:00",
+        "end": "2024-08-30 00:00:00"
+      }
+    ]
+  },
+  "CCI": {
+    "ticker": "CCI",
+    "anomaly_count": 1,
+    "max_score": 1.3192767881794987,
+    "anomaly_dates": [
+      {
+        "start": "2024-08-29 00:00:00",
+        "end": "2024-09-03 00:00:00"
+      }
+    ]
+  },
+  "CAG": {
+    "ticker": "CAG",
+    "anomaly_count": 1,
+    "max_score": 1.315242989732959,
+    "anomaly_dates": [
+      {
+        "start": "2024-08-29 00:00:00",
+        "end": "2024-09-03 00:00:00"
+      }
+    ]
+  },
+  "LLY": {
+    "ticker": "LLY",
+    "anomaly_count": 1,
+    "max_score": 1.4487556233580519,
+    "anomaly_dates": [
+      {
+        "start": "2024-09-03 00:00:00",
+        "end": "2024-09-05 00:00:00"
+      }
+    ]
+  },
+  "LDOS": {
+    "ticker": "LDOS",
+    "anomaly_count": 1,
+    "max_score": 1.3895989477923014,
+    "anomaly_dates": [
+      {
+        "start": "2024-09-03 00:00:00",
+        "end": "2024-09-05 00:00:00"
+      }
+    ]
+  },
+  "ALGN": {
+    "ticker": "ALGN",
+    "anomaly_count": 1,
+    "max_score": 1.49410786326265,
+    "anomaly_dates": [
+      {
+        "start": "2024-09-03 00:00:00",
+        "end": "2024-09-05 00:00:00"
+      }
+    ]
+  },
+  "VTR": {
+    "ticker": "VTR",
+    "anomaly_count": 1,
+    "max_score": 1.4061039983975256,
+    "anomaly_dates": [
+      {
+        "start": "2024-08-28 00:00:00",
+        "end": "2024-08-30 00:00:00"
+      }
+    ]
+  },
+  "MDT": {
+    "ticker": "MDT",
+    "anomaly_count": 1,
+    "max_score": 1.5950280559788905,
+    "anomaly_dates": [
+      {
+        "start": "2024-09-03 00:00:00",
+        "end": "2024-09-05 00:00:00"
+      }
+    ]
+  },
+  "PWR": {
+    "ticker": "PWR",
+    "anomaly_count": 1,
+    "max_score": 1.4566090015911741,
+    "anomaly_dates": [
+      {
+        "start": "2024-09-03 00:00:00",
+        "end": "2024-09-05 00:00:00"
+      }
+    ]
+  },
+  "ORCL": {
+    "ticker": "ORCL",
+    "anomaly_count": 1,
+    "max_score": 1.414075650176755,
+    "anomaly_dates": [
+      {
+        "start": "2024-08-30 00:00:00",
+        "end": "2024-09-04 00:00:00"
+      }
+    ]
+  },
+  "JPM": {
+    "ticker": "JPM",
+    "anomaly_count": 1,
+    "max_score": 1.7932639844936122,
+    "anomaly_dates": [
+      {
+        "start": "2024-09-03 00:00:00",
+        "end": "2024-09-05 00:00:00"
+      }
+    ]
+  },
+  "ATO": {
+    "ticker": "ATO",
+    "anomaly_count": 1,
+    "max_score": 1.9966356938297656,
+    "anomaly_dates": [
+      {
+        "start": "2024-08-27 00:00:00",
+        "end": "2024-08-29 00:00:00"
+      }
+    ]
+  },
+  "NWS": {
+    "ticker": "NWS",
+    "anomaly_count": 1,
+    "max_score": 1.4363414422884182,
+    "anomaly_dates": [
+      {
+        "start": "2024-09-03 00:00:00",
+        "end": "2024-09-05 00:00:00"
+      }
+    ]
+  },
+  "GOOG": {
+    "ticker": "GOOG",
+    "anomaly_count": 1,
+    "max_score": 1.3947317123152898,
+    "anomaly_dates": [
+      {
+        "start": "2024-09-03 00:00:00",
+        "end": "2024-09-05 00:00:00"
+      }
+    ]
+  },
+  "STZ": {
+    "ticker": "STZ",
+    "anomaly_count": 1,
+    "max_score": 1.480389544250578,
+    "anomaly_dates": [
+      {
+        "start": "2024-09-03 00:00:00",
+        "end": "2024-09-05 00:00:00"
+      }
+    ]
+  },
+  "BG": {
+    "ticker": "BG",
+    "anomaly_count": 1,
+    "max_score": 1.4492085158346313,
+    "anomaly_dates": [
+      {
+        "start": "2024-08-29 00:00:00",
+        "end": "2024-09-03 00:00:00"
+      }
+    ]
+  },
+  "AZO": {
+    "ticker": "AZO",
+    "anomaly_count": 1,
+    "max_score": 2.122450597388803,
+    "anomaly_dates": [
+      {
+        "start": "2024-08-30 00:00:00",
+        "end": "2024-09-04 00:00:00"
+      }
+    ]
+  }
+}

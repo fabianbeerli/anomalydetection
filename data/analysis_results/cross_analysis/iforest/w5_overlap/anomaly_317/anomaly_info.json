@@ -1,0 +1,9 @@
+{
+  "index": 317,
+  "score": 2.2766470363289475,
+  "start_date": "2024-07-30 00:00:00",
+  "end_date": "2024-08-05 00:00:00",
+  "algorithm": "iforest",
+  "window_size": 5,
+  "mode": "overlap"
+}

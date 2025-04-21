@@ -1,0 +1,57 @@
+{
+  "CAG": {
+    "ticker": "CAG",
+    "anomaly_count": 1,
+    "max_score": 0.9796494988626632,
+    "anomaly_dates": [
+      {
+        "start": "2024-12-23 00:00:00",
+        "end": "2024-12-26 00:00:00"
+      }
+    ]
+  },
+  "ORCL": {
+    "ticker": "ORCL",
+    "anomaly_count": 1,
+    "max_score": 1.31221050438056,
+    "anomaly_dates": [
+      {
+        "start": "2024-12-23 00:00:00",
+        "end": "2024-12-26 00:00:00"
+      }
+    ]
+  },
+  "NWS": {
+    "ticker": "NWS",
+    "anomaly_count": 1,
+    "max_score": 1.21137788846732,
+    "anomaly_dates": [
+      {
+        "start": "2024-12-23 00:00:00",
+        "end": "2024-12-26 00:00:00"
+      }
+    ]
+  },
+  "BG": {
+    "ticker": "BG",
+    "anomaly_count": 1,
+    "max_score": 1.1554179178608608,
+    "anomaly_dates": [
+      {
+        "start": "2024-12-23 00:00:00",
+        "end": "2024-12-26 00:00:00"
+      }
+    ]
+  },
+  "AZO": {
+    "ticker": "AZO",
+    "anomaly_count": 1,
+    "max_score": 0.8573393570522568,
+    "anomaly_dates": [
+      {
+        "start": "2024-12-23 00:00:00",
+        "end": "2024-12-26 00:00:00"
+      }
+    ]
+  }
+}

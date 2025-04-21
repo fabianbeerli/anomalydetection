@@ -1,0 +1,28 @@
+{
+  "total_constituents_analyzed": 30,
+  "constituents_with_anomalies": 21,
+  "anomaly_pattern": "widespread",
+  "anomalous_constituents": [
+    "DGX",
+    "AAPL",
+    "TECH",
+    "BRK-B",
+    "DLR",
+    "NVDA",
+    "HAL",
+    "META",
+    "ALLE",
+    "CCI",
+    "CAG",
+    "AKAM",
+    "LDOS",
+    "VTR",
+    "MDT",
+    "ORCL",
+    "JPM",
+    "ATO",
+    "NWS",
+    "BG",
+    "AZO"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "total_constituents_analyzed": 30,
+  "constituents_with_anomalies": 11,
+  "anomaly_pattern": "isolated",
+  "anomalous_constituents": [
+    "TECH",
+    "BRK-B",
+    "NVDA",
+    "CAG",
+    "LDOS",
+    "MDT",
+    "PWR",
+    "ORCL",
+    "JPM",
+    "ATO",
+    "STZ"
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "MSFT": {
+    "ticker": "MSFT",
+    "anomaly_count": 1,
+    "max_score": 1.1019316292010242,
+    "anomaly_dates": [
+      {
+        "start": "2023-04-24 00:00:00",
+        "end": "2023-04-26 00:00:00"
+      }
+    ]
+  },
+  "HAL": {
+    "ticker": "HAL",
+    "anomaly_count": 1,
+    "max_score": 1.4092436558702333,
+    "anomaly_dates": [
+      {
+        "start": "2023-04-24 00:00:00",
+        "end": "2023-04-26 00:00:00"
+      }
+    ]
+  },
+  "ALLE": {
+    "ticker": "ALLE",
+    "anomaly_count": 1,
+    "max_score": 0.8576902346849019,
+    "anomaly_dates": [
+      {
+        "start": "2023-04-24 00:00:00",
+        "end": "2023-04-26 00:00:00"
+      }
+    ]
+  },
+  "CCI": {
+    "ticker": "CCI",
+    "anomaly_count": 1,
+    "max_score": 1.034283736003855,
+    "anomaly_dates": [
+      {
+        "start": "2023-04-24 00:00:00",
+        "end": "2023-04-26 00:00:00"
+      }
+    ]
+  },
+  "CAG": {
+    "ticker": "CAG",
+    "anomaly_count": 1,
+    "max_score": 1.3937710060736244,
+    "anomaly_dates": [
+      {
+        "start": "2023-04-24 00:00:00",
+        "end": "2023-04-26 00:00:00"
+      }
+    ]
+  },
+  "ATO": {
+    "ticker": "ATO",
+    "anomaly_count": 1,
+    "max_score": 1.4027063637842228,
+    "anomaly_dates": [
+      {
+        "start": "2023-04-24 00:00:00",
+        "end": "2023-04-26 00:00:00"
+      }
+    ]
+  },
+  "BG": {
+    "ticker": "BG",
+    "anomaly_count": 1,
+    "max_score": 1.397752398113821,
+    "anomaly_dates": [
+      {
+        "start": "2023-04-24 00:00:00",
+        "end": "2023-04-26 00:00:00"
+      }
+    ]
+  }
+}
