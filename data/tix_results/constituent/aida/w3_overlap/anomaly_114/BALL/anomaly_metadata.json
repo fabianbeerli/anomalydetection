@@ -1,0 +1,7 @@
+{
+  "ticker": "BALL",
+  "anomaly_index": 114,
+  "algorithm": "aida",
+  "window_size": 3,
+  "mode": "overlap"
+}

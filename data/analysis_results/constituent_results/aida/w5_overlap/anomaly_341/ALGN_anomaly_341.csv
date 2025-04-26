@@ -1,0 +1,2 @@
+index,score,start_date,end_date,ticker,algorithm,window_size,mode
+341,1.4732662712518367,2024-08-28 00:00:00,2024-09-04 00:00:00,ALGN,aida,5,overlap

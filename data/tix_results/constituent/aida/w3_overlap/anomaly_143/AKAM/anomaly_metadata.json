@@ -1,0 +1,7 @@
+{
+  "ticker": "AKAM",
+  "anomaly_index": 143,
+  "algorithm": "aida",
+  "window_size": 3,
+  "mode": "overlap"
+}

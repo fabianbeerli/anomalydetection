@@ -1,0 +1,7 @@
+{
+  "ticker": "LDOS",
+  "anomaly_index": 429,
+  "algorithm": "aida",
+  "window_size": 3,
+  "mode": "overlap"
+}

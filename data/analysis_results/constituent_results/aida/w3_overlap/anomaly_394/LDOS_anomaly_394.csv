@@ -1,0 +1,2 @@
+index,score,start_date,end_date,ticker,algorithm,window_size,mode
+394,1.9884592457680328,2024-11-06 00:00:00,2024-11-08 00:00:00,LDOS,aida,3,overlap

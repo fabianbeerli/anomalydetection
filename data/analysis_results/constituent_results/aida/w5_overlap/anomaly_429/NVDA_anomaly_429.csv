@@ -1,0 +1,2 @@
+index,score,start_date,end_date,ticker,algorithm,window_size,mode
+429,1.945762282614625,2024-12-17 00:00:00,2024-12-23 00:00:00,NVDA,aida,5,overlap

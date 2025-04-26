@@ -1,0 +1,2 @@
+index,score,start_date,end_date,ticker,algorithm,window_size,mode
+477,1.5356124425485274,2025-02-27 00:00:00,2025-03-03 00:00:00,TECH,lof,3,overlap

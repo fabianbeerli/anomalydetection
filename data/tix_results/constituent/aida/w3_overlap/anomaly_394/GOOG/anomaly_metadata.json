@@ -1,0 +1,7 @@
+{
+  "ticker": "GOOG",
+  "anomaly_index": 394,
+  "algorithm": "aida",
+  "window_size": 3,
+  "mode": "overlap"
+}

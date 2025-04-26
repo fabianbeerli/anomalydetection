@@ -1,0 +1,7 @@
+{
+  "ticker": "NVDA",
+  "anomaly_index": 144,
+  "algorithm": "aida",
+  "window_size": 3,
+  "mode": "overlap"
+}

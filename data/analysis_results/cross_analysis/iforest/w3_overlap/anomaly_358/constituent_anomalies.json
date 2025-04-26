@@ -134,7 +134,7 @@
   "CAG": {
     "ticker": "CAG",
     "anomaly_count": 1,
-    "max_score": 1.8445726837381005,
+    "max_score": 1.8369860862399725,
     "anomaly_dates": [
       {
         "start": "2024-09-18 00:00:00",

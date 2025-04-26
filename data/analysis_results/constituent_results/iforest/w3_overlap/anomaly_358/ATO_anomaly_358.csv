@@ -1,0 +1,2 @@
+index,score,start_date,end_date,ticker,algorithm,window_size,mode
+358,1.3878210862959226,2024-09-20 00:00:00,2024-09-24 00:00:00,ATO,iforest,3,overlap

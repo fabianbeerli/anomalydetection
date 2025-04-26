@@ -1,0 +1,2 @@
+index,score,start_date,end_date,ticker,algorithm,window_size,mode
+391,1.9303298224267744,2024-10-30 00:00:00,2024-11-05 00:00:00,LLY,lof,5,overlap

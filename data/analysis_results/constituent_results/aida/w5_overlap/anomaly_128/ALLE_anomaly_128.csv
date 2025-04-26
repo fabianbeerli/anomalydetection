@@ -1,0 +1,2 @@
+index,score,start_date,end_date,ticker,algorithm,window_size,mode
+128,1.424730246670439,2023-11-27 00:00:00,2023-12-01 00:00:00,ALLE,aida,5,overlap

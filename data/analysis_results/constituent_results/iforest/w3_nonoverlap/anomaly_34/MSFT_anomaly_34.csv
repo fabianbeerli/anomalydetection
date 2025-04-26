@@ -1,0 +1,2 @@
+index,score,start_date,end_date,ticker,algorithm,window_size,mode
+34,0.7728511162661125,2024-08-01 00:00:00,2024-08-05 00:00:00,MSFT,iforest,3,nonoverlap

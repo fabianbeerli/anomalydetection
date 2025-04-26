@@ -1,0 +1,2 @@
+index,score,start_date,end_date,ticker,algorithm,window_size,mode
+485,1.726604000175009,2025-03-11 00:00:00,2025-03-17 00:00:00,AZO,iforest,5,overlap

@@ -1,0 +1,2 @@
+index,score,start_date,end_date,ticker,algorithm,window_size,mode
+533,1.1489807277892439,2023-01-30 00:00:00,2023-02-03 00:00:00,AAPL,iforest,5,overlap

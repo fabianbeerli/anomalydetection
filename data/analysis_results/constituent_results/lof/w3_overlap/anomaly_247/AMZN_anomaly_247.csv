@@ -1,0 +1,2 @@
+index,score,start_date,end_date,ticker,algorithm,window_size,mode
+247,1.6708293453935532,2024-04-30 00:00:00,2024-05-02 00:00:00,AMZN,lof,3,overlap

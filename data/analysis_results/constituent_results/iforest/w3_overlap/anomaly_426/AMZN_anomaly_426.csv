@@ -1,0 +1,2 @@
+index,score,start_date,end_date,ticker,algorithm,window_size,mode
+426,1.5421685522922237,2024-12-18 00:00:00,2024-12-20 00:00:00,AMZN,iforest,3,overlap

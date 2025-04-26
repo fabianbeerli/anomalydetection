@@ -1,0 +1,2 @@
+index,score,start_date,end_date,ticker,algorithm,window_size,mode
+110,1.4763027694395823,2023-10-31 00:00:00,2023-11-02 00:00:00,CAG,lof,3,overlap

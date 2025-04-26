@@ -1,0 +1,2 @@
+index,score,start_date,end_date,ticker,algorithm,window_size,mode
+392,1.2366219349740994,2024-11-04 00:00:00,2024-11-08 00:00:00,AZO,aida,5,overlap

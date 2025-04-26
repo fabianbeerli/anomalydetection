@@ -1,0 +1,2 @@
+index,score,start_date,end_date,ticker,algorithm,window_size,mode
+59,1.0662979825936443,2024-11-05 00:00:00,2024-11-07 00:00:00,PWR,aida,3,nonoverlap

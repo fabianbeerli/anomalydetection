@@ -1,0 +1,7 @@
+{
+  "ticker": "NWS",
+  "anomaly_index": 129,
+  "algorithm": "aida",
+  "window_size": 3,
+  "mode": "overlap"
+}

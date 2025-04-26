@@ -1,0 +1,2 @@
+index,score,start_date,end_date,ticker,algorithm,window_size,mode
+483,1.1487416267490635,2025-03-07 00:00:00,2025-03-13 00:00:00,LLY,iforest,5,overlap

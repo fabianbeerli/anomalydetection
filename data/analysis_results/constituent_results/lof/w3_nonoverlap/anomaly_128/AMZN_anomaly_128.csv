@@ -1,0 +1,2 @@
+index,score,start_date,end_date,ticker,algorithm,window_size,mode
+128,1.3643220234579732,2023-08-23 00:00:00,2023-08-25 00:00:00,AMZN,lof,3,nonoverlap

@@ -1,0 +1,2 @@
+index,score,start_date,end_date,ticker,algorithm,window_size,mode
+59,1.8378924816370332,2023-08-23 00:00:00,2023-08-29 00:00:00,NVDA,lof,5,overlap

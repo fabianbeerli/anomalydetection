@@ -1,0 +1,2 @@
+index,score,start_date,end_date,ticker,algorithm,window_size,mode
+394,1.5526989158168791,2024-11-04 00:00:00,2024-11-06 00:00:00,ALGN,lof,3,overlap

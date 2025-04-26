@@ -1,0 +1,7 @@
+{
+  "ticker": "PWR",
+  "anomaly_index": 356,
+  "algorithm": "aida",
+  "window_size": 3,
+  "mode": "overlap"
+}

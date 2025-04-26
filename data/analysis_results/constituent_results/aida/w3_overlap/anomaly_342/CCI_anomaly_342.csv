@@ -1,0 +1,2 @@
+index,score,start_date,end_date,ticker,algorithm,window_size,mode
+342,1.3192767881794987,2024-08-29 00:00:00,2024-09-03 00:00:00,CCI,aida,3,overlap

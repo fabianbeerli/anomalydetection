@@ -1,0 +1,2 @@
+index,score,start_date,end_date,ticker,algorithm,window_size,mode
+340,1.4274955038469992,2024-08-30 00:00:00,2024-09-06 00:00:00,META,lof,5,overlap

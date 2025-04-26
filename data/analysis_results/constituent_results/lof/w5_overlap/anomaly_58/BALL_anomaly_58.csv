@@ -1,0 +1,2 @@
+index,score,start_date,end_date,ticker,algorithm,window_size,mode
+58,2.0146612621427384,2023-08-21 00:00:00,2023-08-25 00:00:00,BALL,lof,5,overlap

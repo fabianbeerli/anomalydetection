@@ -1,0 +1,2 @@
+index,score,start_date,end_date,ticker,algorithm,window_size,mode
+23,1.4119196639814044,2024-06-21 00:00:00,2024-06-25 00:00:00,TECH,aida,3,nonoverlap

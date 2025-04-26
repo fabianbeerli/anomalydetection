@@ -1,0 +1,7 @@
+{
+  "ticker": "AZO",
+  "anomaly_index": 130,
+  "algorithm": "aida",
+  "window_size": 3,
+  "mode": "overlap"
+}

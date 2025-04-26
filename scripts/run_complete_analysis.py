@@ -139,28 +139,19 @@ def run_individual_subsequence_analysis(config_args):
 def run_cross_index_constituent_analysis(config_args):
     """
     Run the Cross-Index-Constituent analysis workflow for all window and overlap configurations.
-
-    Args:
-        config_args (argparse.Namespace): Configuration arguments
-    Returns:
-        bool: True if successful, False otherwise
     """
     logger.info("Starting Cross-Index-Constituent Analysis Workflow")
     try:
-        # Create output directory
         cross_analysis_dir = Path(config_args.output_dir) / "cross_analysis"
         ensure_directory_exists(cross_analysis_dir)
 
-        # Directories for input data
         subsequence_results_dir = Path(config_args.output_dir) / "subsequence_results"
         processed_dir = Path(config_args.processed_dir)
 
-        # Parameters to sweep: two window sizes and include both overlap modes
         window_sizes = [3, 5]
-        overlap_types = ['overlap', 'nonoverlap']  # match subsequence-results folder naming (e.g., w3_nonoverlap)
+        overlap_types = ['overlap', 'nonoverlap']
         algorithms = ['aida', 'iforest', 'lof']
 
-        # Load constituent files (exclude index data)
         constituent_files = list(processed_dir.glob("*_processed.csv"))
         constituent_files = [f for f in constituent_files if "index_GSPC" not in f.name]
         if not constituent_files:
@@ -168,12 +159,10 @@ def run_cross_index_constituent_analysis(config_args):
             return False
         logger.info(f"Found {len(constituent_files)} constituent files")
 
-        # Sweep through each configuration
         for window_size in window_sizes:
             for overlap_type in overlap_types:
                 logger.info(f"Processing window={window_size}, mode={overlap_type}")
 
-                # Load index anomalies for current config
                 index_anomalies = {}
                 for algo in algorithms:
                     anomalies_file = (
@@ -193,13 +182,11 @@ def run_cross_index_constituent_analysis(config_args):
                     logger.warning(f"No index anomalies for w{window_size}_{overlap_type}, skipping")
                     continue
 
-                # Analyze each algorithm's anomalies
                 for algo, anomalies_df in index_anomalies.items():
                     if anomalies_df.empty:
                         logger.warning(f"No anomalies to process for {algo} in this config")
                         continue
 
-                    # For non-overlap subsequences, step by window size; else step=1
                     step = window_size if overlap_type == 'nonoverlap' else 1
 
                     for _, anomaly in anomalies_df.iterrows():
@@ -209,20 +196,31 @@ def run_cross_index_constituent_analysis(config_args):
 
                         start_date = pd.to_datetime(anomaly['start_date'])
                         end_date = pd.to_datetime(anomaly['end_date'])
+                        anomaly_index = int(anomaly['index'])
 
-                        # Create anomaly directory
+                        # Create anomaly directory for cross-analysis metadata
                         anomaly_dir = (
                             cross_analysis_dir
                             / algo
                             / f"w{window_size}_{overlap_type}"
-                            / f"anomaly_{int(anomaly['index'])}"
+                            / f"anomaly_{anomaly_index}"
                         )
                         ensure_directory_exists(anomaly_dir)
 
+                        # Also create constituent results directory for this anomaly
+                        constituent_anomaly_dir = (
+                            Path(config_args.output_dir)
+                            / "constituent_results"
+                            / algo
+                            / f"w{window_size}_{overlap_type}"
+                            / f"anomaly_{anomaly_index}"
+                        )
+                        ensure_directory_exists(constituent_anomaly_dir)
+
                         # Save anomaly metadata
                         info = {
-                            'index': int(anomaly['index']),
-                            'score': float(anomaly.get('score', np.nan)),
+                            'index': anomaly_index,
+                            'score': float(anomaly.get('score', float('nan'))),
                             'start_date': str(start_date),
                             'end_date': str(end_date),
                             'algorithm': algo,
@@ -235,7 +233,6 @@ def run_cross_index_constituent_analysis(config_args):
                         constituent_anomalies = {}
                         buffer_days = 5
 
-                        # Iterate top N constituents (or all if fewer)
                         max_const = min(30, len(constituent_files))
                         for fpath in constituent_files[:max_const]:
                             ticker = fpath.stem.replace('_processed', '')
@@ -278,6 +275,25 @@ def run_cross_index_constituent_analysis(config_args):
                                             'max_score': float(np.max(scores[labels==-1])),
                                             'anomaly_dates': [{'start': str(s), 'end': str(e)} for s,e in dates]
                                         }
+                                        # --- NEW: Save per-ticker anomaly and features files ---
+                                        # Save anomaly info
+                                        anomaly_rows = []
+                                        for s, e in dates:
+                                            anomaly_rows.append({
+                                                'index': anomaly_index,
+                                                'score': float(np.max(scores[labels==-1])),
+                                                'start_date': str(s),
+                                                'end_date': str(e),
+                                                'ticker': ticker,
+                                                'algorithm': algo,
+                                                'window_size': window_size,
+                                                'mode': overlap_type
+                                            })
+                                        anomaly_file = constituent_anomaly_dir / f"{ticker}_anomaly_{anomaly_index}.csv"
+                                        pd.DataFrame(anomaly_rows).to_csv(anomaly_file, index=False)
+                                        # Save features for this period
+                                        features_file = constituent_anomaly_dir / f"{ticker}_features_{anomaly_index}.csv"
+                                        pd.DataFrame(arr, columns=[f"feature_{i}" for i in range(arr.shape[1])]).to_csv(features_file, index=False)
                             except Exception as ex:
                                 logger.error(f"Error on {ticker}: {ex}")
 
@@ -293,7 +309,7 @@ def run_cross_index_constituent_analysis(config_args):
                             }
                             with open(anomaly_dir / "summary.json", 'w') as f:
                                 json.dump(summary, f, indent=2)
-                            logger.info(f"Cross-analysis done for {algo} anomaly {int(anomaly['index'])}"
+                            logger.info(f"Cross-analysis done for {algo} anomaly {anomaly_index}"
                                         f" (w{window_size}_{overlap_type}), found {len(constituent_anomalies)} tickers")
 
         logger.info("Cross-Index-Constituent Analysis Workflow completed successfully")
@@ -301,8 +317,106 @@ def run_cross_index_constituent_analysis(config_args):
     except Exception as e:
         logger.error(f"Error in Cross-Index-Constituent Analysis: {e}")
         return False
+    
 
-
+def run_tix_analysis_workflow(config_args):
+    """
+    Run TIX analysis workflow to explain anomalies detected by AIDA.
+    
+    Args:
+        config_args (argparse.Namespace): Configuration arguments
+        
+    Returns:
+        bool: True if successful, False otherwise
+    """
+    logger.info("Starting TIX Analysis Workflow")
+    
+    try:
+        # Create output directory for TIX results
+        tix_results_dir = Path(config_args.output_dir) / "tix_results"
+        ensure_directory_exists(tix_results_dir)
+        
+        # Add debugging information to verify paths
+        logger.info(f"TIX results will be saved to: {tix_results_dir}")
+        
+        # Setup window sizes and overlap settings for subsequence analysis
+        window_sizes = [3, 5]  # Default window sizes
+        if config_args.window_sizes:
+            window_sizes = [int(size) for size in config_args.window_sizes.split(',')]
+        
+        overlap_settings = []
+        if not config_args.only_overlap and not config_args.only_nonoverlap:
+            overlap_settings = ["overlap", "nonoverlap"]
+        elif config_args.only_overlap:
+            overlap_settings = ["overlap"]
+        elif config_args.only_nonoverlap:
+            overlap_settings = ["nonoverlap"]
+        
+        # Determine TIX analysis types to run
+        tix_analysis_types = []
+        if config_args.run_all or (not config_args.tix_subsequence_only and not config_args.tix_constituent_only and not config_args.tix_multi_ts_only):
+            tix_analysis_types = ["--run-all-tix"]
+        else:
+            if config_args.tix_subsequence_only:
+                tix_analysis_types.append("--run-subsequence-tix")
+            if config_args.tix_constituent_only:
+                tix_analysis_types.append("--run-constituent-tix")
+            if config_args.tix_multi_ts_only:
+                tix_analysis_types.append("--run-multi-ts-tix")
+        
+        # Enable debug mode for more detailed logging
+        tix_analysis_types.append("--debug")
+        
+        # Run TIX analysis script
+        cmd = [
+            sys.executable,
+            str(Path(__file__).parent / "run_tix_analysis.py"),
+            "--output-dir", str(tix_results_dir)
+        ]
+        
+        # Add analysis types
+        cmd.extend(tix_analysis_types)
+        
+        # Add window sizes
+        if config_args.window_sizes:
+            cmd.extend(["--window-sizes", config_args.window_sizes])
+        
+        # Add overlap flags
+        if config_args.only_overlap:
+            cmd.append("--only-overlap")
+        elif config_args.only_nonoverlap:
+            cmd.append("--only-nonoverlap")
+        
+        # Add constituent list if specified
+        if hasattr(config_args, 'constituents') and config_args.constituents:
+            cmd.extend(["--constituents", config_args.constituents])
+        
+        logger.info(f"Running TIX analysis command: {' '.join(cmd)}")
+        
+        # Execute command
+        result = subprocess.run(cmd, check=True)
+        
+        # Run TIX visualization
+        vis_cmd = [
+            sys.executable,
+            str(Path(__file__).parent / "visualize_tix_results.py"),
+            "--tix-results-dir", str(tix_results_dir),
+            "--output-dir", str(Path(config_args.output_dir) / "tix_visualizations"),
+            "--sp500-data", str(Path(config_args.processed_dir) / "index_GSPC_processed.csv"),
+            "--visualize-all"
+        ]
+        
+        logger.info(f"Running TIX visualization command: {' '.join(vis_cmd)}")
+        
+        # Execute visualization command
+        vis_result = subprocess.run(vis_cmd, check=True)
+        
+        logger.info("TIX Analysis Workflow completed successfully")
+        return True
+    
+    except Exception as e:
+        logger.error(f"Error in TIX Analysis Workflow: {e}")
+        return False
 
 
 
@@ -464,6 +578,11 @@ def main():
         help="Run multi-TS subsequence analysis workflow"
     )
     parser.add_argument(
+        "--run-tix-analysis", 
+        action="store_true",
+        help="Run TIX explanation analysis workflow"
+    )
+    parser.add_argument(
         "--run-all", 
         action="store_true",
         help="Run all analysis workflows"
@@ -526,6 +645,28 @@ def main():
         help="Use both overlapping and non-overlapping for multi-TS analysis"
     )
     
+    # TIX analysis arguments
+    parser.add_argument(
+        "--tix-subsequence-only", 
+        action="store_true",
+        help="Only run TIX analysis on subsequence anomalies"
+    )
+    parser.add_argument(
+        "--tix-constituent-only", 
+        action="store_true",
+        help="Only run TIX analysis on constituent anomalies"
+    )
+    parser.add_argument(
+        "--tix-multi-ts-only", 
+        action="store_true",
+        help="Only run TIX analysis on multi-TS anomalies"
+    )
+    parser.add_argument(
+        "--constituents", 
+        type=str,
+        help="Comma-separated list of constituents to analyze with TIX"
+    )
+    
     args = parser.parse_args()
     
     # Create output directory
@@ -535,7 +676,7 @@ def main():
     workflows_to_run = []
     
     if args.run_all:
-        workflows_to_run = ["individual", "cross", "multi_ts"]
+        workflows_to_run = ["individual", "cross", "multi_ts", "tix"]
     else:
         if args.run_individual_analysis:
             workflows_to_run.append("individual")
@@ -543,6 +684,8 @@ def main():
             workflows_to_run.append("cross")
         if args.run_multi_ts_analysis:
             workflows_to_run.append("multi_ts")
+        if args.run_tix_analysis:
+            workflows_to_run.append("tix")
     
     if not workflows_to_run:
         logger.warning("No analysis workflows selected. Use --run-all or specific workflow flags.")
@@ -565,6 +708,10 @@ def main():
     if "multi_ts" in workflows_to_run:
         logger.info("= Starting Multi-TS Subsequence Analysis Workflow =")
         workflow_results["multi_ts"] = run_multi_ts_analysis_workflow(args)
+    
+    if "tix" in workflows_to_run:
+        logger.info("= Starting TIX Explanation Analysis Workflow =")
+        workflow_results["tix"] = run_tix_analysis_workflow(args)
     
     # End workflow timing
     end_time = time.time()

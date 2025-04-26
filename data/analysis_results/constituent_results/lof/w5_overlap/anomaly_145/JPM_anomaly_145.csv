@@ -1,0 +1,2 @@
+index,score,start_date,end_date,ticker,algorithm,window_size,mode
+145,1.428580413159255,2023-12-14 00:00:00,2023-12-20 00:00:00,JPM,lof,5,overlap

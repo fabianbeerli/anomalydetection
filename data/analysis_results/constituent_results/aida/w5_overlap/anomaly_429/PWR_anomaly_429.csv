@@ -1,0 +1,2 @@
+index,score,start_date,end_date,ticker,algorithm,window_size,mode
+429,1.1896332660525852,2024-12-18 00:00:00,2024-12-24 00:00:00,PWR,aida,5,overlap
