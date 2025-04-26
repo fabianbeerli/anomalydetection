@@ -1,2 +1,0 @@
-index,score,start_date,end_date,ticker,algorithm,window_size,mode
-35,1.299963928339839,2023-03-15 00:00:00,2023-03-17 00:00:00,BRK-B,iforest,3,nonoverlap

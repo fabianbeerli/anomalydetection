@@ -341,6 +341,73 @@ class TIXAnalyzer:
         self.output_dir = Path(output_dir) if output_dir else Path(config.DATA_DIR) / "tix_results"
         ensure_directory_exists(self.output_dir)
 
+    def analyze_subsequence_anomalies_for_ticker(self, ticker, algorithm, window_size, overlap_type, anomalies_file):
+        """
+        Run TIX analysis for all anomalies of a given ticker, algorithm, window size, and overlap type.
+        """
+        try:
+            logger.info(f"Running TIX for ticker={ticker}, algo={algorithm}, w={window_size}, overlap={overlap_type}")
+            anomalies_df = pd.read_csv(anomalies_file)
+            if anomalies_df.empty:
+                logger.warning(f"No anomalies found in {anomalies_file}")
+                return {}
+
+            # Path to the feature file for this ticker/algorithm/window/overlap
+            subsequence_data_dir = (
+                Path(config.DATA_DIR)
+                / "analysis_results"
+                / "subsequence_results"
+                / ticker
+                / algorithm
+                / f"w{window_size}_{overlap_type}"
+            )
+            feature_file = list(subsequence_data_dir.glob("subsequence_features.csv"))
+            if not feature_file:
+                logger.warning(f"Could not find subsequence_features.csv in {subsequence_data_dir}")
+                return {}
+            feature_file = feature_file[0]
+
+            tix_output_dir = self.output_dir / "subsequence" / ticker / algorithm / f"w{window_size}_{overlap_type}"
+            ensure_directory_exists(tix_output_dir)
+
+            tix_results = {}
+            for idx, anomaly in anomalies_df.iterrows():
+                if 'subsequence_idx' not in anomaly:
+                    logger.warning(f"Missing 'subsequence_idx' in anomaly: {anomaly}")
+                    continue
+                subsequence_idx = int(anomaly['subsequence_idx'])
+                row_number = subsequence_idx
+                anomaly_output_dir = tix_output_dir / f"{algorithm}_anomaly_{subsequence_idx}"
+                ensure_directory_exists(anomaly_output_dir)
+                result = run_tix_analysis_for_single_anomaly(
+                    data_file=feature_file,
+                    anomaly_index=row_number,
+                    output_dir=anomaly_output_dir
+                )
+                if result:
+                    tix_results[subsequence_idx] = result
+                    if 'feature_importance' in result:
+                        visualize_feature_importance(
+                            result['feature_importance'],
+                            anomaly_output_dir / f"feature_importance_{subsequence_idx}.png",
+                            title=f"{ticker} {algorithm.upper()} Anomaly {subsequence_idx} - Feature Importance"
+                        )
+                    metadata = {
+                        'ticker': ticker,
+                        'algorithm': algorithm,
+                        'subsequence_idx': subsequence_idx,
+                        'anomaly_score': float(anomaly.get('score', float('nan'))),
+                        'start_date': str(anomaly.get('start_date', '')),
+                        'end_date': str(anomaly.get('end_date', ''))
+                    }
+                    with open(anomaly_output_dir / "anomaly_metadata.json", 'w') as f:
+                        json.dump(metadata, f, indent=2)
+            logger.info(f"TIX analysis completed for {len(tix_results)} anomalies for {ticker}")
+            return tix_results
+        except Exception as e:
+            logger.error(f"Error in analyze_subsequence_anomalies_for_ticker: {e}")
+            return {}
+        
     def analyze_subsequence_anomalies(self, algorithms=['aida'], window_sizes=[3], overlap_types=['overlap']):
         results = {}
         for algorithm in algorithms:
@@ -374,105 +441,7 @@ class TIXAnalyzer:
                     results[config_key] = tix_results
         return results
 
-    def analyze_constituent_anomalies(self, algorithms=['aida'], window_sizes=[3], overlap_types=['overlap']):
-        """
-        Analyze constituent anomalies using TIX for the new folder structure.
-        For each anomaly and ticker, match the anomaly to the correct row in the full processed feature file,
-        and run TIX on that row.
-        """
-        results = {}
-        for algorithm in algorithms:
-            for window_size in window_sizes:
-                for overlap_type in overlap_types:
-                    constituent_base_dir = (
-                        Path(config.DATA_DIR)
-                        / "analysis_results"
-                        / "constituent_results"
-                        / algorithm
-                        / f"w{window_size}_{overlap_type}"
-                    )
-                    if not constituent_base_dir.exists():
-                        logger.warning(f"Constituent results directory not found: {constituent_base_dir}")
-                        continue
-                    for anomaly_dir in constituent_base_dir.glob("anomaly_*"):
-                        if not anomaly_dir.is_dir():
-                            continue
-                        anomaly_index = int(anomaly_dir.name.replace("anomaly_", ""))
-                        logger.info(f"Running TIX analysis for constituent anomalies in {anomaly_dir}")
-                        for anomaly_file in anomaly_dir.glob("*_anomaly_*.csv"):
-                            ticker = anomaly_file.name.split("_anomaly_")[0]
-                            constituent_feature_file = (
-                                Path(config.PROCESSED_DATA_DIR)
-                                / "constituents"
-                                / f"{ticker}_processed.csv"
-                            )
-                            if not constituent_feature_file.exists():
-                                logger.warning(f"No processed feature file found for {ticker}")
-                                continue
-
-                            # Load the anomaly info to get the correct date/index
-                            anomaly_df = pd.read_csv(anomaly_file)
-                            if anomaly_df.empty:
-                                logger.warning(f"No anomaly info in {anomaly_file}")
-                                continue
-
-                            # Try to match by date or index
-                            feature_df = pd.read_csv(constituent_feature_file)
-                            row_number = None
-                            if 'start_date' in anomaly_df.columns and 'date' in feature_df.columns:
-                                # Match by date
-                                anomaly_date = pd.to_datetime(anomaly_df.iloc[0]['start_date'])
-                                feature_df['date'] = pd.to_datetime(feature_df['date'])
-                                match = feature_df[feature_df['date'] == anomaly_date]
-                                if not match.empty:
-                                    row_number = match.index[0]
-                            elif 'index' in anomaly_df.columns and 'index' in feature_df.columns:
-                                # Match by index
-                                anomaly_idx = int(anomaly_df.iloc[0]['index'])
-                                match = feature_df[feature_df['index'] == anomaly_idx]
-                                if not match.empty:
-                                    row_number = match.index[0]
-                            else:
-                                # Fallback: use anomaly_index as row number
-                                row_number = anomaly_index
-
-                            if row_number is None:
-                                logger.warning(f"Could not match anomaly to row in features for {ticker} anomaly {anomaly_index}")
-                                continue
-
-                            tix_output_dir = (
-                                self.output_dir
-                                / "constituent"
-                                / algorithm
-                                / f"w{window_size}_{overlap_type}"
-                                / f"anomaly_{anomaly_index}"
-                                / ticker
-                            )
-                            ensure_directory_exists(tix_output_dir)
-                            result = run_tix_analysis_for_single_anomaly(
-                                data_file=constituent_feature_file,
-                                anomaly_index=row_number,
-                                output_dir=tix_output_dir
-                            )
-                            if result:
-                                results.setdefault(algorithm, {}).setdefault(f"w{window_size}_{overlap_type}", {}).setdefault(anomaly_index, {})[ticker] = result
-                                if 'feature_importance' in result:
-                                    visualize_feature_importance(
-                                        result['feature_importance'],
-                                        tix_output_dir / f"feature_importance_{ticker}_anomaly_{anomaly_index}.png",
-                                        title=f"{ticker} Anomaly {anomaly_index} - Feature Importance"
-                                    )
-                                metadata = {
-                                    'ticker': ticker,
-                                    'anomaly_index': anomaly_index,
-                                    'algorithm': algorithm,
-                                    'window_size': window_size,
-                                    'mode': overlap_type
-                                }
-                                with open(tix_output_dir / "anomaly_metadata.json", 'w') as f:
-                                    json.dump(metadata, f, indent=2)
-        return results
-
+    
     def analyze_multi_ts_anomalies(self, window_sizes=[3], overlap_types=['overlap']):
         results = {}
         algorithm = 'aida'

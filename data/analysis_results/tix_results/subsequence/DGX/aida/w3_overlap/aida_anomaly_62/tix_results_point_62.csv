@@ -1,0 +1,15 @@
+feature_index,feature_name,importance_score
+0,feature_1,10.406
+1,feature_2,9.912
+2,feature_3,17.018
+3,feature_4,14.897
+4,feature_5,7.886
+5,feature_6,12.102
+6,feature_7,8.078
+7,feature_8,73.706
+8,feature_9,22.65
+9,feature_10,8.074
+10,feature_11,18.388
+11,feature_12,7.945
+12,feature_13,41.306
+13,feature_14,61.768

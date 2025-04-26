@@ -1,2 +1,0 @@
-index,score,start_date,end_date,ticker,algorithm,window_size,mode
-480,1.6979112671253391,2025-03-04 00:00:00,2025-03-06 00:00:00,ATO,iforest,3,overlap

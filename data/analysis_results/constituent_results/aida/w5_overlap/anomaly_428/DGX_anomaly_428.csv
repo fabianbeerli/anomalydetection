@@ -1,2 +1,0 @@
-index,score,start_date,end_date,ticker,algorithm,window_size,mode
-428,1.4714732593721613,2024-12-16 00:00:00,2024-12-20 00:00:00,DGX,aida,5,overlap

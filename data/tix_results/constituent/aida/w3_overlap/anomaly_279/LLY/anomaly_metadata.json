@@ -1,7 +1,0 @@
-{
-  "ticker": "LLY",
-  "anomaly_index": 279,
-  "algorithm": "aida",
-  "window_size": 3,
-  "mode": "overlap"
-}

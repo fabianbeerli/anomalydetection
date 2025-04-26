@@ -1,2 +1,0 @@
-index,score,start_date,end_date,ticker,algorithm,window_size,mode
-481,1.437302108853691,2025-03-06 00:00:00,2025-03-12 00:00:00,ORCL,iforest,5,overlap

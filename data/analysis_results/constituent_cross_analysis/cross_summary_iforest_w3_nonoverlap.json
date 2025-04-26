@@ -1,0 +1,125 @@
+[
+  {
+    "sp500_anomaly_index": 23,
+    "sp500_anomaly_score": 2.351049460301037,
+    "constituents_with_anomaly": [
+      "AAPL",
+      "GOOG",
+      "NWS",
+      "AKAM",
+      "HAL",
+      "BG"
+    ],
+    "count": 6
+  },
+  {
+    "sp500_anomaly_index": 24,
+    "sp500_anomaly_score": 2.1413495966056644,
+    "constituents_with_anomaly": [
+      "VTR",
+      "BG",
+      "JPM"
+    ],
+    "count": 3
+  },
+  {
+    "sp500_anomaly_index": 34,
+    "sp500_anomaly_score": 2.7366990065658814,
+    "constituents_with_anomaly": [
+      "AMZN",
+      "AAPL",
+      "NWS",
+      "BRK-B",
+      "NVDA",
+      "JPM",
+      "CCI"
+    ],
+    "count": 7
+  },
+  {
+    "sp500_anomaly_index": 35,
+    "sp500_anomaly_score": 2.2938849618880126,
+    "constituents_with_anomaly": [
+      "ALLE",
+      "GOOG",
+      "HAL",
+      "BRK-B",
+      "GOOGL",
+      "BG",
+      "JPM"
+    ],
+    "count": 7
+  },
+  {
+    "sp500_anomaly_index": 47,
+    "sp500_anomaly_score": 2.67002670558719,
+    "constituents_with_anomaly": [
+      "AAPL",
+      "ALLE",
+      "CAG",
+      "VTR",
+      "LLY",
+      "MSFT",
+      "MDT",
+      "BG"
+    ],
+    "count": 8
+  },
+  {
+    "sp500_anomaly_index": 59,
+    "sp500_anomaly_score": 2.1031095869975767,
+    "constituents_with_anomaly": [
+      "HAL",
+      "BRK-B",
+      "PWR",
+      "JPM",
+      "CCI",
+      "STZ"
+    ],
+    "count": 6
+  },
+  {
+    "sp500_anomaly_index": 70,
+    "sp500_anomaly_score": 3.445626807881516,
+    "constituents_with_anomaly": [
+      "AMZN",
+      "ALLE",
+      "VTR",
+      "AKAM",
+      "BRK-B",
+      "MSFT",
+      "META",
+      "ATO",
+      "JPM"
+    ],
+    "count": 9
+  },
+  {
+    "sp500_anomaly_index": 86,
+    "sp500_anomaly_score": 2.222295176830776,
+    "constituents_with_anomaly": [
+      "NVDA"
+    ],
+    "count": 1
+  },
+  {
+    "sp500_anomaly_index": 87,
+    "sp500_anomaly_score": 2.710999833852172,
+    "constituents_with_anomaly": [
+      "HAL",
+      "AZO"
+    ],
+    "count": 2
+  },
+  {
+    "sp500_anomaly_index": 133,
+    "sp500_anomaly_score": 2.391145470084832,
+    "constituents_with_anomaly": [
+      "ALLE",
+      "BRK-B",
+      "ATO",
+      "STZ"
+    ],
+    "count": 4
+  }
+]

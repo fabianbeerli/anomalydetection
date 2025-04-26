@@ -1,7 +1,0 @@
-{
-  "ticker": "BRK-B",
-  "anomaly_index": 427,
-  "algorithm": "aida",
-  "window_size": 3,
-  "mode": "overlap"
-}

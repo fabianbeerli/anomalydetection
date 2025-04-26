@@ -1,0 +1,32 @@
+[
+  {
+    "sp500_anomaly_index": 23,
+    "sp500_anomaly_score": 2.67266,
+    "constituents_with_anomaly": [
+      "GOOG",
+      "NWS"
+    ],
+    "count": 2
+  },
+  {
+    "sp500_anomaly_index": 59,
+    "sp500_anomaly_score": 2.64017,
+    "constituents_with_anomaly": [
+      "HAL",
+      "JPM"
+    ],
+    "count": 2
+  },
+  {
+    "sp500_anomaly_index": 156,
+    "sp500_anomaly_score": 3.0813,
+    "constituents_with_anomaly": [
+      "BRK-B",
+      "ALGN",
+      "MDT",
+      "AZO",
+      "ATO"
+    ],
+    "count": 5
+  }
+]

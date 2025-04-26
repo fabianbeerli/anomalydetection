@@ -1,9 +1,0 @@
-{
-  "index": 477,
-  "score": 3.2318186654765686,
-  "start_date": "2025-02-26 00:00:00",
-  "end_date": "2025-02-28 00:00:00",
-  "algorithm": "lof",
-  "window_size": 3,
-  "mode": "overlap"
-}

@@ -1,2 +1,0 @@
-index,score,start_date,end_date,ticker,algorithm,window_size,mode
-323,1.7138152102831432,2023-03-13 00:00:00,2023-03-17 00:00:00,MSFT,iforest,5,overlap

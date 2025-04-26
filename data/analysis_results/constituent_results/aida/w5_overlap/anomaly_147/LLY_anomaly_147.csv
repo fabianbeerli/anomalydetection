@@ -1,2 +1,0 @@
-index,score,start_date,end_date,ticker,algorithm,window_size,mode
-147,1.786536467568236,2023-12-11 00:00:00,2023-12-15 00:00:00,LLY,aida,5,overlap

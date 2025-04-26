@@ -1,2 +1,0 @@
-index,score,start_date,end_date,ticker,algorithm,window_size,mode
-114,1.7779191528804859,2023-11-06 00:00:00,2023-11-08 00:00:00,BRK-B,aida,3,overlap

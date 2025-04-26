@@ -1,0 +1,8 @@
+{
+  "ticker": "MDT",
+  "algorithm": "aida",
+  "subsequence_idx": 109,
+  "anomaly_score": 2.69509,
+  "start_date": "2023-06-09",
+  "end_date": "2023-06-13"
+}

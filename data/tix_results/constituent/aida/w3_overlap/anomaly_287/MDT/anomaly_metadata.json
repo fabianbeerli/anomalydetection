@@ -1,7 +1,0 @@
-{
-  "ticker": "MDT",
-  "anomaly_index": 287,
-  "algorithm": "aida",
-  "window_size": 3,
-  "mode": "overlap"
-}

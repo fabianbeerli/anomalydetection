@@ -1,2 +1,0 @@
-index,score,start_date,end_date,ticker,algorithm,window_size,mode
-337,1.6014914620508036,2024-08-20 00:00:00,2024-08-22 00:00:00,BRK-B,lof,3,overlap

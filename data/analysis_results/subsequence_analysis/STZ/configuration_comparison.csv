@@ -1,0 +1,3 @@
+window_size,overlap_type,aida_count,iforest_count,lof_count,aida_time,iforest_time,lof_time
+3,nonoverlap,6,10,10,0.023,0.08066,0.014544
+3,overlap,16,28,28,0.149,0.096616,0.014827

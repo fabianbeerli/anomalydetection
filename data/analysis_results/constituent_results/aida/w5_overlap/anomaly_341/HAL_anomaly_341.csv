@@ -1,2 +1,0 @@
-index,score,start_date,end_date,ticker,algorithm,window_size,mode
-341,1.3077370683529055,2024-08-27 00:00:00,2024-09-03 00:00:00,HAL,aida,5,overlap

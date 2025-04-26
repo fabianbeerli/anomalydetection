@@ -1,2 +1,0 @@
-index,score,start_date,end_date,ticker,algorithm,window_size,mode
-533,1.2895657475002311,2023-01-26 00:00:00,2023-02-01 00:00:00,LDOS,iforest,5,overlap

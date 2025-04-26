@@ -1,7 +1,0 @@
-{
-  "ticker": "DLR",
-  "anomaly_index": 343,
-  "algorithm": "aida",
-  "window_size": 3,
-  "mode": "overlap"
-}

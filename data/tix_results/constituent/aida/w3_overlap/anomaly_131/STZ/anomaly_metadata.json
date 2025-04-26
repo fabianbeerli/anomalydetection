@@ -1,7 +1,0 @@
-{
-  "ticker": "STZ",
-  "anomaly_index": 131,
-  "algorithm": "aida",
-  "window_size": 3,
-  "mode": "overlap"
-}

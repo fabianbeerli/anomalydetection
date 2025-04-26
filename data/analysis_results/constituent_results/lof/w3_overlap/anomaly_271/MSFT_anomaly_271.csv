@@ -1,2 +1,0 @@
-index,score,start_date,end_date,ticker,algorithm,window_size,mode
-271,1.668761193717133,2024-05-30 00:00:00,2024-06-03 00:00:00,MSFT,lof,3,overlap

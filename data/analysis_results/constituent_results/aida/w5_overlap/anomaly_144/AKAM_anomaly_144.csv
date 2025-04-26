@@ -1,2 +1,0 @@
-index,score,start_date,end_date,ticker,algorithm,window_size,mode
-144,1.8628493185022241,2023-12-08 00:00:00,2023-12-14 00:00:00,AKAM,aida,5,overlap

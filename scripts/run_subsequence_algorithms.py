@@ -31,7 +31,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-def load_subsequence_dataset(subsequence_dir, window_size=3, overlap=True):
+def load_subsequence_dataset(subsequence_dir, ticker, window_size=3, overlap=True):
     """
     Load subsequence data for anomaly detection.
     
@@ -46,9 +46,10 @@ def load_subsequence_dataset(subsequence_dir, window_size=3, overlap=True):
             subsequence_dates: List of date ranges for subsequences
     """
     try:
+        logger.info(f"Ticker now procesing: {ticker} beginning of loading subsequence dataset)")
         # Determine prefix based on parameters
         overlap_str = "overlap" if overlap else "nonoverlap"
-        prefix = f"sp500_len{window_size}_{overlap_str}"
+        prefix = f"{ticker}_len{window_size}_{overlap_str}"
         
         logger.info(f"Loading subsequence dataset with prefix: {prefix}")
         
@@ -486,11 +487,11 @@ def run_isolation_forest(feature_array, subsequence_dates, output_dir, window_si
         
         # Fit and predict
         scores, labels = iforest.fit_predict(feature_array)
-        
+
         # End timing
         end_time = time.time()
         execution_time = end_time - start_time
-        
+        logger.info(f"Running Isolation Forest for ticker: {getattr(feature_array, 'ticker', 'unknown')} | Feature array shape: {feature_array.shape} | First row hash: {hash(tuple(feature_array[0])) if feature_array.size > 0 else 'empty'}")
         # Save execution time
         time_file = iforest_output_dir / "iforest_execution_time.txt"
         with open(time_file, 'w') as f:
@@ -670,9 +671,15 @@ def main():
         default=["all"],
         help="Algorithms to run"
     )
-    
+    parser.add_argument(
+        "--ticker",
+        type=str,
+        default="sp500",
+        help="Ticker symbol for which to run the analysis (default: sp500)"
+    )
+
     args = parser.parse_args()
-    
+    logger.info(f"Ticker now procesing: {args.ticker} beginnig of run_subsequence_algorithms.py")
     # Determine which algorithms to run
     algorithms = args.algorithms
     if "all" in algorithms:
@@ -699,7 +706,8 @@ def main():
     
     # Load subsequence dataset
     subsequence_data, subsequence_dates = load_subsequence_dataset(
-        subsequence_dir, 
+        subsequence_dir,
+        ticker=args.ticker, 
         window_size=args.window_size, 
         overlap=overlap
     )

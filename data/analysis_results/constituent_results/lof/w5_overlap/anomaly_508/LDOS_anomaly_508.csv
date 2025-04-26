@@ -1,2 +1,0 @@
-index,score,start_date,end_date,ticker,algorithm,window_size,mode
-508,1.2937173213205884,2023-04-27 00:00:00,2023-05-03 00:00:00,LDOS,lof,5,overlap

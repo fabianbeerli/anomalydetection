@@ -1,0 +1,8 @@
+{
+  "ticker": "BG",
+  "algorithm": "aida",
+  "subsequence_idx": 54,
+  "anomaly_score": 3.18204,
+  "start_date": "2024-10-18",
+  "end_date": "2024-10-22"
+}

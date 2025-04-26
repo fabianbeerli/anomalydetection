@@ -1,2 +1,0 @@
-index,score,start_date,end_date,ticker,algorithm,window_size,mode
-145,1.4082283264314128,2023-10-31 00:00:00,2023-11-02 00:00:00,LLY,lof,3,nonoverlap

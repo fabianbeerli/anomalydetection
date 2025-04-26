@@ -1,7 +1,0 @@
-{
-  "ticker": "AAPL",
-  "anomaly_index": 342,
-  "algorithm": "aida",
-  "window_size": 3,
-  "mode": "overlap"
-}

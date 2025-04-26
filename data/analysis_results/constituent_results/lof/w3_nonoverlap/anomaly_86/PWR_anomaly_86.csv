@@ -1,2 +1,0 @@
-index,score,start_date,end_date,ticker,algorithm,window_size,mode
-86,1.3697447139481183,2025-02-26 00:00:00,2025-02-28 00:00:00,PWR,lof,3,nonoverlap

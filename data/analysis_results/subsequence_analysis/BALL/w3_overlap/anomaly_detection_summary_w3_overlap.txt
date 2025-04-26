@@ -1,0 +1,36 @@
+Subsequence Anomaly Detection Summary
+Window Size: 3, Type: overlap
+==================================================
+
+Execution Times:
+AIDA: 0.1530 seconds
+IFOREST: 0.0977 seconds
+LOF: 0.0149 seconds
+
+Anomaly Counts:
+AIDA: 13 anomalies
+IFOREST: 28 anomalies
+LOF: 28 anomalies
+
+Detailed Anomaly Statistics:
+
+AIDA:
+  Count: 13
+  Mean Score: 2.8197853846153853
+  Std Score: 0.42087279868972655
+  Min Score: 2.37124
+  Max Score: 3.54748
+
+IFOREST:
+  Count: 28
+  Mean Score: 3.076559770510947
+  Std Score: 0.7090501225407131
+  Min Score: 2.032082361094508
+  Max Score: 4.4805227918586015
+
+LOF:
+  Count: 28
+  Mean Score: 2.660299930165603
+  Std Score: 1.5126459748224699
+  Min Score: 1.6871190511855694
+  Max Score: 7.075318620700699

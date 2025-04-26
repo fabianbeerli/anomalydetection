@@ -1,2 +1,0 @@
-index,score,start_date,end_date,ticker,algorithm,window_size,mode
-425,1.5695973093910898,2024-12-18 00:00:00,2024-12-24 00:00:00,AAPL,aida,5,overlap

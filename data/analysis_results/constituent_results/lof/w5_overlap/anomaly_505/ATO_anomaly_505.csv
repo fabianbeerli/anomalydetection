@@ -1,2 +1,0 @@
-index,score,start_date,end_date,ticker,algorithm,window_size,mode
-505,1.0901510870439703,2023-04-25 00:00:00,2023-05-01 00:00:00,ATO,lof,5,overlap

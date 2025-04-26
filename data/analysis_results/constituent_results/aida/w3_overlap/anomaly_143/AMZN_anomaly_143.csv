@@ -1,2 +1,0 @@
-index,score,start_date,end_date,ticker,algorithm,window_size,mode
-143,1.5820642670624936,2023-12-14 00:00:00,2023-12-18 00:00:00,AMZN,aida,3,overlap

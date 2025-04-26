@@ -1,0 +1,8 @@
+{
+  "ticker": "AZO",
+  "algorithm": "aida",
+  "subsequence_idx": 531,
+  "anomaly_score": 2.64177,
+  "start_date": "2023-05-22",
+  "end_date": "2023-05-24"
+}

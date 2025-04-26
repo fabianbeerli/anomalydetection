@@ -1,2 +1,0 @@
-index,score,start_date,end_date,ticker,algorithm,window_size,mode
-392,1.42719829554792,2024-11-05 00:00:00,2024-11-11 00:00:00,AKAM,iforest,5,overlap
