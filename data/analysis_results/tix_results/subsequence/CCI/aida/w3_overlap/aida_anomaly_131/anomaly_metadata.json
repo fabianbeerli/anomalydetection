@@ -2,7 +2,7 @@
   "ticker": "CCI",
   "algorithm": "aida",
   "subsequence_idx": 131,
-  "anomaly_score": 2.86805,
+  "anomaly_score": 2.72599,
   "start_date": "2023-11-27",
   "end_date": "2023-11-29"
 }

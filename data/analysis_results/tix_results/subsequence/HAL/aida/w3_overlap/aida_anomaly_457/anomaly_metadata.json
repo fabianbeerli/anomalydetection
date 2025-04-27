@@ -2,7 +2,7 @@
   "ticker": "HAL",
   "algorithm": "aida",
   "subsequence_idx": 457,
-  "anomaly_score": 2.60683,
+  "anomaly_score": 2.9173,
   "start_date": "2023-03-31",
   "end_date": "2023-04-04"
 }

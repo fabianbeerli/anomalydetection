@@ -341,6 +341,74 @@ class TIXAnalyzer:
         self.output_dir = Path(output_dir) if output_dir else Path(config.DATA_DIR) / "tix_results"
         ensure_directory_exists(self.output_dir)
 
+    def analyze_multi_ts_feature_matrix(self, features_csv, anomalies_csv, output_dir=None, anomaly_score_threshold=None):
+        """
+        Run TIX analysis for each anomaly in a multi-TS feature matrix CSV.
+        For each anomaly (by window_idx, ticker), analyze the matching row in the features file.
+        """
+        features_df = pd.read_csv(features_csv)
+        anomalies_df = pd.read_csv(anomalies_csv)
+        output_dir = Path(output_dir) if output_dir else self.output_dir / "multi_ts_matrix"
+        ensure_directory_exists(output_dir)
+        tix_results = {}
+
+        # Use the correct column name for the window index
+        if 'window_idx' in features_df.columns:
+            window_col = 'window_idx'
+        elif 'time_period_idx' in features_df.columns:
+            window_col = 'time_period_idx'
+        else:
+            raise ValueError("Features CSV must contain 'window_idx' or 'time_period_idx' column.")
+
+        if 'window_idx' in anomalies_df.columns:
+            anomaly_window_col = 'window_idx'
+        elif 'time_period_idx' in anomalies_df.columns:
+            anomaly_window_col = 'time_period_idx'
+        else:
+            raise ValueError("Anomaly CSV must contain 'window_idx' or 'time_period_idx' column.")
+
+        if 'ticker' not in features_df.columns or 'ticker' not in anomalies_df.columns:
+            raise ValueError("Both CSVs must contain 'ticker' column.")
+
+        for idx, anomaly in anomalies_df.iterrows():
+            window_idx = anomaly[anomaly_window_col]
+            ticker = anomaly['ticker']
+            # Find the matching row in features_df
+            match = features_df[
+                (features_df[window_col] == window_idx) &
+                (features_df['ticker'] == ticker)
+            ]
+            if match.empty:
+                logger.warning(f"No feature row found for {window_col}={window_idx}, ticker={ticker}")
+                continue
+            row = match.iloc[0]
+            temp_file = output_dir / f"{ticker}_w{window_idx}.csv"
+            row.to_frame().T.to_csv(temp_file, index=False)
+            result = run_tix_analysis_for_single_anomaly(
+                data_file=temp_file,
+                anomaly_index=0,
+                output_dir=output_dir / f"anomaly_{window_idx}_{ticker}"
+            )
+            temp_file.unlink()
+            if result:
+                tix_results[f"{window_idx}_{ticker}"] = {
+                    "ticker": ticker,
+                    "window_idx": int(window_idx),
+                    "feature_importance": result.get("feature_importance", {})
+                }
+                # Save bar chart for each anomaly
+                if 'feature_importance' in result:
+                    bar_chart_path = output_dir / f"feature_importance_{ticker}_w{window_idx}.png"
+                    visualize_feature_importance(
+                        result['feature_importance'],
+                        bar_chart_path,
+                        title=f"Anomaly window {window_idx} stock {ticker} Feature Importance"
+                    )
+        # Save all results
+        with open(output_dir / "multi_ts_matrix_tix_results.json", "w") as f:
+            json.dump(tix_results, f, indent=2)
+        return tix_results
+    
     def analyze_subsequence_anomalies_for_ticker(self, ticker, algorithm, window_size, overlap_type, anomalies_file):
         """
         Run TIX analysis for all anomalies of a given ticker, algorithm, window size, and overlap type.

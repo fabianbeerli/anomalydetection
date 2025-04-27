@@ -1,8 +1,0 @@
-{
-  "ticker": "CAG",
-  "algorithm": "aida",
-  "subsequence_idx": 536,
-  "anomaly_score": 3.17431,
-  "start_date": "2023-05-26",
-  "end_date": "2023-05-31"
-}

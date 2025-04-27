@@ -2,7 +2,7 @@
   "ticker": "PWR",
   "algorithm": "aida",
   "subsequence_idx": 454,
-  "anomaly_score": 3.22869,
+  "anomaly_score": 3.22623,
   "start_date": "2025-01-27",
   "end_date": "2025-01-29"
 }

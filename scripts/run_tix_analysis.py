@@ -105,68 +105,34 @@ def run_subsequence_tix_analysis(config_args, ticker=None):
 
 
 
-def run_multi_ts_tix_analysis(config_args):
+def run_multi_ts_tix_analysis(args, features_csv, label):
     """
-    Run TIX analysis on multi-TS anomalies.
-    
-    Args:
-        config_args (argparse.Namespace): Configuration arguments
-        
-    Returns:
-        bool: True if successful, False otherwise
+    Run TIX analysis for each row (sample) in the multi-TS feature matrix.
     """
-    try:
-        logger.info("Running TIX analysis for multi-TS anomalies")
-        
-        # Initialize TIX analyzer
-        tix_analyzer = TIXAnalyzer(output_dir=config_args.output_dir)
-        
-        # Setup parameters
-        window_sizes = [3]  # Default window sizes for multi-TS
-        if config_args.window_sizes:
-            window_sizes = [int(size) for size in config_args.window_sizes.split(',')]
-        
-        overlap_types = ['overlap', 'nonoverlap']  # Default: analyze both
-        if config_args.only_overlap:
-            overlap_types = ['overlap']
-        elif config_args.only_nonoverlap:
-            overlap_types = ['nonoverlap']
-        
-        # Check if multi-TS directory exists
-        multi_ts_dir = Path(config.PROCESSED_DATA_DIR) / "multi_ts"
-        if not multi_ts_dir.exists():
-            logger.warning(f"Multi-TS directory not found: {multi_ts_dir}")
-        
-        # Check if multi-TS results directory exists
-        multi_ts_results_dir = Path(config.DATA_DIR) / "analysis_results" / "multi_ts_results"
-        if not multi_ts_results_dir.exists():
-            logger.warning(f"Multi-TS results directory not found: {multi_ts_results_dir}")
-        
-        # Run TIX analysis
-        results = tix_analyzer.analyze_multi_ts_anomalies(
-            window_sizes=window_sizes,
-            overlap_types=overlap_types
+    import pandas as pd
+    from src.models.tix_helper import TIXAnalyzer
+
+    df = pd.read_csv(features_csv)
+    n_samples = df.shape[0]
+
+    tix_analyzer = TIXAnalyzer(output_dir=args.output_dir)
+    results = {}
+
+    for idx, row in df.iterrows():
+        sample = row.values.astype(float)
+        feature_importance = tix_analyzer.analyze_single_sample(
+            sample=sample,
+            algorithm=getattr(args, "tix_algorithm", "aida")
         )
-        
-        # Save summary
-        tix_summary_file = Path(config_args.output_dir) / "multi_ts_tix_summary.json"
-        with open(tix_summary_file, 'w') as f:
-            # Convert to JSON-serializable format
-            json_results = {}
-            for config_key, config_results in results.items():
-                json_results[config_key] = {
-                    'anomalies_analyzed': len(config_results),
-                    'anomaly_indices': list(config_results.keys())
-                }
-            
-            json.dump(json_results, f, indent=2)
-        
-        logger.info(f"Multi-TS TIX analysis completed. Summary saved to {tix_summary_file}")
-        return True
-    
-    except Exception as e:
-        logger.error(f"Error in multi-TS TIX analysis: {e}")
-        return False
+        results[idx] = feature_importance
+
+    # Save results to file with label
+    import json
+    output_path = os.path.join(args.output_dir, f"multi_ts_tix_results_{label}.json")
+    with open(output_path, "w") as f:
+        json.dump(results, f, indent=2)
+
+    return results
 
 
 def main():
@@ -216,6 +182,13 @@ def main():
         action="store_true",
         help="Only analyze non-overlapping subsequences"
     )
+    parser.add_argument(
+        "--multi-ts-features-csv",
+        type=str,
+        required=False,
+        default=str(config.DATA_DIR / "analysis_results" / "multi_ts_results" / "multi_ts_w3_overlap" / "multi_ts_features.csv"),
+        help="Path to the multi_ts_features.csv file"
+    )
 
     # Debug option
     parser.add_argument(
@@ -260,15 +233,34 @@ def main():
     # Run selected analyses
     analysis_results = {}
     
+    # Instantiate TIXAnalyzer here
+    tix_analyzer = TIXAnalyzer(output_dir=args.output_dir)
+
     if "subsequence" in analyses_to_run:
         logger.info("= Starting Subsequence TIX Analysis =")
         analysis_results["subsequence"] = run_subsequence_tix_analysis(args, ticker=args.ticker)
     
     
-    #if "multi_ts" in analyses_to_run:
-    #   logger.info("= Starting Multi-TS TIX Analysis =")
-    #    analysis_results["multi_ts"] = run_multi_ts_tix_analysis(args)
-    
+    if "multi_ts" in analyses_to_run:
+        logger.info("= Starting Multi-TS TIX Analysis =")
+        # Overlap
+        overlap_csv = str(config.DATA_DIR / "analysis_results" / "multi_ts_results" / "multi_ts_w3_overlap" / "multi_ts_features.csv")
+        overlap_anomalies_csv = str(config.DATA_DIR / "analysis_results" / "multi_ts_results" / "multi_ts_w3_overlap" / "aida" / "aida_multi_ts_anomalies.csv")
+        logger.info("Running for w3_overlap")
+        analysis_results["multi_ts_w3_overlap"] = tix_analyzer.analyze_multi_ts_feature_matrix(
+            features_csv=overlap_csv,
+            anomalies_csv=overlap_anomalies_csv,
+            output_dir=os.path.join(args.output_dir, "multi_ts_w3_overlap")
+        )
+        # Non-overlap
+        nonoverlap_csv = str(config.DATA_DIR / "analysis_results" / "multi_ts_results" / "multi_ts_w3_nonoverlap" / "multi_ts_features.csv")
+        nonoverlap_anomalies_csv = str(config.DATA_DIR / "analysis_results" / "multi_ts_results" / "multi_ts_w3_nonoverlap" / "aida" / "aida_multi_ts_anomalies.csv")
+        logger.info("Running for w3_nonoverlap")
+        analysis_results["multi_ts_w3_nonoverlap"] = tix_analyzer.analyze_multi_ts_feature_matrix(
+            features_csv=nonoverlap_csv,
+            anomalies_csv=nonoverlap_anomalies_csv,
+            output_dir=os.path.join(args.output_dir, "multi_ts_w3_nonoverlap")
+        )
     # Print summary
     logger.info("\n" + "="*50)
     logger.info("TIX Analysis Summary")

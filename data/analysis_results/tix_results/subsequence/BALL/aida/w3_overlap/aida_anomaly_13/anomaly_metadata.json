@@ -2,7 +2,7 @@
   "ticker": "BALL",
   "algorithm": "aida",
   "subsequence_idx": 13,
-  "anomaly_score": 2.69737,
+  "anomaly_score": 2.52061,
   "start_date": "2023-02-02",
   "end_date": "2023-02-06"
 }

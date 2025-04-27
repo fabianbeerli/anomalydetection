@@ -2,7 +2,7 @@
   "ticker": "JPM",
   "algorithm": "aida",
   "subsequence_idx": 268,
-  "anomaly_score": 3.32181,
+  "anomaly_score": 3.36285,
   "start_date": "2023-03-08",
   "end_date": "2023-03-10"
 }

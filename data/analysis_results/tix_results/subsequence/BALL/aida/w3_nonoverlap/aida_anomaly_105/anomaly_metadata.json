@@ -1,8 +1,0 @@
-{
-  "ticker": "BALL",
-  "algorithm": "aida",
-  "subsequence_idx": 105,
-  "anomaly_score": 2.52062,
-  "start_date": "2023-01-31",
-  "end_date": "2023-02-02"
-}

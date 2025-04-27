@@ -131,7 +131,7 @@ def main():
         constituent_dfs = []
         constituent_tickers = []
 
-        for file_path in processed_data['constituent_processed'][:10]:
+        for file_path in processed_data['constituent_processed']:
             ticker = Path(file_path).stem.replace('_processed', '')
             df = load_ticker_data(file_path)
 
@@ -142,62 +142,62 @@ def main():
                 else:
                     logger.warning(f"Empty DataFrame for {ticker}, skipping")
 
-        if constituent_dfs:
-            feature_columns = [
-                'daily_return',
-                'volume_change',
-                'high_low_range'
-            ]
+        # Find intersection of all columns present in all valid DataFrames
+        all_feature_sets = [set(df.columns) for df in constituent_dfs if not df.empty]
+        if not all_feature_sets:
+            logger.warning("No valid DataFrames for multi-TS feature selection")
+            return
 
-            valid_dfs = []
-            valid_tickers = []
+        # Use intersection to ensure all features are present in every DataFrame
+        feature_columns = list(set.intersection(*all_feature_sets))
+        logger.info(f"Using feature columns for multi-TS: {feature_columns}")
 
-            for i, (df, ticker) in enumerate(zip(constituent_dfs, constituent_tickers)):
-                available_features = [col for col in feature_columns if col in df.columns]
+        valid_dfs = []
+        valid_tickers = []
 
-                if available_features:
-                    valid_dfs.append(df[available_features])
-                    valid_tickers.append(ticker)
-                else:
-                    logger.warning(f"No required features available for {ticker}. Available columns: {df.columns.tolist()}")
-
-            if valid_dfs:
-                logger.info(f"Creating multi-TS subsequences for {len(valid_dfs)} stocks")
-
-                try:
-                    multi_ts_dir = config.PROCESSED_DATA_DIR / 'multi_ts'
-                    multi_ts_dir.mkdir(exist_ok=True, parents=True)
-
-                    subsequence_configs = [
-                        (3, 1, 'overlap'),
-                        (3, 3, 'nonoverlap'),
-                        (5, 1, 'overlap'),
-                        (5, 5, 'nonoverlap')
-                    ]
-
-                    for length, step, overlap_label in subsequence_configs:
-                        logger.info(f"Creating multi-TS subsequences with length={length}, step={step} ({overlap_label})")
-
-                        multi_ts_subseqs = create_multi_ts_subsequences(
-                            valid_dfs,
-                            valid_tickers,
-                            [col for col in feature_columns if col in valid_dfs[0].columns],
-                            subsequence_length=length,
-                            step=step
-                        )
-
-                        save_subsequence_dataset(
-                            multi_ts_subseqs,
-                            multi_ts_dir,
-                            prefix=f'multi_ts_len{length}_{overlap_label}'
-                        )
-
-                        logger.info(f"Saved {len(multi_ts_subseqs)} multi-TS subsequences with length={length}, {overlap_label}")
-
-                except Exception as e:
-                    logger.error(f"Error creating multi-TS subsequences: {e}")
+        for df, ticker in zip(constituent_dfs, constituent_tickers):
+            if all(col in df.columns for col in feature_columns):
+                valid_dfs.append(df[feature_columns])
+                valid_tickers.append(ticker)
             else:
-                logger.warning("No valid DataFrames with required features for multi-TS analysis")
+                logger.warning(f"Not all required features available for {ticker}. Available columns: {df.columns.tolist()}")
+        if valid_dfs:
+            logger.info(f"Creating multi-TS subsequences for {len(valid_dfs)} stocks")
+
+            try:
+                multi_ts_dir = config.PROCESSED_DATA_DIR / 'multi_ts'
+                multi_ts_dir.mkdir(exist_ok=True, parents=True)
+
+                subsequence_configs = [
+                    (3, 1, 'overlap'),
+                    (3, 3, 'nonoverlap'),
+                    (5, 1, 'overlap'),
+                    (5, 5, 'nonoverlap')
+                ]
+
+                for length, step, overlap_label in subsequence_configs:
+                    logger.info(f"Creating multi-TS subsequences with length={length}, step={step} ({overlap_label})")
+
+                    multi_ts_subseqs = create_multi_ts_subsequences(
+                        valid_dfs,
+                        valid_tickers,
+                        feature_columns,
+                        subsequence_length=length,
+                        step=step
+                    )
+
+                    save_subsequence_dataset(
+                        multi_ts_subseqs,
+                        multi_ts_dir,
+                        prefix=f'multi_ts_len{length}_{overlap_label}'
+                    )
+
+                    logger.info(f"Saved {len(multi_ts_subseqs)} multi-TS subsequences with length={length}, {overlap_label}")
+
+            except Exception as e:
+                logger.error(f"Error creating multi-TS subsequences: {e}")
+        else:
+            logger.warning("No valid DataFrames with required features for multi-TS analysis")
     
     logger.info("Data preparation and subsequence creation completed")
 
