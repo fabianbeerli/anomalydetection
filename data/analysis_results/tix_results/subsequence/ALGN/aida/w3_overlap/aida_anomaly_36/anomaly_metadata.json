@@ -1,0 +1,8 @@
+{
+  "ticker": "ALGN",
+  "algorithm": "aida",
+  "subsequence_idx": 36,
+  "anomaly_score": 3.5092,
+  "start_date": "2023-07-26",
+  "end_date": "2023-07-28"
+}

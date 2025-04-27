@@ -79,7 +79,19 @@ def download_ticker_data(ticker, start_date, end_date, interval='1d'):
         if data.empty:
             logger.warning(f"No data retrieved for {ticker}")
             return None
-        
+
+        # Flatten columns if multi-index (from yfinance)
+        if isinstance(data.columns, pd.MultiIndex):
+            data.columns = data.columns.get_level_values(0)
+
+        # Drop 'Price' column if present
+        if 'Price' in data.columns:
+            data = data.drop(columns=['Price'])
+            logger.info("Dropped 'Price' column from downloaded data.")
+
+        # Ensure 'Date' is a column, not index
+        data = data.reset_index()
+
         # Check if we have the expected columns
         expected_columns = ['Open', 'High', 'Low', 'Close', 'Adj Close', 'Volume']
         for col in expected_columns:
@@ -118,8 +130,8 @@ def save_ticker_data(data, ticker, output_dir):
         ticker_safe = ticker.replace('^', 'index_').replace('/', '_')
         filename = output_dir / f"{ticker_safe}.csv"
         
-        # Save the data
-        data.to_csv(filename)
+        # Save the data with 'Date' as the first column
+        data.to_csv(filename, index=False)
         logger.info(f"Saved data for {ticker} to {filename}")
         return filename
     

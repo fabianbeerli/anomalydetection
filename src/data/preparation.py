@@ -517,14 +517,6 @@ def create_multi_ts_subsequences(df_list, ticker_list, feature_columns, subseque
 def save_subsequence_dataset(subsequences, output_path, prefix='subsequence'):
     """
     Save subsequence dataset to disk.
-    
-    Args:
-        subsequences (list): List of subsequences
-        output_path (Path): Directory to save the subsequences
-        prefix (str): Prefix for the filenames
-        
-    Returns:
-        list: List of paths to saved files
     """
     if not subsequences:
         logger.warning("No subsequences to save")
@@ -554,6 +546,12 @@ def save_subsequence_dataset(subsequences, output_path, prefix='subsequence'):
                 if 'end_date' in metadata and isinstance(metadata['end_date'], pd.Timestamp):
                     metadata['end_date'] = metadata['end_date'].strftime('%Y-%m-%d')
                 
+                # --- INSERT THIS BLOCK ---
+                # Save feature names in metadata if not already present
+                if 'features' in metadata and 'feature_names' not in metadata:
+                    metadata['feature_names'] = metadata['features']
+                # ------------------------
+
                 # Save the numpy array and metadata
                 np.savez(
                     filename, 

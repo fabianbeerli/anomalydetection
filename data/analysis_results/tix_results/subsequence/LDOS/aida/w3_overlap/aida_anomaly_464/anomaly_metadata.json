@@ -1,0 +1,8 @@
+{
+  "ticker": "LDOS",
+  "algorithm": "aida",
+  "subsequence_idx": 464,
+  "anomaly_score": 2.91808,
+  "start_date": "2025-02-07",
+  "end_date": "2025-02-11"
+}

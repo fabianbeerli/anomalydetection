@@ -31,7 +31,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-def load_subsequence_dataset(subsequence_dir, window_size=3, overlap=True):
+def load_subsequence_dataset(subsequence_dir, ticker, window_size=3, overlap=True):
     """
     Load subsequence data for anomaly detection.
     
@@ -46,9 +46,10 @@ def load_subsequence_dataset(subsequence_dir, window_size=3, overlap=True):
             subsequence_dates: List of date ranges for subsequences
     """
     try:
+        logger.info(f"Ticker now procesing: {ticker} beginning of loading subsequence dataset)")
         # Determine prefix based on parameters
         overlap_str = "overlap" if overlap else "nonoverlap"
-        prefix = f"sp500_len{window_size}_{overlap_str}"
+        prefix = f"{ticker}_len{window_size}_{overlap_str}"
         
         logger.info(f"Loading subsequence dataset with prefix: {prefix}")
         
@@ -93,34 +94,34 @@ def load_subsequence_dataset(subsequence_dir, window_size=3, overlap=True):
 def prepare_subsequence_features(subsequence_data):
     """
     Prepare subsequence features for anomaly detection.
-    
-    Args:
-        subsequence_data (list): List of DataFrames containing subsequences
-        
-    Returns:
-        numpy.ndarray: Array of feature vectors for subsequences
     """
     try:
-        # Convert subsequences to feature vectors
         feature_vectors = []
-        
-        for subseq in subsequence_data:
-            # Flatten the subsequence into a feature vector
+        feature_names = None
+        descriptive_feature_names = None
+
+        for i, subseq in enumerate(subsequence_data):
+            if i == 0:
+                feature_names = list(subseq.columns)
+                window_size = subseq.shape[0]
+                # Build descriptive feature names: e.g., Close_0, Volume_2
+                descriptive_feature_names = [
+                    f"{col}_{day}" for day in range(window_size) for col in feature_names
+                ]
+                logger.info(f"Descriptive feature names: {descriptive_feature_names}")
             feature_vector = subseq.values.flatten()
             feature_vectors.append(feature_vector)
-        
-        # Convert to numpy array
+
         feature_array = np.array(feature_vectors)
-        
         logger.info(f"Prepared feature array with shape {feature_array.shape}")
-        return feature_array
-        
+        return feature_array, descriptive_feature_names
+
     except Exception as e:
         logger.error(f"Error preparing subsequence features: {e}")
-        return None
+        return None, None
 
 
-def run_aida(feature_array, subsequence_dates, output_dir, window_size, overlap):
+def run_aida(feature_array, subsequence_dates, output_dir, window_size, overlap, descriptive_feature_names=None):
     """
     Run AIDA algorithm on subsequence features.
     
@@ -149,12 +150,15 @@ def run_aida(feature_array, subsequence_dates, output_dir, window_size, overlap)
     temp_input_file = aida_output_dir / "subsequence_features.csv"
     
     try:
-        # Save feature array to CSV
+        # Save feature array to CSV with descriptive feature names if provided
         with open(temp_input_file, 'w') as f:
-            f.write(','.join([f'feature_{i}' for i in range(feature_array.shape[1])]) + '\n')
+            if descriptive_feature_names is not None:
+                f.write(','.join(descriptive_feature_names) + '\n')
+            else:
+                f.write(','.join([f'feature_{i}' for i in range(feature_array.shape[1])]) + '\n')
             for i in range(feature_array.shape[0]):
                 f.write(','.join([str(val) for val in feature_array[i]]) + '\n')
-        
+
         logger.info(f"Saved feature array to {temp_input_file}")
         
         # Paths to AIDA executable
@@ -486,11 +490,11 @@ def run_isolation_forest(feature_array, subsequence_dates, output_dir, window_si
         
         # Fit and predict
         scores, labels = iforest.fit_predict(feature_array)
-        
+
         # End timing
         end_time = time.time()
         execution_time = end_time - start_time
-        
+        logger.info(f"Running Isolation Forest for ticker: {getattr(feature_array, 'ticker', 'unknown')} | Feature array shape: {feature_array.shape} | First row hash: {hash(tuple(feature_array[0])) if feature_array.size > 0 else 'empty'}")
         # Save execution time
         time_file = iforest_output_dir / "iforest_execution_time.txt"
         with open(time_file, 'w') as f:
@@ -670,9 +674,15 @@ def main():
         default=["all"],
         help="Algorithms to run"
     )
-    
+    parser.add_argument(
+        "--ticker",
+        type=str,
+        default="sp500",
+        help="Ticker symbol for which to run the analysis (default: sp500)"
+    )
+
     args = parser.parse_args()
-    
+    logger.info(f"Ticker now procesing: {args.ticker} beginnig of run_subsequence_algorithms.py")
     # Determine which algorithms to run
     algorithms = args.algorithms
     if "all" in algorithms:
@@ -699,7 +709,8 @@ def main():
     
     # Load subsequence dataset
     subsequence_data, subsequence_dates = load_subsequence_dataset(
-        subsequence_dir, 
+        subsequence_dir,
+        ticker=args.ticker, 
         window_size=args.window_size, 
         overlap=overlap
     )
@@ -708,20 +719,20 @@ def main():
         logger.error(f"Failed to load subsequence dataset for window_size={args.window_size}, overlap={overlap}. Exiting.")
         return
     
-    # Prepare subsequence features
-    feature_array = prepare_subsequence_features(subsequence_data)
-    
+    # Prepare subsequence features (get both array and descriptive names)
+    feature_array, descriptive_feature_names = prepare_subsequence_features(subsequence_data)
+
     if feature_array is None:
         logger.error("Failed to prepare subsequence features. Exiting.")
         return
-    
+
     # Initialize results dictionary
     results = {}
-    
+
     # Run algorithms
     if "aida" in algorithms:
         success, execution_time, output_files = run_aida(
-            feature_array, subsequence_dates, output_dir, args.window_size, overlap
+            feature_array, subsequence_dates, output_dir, args.window_size, overlap, descriptive_feature_names
         )
         results["aida"] = {
             "success": success, 

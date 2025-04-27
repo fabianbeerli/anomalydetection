@@ -1,0 +1,8 @@
+{
+  "ticker": "CAG",
+  "algorithm": "aida",
+  "subsequence_idx": 162,
+  "anomaly_score": 2.64402,
+  "start_date": "2024-01-05",
+  "end_date": "2024-01-09"
+}

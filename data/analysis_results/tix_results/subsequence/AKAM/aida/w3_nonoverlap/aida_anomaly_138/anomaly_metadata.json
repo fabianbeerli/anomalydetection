@@ -1,0 +1,8 @@
+{
+  "ticker": "AKAM",
+  "algorithm": "aida",
+  "subsequence_idx": 138,
+  "anomaly_score": 2.77358,
+  "start_date": "2023-02-13",
+  "end_date": "2023-02-15"
+}

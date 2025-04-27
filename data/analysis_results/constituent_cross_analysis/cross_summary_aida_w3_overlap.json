@@ -1,0 +1,448 @@
+[
+  {
+    "sp500_anomaly_index": 5,
+    "sp500_anomaly_score": 2.46773,
+    "constituents_with_anomaly": [
+      "ALLE",
+      "BRK-B",
+      "ORCL",
+      "AZO",
+      "BALL",
+      "LDOS"
+    ],
+    "count": 6
+  },
+  {
+    "sp500_anomaly_index": 6,
+    "sp500_anomaly_score": 2.4522,
+    "constituents_with_anomaly": [
+      "ALLE",
+      "DGX",
+      "ORCL",
+      "AZO",
+      "BALL",
+      "LDOS"
+    ],
+    "count": 6
+  },
+  {
+    "sp500_anomaly_index": 10,
+    "sp500_anomaly_score": 2.49459,
+    "constituents_with_anomaly": [
+      "DLR",
+      "AZO",
+      "CCI"
+    ],
+    "count": 3
+  },
+  {
+    "sp500_anomaly_index": 74,
+    "sp500_anomaly_score": 2.59465,
+    "constituents_with_anomaly": [
+      "AMZN",
+      "BRK-B",
+      "ORCL",
+      "ATO"
+    ],
+    "count": 4
+  },
+  {
+    "sp500_anomaly_index": 75,
+    "sp500_anomaly_score": 2.47091,
+    "constituents_with_anomaly": [
+      "AMZN",
+      "BRK-B",
+      "ATO"
+    ],
+    "count": 3
+  },
+  {
+    "sp500_anomaly_index": 144,
+    "sp500_anomaly_score": 2.98627,
+    "constituents_with_anomaly": [
+      "AMZN",
+      "ALLE",
+      "NWS",
+      "BRK-B",
+      "MSFT",
+      "ALGN",
+      "ORCL",
+      "AZO",
+      "ATO",
+      "TECH",
+      "CCI"
+    ],
+    "count": 11
+  },
+  {
+    "sp500_anomaly_index": 145,
+    "sp500_anomaly_score": 3.02875,
+    "constituents_with_anomaly": [
+      "AMZN",
+      "ALLE",
+      "BRK-B",
+      "MSFT",
+      "ALGN",
+      "ORCL",
+      "AZO",
+      "ATO",
+      "TECH",
+      "CCI"
+    ],
+    "count": 10
+  },
+  {
+    "sp500_anomaly_index": 147,
+    "sp500_anomaly_score": 2.75875,
+    "constituents_with_anomaly": [
+      "AMZN",
+      "AAPL",
+      "BRK-B",
+      "MSFT",
+      "ALGN",
+      "ORCL",
+      "AZO",
+      "ATO"
+    ],
+    "count": 8
+  },
+  {
+    "sp500_anomaly_index": 211,
+    "sp500_anomaly_score": 2.78439,
+    "constituents_with_anomaly": [
+      "CAG",
+      "MDT",
+      "BG",
+      "ATO"
+    ],
+    "count": 4
+  },
+  {
+    "sp500_anomaly_index": 213,
+    "sp500_anomaly_score": 2.79855,
+    "constituents_with_anomaly": [
+      "GOOG",
+      "CAG",
+      "GOOGL",
+      "MDT",
+      "BG",
+      "ATO"
+    ],
+    "count": 6
+  },
+  {
+    "sp500_anomaly_index": 214,
+    "sp500_anomaly_score": 2.68786,
+    "constituents_with_anomaly": [
+      "GOOG",
+      "GOOGL",
+      "MDT",
+      "BG",
+      "ATO"
+    ],
+    "count": 5
+  },
+  {
+    "sp500_anomaly_index": 292,
+    "sp500_anomaly_score": 2.49544,
+    "constituents_with_anomaly": [
+      "ALLE",
+      "TECH",
+      "CCI"
+    ],
+    "count": 3
+  },
+  {
+    "sp500_anomaly_index": 293,
+    "sp500_anomaly_score": 2.61445,
+    "constituents_with_anomaly": [
+      "ALLE",
+      "HAL",
+      "ORCL",
+      "TECH",
+      "CCI"
+    ],
+    "count": 5
+  },
+  {
+    "sp500_anomaly_index": 294,
+    "sp500_anomaly_score": 2.54387,
+    "constituents_with_anomaly": [
+      "ALLE",
+      "TECH",
+      "CCI"
+    ],
+    "count": 3
+  },
+  {
+    "sp500_anomaly_index": 301,
+    "sp500_anomaly_score": 2.70334,
+    "constituents_with_anomaly": [
+      "HAL",
+      "BRK-B",
+      "BG",
+      "JPM"
+    ],
+    "count": 4
+  },
+  {
+    "sp500_anomaly_index": 312,
+    "sp500_anomaly_score": 2.45779,
+    "constituents_with_anomaly": [
+      "GOOG",
+      "HAL",
+      "BRK-B",
+      "META",
+      "BG",
+      "JPM"
+    ],
+    "count": 6
+  },
+  {
+    "sp500_anomaly_index": 323,
+    "sp500_anomaly_score": 3.33552,
+    "constituents_with_anomaly": [
+      "GOOG",
+      "LLY",
+      "HAL",
+      "BRK-B",
+      "GOOGL",
+      "MSFT",
+      "META",
+      "BG",
+      "ATO",
+      "JPM"
+    ],
+    "count": 10
+  },
+  {
+    "sp500_anomaly_index": 335,
+    "sp500_anomaly_score": 3.16481,
+    "constituents_with_anomaly": [
+      "ALLE",
+      "GOOG",
+      "LLY",
+      "AKAM",
+      "BRK-B",
+      "MSFT",
+      "META",
+      "ATO",
+      "JPM"
+    ],
+    "count": 9
+  },
+  {
+    "sp500_anomaly_index": 346,
+    "sp500_anomaly_score": 3.21146,
+    "constituents_with_anomaly": [
+      "GOOG",
+      "DLR",
+      "BRK-B",
+      "DGX",
+      "MSFT",
+      "NVDA",
+      "ATO",
+      "JPM"
+    ],
+    "count": 8
+  },
+  {
+    "sp500_anomaly_index": 356,
+    "sp500_anomaly_score": 2.69994,
+    "constituents_with_anomaly": [
+      "AAPL",
+      "CAG",
+      "DLR",
+      "VTR",
+      "LLY",
+      "MDT",
+      "BG"
+    ],
+    "count": 7
+  },
+  {
+    "sp500_anomaly_index": 358,
+    "sp500_anomaly_score": 2.79416,
+    "constituents_with_anomaly": [
+      "AMZN",
+      "AAPL",
+      "CAG",
+      "NWS",
+      "DLR",
+      "VTR",
+      "LLY",
+      "MSFT",
+      "MDT",
+      "BG",
+      "ATO"
+    ],
+    "count": 11
+  },
+  {
+    "sp500_anomaly_index": 359,
+    "sp500_anomaly_score": 2.70237,
+    "constituents_with_anomaly": [
+      "AAPL",
+      "CAG",
+      "NWS",
+      "DLR",
+      "VTR",
+      "LLY",
+      "BRK-B",
+      "MSFT",
+      "MDT",
+      "AZO",
+      "BG"
+    ],
+    "count": 11
+  },
+  {
+    "sp500_anomaly_index": 427,
+    "sp500_anomaly_score": 2.9902,
+    "constituents_with_anomaly": [
+      "AAPL",
+      "CAG",
+      "VTR",
+      "LLY",
+      "BRK-B",
+      "MSFT",
+      "BALL",
+      "BG",
+      "LDOS",
+      "JPM",
+      "CCI",
+      "STZ"
+    ],
+    "count": 12
+  },
+  {
+    "sp500_anomaly_index": 428,
+    "sp500_anomaly_score": 2.94023,
+    "constituents_with_anomaly": [
+      "AAPL",
+      "ALLE",
+      "CAG",
+      "VTR",
+      "LLY",
+      "BRK-B",
+      "MSFT",
+      "META",
+      "BALL",
+      "BG",
+      "LDOS",
+      "ATO",
+      "JPM",
+      "CCI",
+      "STZ"
+    ],
+    "count": 15
+  },
+  {
+    "sp500_anomaly_index": 429,
+    "sp500_anomaly_score": 3.11097,
+    "constituents_with_anomaly": [
+      "AAPL",
+      "ALLE",
+      "CAG",
+      "VTR",
+      "LLY",
+      "BRK-B",
+      "GOOGL",
+      "MSFT",
+      "META",
+      "BALL",
+      "BG",
+      "LDOS",
+      "ATO",
+      "JPM",
+      "CCI",
+      "STZ"
+    ],
+    "count": 16
+  },
+  {
+    "sp500_anomaly_index": 480,
+    "sp500_anomaly_score": 2.52313,
+    "constituents_with_anomaly": [
+      "AKAM",
+      "BRK-B",
+      "AZO",
+      "PWR",
+      "STZ"
+    ],
+    "count": 5
+  },
+  {
+    "sp500_anomaly_index": 484,
+    "sp500_anomaly_score": 2.4697,
+    "constituents_with_anomaly": [
+      "CAG",
+      "AKAM",
+      "PWR",
+      "STZ"
+    ],
+    "count": 4
+  },
+  {
+    "sp500_anomaly_index": 485,
+    "sp500_anomaly_score": 2.55031,
+    "constituents_with_anomaly": [
+      "CAG",
+      "AKAM",
+      "ORCL",
+      "PWR",
+      "TECH",
+      "STZ"
+    ],
+    "count": 6
+  },
+  {
+    "sp500_anomaly_index": 494,
+    "sp500_anomaly_score": 3.22728,
+    "constituents_with_anomaly": [
+      "ALLE",
+      "CAG",
+      "VTR",
+      "HAL",
+      "MDT",
+      "BG",
+      "LDOS",
+      "CCI",
+      "STZ"
+    ],
+    "count": 9
+  },
+  {
+    "sp500_anomaly_index": 495,
+    "sp500_anomaly_score": 3.12604,
+    "constituents_with_anomaly": [
+      "ALLE",
+      "CAG",
+      "VTR",
+      "HAL",
+      "MDT",
+      "BG",
+      "LDOS",
+      "CCI",
+      "STZ"
+    ],
+    "count": 9
+  },
+  {
+    "sp500_anomaly_index": 496,
+    "sp500_anomaly_score": 3.11501,
+    "constituents_with_anomaly": [
+      "ALLE",
+      "CAG",
+      "VTR",
+      "HAL",
+      "BRK-B",
+      "MDT",
+      "BG",
+      "LDOS",
+      "CCI",
+      "STZ"
+    ],
+    "count": 10
+  }
+]

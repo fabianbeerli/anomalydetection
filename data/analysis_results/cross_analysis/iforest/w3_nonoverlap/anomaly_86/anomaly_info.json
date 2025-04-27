@@ -1,9 +1,0 @@
-{
-  "index": 86,
-  "score": 2.222295176830776,
-  "start_date": "2025-02-26 00:00:00",
-  "end_date": "2025-02-28 00:00:00",
-  "algorithm": "iforest",
-  "window_size": 3,
-  "mode": "nonoverlap"
-}

@@ -3,8 +3,8 @@
   "algorithms": {
     "aida": {
       "success": true,
-      "anomaly_count": 49,
-      "execution_time": 1.8228533267974854,
+      "anomaly_count": 186,
+      "execution_time": 2.58310604095459,
       "files": {
         "scores": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w3_nonoverlap/aida/aida_multi_ts_scores.dat",
         "anomalies": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w3_nonoverlap/aida/aida_multi_ts_anomalies.csv",

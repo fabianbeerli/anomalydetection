@@ -84,10 +84,12 @@ def load_multi_ts_data(multi_ts_dir, prefix='multi_ts_len5_overlap'):
         return None, None
 
 
-def detect_anomalies_aida(multi_ts_data, metadata_list, multi_ts_dir, contamination=0.05):
+def detect_anomalies_aida(multi_ts_data, metadata_list, multi_ts_dir, window_size=5, overlap=True, contamination=0.05):
     """
     Detect anomalies in multi-TS data using AIDA matrix detection.
     Each matrix is saved as a separate CSV and analyzed individually.
+    Records anomalies at the (window, stock) level.
+    Also saves per-anomaly CSVs with all features for that stock in that subsequence.
     """
     try:
         logger.info(f"Running AIDA on {len(multi_ts_data)} multi-TS matrices (matrix mode)")
@@ -95,20 +97,23 @@ def detect_anomalies_aida(multi_ts_data, metadata_list, multi_ts_dir, contaminat
         temp_dir = Path(multi_ts_dir) / "temp_aida"
         temp_dir.mkdir(exist_ok=True, parents=True)
 
-        root_dir = Path(multi_ts_dir).parent.parent.parent  # Adjust if needed
+        # Adjust these paths as needed for your setup
+        root_dir = Path(multi_ts_dir).parent.parent.parent
         aida_cpp_dir = root_dir / "AIDA" / "C++"
         aida_executable = aida_cpp_dir / "build" / "aida_matrix_detection"
 
         scores = []
-        anomaly_indices = []
-        anomaly_periods = []
+        anomaly_records = []
         start_time = time.time()
 
-        for idx, matrix in enumerate(multi_ts_data):
+        for window_idx, matrix in enumerate(multi_ts_data):
             # Save each matrix as a CSV file (flatten to 2D if needed)
-            matrix_file = temp_dir / f"matrix_{idx}.csv"
+            matrix_file = temp_dir / f"matrix_{window_idx}.csv"
 
-            save_matrix_as_csv(matrix, matrix_file)
+            metadata = metadata_list[window_idx]
+            feature_names = metadata.get('feature_names')
+            period_tickers = metadata.get('tickers', [f"stock_{i}" for i in range(matrix.shape[0])])
+            save_matrix_as_csv(matrix, matrix_file, feature_names=feature_names)
 
             # Call AIDA matrix detection
             cmd = [str(aida_executable), str(matrix_file)]
@@ -118,53 +123,120 @@ def detect_anomalies_aida(multi_ts_data, metadata_list, multi_ts_dir, contaminat
             scores_file = Path(str(matrix_file) + "_AIDA_scores.dat")
             anomalies_file = Path(str(matrix_file) + "_AIDA_anomalies.csv")
 
-            # Read score (should be a single score per matrix)
-            score = 0.0
+            # Read scores for all stocks in this window
+            stock_scores = []
             if scores_file.exists():
                 with open(scores_file, 'r') as f:
                     lines = f.readlines()
                     if len(lines) > 1:
-                        score = float(lines[1].strip())
-            scores.append(score)
+                        stock_scores = [float(line.strip()) for line in lines[1:]]
+            scores.append(np.mean(stock_scores) if stock_scores else 0.0)
 
-            # Read anomaly (if this matrix is anomalous, record it)
-            is_anomaly = False
+            # Collect anomaly records from the C++ output
             if anomalies_file.exists():
                 anomalies_df = pd.read_csv(anomalies_file)
-                if not anomalies_df.empty and 'index' in anomalies_df.columns:
-                    is_anomaly = True
+                if not anomalies_df.empty and {'index', 'stock_idx', 'score'}.issubset(anomalies_df.columns):
+                    for _, row in anomalies_df.iterrows():
+                        stock_idx = int(row['stock_idx'])
+                        # Check for off-by-one: print(period_tickers, stock_idx)
+                        ticker = period_tickers[stock_idx] if stock_idx < len(period_tickers) else f"stock_{stock_idx}"
+                        anomaly_record = {
+                            'window_idx': window_idx,
+                            'stock_idx': stock_idx,
+                            'ticker': ticker,
+                            'score': row['score'],
+                            'start_date': metadata.get('start_date', 'Unknown'),
+                            'end_date': metadata.get('end_date', 'Unknown'),
+                        }
+                        anomaly_records.append(anomaly_record)
 
-            if is_anomaly and idx < len(metadata_list):
-                metadata = metadata_list[idx]
-                period_info = {
-                    'time_period_idx': idx,
-                    'score': score,
-                    'start_date': metadata.get('start_date', 'Unknown'),
-                    'end_date': metadata.get('end_date', 'Unknown'),
-                }
-                anomaly_indices.append(idx)
-                anomaly_periods.append(period_info)
+                        # Save per-anomaly CSV with all features for this stock in this subsequence
+                        subseq_dir = Path(multi_ts_dir) / f"multi_ts_w{window_size}_{'overlap' if overlap else 'nonoverlap'}" / f"Subsequence{window_idx}" / ticker
+                        subseq_dir.mkdir(parents=True, exist_ok=True)
+                        csv_path = subseq_dir / f"multi_ts_{ticker}_anomaly_subsequence{window_idx}.csv"
+
+                        # Extract features for this stock in this subsequence
+                        stock_features = matrix[stock_idx].reshape(-1)
+                        if feature_names is not None:
+                            feature_header = [f"{feat}_{day}" for day in range(matrix.shape[1]) for feat in feature_names]
+                        else:
+                            feature_header = [f"feature_{i}" for i in range(stock_features.shape[0])]
+                        features_dict = dict(zip(feature_header, stock_features))
+
+                        output_dict = {
+                            'window_idx': window_idx,
+                            'stock_idx': stock_idx,
+                            'ticker': ticker,
+                            'score': row['score'],
+                            'start_date': metadata.get('start_date', 'Unknown'),
+                            'end_date': metadata.get('end_date', 'Unknown'),
+                            **features_dict
+                        }
+                        pd.DataFrame([output_dict]).to_csv(csv_path, index=False)
 
         end_time = time.time()
         execution_time = end_time - start_time
 
         logger.info(f"AIDA execution time: {execution_time:.2f} seconds")
 
-        return np.array(scores), anomaly_indices, anomaly_periods, execution_time
+        anomaly_indices = [(rec['window_idx'], rec['stock_idx']) for rec in anomaly_records]
+        return np.array(scores), anomaly_indices, anomaly_records, execution_time
 
     except Exception as e:
         logger.error(f"Error detecting anomalies with AIDA: {e}")
         return None, None, None, -1
     
+def save_full_multi_ts_matrix(multi_ts_data, metadata_list, output_csv):
+    """
+    Save the full multi-TS feature matrix as a CSV with real feature names as header.
+    Each row is a flattened window for a single stock, as in subsequence_features.csv.
+    Adds a time_period_idx and ticker column for TIX analysis.
+    """
+    if not multi_ts_data or not metadata_list:
+        logger.error("No multi-TS data or metadata to save.")
+        return
 
-def save_matrix_as_csv(matrix, csv_path):
-    # matrix shape: (n_stocks, window_size, n_features)
-    # flatten only the last two dims for each stock (row-major)
+    feature_names = metadata_list[0].get('feature_names')
+    window_size = multi_ts_data[0].shape[1]
+
+    header = [f"{feat}_{day}" for day in range(window_size) for feat in feature_names]
+    rows = []
+    time_period_indices = []
+    tickers = []
+
+    for period_idx, (matrix, metadata) in enumerate(zip(multi_ts_data, metadata_list)):
+        # matrix shape: (n_stocks, window_size, n_features)
+        n_stocks = matrix.shape[0]
+        period_tickers = metadata.get('tickers', [f"stock_{i}" for i in range(n_stocks)])
+        for stock_idx in range(n_stocks):
+            row = matrix[stock_idx].reshape(-1)
+            rows.append(row)
+            time_period_indices.append(period_idx)
+            tickers.append(period_tickers[stock_idx])
+
+    df = pd.DataFrame(rows, columns=header)
+    df['ticker'] = tickers
+    df['time_period_idx'] = time_period_indices
+    df.to_csv(output_csv, index=False)
+    logger.info(f"Saved full multi-TS feature matrix to {output_csv}")
+
+def save_matrix_as_csv(matrix, csv_path, feature_names=None):
+    """
+    Save a 3D matrix (n_stocks, window_size, n_features) as a 2D CSV with descriptive headers.
+    """
     n_stocks, window_size, n_features = matrix.shape
-    # Reshape to (n_stocks, window_size * n_features)
     matrix_2d = matrix.reshape(n_stocks, window_size * n_features)
-    df = pd.DataFrame(matrix_2d)
-    df.to_csv(csv_path, index=False, header=False)
+    
+    # Build descriptive feature names if provided
+    if feature_names is not None:
+        header = [f"{feat}_{day}" for day in range(window_size) for feat in feature_names]
+        logger.info(f"Saving matrix to {csv_path} with header: {header}")
+    else:
+        header = [f"feature_{i}" for i in range(window_size * n_features)]
+        logger.info(f"Saving matrix to {csv_path} with generic header: {header}")
+    
+    df = pd.DataFrame(matrix_2d, columns=header)
+    df.to_csv(csv_path, index=False)
 
 def save_multi_ts_results(algorithm, scores, anomaly_periods, execution_time, output_dir):
     """
@@ -200,10 +272,12 @@ def save_multi_ts_results(algorithm, scores, anomaly_periods, execution_time, ou
             for i, period in enumerate(anomaly_periods):
                 anomaly_data.append({
                     'index': i,
-                    'time_period_idx': period['time_period_idx'],
-                    'score': period['score'],
-                    'start_date': period['start_date'],
-                    'end_date': period['end_date']
+                    'window_idx': period.get('window_idx'),
+                    'stock_idx': period.get('stock_idx'),
+                    'ticker': period.get('ticker'),
+                    'score': period.get('score'),
+                    'start_date': period.get('start_date'),
+                    'end_date': period.get('end_date')
                 })
             
             # Save as CSV
@@ -211,10 +285,8 @@ def save_multi_ts_results(algorithm, scores, anomaly_periods, execution_time, ou
         else:
             # Create empty file
             with open(anomalies_file, 'w') as f:
-                f.write("index,time_period_idx,score,start_date,end_date\n")
+                f.write("index,window_idx,stock_idx,ticker,score,start_date,end_date\n")
         
-        # Save execution time
-        time_file = algo_dir / f"{algorithm}_multi_ts_execution_time.txt"
         # Save execution time
         time_file = algo_dir / f"{algorithm}_multi_ts_execution_time.txt"
         with open(time_file, 'w') as f:
@@ -262,11 +334,14 @@ def run_multi_ts_analysis(multi_ts_dir, output_dir, window_size=5, overlap=True,
     # Load multi-TS data
     prefix = f"multi_ts_len{window_size}_{'overlap' if overlap else 'nonoverlap'}"
     multi_ts_data, metadata_list = load_multi_ts_data(multi_ts_dir, prefix)
-    
+
     if multi_ts_data is None or not multi_ts_data:
         logger.error(f"Failed to load multi-TS data. Exiting.")
         return {'status': 'error', 'message': 'Failed to load multi-TS data'}
-    
+
+    # Save the full multi-TS feature matrix as a CSV for downstream analysis (e.g., TIX)
+    full_matrix_csv = results_dir / "multi_ts_features.csv"
+    save_full_multi_ts_matrix(multi_ts_data, metadata_list, full_matrix_csv)
 
     if multi_ts_data is None:
         logger.error(f"Failed to load multi-TS data. Exiting.")
@@ -278,7 +353,9 @@ def run_multi_ts_analysis(multi_ts_dir, output_dir, window_size=5, overlap=True,
     
     
     if 'aida' in algorithms:
-        scores, indices, periods, time_taken = detect_anomalies_aida(multi_ts_data, metadata_list, multi_ts_dir)
+        scores, indices, periods, time_taken = detect_anomalies_aida(
+            multi_ts_data, metadata_list, multi_ts_dir, window_size=window_size, overlap=overlap
+        )
         if scores is not None:
             files = save_multi_ts_results('aida', scores, periods, time_taken, results_dir)
             results['algorithms']['aida'] = {
