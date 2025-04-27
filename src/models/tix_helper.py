@@ -345,6 +345,7 @@ class TIXAnalyzer:
         """
         Run TIX analysis for each anomaly in a multi-TS feature matrix CSV.
         For each anomaly (by window_idx, ticker), analyze the matching row in the features file.
+        Additionally, create a bar chart for each anomaly's feature importance in the correct directory and with the correct filename.
         """
         features_df = pd.read_csv(features_csv)
         anomalies_df = pd.read_csv(anomalies_csv)
@@ -382,12 +383,15 @@ class TIXAnalyzer:
                 logger.warning(f"No feature row found for {window_col}={window_idx}, ticker={ticker}")
                 continue
             row = match.iloc[0]
-            temp_file = output_dir / f"{ticker}_w{window_idx}.csv"
+            # Save anomaly CSV in its own folder
+            anomaly_dir = output_dir / f"anomaly_{window_idx}_{ticker}"
+            anomaly_dir.mkdir(parents=True, exist_ok=True)
+            temp_file = anomaly_dir / f"{ticker}_w{window_idx}.csv"
             row.to_frame().T.to_csv(temp_file, index=False)
             result = run_tix_analysis_for_single_anomaly(
                 data_file=temp_file,
                 anomaly_index=0,
-                output_dir=output_dir / f"anomaly_{window_idx}_{ticker}"
+                output_dir=anomaly_dir
             )
             temp_file.unlink()
             if result:
@@ -396,9 +400,9 @@ class TIXAnalyzer:
                     "window_idx": int(window_idx),
                     "feature_importance": result.get("feature_importance", {})
                 }
-                # Save bar chart for each anomaly
+                # Save bar chart for each anomaly in the same folder, with correct name
                 if 'feature_importance' in result:
-                    bar_chart_path = output_dir / f"feature_importance_{ticker}_w{window_idx}.png"
+                    bar_chart_path = anomaly_dir / f"feature_importance_{ticker}_w{window_idx}_0.png"
                     visualize_feature_importance(
                         result['feature_importance'],
                         bar_chart_path,

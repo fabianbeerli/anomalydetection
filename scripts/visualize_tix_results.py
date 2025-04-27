@@ -52,25 +52,53 @@ def load_price_data(data_file):
         logger.error(f"Error loading price data: {e}")
         return None
 
+def visualize_multi_ts_tix_per_anomaly_from_csv(multi_ts_dir, title_prefix="Multi-TS TIX Feature Importance"):
+    """
+    For each anomaly in multi-TS TIX results (CSV), create a single-row heatmap of feature importances.
+    """
+    multi_ts_dir = Path(multi_ts_dir)
+    for anomaly_dir in multi_ts_dir.glob("anomaly_*_*"):
+        tix_csv = anomaly_dir / "tix_results_point_0.csv"
+        if not tix_csv.exists():
+            logger.warning(f"TIX CSV not found: {tix_csv}")
+            continue
+        # Load feature importances
+        df = pd.read_csv(tix_csv)
+        feature_names = df['feature_name'].tolist()
+        importance_scores = df['importance_score'].tolist()
+        ticker = anomaly_dir.name.split("_")[-1]
+        window_idx = anomaly_dir.name.split("_")[1]
+        # Prepare data for single anomaly
+        data = np.array(importance_scores).reshape(1, -1)
+        output_file = anomaly_dir / f"feature_importance_heatmap_{ticker}_w{window_idx}_0.png"
+        plt.figure(figsize=(max(8, 0.3*len(feature_names)), 2))
+        sns.heatmap(
+            data,
+            annot=False,
+            xticklabels=feature_names,
+            yticklabels=[f"{ticker}_w{window_idx}"],
+            cmap="YlGnBu"
+        )
+        plt.title(f"{title_prefix} ({ticker} w{window_idx})")
+        plt.xlabel("Features")
+        plt.ylabel("Anomaly")
+        plt.tight_layout()
+        plt.savefig(output_file, dpi=200, bbox_inches='tight')
+        plt.close()
+        logger.info(f"Per-anomaly heatmap saved to {output_file}")
+
 def main():
     parser = argparse.ArgumentParser(description="Visualize TIX analysis results")
-    parser.add_argument(
-        "--tix-results-dir", 
-        type=str, 
-        default=str(config.DATA_DIR / "tix_results"),
-        help="Directory containing TIX results"
-    )
-    parser.add_argument(
-        "--output-dir", 
-        type=str, 
-        default=str(config.DATA_DIR / "tix_visualizations"),
-        help="Directory to save visualizations"
-    )
     parser.add_argument(
         "--sp500-data", 
         type=str, 
         default=str(config.PROCESSED_DATA_DIR / "index_GSPC_processed.csv"),
         help="Path to S&P 500 processed data"
+    )
+    parser.add_argument(
+        "--visualize-multits",
+        action="store_true",
+        help="Visualize multi-TS TIX results"
     )
     parser.add_argument(
         "--visualize-subsequence", 
@@ -100,6 +128,18 @@ def main():
         default="aida",
         help="Algorithm for subsequence visualization"
     )
+    parser.add_argument(
+        "--tix-results-dir", 
+        type=str, 
+        default=str(config.DATA_DIR / "analysis_results" / "tix_results"),
+        help="Directory containing TIX results"
+    )
+    parser.add_argument(
+        "--output-dir", 
+        type=str, 
+        default=str(config.DATA_DIR / "analysis_results" / "tix_visualizations"),
+        help="Directory to save visualizations"
+    )
     args = parser.parse_args()
     ensure_directory_exists(args.output_dir)
     visualizations_to_create = []
@@ -108,9 +148,10 @@ def main():
     else:
         if args.visualize_subsequence:
             visualizations_to_create.append("subsequence")
-    if not visualizations_to_create:
+    if not visualizations_to_create and not (args.visualize_all or args.visualize_multits):
         logger.warning("No visualizations selected. Use --visualize-all or specific visualization flags.")
         return
+    
     if "subsequence" in visualizations_to_create:
         logger.info("= Creating Subsequence TIX Visualizations =")
         subsequence_results_dir = Path(config.DATA_DIR) / "analysis_results" / "subsequence_results"
@@ -166,6 +207,17 @@ def main():
             plt.savefig(output_file, dpi=300, bbox_inches='tight')
             plt.close()
             logger.info(f"Visualization saved to {output_file}")
+    # Multi-TS TIX visualization block
+    if args.visualize_all or args.visualize_multits:
+        for multi_ts_key in ["multi_ts_w3_overlap", "multi_ts_w3_nonoverlap"]:
+            multi_ts_dir = Path(args.tix_results_dir) / multi_ts_key
+            if not multi_ts_dir.exists():
+                logger.warning(f"Multi-TS TIX directory not found: {multi_ts_dir}")
+                continue
+            visualize_multi_ts_tix_per_anomaly_from_csv(
+                multi_ts_dir=multi_ts_dir,
+                title_prefix=f"Multi-TS TIX Feature Importance"
+            )
     logger.info(f"All visualizations completed and saved to {args.output_dir}")
 
 
