@@ -2,7 +2,7 @@
   "ticker": "VTR",
   "algorithm": "aida",
   "subsequence_idx": 446,
-  "anomaly_score": 2.6963,
+  "anomaly_score": 2.7366,
   "start_date": "2023-03-30",
   "end_date": "2023-04-03"
 }

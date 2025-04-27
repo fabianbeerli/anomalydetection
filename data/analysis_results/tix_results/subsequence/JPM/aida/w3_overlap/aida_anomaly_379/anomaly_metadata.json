@@ -1,0 +1,8 @@
+{
+  "ticker": "JPM",
+  "algorithm": "aida",
+  "subsequence_idx": 379,
+  "anomaly_score": 2.6466,
+  "start_date": "2023-03-22",
+  "end_date": "2023-03-24"
+}

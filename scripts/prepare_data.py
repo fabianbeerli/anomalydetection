@@ -56,20 +56,8 @@ def main():
         sp500_df = load_ticker_data(processed_data['sp500_processed'])
         
         if sp500_df is not None:
-            feature_columns = [
-                'daily_return', 
-                'volume_change', 
-                'high_low_range',
-                'daily_return_zscore',
-                'volume_change_zscore'
-            ]
-            
-            available_features = [col for col in feature_columns if col in sp500_df.columns]
-            
-            if not available_features:
-                logger.warning(f"No required features found in S&P 500 data. Available columns: {sp500_df.columns.tolist()}")
-            else:
-                sp500_features = sp500_df[available_features]
+
+                sp500_features = sp500_df
                 
                 for length in [3, 5, 10]:
                     logger.info(f"Creating subsequences of length {length} for S&P 500 index")
@@ -105,18 +93,8 @@ def main():
             df = load_ticker_data(file_path)
             
             if df is not None and not df.empty:
-                feature_columns = [
-                    'daily_return', 
-                    'volume_change', 
-                        'high_low_range',
-                        'daily_return_zscore',
-                        'volume_change_zscore'
-                ]
-            
-                available_features = [col for col in feature_columns if col in df.columns]
                 
-                if available_features:
-                    df_features = df[available_features]
+                    df_features = df
 
                     for length in [3]:
                         logger.info(f"Creating subsequences of length {length} for ticker {ticker}")
@@ -144,8 +122,7 @@ def main():
                             subseq_dir,
                             prefix=f'{ticker}_len{length}_nonoverlap'
                         )
-                else:
-                    logger.warning(f"No required features available for {ticker}. Available columns: {df.columns.tolist()}")
+                
             else:
                 logger.warning(f"No data available for {ticker} or DataFrame is empty.")
 

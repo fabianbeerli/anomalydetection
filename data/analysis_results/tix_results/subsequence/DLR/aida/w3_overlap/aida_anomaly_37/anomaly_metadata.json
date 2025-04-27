@@ -1,0 +1,8 @@
+{
+  "ticker": "DLR",
+  "algorithm": "aida",
+  "subsequence_idx": 37,
+  "anomaly_score": 2.56514,
+  "start_date": "2023-07-27",
+  "end_date": "2023-07-31"
+}

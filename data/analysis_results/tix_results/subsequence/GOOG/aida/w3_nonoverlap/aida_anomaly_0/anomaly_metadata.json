@@ -2,7 +2,7 @@
   "ticker": "GOOG",
   "algorithm": "aida",
   "subsequence_idx": 0,
-  "anomaly_score": 2.35599,
+  "anomaly_score": 2.45779,
   "start_date": "2023-01-18",
   "end_date": "2023-01-20"
 }

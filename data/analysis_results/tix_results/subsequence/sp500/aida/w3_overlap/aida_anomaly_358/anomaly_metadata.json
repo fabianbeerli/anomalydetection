@@ -1,0 +1,8 @@
+{
+  "ticker": "sp500",
+  "algorithm": "aida",
+  "subsequence_idx": 358,
+  "anomaly_score": 2.67801,
+  "start_date": "2024-09-19",
+  "end_date": "2024-09-23"
+}

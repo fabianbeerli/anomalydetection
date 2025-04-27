@@ -1,0 +1,8 @@
+{
+  "ticker": "VTR",
+  "algorithm": "aida",
+  "subsequence_idx": 477,
+  "anomaly_score": 2.47463,
+  "start_date": "2025-02-26",
+  "end_date": "2025-02-28"
+}

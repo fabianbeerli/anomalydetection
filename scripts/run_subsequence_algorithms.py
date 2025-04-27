@@ -94,34 +94,34 @@ def load_subsequence_dataset(subsequence_dir, ticker, window_size=3, overlap=Tru
 def prepare_subsequence_features(subsequence_data):
     """
     Prepare subsequence features for anomaly detection.
-    
-    Args:
-        subsequence_data (list): List of DataFrames containing subsequences
-        
-    Returns:
-        numpy.ndarray: Array of feature vectors for subsequences
     """
     try:
-        # Convert subsequences to feature vectors
         feature_vectors = []
-        
-        for subseq in subsequence_data:
-            # Flatten the subsequence into a feature vector
+        feature_names = None
+        descriptive_feature_names = None
+
+        for i, subseq in enumerate(subsequence_data):
+            if i == 0:
+                feature_names = list(subseq.columns)
+                window_size = subseq.shape[0]
+                # Build descriptive feature names: e.g., Close_0, Volume_2
+                descriptive_feature_names = [
+                    f"{col}_{day}" for day in range(window_size) for col in feature_names
+                ]
+                logger.info(f"Descriptive feature names: {descriptive_feature_names}")
             feature_vector = subseq.values.flatten()
             feature_vectors.append(feature_vector)
-        
-        # Convert to numpy array
+
         feature_array = np.array(feature_vectors)
-        
         logger.info(f"Prepared feature array with shape {feature_array.shape}")
-        return feature_array
-        
+        return feature_array, descriptive_feature_names
+
     except Exception as e:
         logger.error(f"Error preparing subsequence features: {e}")
-        return None
+        return None, None
 
 
-def run_aida(feature_array, subsequence_dates, output_dir, window_size, overlap):
+def run_aida(feature_array, subsequence_dates, output_dir, window_size, overlap, descriptive_feature_names=None):
     """
     Run AIDA algorithm on subsequence features.
     
@@ -150,12 +150,15 @@ def run_aida(feature_array, subsequence_dates, output_dir, window_size, overlap)
     temp_input_file = aida_output_dir / "subsequence_features.csv"
     
     try:
-        # Save feature array to CSV
+        # Save feature array to CSV with descriptive feature names if provided
         with open(temp_input_file, 'w') as f:
-            f.write(','.join([f'feature_{i}' for i in range(feature_array.shape[1])]) + '\n')
+            if descriptive_feature_names is not None:
+                f.write(','.join(descriptive_feature_names) + '\n')
+            else:
+                f.write(','.join([f'feature_{i}' for i in range(feature_array.shape[1])]) + '\n')
             for i in range(feature_array.shape[0]):
                 f.write(','.join([str(val) for val in feature_array[i]]) + '\n')
-        
+
         logger.info(f"Saved feature array to {temp_input_file}")
         
         # Paths to AIDA executable
@@ -716,20 +719,20 @@ def main():
         logger.error(f"Failed to load subsequence dataset for window_size={args.window_size}, overlap={overlap}. Exiting.")
         return
     
-    # Prepare subsequence features
-    feature_array = prepare_subsequence_features(subsequence_data)
-    
+    # Prepare subsequence features (get both array and descriptive names)
+    feature_array, descriptive_feature_names = prepare_subsequence_features(subsequence_data)
+
     if feature_array is None:
         logger.error("Failed to prepare subsequence features. Exiting.")
         return
-    
+
     # Initialize results dictionary
     results = {}
-    
+
     # Run algorithms
     if "aida" in algorithms:
         success, execution_time, output_files = run_aida(
-            feature_array, subsequence_dates, output_dir, args.window_size, overlap
+            feature_array, subsequence_dates, output_dir, args.window_size, overlap, descriptive_feature_names
         )
         results["aida"] = {
             "success": success, 

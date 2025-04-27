@@ -2,7 +2,7 @@
   "ticker": "DGX",
   "algorithm": "aida",
   "subsequence_idx": 510,
-  "anomaly_score": 2.33854,
+  "anomaly_score": 2.44558,
   "start_date": "2023-04-25",
   "end_date": "2023-04-27"
 }

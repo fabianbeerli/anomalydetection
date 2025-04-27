@@ -1,127 +1,154 @@
 [
   {
     "sp500_anomaly_index": 23,
-    "sp500_anomaly_score": 3.9220892607421542,
+    "sp500_anomaly_score": 2.858359845404156,
     "constituents_with_anomaly": [
+      "AAPL",
       "GOOG",
       "NWS",
-      "VTR",
+      "AKAM",
+      "HAL",
       "BRK-B",
-      "NVDA",
+      "GOOGL",
+      "BALL",
+      "BG"
+    ],
+    "count": 9
+  },
+  {
+    "sp500_anomaly_index": 26,
+    "sp500_anomaly_score": 4.548426011056674,
+    "constituents_with_anomaly": [
+      "ALLE",
+      "NWS",
+      "HAL",
+      "ORCL",
+      "LDOS",
+      "TECH",
+      "CCI"
+    ],
+    "count": 7
+  },
+  {
+    "sp500_anomaly_index": 35,
+    "sp500_anomaly_score": 3.3334624415138987,
+    "constituents_with_anomaly": [
+      "GOOG",
+      "LLY",
+      "HAL",
+      "BRK-B",
       "BG",
-      "ATO"
+      "ATO",
+      "JPM"
     ],
     "count": 7
   },
   {
     "sp500_anomaly_index": 47,
-    "sp500_anomaly_score": 3.762104912757792,
+    "sp500_anomaly_score": 3.817602832170004,
     "constituents_with_anomaly": [
       "AMZN",
       "AAPL",
-      "ALLE",
       "GOOG",
       "CAG",
       "NWS",
       "DLR",
       "VTR",
       "LLY",
+      "BRK-B",
       "DGX",
       "MSFT",
       "MDT",
       "BALL",
       "BG",
-      "PWR",
-      "TECH",
-      "STZ"
+      "ATO"
     ],
-    "count": 17
-  },
-  {
-    "sp500_anomaly_index": 59,
-    "sp500_anomaly_score": 3.0465258443224097,
-    "constituents_with_anomaly": [
-      "AAPL",
-      "HAL",
-      "BRK-B",
-      "AZO",
-      "PWR",
-      "JPM"
-    ],
-    "count": 6
+    "count": 15
   },
   {
     "sp500_anomaly_index": 71,
-    "sp500_anomaly_score": 2.508495624650693,
+    "sp500_anomaly_score": 2.648996369085338,
     "constituents_with_anomaly": [
-      "CAG",
-      "DGX"
-    ],
-    "count": 2
-  },
-  {
-    "sp500_anomaly_index": 86,
-    "sp500_anomaly_score": 2.783532523416648,
-    "constituents_with_anomaly": [
-      "MSFT"
-    ],
-    "count": 1
-  },
-  {
-    "sp500_anomaly_index": 97,
-    "sp500_anomaly_score": 2.5082837468564505,
-    "constituents_with_anomaly": [
-      "ALLE",
-      "HAL",
+      "VTR",
+      "LLY",
       "MSFT",
+      "MDT",
+      "AZO",
       "ATO"
     ],
-    "count": 4
+    "count": 6
   },
   {
-    "sp500_anomaly_index": 128,
-    "sp500_anomaly_score": 1.9278744115056392,
+    "sp500_anomaly_index": 92,
+    "sp500_anomaly_score": 3.1316199716895703,
     "constituents_with_anomaly": [
-      "GOOG",
-      "ORCL"
+      "ALLE",
+      "CAG",
+      "NWS",
+      "VTR",
+      "HAL",
+      "BRK-B",
+      "MDT",
+      "BG",
+      "LDOS",
+      "STZ"
     ],
-    "count": 2
+    "count": 10
+  },
+  {
+    "sp500_anomaly_index": 112,
+    "sp500_anomaly_score": 2.980781006505505,
+    "constituents_with_anomaly": [
+      "DLR",
+      "DGX",
+      "META",
+      "AZO",
+      "BALL",
+      "PWR",
+      "CCI"
+    ],
+    "count": 7
   },
   {
     "sp500_anomaly_index": 133,
-    "sp500_anomaly_score": 2.836402822819184,
+    "sp500_anomaly_score": 4.6077204037765265,
     "constituents_with_anomaly": [
       "ALLE",
-      "VTR",
+      "GOOG",
+      "DLR",
       "BRK-B",
-      "MSFT",
-      "AZO",
+      "LDOS",
       "ATO",
-      "JPM",
-      "STZ"
+      "JPM"
     ],
-    "count": 8
+    "count": 7
   },
   {
-    "sp500_anomaly_index": 145,
-    "sp500_anomaly_score": 1.9710877373188531,
+    "sp500_anomaly_index": 151,
+    "sp500_anomaly_score": 2.714043295036937,
     "constituents_with_anomaly": [
-      "PWR",
-      "LDOS"
-    ],
-    "count": 2
-  },
-  {
-    "sp500_anomaly_index": 156,
-    "sp500_anomaly_score": 2.190119545236227,
-    "constituents_with_anomaly": [
-      "NWS",
-      "VTR",
-      "BRK-B",
-      "ALGN",
       "MDT",
-      "AZO"
+      "AZO",
+      "BALL",
+      "NVDA",
+      "TECH"
     ],
-    "count": 6
+    "count": 5
+  },
+  {
+    "sp500_anomaly_index": 179,
+    "sp500_anomaly_score": 3.519249847926672,
+    "constituents_with_anomaly": [
+      "AAPL",
+      "CAG",
+      "NWS",
+      "DGX",
+      "GOOGL",
+      "MSFT",
+      "MDT",
+      "BG",
+      "ATO"
+    ],
+    "count": 9
   }
 ]

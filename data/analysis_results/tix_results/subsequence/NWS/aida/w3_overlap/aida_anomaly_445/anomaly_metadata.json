@@ -2,7 +2,7 @@
   "ticker": "NWS",
   "algorithm": "aida",
   "subsequence_idx": 445,
-  "anomaly_score": 2.71953,
+  "anomaly_score": 3.34452,
   "start_date": "2023-01-25",
   "end_date": "2023-01-27"
 }
