@@ -45,29 +45,18 @@ class IForest:
             n_jobs=-1  # Use all available processors
         )
         
+    # For IForest in isolation_forest.py
     def fit_predict(self, data):
-        """
-        Fit the Isolation Forest model and predict anomalies.
-        
-        Args:
-            data (pandas.DataFrame or numpy.ndarray): Input data.
-            
-        Returns:
-            tuple: (anomaly_scores, anomaly_labels)
-                anomaly_scores: Higher values indicate more anomalous points
-                anomaly_labels: -1 for anomalies, 1 for normal points
-        """
         # Ensure input is a numpy array
         if isinstance(data, pd.DataFrame):
             X = data.values
         else:
             X = data
             
-        # Fit and predict
+        # Fit the model
         try:
             logger.info(f"Running Isolation Forest with n_estimators={self.n_estimators}, max_samples={self.max_samples}")
             self.model.fit(X)
-            labels = self.model.predict(X)
             
             # Get anomaly scores (negative decision function values)
             # Convert to positive values where higher = more anomalous
@@ -75,6 +64,11 @@ class IForest:
             
             # Normalize scores similar to AIDA
             scores = (scores - np.mean(scores)) / np.std(scores)
+            
+            # Use mean + 2*std threshold instead of contamination
+            threshold = np.mean(scores) + 2 * np.std(scores)
+            labels = np.ones(len(scores))
+            labels[scores > threshold] = -1  # -1 for anomalies, 1 for normal points
             
             logger.info(f"Isolation Forest completed. Found {np.sum(labels == -1)} anomalies.")
             
