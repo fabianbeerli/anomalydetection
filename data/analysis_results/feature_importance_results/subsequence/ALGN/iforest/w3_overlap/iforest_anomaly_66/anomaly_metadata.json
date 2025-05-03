@@ -1,0 +1,8 @@
+{
+  "ticker": "ALGN",
+  "algorithm": "iforest",
+  "subsequence_idx": 66,
+  "anomaly_score": 2.6243488226358136,
+  "start_date": "2023-09-05",
+  "end_date": "2023-09-07"
+}

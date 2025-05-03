@@ -1,0 +1,8 @@
+{
+  "ticker": "HAL",
+  "algorithm": "iforest",
+  "subsequence_idx": 286,
+  "anomaly_score": 2.183202052660328,
+  "start_date": "2024-06-18",
+  "end_date": "2024-06-21"
+}

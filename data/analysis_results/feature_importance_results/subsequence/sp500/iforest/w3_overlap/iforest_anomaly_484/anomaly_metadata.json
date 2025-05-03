@@ -1,0 +1,8 @@
+{
+  "ticker": "sp500",
+  "algorithm": "iforest",
+  "subsequence_idx": 484,
+  "anomaly_score": 2.078243722173555,
+  "start_date": "2025-03-06",
+  "end_date": "2025-03-10"
+}

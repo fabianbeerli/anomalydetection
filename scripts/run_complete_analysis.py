@@ -229,7 +229,52 @@ def run_constituent_cross_analysis_workflow(config_args):
         logger.error(f"Error in Constituent Cross-Analysis Workflow: {e}")
         return False
     
+def run_feature_importance_analysis_workflow(config_args):
+    logger.info("Starting Feature Importance Analysis Workflow")
+    try:
+        feature_importance_results_dir = Path(config_args.output_dir) / "feature_importance_results"
+        ensure_directory_exists(feature_importance_results_dir)
 
+        # Find all tickers in subsequence_results
+        subsequence_results_dir = Path(config_args.output_dir) / "subsequence_results"
+        tickers = [d.name for d in subsequence_results_dir.iterdir() if d.is_dir()]
+        if hasattr(config_args, 'ticker') and config_args.ticker:
+            tickers = [config_args.ticker]
+
+        for ticker in tickers:
+            cmd = [
+                sys.executable,
+                str(Path(__file__).parent / "run_feature_importance_analysis.py"),
+                "--output-dir", str(feature_importance_results_dir),
+                "--ticker", ticker
+            ]
+            if hasattr(config_args, 'window_sizes') and config_args.window_sizes:
+                cmd.extend(["--window-sizes", config_args.window_sizes])
+            if hasattr(config_args, 'only_overlap') and config_args.only_overlap:
+                cmd.append("--only-overlap")
+            elif hasattr(config_args, 'only_nonoverlap') and config_args.only_nonoverlap:
+                cmd.append("--only-nonoverlap")
+            logger.info(f"Running feature importance analysis command: {' '.join(cmd)}")
+            subprocess.run(cmd, check=True)
+
+        # Visualization (can stay as is)
+        vis_cmd = [
+            sys.executable,
+            str(Path(__file__).parent / "visualize_feature_importance_results.py"),
+            "--feature-importance-dir", str(feature_importance_results_dir),
+            "--output-dir", str(Path(config_args.output_dir) / "feature_importance_visualization"),
+            "--visualize-all"
+        ]
+        logger.info(f"Running feature importance visualization command: {' '.join(vis_cmd)}")
+        subprocess.run(vis_cmd, check=True)
+
+        logger.info("Feature Importance Analysis Workflow completed successfully")
+        return True
+
+    except Exception as e:
+        logger.error(f"Error in Feature Importance Analysis Workflow: {e}")
+        return False
+    
 def run_tix_analysis_workflow(config_args):
     """
     Run TIX analysis workflow to explain anomalies detected by AIDA.
@@ -603,6 +648,11 @@ def main():
         type=str,
         help="Comma-separated list of constituents to analyze with TIX"
     )
+    parser.add_argument(
+        "--run-feature-importance", 
+        action="store_true",
+        help="Run feature importance analysis workflow for LOF and IForest"
+    )
     
     args = parser.parse_args()
     
@@ -613,7 +663,7 @@ def main():
     workflows_to_run = []
     
     if args.run_all:
-        workflows_to_run = ["individual", "cross", "multi_ts", "tix"]
+        workflows_to_run = ["individual", "cross", "multi_ts", "tix",  "feature_importance"]
     else:
         if args.run_individual_analysis:
             workflows_to_run.append("individual")
@@ -623,6 +673,8 @@ def main():
             workflows_to_run.append("multi_ts")
         if args.run_tix_analysis:
             workflows_to_run.append("tix")
+        if args.run_feature_importance:
+            workflows_to_run.append("feature_importance")
     
     if not workflows_to_run:
         logger.warning("No analysis workflows selected. Use --run-all or specific workflow flags.")
@@ -652,6 +704,10 @@ def main():
     if "tix" in workflows_to_run:
         logger.info("= Starting TIX Explanation Analysis Workflow =")
         workflow_results["tix"] = run_tix_analysis_workflow(args)
+
+    if "feature_importance" in workflows_to_run:
+        logger.info("= Starting Feature Importance Analysis Workflow =")
+        workflow_results["feature_importance"] = run_feature_importance_analysis_workflow(args)
     
     # End workflow timing
     end_time = time.time()

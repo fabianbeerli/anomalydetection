@@ -1,0 +1,8 @@
+{
+  "ticker": "MSFT",
+  "algorithm": "lof",
+  "subsequence_idx": 315,
+  "anomaly_score": 2.0278837720646874,
+  "start_date": "2024-07-26",
+  "end_date": "2024-07-30"
+}

@@ -1,0 +1,8 @@
+{
+  "ticker": "DGX",
+  "algorithm": "lof",
+  "subsequence_idx": 303,
+  "anomaly_score": 2.1202247612284157,
+  "start_date": "2024-07-11",
+  "end_date": "2024-07-15"
+}

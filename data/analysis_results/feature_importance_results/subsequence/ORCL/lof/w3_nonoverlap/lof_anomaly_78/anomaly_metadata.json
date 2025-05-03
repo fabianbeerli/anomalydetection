@@ -1,0 +1,8 @@
+{
+  "ticker": "ORCL",
+  "algorithm": "lof",
+  "subsequence_idx": 78,
+  "anomaly_score": 2.5880870227313855,
+  "start_date": "2025-01-27",
+  "end_date": "2025-01-29"
+}

@@ -2,7 +2,7 @@
   "ticker": "AZO",
   "algorithm": "aida",
   "subsequence_idx": 5,
-  "anomaly_score": 3.54708,
+  "anomaly_score": 3.36857,
   "start_date": "2023-06-14",
   "end_date": "2023-06-16"
 }

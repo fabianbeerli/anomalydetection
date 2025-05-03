@@ -276,6 +276,35 @@ class TemporalIsolationForest(IForest):
                 
         return window_scores, anomaly_windows
     
+    def get_iforest_feature_importance(model, X):
+        n_features = X.shape[1]
+        feature_importances = np.zeros(n_features)
+        
+        # For each tree in the forest
+        for tree in model.estimators_:
+            # Get the feature used at each node
+            node_feature = tree.tree_.feature
+            
+            # Count feature usage, weighing by depth
+            for node_idx, feature_idx in enumerate(node_feature):
+                # Skip leaf nodes (marked with -1 or -2)
+                if feature_idx >= 0:
+                    # Get depth of this node
+                    depth = 0
+                    parent = node_idx
+                    while parent != 0:  # While not at root
+                        parent = (parent - 1) // 2  # Find parent
+                        depth += 1
+                    
+                    # More important features appear closer to root (lower depth)
+                    feature_importances[feature_idx] += 1.0 / (depth + 1.0)
+        
+        # Normalize
+        if feature_importances.sum() > 0:
+            feature_importances = feature_importances / feature_importances.sum()
+        
+        return feature_importances
+
     def save_temporal_results(self, window_scores, anomaly_windows, time_series, output_dir, prefix="temporal_iforest"):
         """
         Save the Temporal Isolation Forest results to files.

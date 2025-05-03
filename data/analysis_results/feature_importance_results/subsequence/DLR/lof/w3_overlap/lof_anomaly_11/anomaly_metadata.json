@@ -1,0 +1,8 @@
+{
+  "ticker": "DLR",
+  "algorithm": "lof",
+  "subsequence_idx": 11,
+  "anomaly_score": 3.988337494229485,
+  "start_date": "2023-06-23",
+  "end_date": "2023-06-27"
+}

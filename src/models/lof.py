@@ -40,7 +40,7 @@ class LOF:
             p=p,
             contamination=contamination,
             n_jobs=-1,  # Use all available processors
-            novelty=False  # For offline anomaly detection
+            novelty=False  # Set to False for unsupervised learning
         )
         
     def fit_predict(self, data):
@@ -205,6 +205,42 @@ class TemporalLOF(LOF):
                 
         return window_scores, anomaly_windows
     
+    def get_lof_feature_importance(model, X, point_idx=None):
+        n_features = X.shape[1]
+        feature_importances = np.zeros(n_features)
+        
+        # Get original LOF scores
+        original_scores = -model.negative_outlier_factor_
+        
+        # If specific point is provided, focus on that point
+        if point_idx is not None:
+            points_to_analyze = [point_idx]
+        else:
+            # Focus on anomalies
+            points_to_analyze = np.where(original_scores > np.percentile(original_scores, 95))[0]
+        
+        # For each feature, calculate how score changes when feature is removed
+        for feature_idx in range(n_features):
+            # Create copy of data without this feature
+            X_modified = np.delete(X, feature_idx, axis=1)
+            
+            # Create and fit a new LOF model
+            new_model = LocalOutlierFactor(n_neighbors=model.n_neighbors)
+            new_model.fit(X_modified)
+            
+            # Get new scores
+            new_scores = -new_model.negative_outlier_factor_
+            
+            # Calculate importance based on score changes for points of interest
+            for idx in points_to_analyze:
+                feature_importances[feature_idx] += abs(original_scores[idx] - new_scores[idx])
+        
+        # Normalize
+        if feature_importances.sum() > 0:
+            feature_importances = feature_importances / feature_importances.sum()
+        
+        return feature_importances
+
     def save_temporal_results(self, window_scores, anomaly_windows, time_series, output_dir, prefix="temporal_lof"):
         """
         Save the Temporal LOF results to files.

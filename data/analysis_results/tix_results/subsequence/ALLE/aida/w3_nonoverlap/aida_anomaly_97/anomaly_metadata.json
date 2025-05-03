@@ -2,7 +2,7 @@
   "ticker": "ALLE",
   "algorithm": "aida",
   "subsequence_idx": 97,
-  "anomaly_score": 2.6671,
+  "anomaly_score": 2.88442,
   "start_date": "2023-04-24",
   "end_date": "2023-04-26"
 }

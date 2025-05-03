@@ -1,0 +1,8 @@
+{
+  "ticker": "ALLE",
+  "algorithm": "lof",
+  "subsequence_idx": 511,
+  "anomaly_score": 5.021754039307823,
+  "start_date": "2023-04-26",
+  "end_date": "2023-04-28"
+}

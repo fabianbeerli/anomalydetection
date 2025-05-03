@@ -2,7 +2,7 @@
   "ticker": "DLR",
   "algorithm": "aida",
   "subsequence_idx": 253,
-  "anomaly_score": 2.40208,
+  "anomaly_score": 2.43463,
   "start_date": "2024-05-06",
   "end_date": "2024-05-08"
 }

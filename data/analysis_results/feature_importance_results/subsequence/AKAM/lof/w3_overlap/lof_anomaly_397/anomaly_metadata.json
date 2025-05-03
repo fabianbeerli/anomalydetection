@@ -1,0 +1,8 @@
+{
+  "ticker": "AKAM",
+  "algorithm": "lof",
+  "subsequence_idx": 397,
+  "anomaly_score": 2.6781445222156868,
+  "start_date": "2024-11-08",
+  "end_date": "2024-11-12"
+}

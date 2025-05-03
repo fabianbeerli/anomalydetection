@@ -1,0 +1,8 @@
+{
+  "ticker": "STZ",
+  "algorithm": "lof",
+  "subsequence_idx": 73,
+  "anomaly_score": 3.028950983573258,
+  "start_date": "2023-09-13",
+  "end_date": "2023-09-15"
+}

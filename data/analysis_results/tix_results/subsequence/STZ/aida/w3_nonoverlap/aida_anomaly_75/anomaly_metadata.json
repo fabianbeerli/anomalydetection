@@ -2,7 +2,7 @@
   "ticker": "STZ",
   "algorithm": "aida",
   "subsequence_idx": 75,
-  "anomaly_score": 2.68951,
+  "anomaly_score": 2.58774,
   "start_date": "2025-01-13",
   "end_date": "2025-01-15"
 }
