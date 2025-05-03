@@ -2,7 +2,7 @@
   "ticker": "NVDA",
   "algorithm": "aida",
   "subsequence_idx": 157,
-  "anomaly_score": 2.89718,
+  "anomaly_score": 3.11482,
   "start_date": "2023-02-22",
   "end_date": "2023-02-24"
 }

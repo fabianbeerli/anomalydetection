@@ -2,7 +2,7 @@
   "ticker": "TECH",
   "algorithm": "aida",
   "subsequence_idx": 294,
-  "anomaly_score": 3.36731,
+  "anomaly_score": 3.30272,
   "start_date": "2024-06-28",
   "end_date": "2024-07-02"
 }

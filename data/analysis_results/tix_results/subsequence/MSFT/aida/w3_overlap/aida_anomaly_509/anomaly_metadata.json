@@ -2,7 +2,7 @@
   "ticker": "MSFT",
   "algorithm": "aida",
   "subsequence_idx": 509,
-  "anomaly_score": 2.49761,
+  "anomaly_score": 2.44019,
   "start_date": "2023-04-24",
   "end_date": "2023-04-26"
 }

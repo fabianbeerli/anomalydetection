@@ -1,0 +1,8 @@
+{
+  "ticker": "META",
+  "algorithm": "aida",
+  "subsequence_idx": 212,
+  "anomaly_score": 2.52118,
+  "start_date": "2023-03-01",
+  "end_date": "2023-03-03"
+}

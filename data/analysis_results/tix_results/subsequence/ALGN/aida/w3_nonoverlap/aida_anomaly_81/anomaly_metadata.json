@@ -1,0 +1,8 @@
+{
+  "ticker": "ALGN",
+  "algorithm": "aida",
+  "subsequence_idx": 81,
+  "anomaly_score": 2.46189,
+  "start_date": "2025-02-04",
+  "end_date": "2025-02-06"
+}
