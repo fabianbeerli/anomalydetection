@@ -40,7 +40,7 @@ class LOF:
             p=p,
             contamination=contamination,
             n_jobs=-1,  # Use all available processors
-            novelty=False  # For offline anomaly detection
+            novelty=False  # Set to False for unsupervised learning
         )
         
     def fit_predict(self, data):

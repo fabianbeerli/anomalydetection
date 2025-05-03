@@ -1,0 +1,8 @@
+{
+  "ticker": "BALL",
+  "algorithm": "iforest",
+  "subsequence_idx": 104,
+  "anomaly_score": 3.338603401199411,
+  "start_date": "2023-10-23",
+  "end_date": "2023-10-25"
+}

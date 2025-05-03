@@ -1,0 +1,8 @@
+{
+  "ticker": "CAG",
+  "algorithm": "iforest",
+  "subsequence_idx": 485,
+  "anomaly_score": 3.2778024786918474,
+  "start_date": "2025-03-07",
+  "end_date": "2025-03-11"
+}

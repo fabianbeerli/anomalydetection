@@ -1,0 +1,8 @@
+{
+  "ticker": "MDT",
+  "algorithm": "iforest",
+  "subsequence_idx": 533,
+  "anomaly_score": 2.688727173497684,
+  "start_date": "2023-05-24",
+  "end_date": "2023-05-26"
+}

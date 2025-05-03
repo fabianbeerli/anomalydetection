@@ -1,0 +1,8 @@
+{
+  "ticker": "VTR",
+  "algorithm": "iforest",
+  "subsequence_idx": 83,
+  "anomaly_score": 2.9224232336513585,
+  "start_date": "2025-02-12",
+  "end_date": "2025-02-14"
+}

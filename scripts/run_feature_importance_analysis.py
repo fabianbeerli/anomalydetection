@@ -196,8 +196,8 @@ class FeatureImportanceAnalyzer:
                 anomaly_data = feature_data.iloc[[idx]]
                 
                 # Calculate feature importance for this anomaly
-                feature_importance = self._get_lof_feature_importance(model, feature_data, anomaly_data)
-                
+                feature_importance = self._get_lof_feature_importance(model, feature_data, anomaly_data, anomaly_idx=idx)
+
                 if feature_importance is not None:
                     # Store results
                     feature_importance_results[idx] = {
@@ -213,68 +213,49 @@ class FeatureImportanceAnalyzer:
         
         return feature_importance_results
     
-    def _get_lof_feature_importance(self, model, full_data, anomaly_data):
-        """
-        Calculate feature importance for Local Outlier Factor.
-        
-        This method uses a leave-one-out approach to determine feature importance.
-        For each feature, it calculates how much the LOF score changes when the feature
-        is removed from the calculation.
-        
-        Args:
-            model (LOF): LOF model
-            full_data (pandas.DataFrame): Full dataset
-            anomaly_data (pandas.DataFrame): Data point to explain
-            
-        Returns:
-            pandas.Series: Feature importance scores
-        """
+    def _get_lof_feature_importance(self, model, full_data, anomaly_data, anomaly_idx=None):
         try:
             if not isinstance(anomaly_data, pd.DataFrame):
                 logger.error("Feature importance calculation requires DataFrame with column names")
                 return None
-                
-            # Calculate original LOF score
-            original_score = -model.model._decision_function(anomaly_data)[0]
-            
+
+            # Get the index of the anomaly in the full_data
+            if anomaly_idx is None:
+                # Try to infer from anomaly_data index
+                anomaly_idx = anomaly_data.index[0]
+            # Get original LOF score for this point
+            original_score = -model.model.negative_outlier_factor_[anomaly_idx]
+
             # Initialize feature importance values
             feature_names = anomaly_data.columns
             feature_importance = {}
-            
+
             # For each feature, calculate the change in LOF score when the feature is removed
             for feature in feature_names:
                 # Create a copy of the data with the feature removed
                 reduced_data = full_data.drop(columns=[feature])
-                reduced_anomaly = anomaly_data.drop(columns=[feature])
-                
+
                 # Create a new LOF model with the same parameters
                 reduced_model = LOF(
                     n_neighbors=model.n_neighbors,
                     p=model.p,
                     contamination=model.contamination
                 )
-                
-                # Fit the model
-                reduced_model.model.fit(reduced_data)
-                
-                # Calculate the LOF score without this feature
-                reduced_score = -reduced_model.model._decision_function(reduced_anomaly)[0]
-                
+
+                # Fit using NumPy arrays (no feature names)
+                reduced_model.model.fit(reduced_data.values)
+                reduced_score = -reduced_model.model.negative_outlier_factor_[anomaly_idx]
+
                 # Calculate the change in score
                 score_change = abs(original_score - reduced_score)
-                
-                # Store the feature importance
                 feature_importance[feature] = score_change
-            
+
             # Convert to Series
             importance_series = pd.Series(feature_importance)
-            
-            # Normalize
             if importance_series.sum() > 0:
                 importance_series = importance_series / importance_series.sum()
-            
             return importance_series
-            
+
         except Exception as e:
             logger.error(f"Error in LOF feature importance calculation: {e}")
             return None
@@ -345,7 +326,7 @@ class FeatureImportanceAnalyzer:
         if algorithm == 'iforest':
             feature_file = subsequence_results_dir / ticker / algorithm / f"w{window_size}_{overlap_type}" / "iforest_features.csv"
         elif algorithm == 'lof':
-            feature_file = subsequence_results_dir / ticker / algorithm / f"w{window_size}_{overlap_type}" / "lof_feature.csv"
+            feature_file = subsequence_results_dir / ticker / algorithm / f"w{window_size}_{overlap_type}" / "lof_features.csv"
 
         if not feature_file.exists():
             logger.warning(f"No feature file found at {feature_file}")
@@ -532,8 +513,20 @@ def main():
                 'feature_importance': {k: float(v) for k, v in result.get('feature_importance', {}).items()}
             }
     
+    all_results_file = Path(args.output_dir) / "subsequence_feature_importance_summary.json"
+
+    # Load existing results if the file exists
+    if all_results_file.exists():
+        with open(all_results_file, 'r') as f:
+            existing_results = json.load(f)
+    else:
+        existing_results = {}
+
+    # Update with new results for this ticker
+    existing_results.update(json_results)
+
     with open(all_results_file, 'w') as f:
-        json.dump(json_results, f, indent=2)
+        json.dump(existing_results, f, indent=2)
     
     logger.info(f"All results saved to {all_results_file}")
 

@@ -1,0 +1,8 @@
+{
+  "ticker": "CCI",
+  "algorithm": "lof",
+  "subsequence_idx": 142,
+  "anomaly_score": 2.227864060750002,
+  "start_date": "2023-10-18",
+  "end_date": "2023-10-20"
+}

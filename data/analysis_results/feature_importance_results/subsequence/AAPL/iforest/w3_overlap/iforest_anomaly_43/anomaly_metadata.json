@@ -1,0 +1,8 @@
+{
+  "ticker": "AAPL",
+  "algorithm": "iforest",
+  "subsequence_idx": 43,
+  "anomaly_score": 2.147804422363181,
+  "start_date": "2023-08-04",
+  "end_date": "2023-08-08"
+}

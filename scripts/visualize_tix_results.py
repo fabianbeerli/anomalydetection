@@ -164,49 +164,50 @@ def main():
             ticker = ticker_dir.name
             logger.info(f"Visualizing TIX results for ticker: {ticker}")
 
-            # Load TIX summary
-            tix_summary = load_tix_summary(tix_results_dir, ticker, args.algorithm, args.window_size, args.overlap_type)
-            if not tix_summary:
-                logger.warning(f"No TIX summary for {ticker}")
-                continue
-
-            # Build anomalies DataFrame and feature importance matrix
-            anomaly_indices = []
-            feature_importances = []
-            for idx, result in tix_summary.items():
-                if not isinstance(result, dict) or "feature_importance" not in result:
+            # Loop over both overlap types
+            for overlap_type in ["overlap", "nonoverlap"]:
+                tix_summary = load_tix_summary(tix_results_dir, ticker, args.algorithm, args.window_size, overlap_type)
+                if not tix_summary:
+                    logger.warning(f"No TIX summary for {ticker} ({overlap_type})")
                     continue
-                anomaly_indices.append(int(idx))
-                feature_importances.append(result["feature_importance"])
-            if not anomaly_indices:
-                logger.warning(f"No anomalies with TIX results for {ticker}")
-                continue
 
-            # Build DataFrame for heatmap
-            all_features = sorted({f for fi in feature_importances for f in fi})
-            importance_matrix = np.zeros((len(anomaly_indices), len(all_features)))
-            for i, fi in enumerate(feature_importances):
-                for j, f in enumerate(all_features):
-                    importance_matrix[i, j] = fi.get(f, 0)
+                # Build anomalies DataFrame and feature importance matrix
+                anomaly_indices = []
+                feature_importances = []
+                for idx, result in tix_summary.items():
+                    if not isinstance(result, dict) or "feature_importance" not in result:
+                        continue
+                    anomaly_indices.append(int(idx))
+                    feature_importances.append(result["feature_importance"])
+                if not anomaly_indices:
+                    logger.warning(f"No anomalies with TIX results for {ticker} ({overlap_type})")
+                    continue
 
-            # Plot only the heatmap
-            plt.figure(figsize=(min(20, 0.5*len(anomaly_indices)), max(8, 0.3*len(all_features))))
-            sns.heatmap(
-                importance_matrix,
-                annot=False,
-                xticklabels=all_features,
-                yticklabels=[f"Anomaly #{idx}" for idx in anomaly_indices],
-                cmap="YlGnBu"
-            )
-            plt.title(f"{ticker} {args.algorithm.upper()} Feature Importance Heatmap (w{args.window_size}, {args.overlap_type})")
-            plt.xlabel("Features")
-            plt.ylabel("Anomalies")
-            output_file = subsequence_output_dir / ticker / f"{args.algorithm}_tix_heatmap_w{args.window_size}_{args.overlap_type}.png"
-            ensure_directory_exists(output_file.parent)
-            plt.tight_layout()
-            plt.savefig(output_file, dpi=300, bbox_inches='tight')
-            plt.close()
-            logger.info(f"Visualization saved to {output_file}")
+                # Build DataFrame for heatmap
+                all_features = sorted({f for fi in feature_importances for f in fi})
+                importance_matrix = np.zeros((len(anomaly_indices), len(all_features)))
+                for i, fi in enumerate(feature_importances):
+                    for j, f in enumerate(all_features):
+                        importance_matrix[i, j] = fi.get(f, 0)
+
+                # Plot only the heatmap
+                plt.figure(figsize=(min(20, 0.5*len(all_features)), max(8, 0.3*len(anomaly_indices))))
+                sns.heatmap(
+                    importance_matrix,
+                    annot=False,
+                    xticklabels=all_features,
+                    yticklabels=[f"Anomaly #{idx}" for idx in anomaly_indices],
+                    cmap="YlGnBu"
+                )
+                plt.title(f"{ticker} {args.algorithm.upper()} Feature Importance Heatmap (w{args.window_size}, {overlap_type})")
+                plt.xlabel("Features")
+                plt.ylabel("Anomalies")
+                output_file = subsequence_output_dir / ticker / f"{args.algorithm}_tix_heatmap_w{args.window_size}_{overlap_type}.png"
+                ensure_directory_exists(output_file.parent)
+                plt.tight_layout()
+                plt.savefig(output_file, dpi=300, bbox_inches='tight')
+                plt.close()
+                logger.info(f"Visualization saved to {output_file}")
     # Multi-TS TIX visualization block
     if args.visualize_all or args.visualize_multits:
         for multi_ts_key in ["multi_ts_w3_overlap", "multi_ts_w3_nonoverlap"]:

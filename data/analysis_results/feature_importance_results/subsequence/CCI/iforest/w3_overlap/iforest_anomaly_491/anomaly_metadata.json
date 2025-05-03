@@ -1,0 +1,8 @@
+{
+  "ticker": "CCI",
+  "algorithm": "iforest",
+  "subsequence_idx": 491,
+  "anomaly_score": 3.85074904073876,
+  "start_date": "2025-03-14",
+  "end_date": "2025-03-18"
+}

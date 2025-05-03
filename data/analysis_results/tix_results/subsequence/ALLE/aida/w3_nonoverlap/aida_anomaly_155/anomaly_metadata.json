@@ -1,8 +1,0 @@
-{
-  "ticker": "ALLE",
-  "algorithm": "aida",
-  "subsequence_idx": 155,
-  "anomaly_score": 2.77427,
-  "start_date": "2023-12-08",
-  "end_date": "2023-12-12"
-}

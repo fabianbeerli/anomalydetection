@@ -1,0 +1,8 @@
+{
+  "ticker": "DLR",
+  "algorithm": "iforest",
+  "subsequence_idx": 192,
+  "anomaly_score": 3.389969654733062,
+  "start_date": "2024-02-15",
+  "end_date": "2024-02-20"
+}

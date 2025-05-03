@@ -1,0 +1,8 @@
+{
+  "ticker": "MDT",
+  "algorithm": "lof",
+  "subsequence_idx": 214,
+  "anomaly_score": 4.044851549854908,
+  "start_date": "2024-03-15",
+  "end_date": "2024-03-19"
+}

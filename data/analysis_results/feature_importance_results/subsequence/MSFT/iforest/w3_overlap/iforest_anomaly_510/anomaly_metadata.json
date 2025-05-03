@@ -1,0 +1,8 @@
+{
+  "ticker": "MSFT",
+  "algorithm": "iforest",
+  "subsequence_idx": 510,
+  "anomaly_score": 3.366693440447816,
+  "start_date": "2023-04-25",
+  "end_date": "2023-04-27"
+}

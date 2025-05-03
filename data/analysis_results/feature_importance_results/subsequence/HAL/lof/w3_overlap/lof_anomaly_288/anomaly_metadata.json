@@ -1,0 +1,8 @@
+{
+  "ticker": "HAL",
+  "algorithm": "lof",
+  "subsequence_idx": 288,
+  "anomaly_score": 7.187970522469247,
+  "start_date": "2024-06-21",
+  "end_date": "2024-06-25"
+}

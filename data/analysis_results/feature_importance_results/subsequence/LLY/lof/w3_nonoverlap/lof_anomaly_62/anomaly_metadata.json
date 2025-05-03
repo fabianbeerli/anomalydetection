@@ -1,0 +1,8 @@
+{
+  "ticker": "LLY",
+  "algorithm": "lof",
+  "subsequence_idx": 62,
+  "anomaly_score": 2.1943962399098784,
+  "start_date": "2024-11-18",
+  "end_date": "2024-11-20"
+}

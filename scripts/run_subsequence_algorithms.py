@@ -688,9 +688,6 @@ def main():
         algorithms = ["aida", "iforest", "lof"]
     
     # Determine overlap setting
-    # If neither --overlap nor --no-overlap is specified, default to overlapping (3-day window)
-    # If --no-overlap is specified, use non-overlapping
-    # If both are specified, --no-overlap takes precedence
     overlap = True
     if args.no_overlap:
         overlap = False
@@ -700,7 +697,11 @@ def main():
     # Convert paths to Path objects
     subsequence_dir = Path(args.subsequence_dir)
     output_dir = Path(args.output)
-    
+
+    # Always append ticker to output_dir if not already present
+    if output_dir.name != args.ticker:
+        output_dir = output_dir / args.ticker
+
     # Create a subdirectory for results based on parameters
     config_dir = f"w{args.window_size}_{'overlap' if overlap else 'nonoverlap'}"
     results_dir = output_dir / config_dir
@@ -741,7 +742,7 @@ def main():
     
     if "iforest" in algorithms:
         success, execution_time, output_files = run_isolation_forest(
-            feature_array, subsequence_dates, output_dir / args.ticker, args.window_size, overlap, descriptive_feature_names
+            feature_array, subsequence_dates, output_dir, args.window_size, overlap, descriptive_feature_names
         )
         results["iforest"] = {
             "success": success, 
@@ -751,7 +752,7 @@ def main():
     
     if "lof" in algorithms:
         success, execution_time, output_files = run_lof(
-            feature_array, subsequence_dates, output_dir / args.ticker, args.window_size, overlap, descriptive_feature_names
+            feature_array, subsequence_dates, output_dir, args.window_size, overlap, descriptive_feature_names
         )
         results["lof"] = {
             "success": success, 

@@ -1,0 +1,8 @@
+{
+  "ticker": "NVDA",
+  "algorithm": "lof",
+  "subsequence_idx": 429,
+  "anomaly_score": 3.671739350067801,
+  "start_date": "2024-12-20",
+  "end_date": "2024-12-24"
+}

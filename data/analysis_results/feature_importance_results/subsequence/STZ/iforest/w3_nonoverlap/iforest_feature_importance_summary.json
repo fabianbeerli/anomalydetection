@@ -1,0 +1,15 @@
+{
+  "algorithm": "iforest",
+  "total_anomalies_analyzed": 9,
+  "anomalies": [
+    27,
+    74,
+    75,
+    80,
+    83,
+    84,
+    86,
+    88,
+    92
+  ]
+}

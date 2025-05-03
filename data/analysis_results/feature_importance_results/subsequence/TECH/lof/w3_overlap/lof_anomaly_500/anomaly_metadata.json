@@ -1,0 +1,8 @@
+{
+  "ticker": "TECH",
+  "algorithm": "lof",
+  "subsequence_idx": 500,
+  "anomaly_score": 2.7897393346338046,
+  "start_date": "2023-04-12",
+  "end_date": "2023-04-14"
+}

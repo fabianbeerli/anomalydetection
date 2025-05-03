@@ -1,0 +1,8 @@
+{
+  "ticker": "AKAM",
+  "algorithm": "iforest",
+  "subsequence_idx": 44,
+  "anomaly_score": 3.2417607213460027,
+  "start_date": "2023-08-07",
+  "end_date": "2023-08-09"
+}

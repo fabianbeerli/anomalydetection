@@ -1,0 +1,8 @@
+{
+  "ticker": "BALL",
+  "algorithm": "lof",
+  "subsequence_idx": 430,
+  "anomaly_score": 2.574863856147217,
+  "start_date": "2024-12-23",
+  "end_date": "2024-12-26"
+}

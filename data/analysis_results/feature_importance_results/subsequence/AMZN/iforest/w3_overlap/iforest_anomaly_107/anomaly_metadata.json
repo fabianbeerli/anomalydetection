@@ -1,0 +1,8 @@
+{
+  "ticker": "AMZN",
+  "algorithm": "iforest",
+  "subsequence_idx": 107,
+  "anomaly_score": 2.108502395788295,
+  "start_date": "2023-10-26",
+  "end_date": "2023-10-30"
+}

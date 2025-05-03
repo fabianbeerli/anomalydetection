@@ -2,7 +2,7 @@
   "ticker": "MDT",
   "algorithm": "aida",
   "subsequence_idx": 495,
-  "anomaly_score": 2.71738,
+  "anomaly_score": 2.86555,
   "start_date": "2025-03-20",
   "end_date": "2025-03-24"
 }

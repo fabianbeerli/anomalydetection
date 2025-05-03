@@ -1,0 +1,8 @@
+{
+  "ticker": "ALGN",
+  "algorithm": "lof",
+  "subsequence_idx": 37,
+  "anomaly_score": 3.4828273635949056,
+  "start_date": "2023-07-27",
+  "end_date": "2023-07-31"
+}

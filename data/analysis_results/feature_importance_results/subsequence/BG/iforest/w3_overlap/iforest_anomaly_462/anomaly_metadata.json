@@ -1,0 +1,8 @@
+{
+  "ticker": "BG",
+  "algorithm": "iforest",
+  "subsequence_idx": 462,
+  "anomaly_score": 3.8155019166164905,
+  "start_date": "2025-02-05",
+  "end_date": "2025-02-07"
+}

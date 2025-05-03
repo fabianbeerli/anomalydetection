@@ -1,0 +1,8 @@
+{
+  "ticker": "LDOS",
+  "algorithm": "lof",
+  "subsequence_idx": 18,
+  "anomaly_score": 2.5441244162567314,
+  "start_date": "2023-07-03",
+  "end_date": "2023-07-06"
+}

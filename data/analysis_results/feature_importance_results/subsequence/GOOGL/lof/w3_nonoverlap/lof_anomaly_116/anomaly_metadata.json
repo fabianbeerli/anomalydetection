@@ -1,0 +1,8 @@
+{
+  "ticker": "GOOGL",
+  "algorithm": "lof",
+  "subsequence_idx": 116,
+  "anomaly_score": 2.7725461739046136,
+  "start_date": "2023-02-03",
+  "end_date": "2023-02-07"
+}

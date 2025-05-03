@@ -1,0 +1,8 @@
+{
+  "ticker": "CAG",
+  "algorithm": "lof",
+  "subsequence_idx": 4,
+  "anomaly_score": 2.2400863118481107,
+  "start_date": "2024-04-03",
+  "end_date": "2024-04-05"
+}

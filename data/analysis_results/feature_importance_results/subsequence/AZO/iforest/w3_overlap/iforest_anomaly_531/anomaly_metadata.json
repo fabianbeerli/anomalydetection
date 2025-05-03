@@ -1,0 +1,8 @@
+{
+  "ticker": "AZO",
+  "algorithm": "iforest",
+  "subsequence_idx": 531,
+  "anomaly_score": 3.6511846676352833,
+  "start_date": "2023-05-22",
+  "end_date": "2023-05-24"
+}

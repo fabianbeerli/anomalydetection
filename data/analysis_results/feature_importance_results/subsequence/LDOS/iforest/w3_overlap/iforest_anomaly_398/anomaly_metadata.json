@@ -1,0 +1,8 @@
+{
+  "ticker": "LDOS",
+  "algorithm": "iforest",
+  "subsequence_idx": 398,
+  "anomaly_score": 2.9164678067414007,
+  "start_date": "2024-11-11",
+  "end_date": "2024-11-13"
+}

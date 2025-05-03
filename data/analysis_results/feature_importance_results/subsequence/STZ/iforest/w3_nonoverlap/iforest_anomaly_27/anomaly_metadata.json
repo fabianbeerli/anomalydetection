@@ -1,0 +1,8 @@
+{
+  "ticker": "STZ",
+  "algorithm": "iforest",
+  "subsequence_idx": 27,
+  "anomaly_score": 2.273362069477541,
+  "start_date": "2024-07-03",
+  "end_date": "2024-07-08"
+}

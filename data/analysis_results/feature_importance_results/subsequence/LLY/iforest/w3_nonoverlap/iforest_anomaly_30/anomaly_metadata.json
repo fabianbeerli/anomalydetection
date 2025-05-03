@@ -1,0 +1,8 @@
+{
+  "ticker": "LLY",
+  "algorithm": "iforest",
+  "subsequence_idx": 30,
+  "anomaly_score": 3.4163383414701967,
+  "start_date": "2024-07-17",
+  "end_date": "2024-07-19"
+}

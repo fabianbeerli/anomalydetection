@@ -1,0 +1,8 @@
+{
+  "ticker": "AZO",
+  "algorithm": "lof",
+  "subsequence_idx": 110,
+  "anomaly_score": 3.1276149276518286,
+  "start_date": "2023-06-14",
+  "end_date": "2023-06-16"
+}
