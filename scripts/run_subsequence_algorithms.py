@@ -452,22 +452,9 @@ int main(int argc, char** argv) {
         return False, -1, {}
 
 
-def run_isolation_forest(feature_array, subsequence_dates, output_dir, window_size, overlap):
+def run_isolation_forest(feature_array, subsequence_dates, output_dir, window_size, overlap, descriptive_feature_names=None):
     """
     Run Isolation Forest algorithm on subsequence features.
-    
-    Args:
-        feature_array (numpy.ndarray): Array of feature vectors
-        subsequence_dates (list): List of date ranges for subsequences
-        output_dir (Path): Directory to save results
-        window_size (int): Size of the subsequence window
-        overlap (bool): Whether subsequences are overlapping
-        
-    Returns:
-        tuple: (success, execution_time, output_files)
-            success: Boolean indicating if execution was successful
-            execution_time: Execution time in seconds
-            output_files: Dictionary with paths to output files
     """
     # Create subdirectory name based on parameters
     subdir_name = f"w{window_size}_{'overlap' if overlap else 'nonoverlap'}"
@@ -477,7 +464,20 @@ def run_isolation_forest(feature_array, subsequence_dates, output_dir, window_si
     iforest_output_dir = output_dir / "iforest" / subdir_name
     ensure_directory_exists(iforest_output_dir)
     
+    # Save feature data for later analysis
+    feature_file = iforest_output_dir / "iforest_features.csv"
+    
     try:
+        # Save feature array to CSV with descriptive feature names if provided
+        if descriptive_feature_names is not None:
+            feature_df = pd.DataFrame(feature_array, columns=descriptive_feature_names)
+            feature_df.to_csv(feature_file, index=False)
+        else:
+            feature_df = pd.DataFrame(feature_array, columns=[f'feature_{i}' for i in range(feature_array.shape[1])])
+            feature_df.to_csv(feature_file, index=False)
+            
+        logger.info(f"Saved feature array to {feature_file}")
+
         # Start timing
         start_time = time.time()
         
@@ -543,22 +543,9 @@ def run_isolation_forest(feature_array, subsequence_dates, output_dir, window_si
         return False, execution_time, {}
 
 
-def run_lof(feature_array, subsequence_dates, output_dir, window_size, overlap):
+def run_lof(feature_array, subsequence_dates, output_dir, window_size, overlap, descriptive_feature_names=None):
     """
     Run Local Outlier Factor algorithm on subsequence features.
-    
-    Args:
-        feature_array (numpy.ndarray): Array of feature vectors
-        subsequence_dates (list): List of date ranges for subsequences
-        output_dir (Path): Directory to save results
-        window_size (int): Size of the subsequence window
-        overlap (bool): Whether subsequences are overlapping
-        
-    Returns:
-        tuple: (success, execution_time, output_files)
-            success: Boolean indicating if execution was successful
-            execution_time: Execution time in seconds
-            output_files: Dictionary with paths to output files
     """
     # Create subdirectory name based on parameters
     subdir_name = f"w{window_size}_{'overlap' if overlap else 'nonoverlap'}"
@@ -568,7 +555,19 @@ def run_lof(feature_array, subsequence_dates, output_dir, window_size, overlap):
     lof_output_dir = output_dir / "lof" / subdir_name
     ensure_directory_exists(lof_output_dir)
     
+    # Save feature data for later analysis
+    feature_file = lof_output_dir / "lof_features.csv"
+    
     try:
+        # Save feature array to CSV with descriptive feature names if provided
+        if descriptive_feature_names is not None:
+            feature_df = pd.DataFrame(feature_array, columns=descriptive_feature_names)
+            feature_df.to_csv(feature_file, index=False)
+        else:
+            feature_df = pd.DataFrame(feature_array, columns=[f'feature_{i}' for i in range(feature_array.shape[1])])
+            feature_df.to_csv(feature_file, index=False)
+            
+        logger.info(f"Saved feature array to {feature_file}")
         # Start timing
         start_time = time.time()
         
@@ -664,7 +663,7 @@ def main():
     parser.add_argument(
         "--output", 
         type=str, 
-        default=str(config.DATA_DIR / "subsequence_results"),
+        default=str(config.DATA_DIR / "analysis_results" / "subsequence_results"),
         help="Directory to save algorithm results"
     )
     parser.add_argument(
@@ -742,7 +741,7 @@ def main():
     
     if "iforest" in algorithms:
         success, execution_time, output_files = run_isolation_forest(
-            feature_array, subsequence_dates, output_dir, args.window_size, overlap
+            feature_array, subsequence_dates, output_dir / args.ticker, args.window_size, overlap, descriptive_feature_names
         )
         results["iforest"] = {
             "success": success, 
@@ -752,7 +751,7 @@ def main():
     
     if "lof" in algorithms:
         success, execution_time, output_files = run_lof(
-            feature_array, subsequence_dates, output_dir, args.window_size, overlap
+            feature_array, subsequence_dates, output_dir / args.ticker, args.window_size, overlap, descriptive_feature_names
         )
         results["lof"] = {
             "success": success, 
