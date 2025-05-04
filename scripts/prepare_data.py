@@ -137,8 +137,14 @@ def main():
 
             if df is not None:
                 if not df.empty:
-                    constituent_dfs.append(df)
-                    constituent_tickers.append(ticker)
+                        # Exclude S&P 500 index by common names
+                        sp500_names = {"SP500", "SPX", "^GSPC", "S&P500", "S&P_500", "GSPC", "INDEX_GSPC"}
+                        if df is not None and not df.empty:
+                            if ticker.upper() not in sp500_names and not ticker.upper().startswith("SP500"):
+                                constituent_dfs.append(df)
+                                constituent_tickers.append(ticker)
+                            else:
+                                logger.info(f"Excluded {ticker} from multi-TS constituents (likely S&P 500 index)")
                 else:
                     logger.warning(f"Empty DataFrame for {ticker}, skipping")
 

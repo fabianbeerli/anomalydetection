@@ -64,7 +64,7 @@ def plot_anomalies_on_sp500(data, anomaly_results, window_size, overlap_type, ou
     plt.close()
     logger.info(f"Saved S&P 500 anomaly overlay plot to {output_file}")
 
-def load_multi_ts_anomaly_results(results_dir, window_size, overlap_type):
+def load_multi_ts_anomaly_results(results_dir, window_size, overlap_type, subfolder):
     """
     Load multi-TS anomaly results for different algorithms.
     """
@@ -73,7 +73,7 @@ def load_multi_ts_anomaly_results(results_dir, window_size, overlap_type):
     config_name = f"multi_ts_w{window_size}_{overlap_str}"
 
     for algo in ALGORITHMS:
-        algo_dir = Path(results_dir) / config_name / algo
+        algo_dir = Path(results_dir) / config_name / subfolder / algo
         anomalies_file = algo_dir / f"{algo}_multi_ts_anomalies.csv"
         if anomalies_file.exists():
             anomalies_df = pd.read_csv(anomalies_file)
@@ -146,6 +146,12 @@ def main():
         required=True,
         help="Path to the original processed S&P 500 data (CSV with Date and Close columns)"
     )
+    parser.add_argument(
+        "--windowlevel",
+        type=str,
+        required=True,
+        help="Path to the original processed S&P 500 data (CSV with Date and Close columns)"
+    )
 
     args = parser.parse_args()
 
@@ -153,10 +159,10 @@ def main():
     output_dir = Path(args.output)
     window_size = args.window_size
     overlap_type = args.overlap_type
-
+    windowlevel = args.windowlevel
     data = pd.read_csv(args.data, index_col=0, parse_dates=True)
 
-    anomaly_results = load_multi_ts_anomaly_results(results_dir, window_size, overlap_type)
+    anomaly_results = load_multi_ts_anomaly_results(results_dir, window_size, overlap_type, windowlevel)
     visualize_multi_ts_anomalies(anomaly_results, window_size, overlap_type, output_dir)
     plot_anomalies_on_sp500(data, anomaly_results, window_size, overlap_type, output_dir)
 
