@@ -4,7 +4,7 @@
     "aida": {
       "success": true,
       "anomaly_count": 10,
-      "execution_time": 0.35848188400268555,
+      "execution_time": 0.3736989498138428,
       "files": {
         "scores": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w3_nonoverlap/windowwise/aida/aida_multi_ts_scores.dat",
         "anomalies": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w3_nonoverlap/windowwise/aida/aida_multi_ts_anomalies.csv",
