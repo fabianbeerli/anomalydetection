@@ -1,0 +1,15 @@
+{
+  "status": "success",
+  "algorithms": {
+    "aida": {
+      "success": true,
+      "anomaly_count": 186,
+      "execution_time": 2.2371978759765625,
+      "files": {
+        "scores": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w3_nonoverlap/intrawindow/aida/aida_multi_ts_scores.dat",
+        "anomalies": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w3_nonoverlap/intrawindow/aida/aida_multi_ts_anomalies.csv",
+        "time": "/Users/fabianbeerli/Documents/Bachelorarbeit/workspace/anomalydetection/data/analysis_results/multi_ts_results/multi_ts_w3_nonoverlap/intrawindow/aida/aida_multi_ts_execution_time.txt"
+      }
+    }
+  }
+}

@@ -37,7 +37,7 @@ from src.models.lof import LOF
 from src.utils.helpers import ensure_directory_exists, load_subsequence, get_file_list
 
 # Import the multi-TS module
-from run_matrix_analysis import run_multi_ts_analysis
+from run_matrix_analysis import run_multi_ts_analysis_intrawindow, run_multi_ts_analysis_windowwise
 
 # Configure logging
 logging.basicConfig(
@@ -376,7 +376,7 @@ def run_tix_analysis_workflow(config_args):
 
 
 
-def run_multi_ts_analysis_workflow(config_args):
+def run_multi_ts_analysis_workflow_intrawindow(config_args):
     """
     Run the Multi-TS Subsequence Analysis workflow.
     This workflow treats the entire matrix of stocks as a single entity
@@ -428,7 +428,7 @@ def run_multi_ts_analysis_workflow(config_args):
                 
                 # Run multi-TS analysis
                 config_name = f"w{window_size}_{'overlap' if overlap else 'nonoverlap'}"
-                result = run_multi_ts_analysis(
+                result = run_multi_ts_analysis_intrawindow(
                     multi_ts_dir=multi_ts_dir,
                     output_dir=multi_ts_results_dir,
                     window_size=window_size,
@@ -474,10 +474,11 @@ def run_multi_ts_analysis_workflow(config_args):
                     sys.executable,
                     str(Path(__file__).parent / "compare_multi_ts_anomalies.py"),
                     "--results-base", str(Path(config_args.output_dir) / "multi_ts_results"),
-                    "--output", str(config_output_dir),
+                    "--output", str(config_output_dir / "intrawindow"),
                     "--window-size", str(window_size),
                     "--overlap-type", overlap_str,
-                    "--data", str(Path(config_args.processed_dir) / "index_GSPC_processed.csv")
+                    "--data", str(Path(config_args.processed_dir) / "index_GSPC_processed.csv"),
+                    "--windowlevel", "intrawindow"
                 ]
                 logger.info(f"Running multi-TS comparison: {' '.join(compare_multi_ts_cmd)}")
                 subprocess.run(compare_multi_ts_cmd, check=True)
@@ -489,7 +490,119 @@ def run_multi_ts_analysis_workflow(config_args):
         logger.error(f"Error in Multi-TS Subsequence Analysis: {e}")
         return False
 
+def run_multi_ts_analysis_workflow_windowwise(config_args):
+    """
+    Run the Multi-TS Subsequence Analysis workflow.
+    This workflow treats the entire matrix of stocks as a single entity
+    and detects when the collective behavior is anomalous.
+    
+    Args:
+        config_args (argparse.Namespace): Configuration arguments
+        
+    Returns:
+        bool: True if successful, False otherwise
+    """
+    logger.info("Starting Multi-TS Subsequence Analysis Workflow")
+    
+    try:
+        # Create output directory
+        multi_ts_results_dir = Path(config_args.output_dir) / "multi_ts_results"
+        ensure_directory_exists(multi_ts_results_dir)
+        
+        # Setup window sizes and overlap settings
+        window_sizes = [3]  # Default window sizes for multi-TS
+        if config_args.multi_ts_window_sizes:
+            window_sizes = [int(size) for size in config_args.multi_ts_window_sizes.split(',')]
+        
+        # Changed default behavior: Always run both unless specifically told otherwise
+        overlap_settings = [True, False]  # Default: run both
+        if config_args.multi_ts_nonoverlap:
+            overlap_settings = [False]  # Only run non-overlapping if specifically requested
+        
+        
+        # Define algorithms - now including AIDA
+        algorithms = ['aida', 'iforest', 'lof']  # Added AIDA to default algorithms
+        if config_args.multi_ts_algorithms:
+            algorithms = config_args.multi_ts_algorithms.split(',')
+            
+        # Get paths
+        multi_ts_dir = Path(config_args.processed_dir) / "multi_ts"
+        
+        # Check if multi-TS data exists
+        if not multi_ts_dir.exists():
+            logger.error(f"Multi-TS directory {multi_ts_dir} does not exist")
+            return False
+        
+        # Run for each configuration
+        all_results = {}
+        
+        for window_size in window_sizes:
+            for overlap in overlap_settings:
+                logger.info(f"Running Multi-TS analysis with window size {window_size}, overlap={overlap}")
+                
+                # Run multi-TS analysis
+                config_name = f"w{window_size}_{'overlap' if overlap else 'nonoverlap'}"
+                result = run_multi_ts_analysis_windowwise(
+                    multi_ts_dir=multi_ts_dir,
+                    output_dir=multi_ts_results_dir,
+                    window_size=window_size,
+                    overlap=overlap,
+                    algorithms=algorithms
+                )
+                
+                all_results[config_name] = result
+                logger.info(f"Completed Multi-TS analysis for {config_name}")
+        
+        # Create a JSON-serializable version of the results
+        json_results = {}
+        for config_name, result in all_results.items():
+            if isinstance(result, dict):
+                json_result = {}
+                for key, value in result.items():
+                    if key == 'algorithms':
+                        json_result[key] = {}
+                        for algo, algo_value in value.items():
+                            if isinstance(algo_value, dict) and 'files' in algo_value:
+                                algo_value['files'] = {k: str(v) for k, v in algo_value['files'].items()}
+                            json_result[key][algo] = algo_value
+                    else:
+                        json_result[key] = value
+                json_results[config_name] = json_result
+            else:
+                json_results[config_name] = result
 
+        # Save overall results
+        with open(multi_ts_results_dir / "all_results.json", 'w') as f:
+            json.dump(json_results, f, indent=2)
+        
+        # After saving all_results.json, add:
+        multi_ts_analysis_dir = Path(config_args.output_dir) / "multi_ts_analysis"
+        ensure_directory_exists(multi_ts_analysis_dir)
+
+        for window_size in window_sizes:
+            for overlap in overlap_settings:
+                overlap_str = "overlap" if overlap else "nonoverlap"
+                config_output_dir = multi_ts_analysis_dir / f"w{window_size}_{overlap_str}"
+                config_output_dir.mkdir(parents=True, exist_ok=True)
+                compare_multi_ts_cmd = [
+                    sys.executable,
+                    str(Path(__file__).parent / "compare_multi_ts_anomalies.py"),
+                    "--results-base", str(Path(config_args.output_dir) / "multi_ts_results"),
+                    "--output", str(config_output_dir / "windowwise"),
+                    "--window-size", str(window_size),
+                    "--overlap-type", overlap_str,
+                    "--data", str(Path(config_args.processed_dir) / "index_GSPC_processed.csv"),
+                    "--windowlevel", "windowwise"
+                ]
+                logger.info(f"Running multi-TS comparison: {' '.join(compare_multi_ts_cmd)}")
+                subprocess.run(compare_multi_ts_cmd, check=True)
+
+        logger.info("Multi-TS Subsequence Analysis Workflow completed successfully")
+        return True
+        
+    except Exception as e:
+        logger.error(f"Error in Multi-TS Subsequence Analysis: {e}")
+        return False
 
 def run_all_ticker_subsequence_analysis(config_args):
     """
@@ -699,8 +812,10 @@ def main():
         
     if "multi_ts" in workflows_to_run:
         logger.info("= Starting Multi-TS Subsequence Analysis Workflow =")
-        workflow_results["multi_ts"] = run_multi_ts_analysis_workflow(args)
-    
+        workflow_results["multi_ts"] = run_multi_ts_analysis_workflow_intrawindow(args)
+        logger.info("= Starting Multi-TS Subsequence Analysis Workflow =")
+        workflow_results["multi_ts"] = run_multi_ts_analysis_workflow_windowwise(args)
+
     if "tix" in workflows_to_run:
         logger.info("= Starting TIX Explanation Analysis Workflow =")
         workflow_results["tix"] = run_tix_analysis_workflow(args)

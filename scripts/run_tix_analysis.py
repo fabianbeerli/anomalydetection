@@ -244,8 +244,8 @@ def main():
     if "multi_ts" in analyses_to_run:
         logger.info("= Starting Multi-TS TIX Analysis =")
         # Overlap
-        overlap_csv = str(config.DATA_DIR / "analysis_results" / "multi_ts_results" / "multi_ts_w3_overlap" / "multi_ts_features.csv")
-        overlap_anomalies_csv = str(config.DATA_DIR / "analysis_results" / "multi_ts_results" / "multi_ts_w3_overlap" / "aida" / "aida_multi_ts_anomalies.csv")
+        overlap_csv = str(config.DATA_DIR / "analysis_results" / "multi_ts_results" / "multi_ts_w3_overlap" / "intrawindow" / "multi_ts_features.csv")
+        overlap_anomalies_csv = str(config.DATA_DIR / "analysis_results" / "multi_ts_results" / "multi_ts_w3_overlap" / "intrawindow" / "aida" / "aida_multi_ts_anomalies.csv")
         logger.info("Running for w3_overlap")
         analysis_results["multi_ts_w3_overlap"] = tix_analyzer.analyze_multi_ts_feature_matrix(
             features_csv=overlap_csv,
@@ -253,8 +253,8 @@ def main():
             output_dir=os.path.join(args.output_dir, "multi_ts_w3_overlap")
         )
         # Non-overlap
-        nonoverlap_csv = str(config.DATA_DIR / "analysis_results" / "multi_ts_results" / "multi_ts_w3_nonoverlap" / "multi_ts_features.csv")
-        nonoverlap_anomalies_csv = str(config.DATA_DIR / "analysis_results" / "multi_ts_results" / "multi_ts_w3_nonoverlap" / "aida" / "aida_multi_ts_anomalies.csv")
+        nonoverlap_csv = str(config.DATA_DIR / "analysis_results" / "multi_ts_results" / "multi_ts_w3_nonoverlap" / "intrawindow" /"multi_ts_features.csv")
+        nonoverlap_anomalies_csv = str(config.DATA_DIR / "analysis_results" / "multi_ts_results" / "multi_ts_w3_nonoverlap" / "intrawindow" / "aida" / "aida_multi_ts_anomalies.csv")
         logger.info("Running for w3_nonoverlap")
         analysis_results["multi_ts_w3_nonoverlap"] = tix_analyzer.analyze_multi_ts_feature_matrix(
             features_csv=nonoverlap_csv,

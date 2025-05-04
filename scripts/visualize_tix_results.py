@@ -211,7 +211,7 @@ def main():
     # Multi-TS TIX visualization block
     if args.visualize_all or args.visualize_multits:
         for multi_ts_key in ["multi_ts_w3_overlap", "multi_ts_w3_nonoverlap"]:
-            multi_ts_dir = Path(args.tix_results_dir) / multi_ts_key
+            multi_ts_dir = Path(args.tix_results_dir) / multi_ts_key / "intrawindow"
             if not multi_ts_dir.exists():
                 logger.warning(f"Multi-TS TIX directory not found: {multi_ts_dir}")
                 continue
