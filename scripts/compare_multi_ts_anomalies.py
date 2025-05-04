@@ -47,8 +47,12 @@ def plot_anomalies_on_sp500(data, anomaly_results, window_size, overlap_type, ou
         # Apply vertical offset
         yvals = data.loc[plot_dates, 'Close']
         yvals_offset = yvals + offsets.get(algo, 0)
-        plt.scatter(plot_dates, yvals_offset, 
-                    marker=markers[algo], color=colors[algo], s=120, label=f"{algo.upper()} anomaly")
+        num_anomalies = len(plot_dates)
+        plt.scatter(
+            plot_dates, yvals_offset, 
+            marker=markers[algo], color=colors[algo], s=120, 
+            label=f"{algo.upper()} anomaly ({num_anomalies})"
+        )
         # Draw dotted lines to the true close value
         for x, y1, y2 in zip(plot_dates, yvals_offset, yvals):
             plt.plot([x, x], [y1, y2], color=colors[algo], linestyle='dotted', linewidth=1)

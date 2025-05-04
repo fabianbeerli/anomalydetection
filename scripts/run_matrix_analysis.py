@@ -761,7 +761,60 @@ def run_multi_ts_analysis_windowwise(multi_ts_dir, output_dir, window_size=3, ov
                     'files': files,
                     'windowlevel': 'windowwise'
                 }
-        # Other algorithms would be implemented here
+        elif algo == 'iforest':
+            from sklearn.ensemble import IsolationForest
+            logger.info("Running Isolation Forest for multi-TS windowwise anomaly detection")
+            model = IsolationForest(n_estimators=100, contamination=0.05, random_state=42)
+            model.fit(combined_matrix)
+            scores = -model.decision_function(combined_matrix)
+            # Use mean+2std as threshold for anomaly
+            threshold = scores.mean() + 2 * scores.std()
+            anomaly_indices = np.where(scores > threshold)[0]
+            anomaly_records = []
+            for idx in anomaly_indices:
+                metadata = all_metadata[idx]
+                anomaly_records.append({
+                    'window_idx': idx,
+                    'time_period_idx': idx,
+                    'score': scores[idx],
+                    'start_date': metadata.get('start_date', ''),
+                    'end_date': metadata.get('end_date', '')
+                })
+            files = save_multi_ts_results('iforest', scores, anomaly_records, None, results_dir)
+            results['algorithms']['iforest'] = {
+                'success': True,
+                'anomaly_count': len(anomaly_indices),
+                'execution_time': None,
+                'files': files,
+                'windowlevel': 'windowwise'
+            }
+        elif algo == 'lof':
+            from sklearn.neighbors import LocalOutlierFactor
+            logger.info("Running LOF for multi-TS windowwise anomaly detection")
+            # LOF does not have a fit_predict for out-of-sample, so use fit_predict
+            lof = LocalOutlierFactor(n_neighbors=20, contamination=0.05)
+            lof_labels = lof.fit_predict(combined_matrix)
+            scores = -lof.negative_outlier_factor_
+            threshold = scores.mean() + 2 * scores.std()
+            anomaly_indices = np.where(scores > threshold)[0]
+            anomaly_records = []
+            for idx in anomaly_indices:
+                metadata = all_metadata[idx]
+                anomaly_records.append({
+                    'window_idx': idx,
+                    'time_period_idx': idx,
+                    'score': scores[idx],
+                    'start_date': metadata.get('start_date', ''),
+                    'end_date': metadata.get('end_date', '')
+                })
+            files = save_multi_ts_results('lof', scores, anomaly_records, None, results_dir)
+            results['algorithms']['lof'] = {
+                'success': True,
+                'anomaly_count': len(anomaly_indices),
+                'execution_time': None,
+                'files': files,
+                'windowlevel': 'windowwise'
+            }
     
     # Create a summary of results
     summary_file = results_dir  / "multi_ts_analysis_summary.json"
