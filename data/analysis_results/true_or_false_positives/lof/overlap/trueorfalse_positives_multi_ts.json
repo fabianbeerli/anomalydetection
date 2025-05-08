@@ -1,0 +1,161 @@
+{
+    "anomaly_2": {
+        "is_true_positive": true,
+        "reason": "The Federal Reserve raised interest rates by 0.25% on February 1, 2023, contributing to market volatility during this period.",
+        "links": [
+            "https://www.federalreserve.gov/monetarypolicy/files/monetary20230201a1.pdf",
+            "https://www.reuters.com/markets/rates-bonds/feds-mester-says-more-rate-hikes-needed-combat-inflation-2023-02-16/"
+        ]
+    },
+    "anomaly_13": {
+        "is_true_positive": true,
+        "reason": "The Federal Reserve raised interest rates by 0.25% on February 1, 2023, contributing to market volatility during this period.",
+        "links": [
+            "https://www.federalreserve.gov/monetarypolicy/files/monetary20230201a1.pdf",
+            "https://www.reuters.com/markets/rates-bonds/feds-mester-says-more-rate-hikes-needed-combat-inflation-2023-02-16/"
+        ]
+    },
+    "anomaly_16": {
+        "is_true_positive": false,
+        "reason": "No significant economic events or market-moving news were identified during this period.",
+        "links": []
+    },
+    "anomaly_17": {
+        "is_true_positive": false,
+        "reason": "No significant economic events or market-moving news were identified during this period.",
+        "links": []
+    },
+    "anomaly_32": {
+        "is_true_positive": false,
+        "reason": "No significant economic events or market-moving news were identified during this period.",
+        "links": []
+    },
+    "anomaly_56": {
+        "is_true_positive": false,
+        "reason": "No significant economic events or market-moving news were identified during this period.",
+        "links": []
+    },
+    "anomaly_58": {
+        "is_true_positive": false,
+        "reason": "No significant economic events or market-moving news were identified during this period.",
+        "links": []
+    },
+    "anomaly_59": {
+        "is_true_positive": false,
+        "reason": "No significant economic events or market-moving news were identified during this period.",
+        "links": []
+    },
+    "anomaly_129": {
+        "is_true_positive": false,
+        "reason": "No significant economic events or market-moving news were identified during this period.",
+        "links": []
+    },
+    "anomaly_146": {
+        "is_true_positive": false,
+        "reason": "No significant economic events or market-moving news were identified during this period.",
+        "links": []
+    },
+    "anomaly_208": {
+        "is_true_positive": false,
+        "reason": "No significant economic events or market-moving news were identified during this period.",
+        "links": []
+    },
+    "anomaly_278": {
+        "is_true_positive": false,
+        "reason": "No significant economic events or market-moving news were identified during this period.",
+        "links": []
+    },
+    "anomaly_280": {
+        "is_true_positive": false,
+        "reason": "No significant economic events or market-moving news were identified during this period.",
+        "links": []
+    },
+    "anomaly_281": {
+        "is_true_positive": false,
+        "reason": "No significant economic events or market-moving news were identified during this period.",
+        "links": []
+    },
+    "anomaly_282": {
+        "is_true_positive": false,
+        "reason": "No significant economic events or market-moving news were identified during this period.",
+        "links": []
+    },
+    "anomaly_286": {
+        "is_true_positive": false,
+        "reason": "No significant economic events or market-moving news were identified during this period.",
+        "links": []
+    },
+    "anomaly_356": {
+        "is_true_positive": false,
+        "reason": "No significant economic events or market-moving news were identified during this period.",
+        "links": []
+    },
+    "anomaly_358": {
+        "is_true_positive": false,
+        "reason": "No significant economic events or market-moving news were identified during this period.",
+        "links": []
+    },
+    "anomaly_359": {
+        "is_true_positive": false,
+        "reason": "No significant economic events or market-moving news were identified during this period.",
+        "links": []
+    },
+    "anomaly_427": {
+        "is_true_positive": false,
+        "reason": "No significant economic events or market-moving news were identified during this period.",
+        "links": []
+    },
+    "anomaly_428": {
+        "is_true_positive": false,
+        "reason": "No significant economic events or market-moving news were identified during this period.",
+        "links": []
+    },
+    "anomaly_429": {
+        "is_true_positive": false,
+        "reason": "No significant economic events or market-moving news were identified during this period.",
+        "links": []
+    },
+    "anomaly_452": {
+        "is_true_positive": false,
+        "reason": "No significant economic events or market-moving news were identified during this period.",
+        "links": []
+    },
+    "anomaly_453": {
+        "is_true_positive": false,
+        "reason": "No significant economic events or market-moving news were identified during this period.",
+        "links": []
+    },
+    "anomaly_511": {
+        "is_true_positive": false,
+        "reason": "No significant economic events or market-moving news were identified during this period.",
+        "links": []
+    },
+    "anomaly_532": {
+        "is_true_positive": true,
+        "reason": "The Consumer Price Index (CPI) for May 2023 indicated a 4.0% year-over-year increase, reflecting ongoing inflation concerns.",
+        "links": [
+            "https://www.bls.gov/news.release/archives/cpi_06132023.htm"
+        ]
+    },
+    "anomaly_533": {
+        "is_true_positive": true,
+        "reason": "The Consumer Price Index (CPI) for May 2023 indicated a 4.0% year-over-year increase, reflecting ongoing inflation concerns.",
+        "links": [
+            "https://www.bls.gov/news.release/archives/cpi_06132023.htm"
+        ]
+    },
+    "anomaly_534": {
+        "is_true_positive": true,
+        "reason": "The Consumer Price Index (CPI) for May 2023 indicated a 4.0% year-over-year increase, reflecting ongoing inflation concerns.",
+        "links": [
+            "https://www.bls.gov/news.release/archives/cpi_06132023.htm"
+        ]
+    },
+    "anomaly_536": {
+        "is_true_positive": true,
+        "reason": "The Consumer Price Index (CPI) for May 2023 indicated a 4.0% year-over-year increase, reflecting ongoing inflation concerns.",
+        "links": [
+            "https://www.bls.gov/news.release/archives/cpi_06132023.htm"
+        ]
+    }
+}

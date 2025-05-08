@@ -1,0 +1,75 @@
+{
+    "anomaly_21": {
+      "is_true_positive": true,
+      "reason": "Markets reached record highs driven by optimism ahead of inflation data and the Federal Reserve's policy meeting.",
+      "links": [
+        "https://www.reuters.com/markets/global-markets-wrapup-1-2024-06-11/",
+        "https://finance.yahoo.com/news/stock-market-news-june-13-132500900.html"
+      ]
+    },
+    "anomaly_47": {
+      "is_true_positive": true,
+      "reason": "Markets surged to record highs following a Federal Reserve rate cut and positive economic indicators.",
+      "links": [
+        "https://www.reuters.com/markets/us/fed-rate-cut-boosts-futures-growth-stocks-lead-gains-2024-09-19/",
+        "https://finance.yahoo.com/news/stock-market-news-sep-23-131900786.html"
+      ]
+    },
+    "anomaly_104": {
+      "is_true_positive": true,
+      "reason": "Markets declined due to concerns over the U.S. debt ceiling and mixed economic data.",
+      "links": [
+        "https://finance.yahoo.com/news/stock-market-news-may-23-132400531.html",
+        "https://apnews.com/article/financial-markets-united-states-business-135c62f930fc415f9f9f6a6b55a0dbc2"
+      ]
+    },
+    "anomaly_106": {
+      "is_true_positive": true,
+      "reason": "Markets rose sharply driven by optimism over a potential debt-ceiling deal and strong performance in AI-related stocks.",
+      "links": [
+        "https://finance.yahoo.com/news/stock-market-news-may-26-103500209.html",
+        "https://www.wsj.com/livecoverage/stock-market-today-dow-jones-05-26-2023"
+      ]
+    },
+    "anomaly_119": {
+      "is_true_positive": true,
+      "reason": "Markets were mixed as investors weighed better-than-expected earnings against concerns over rising bond yields.",
+      "links": [
+        "https://apnews.com/article/netflix-inc-financial-markets-earnings-5f5983d367803b695b1a287499089c93",
+        "https://finance.yahoo.com/news/stock-market-news-jul-24-122300049.html"
+      ]
+    },
+    "anomaly_128": {
+      "is_true_positive": true,
+      "reason": "Markets rose as investors anticipated a potential pause in Fed rate hikes amid signs of easing inflation.",
+      "links": [
+        "https://apnews.com/article/stock-market-wall-street-nvidia-8d56c3315ea7ffaf27104b01e944c05b",
+        "https://apnews.com/article/stock-market-federal-reserve-jerome-powell-inflation-interest-rates-c57a2c1eaee0f6cc8c028453f5843510"
+      ]
+    },
+    "anomaly_151": {
+      "is_true_positive": true,
+      "reason": "Markets were mixed as investors digested economic data and awaited further signals from the Federal Reserve.",
+      "links": [
+        "https://finance.yahoo.com/news/stock-market-news-nov-21-143000012.html",
+        "https://finance.yahoo.com/news/stock-market-news-nov-24-142700868.html"
+      ]
+    },
+    "anomaly_160": {
+      "is_true_positive": true,
+      "reason": "Markets declined due to concerns over potential interest rate hikes following the release of Fed meeting minutes.",
+      "links": [
+        "https://finance.yahoo.com/news/stock-market-news-feb-22-141502455.html",
+        "https://www.wsj.com/livecoverage/stock-market-news-today-02-22-2023"
+      ]
+    },
+    "anomaly_177": {
+      "is_true_positive": true,
+      "reason": "Markets rebounded after Fed Chair Powell's comments, but weekly losses persisted due to ongoing tariff concerns.",
+      "links": [
+        "https://www.wsj.com/livecoverage/jobs-report-stock-market-today-dow-nasdaq-sp500-03-07-2025",
+        "https://www.reuters.com/markets/us/futures-inch-up-with-payrolls-data-powells-remarks-tap-2025-03-07/"
+      ]
+    }
+  }
+  
