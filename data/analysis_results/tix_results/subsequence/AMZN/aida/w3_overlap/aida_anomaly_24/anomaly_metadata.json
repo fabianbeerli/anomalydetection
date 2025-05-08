@@ -2,7 +2,7 @@
   "ticker": "AMZN",
   "algorithm": "aida",
   "subsequence_idx": 24,
-  "anomaly_score": 3.25268,
+  "anomaly_score": 3.14636,
   "start_date": "2023-02-03",
   "end_date": "2023-02-07"
 }

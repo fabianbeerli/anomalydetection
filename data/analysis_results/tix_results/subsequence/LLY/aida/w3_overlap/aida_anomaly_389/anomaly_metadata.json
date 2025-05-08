@@ -2,7 +2,7 @@
   "ticker": "LLY",
   "algorithm": "aida",
   "subsequence_idx": 389,
-  "anomaly_score": 3.67618,
+  "anomaly_score": 3.63111,
   "start_date": "2024-10-30",
   "end_date": "2024-11-01"
 }

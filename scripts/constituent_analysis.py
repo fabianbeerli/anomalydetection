@@ -5,8 +5,33 @@ import matplotlib.pyplot as plt
 import json
 
 def get_internal_ticker_name(ticker):
-    # Map GSPC to sp500 for file/folder naming
     return "sp500" if ticker.upper() == "GSPC" else ticker
+
+def analyze_anomalies(sp500_anoms, constituent_dir, constituent_tickers, algo, window_size, overlap_type, results_dir, output_dir, plusminus1=False):
+    summary = []
+    for _, sp500_row in sp500_anoms.iterrows():
+        idx = int(sp500_row['index'])
+        anom_constituents = []
+        for ticker in constituent_tickers:
+            c_anom_file = results_dir / ticker / algo / f"w{window_size}_{overlap_type}" / f"{algo}_anomalies.csv"
+            if not c_anom_file.exists():
+                continue
+            c_anoms = pd.read_csv(c_anom_file)
+            if plusminus1:
+                # ±1 subsequence window
+                if ((c_anoms['index'] >= idx - 1) & (c_anoms['index'] <= idx + 1)).any():
+                    anom_constituents.append(ticker)
+            else:
+                # Exact match
+                if (c_anoms['index'] == idx).any():
+                    anom_constituents.append(ticker)
+        summary.append({
+            "sp500_anomaly_index": idx,
+            "sp500_anomaly_score": sp500_row['score'],
+            "constituents_with_anomaly": anom_constituents,
+            "count": len(anom_constituents)
+        })
+    return summary
 
 def main():
     parser = argparse.ArgumentParser()
@@ -33,7 +58,6 @@ def main():
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    # Use mapping for S&P500 folder
     sp500_ticker = "GSPC"
     sp500_folder = get_internal_ticker_name(sp500_ticker)
 
@@ -47,28 +71,14 @@ def main():
                 sp500_anoms = pd.read_csv(sp500_anom_file)
                 constituent_dir = results_dir
                 constituent_tickers = [p.name for p in constituent_dir.iterdir() if p.is_dir() and p.name != sp500_folder]
-                summary = []
-                for _, sp500_row in sp500_anoms.iterrows():
-                    idx = int(sp500_row['index'])
-                    anom_constituents = []
-                    for ticker in constituent_tickers:
-                        c_anom_file = results_dir / ticker / algo / f"w{window_size}_{overlap_type}" / f"{algo}_anomalies.csv"
-                        if not c_anom_file.exists():
-                            continue
-                        c_anoms = pd.read_csv(c_anom_file)
-                        if (c_anoms['index'] == idx).any():
-                            anom_constituents.append(ticker)
-                    summary.append({
-                        "sp500_anomaly_index": idx,
-                        "sp500_anomaly_score": sp500_row['score'],
-                        "constituents_with_anomaly": anom_constituents,
-                        "count": len(anom_constituents)
-                    })
-                # Save summary
+
+                # --- Exact match (as before) ---
+                summary = analyze_anomalies(
+                    sp500_anoms, constituent_dir, constituent_tickers, algo, window_size, overlap_type, results_dir, output_dir, plusminus1=False
+                )
                 out_json = output_dir / f"cross_summary_{algo}_w{window_size}_{overlap_type}.json"
                 with open(out_json, "w") as f:
                     json.dump(summary, f, indent=2)
-                # Visualization: bar plot of anomaly counts
                 plt.figure(figsize=(10,4))
                 plt.bar([s["sp500_anomaly_index"] for s in summary], [s["count"] for s in summary])
                 plt.xlabel("S&P500 Anomaly Index")
@@ -76,6 +86,24 @@ def main():
                 plt.title(f"{algo} w{window_size}_{overlap_type}: #Constituents with Anomaly per S&P500 Anomaly")
                 plt.tight_layout()
                 plt.savefig(output_dir / f"cross_anomaly_bar_{algo}_w{window_size}_{overlap_type}.png")
+                plt.close()
+
+                # --- ±1 subsequence match ---
+                pm1_dir = output_dir / "plusminus1"
+                pm1_dir.mkdir(parents=True, exist_ok=True)
+                summary_pm1 = analyze_anomalies(
+                    sp500_anoms, constituent_dir, constituent_tickers, algo, window_size, overlap_type, results_dir, pm1_dir, plusminus1=True
+                )
+                out_json_pm1 = pm1_dir / f"cross_summary_{algo}_w{window_size}_{overlap_type}.json"
+                with open(out_json_pm1, "w") as f:
+                    json.dump(summary_pm1, f, indent=2)
+                plt.figure(figsize=(10,4))
+                plt.bar([s["sp500_anomaly_index"] for s in summary_pm1], [s["count"] for s in summary_pm1])
+                plt.xlabel("S&P500 Anomaly Index")
+                plt.ylabel("Constituents with Anomaly (±1)")
+                plt.title(f"{algo} w{window_size}_{overlap_type}: #Constituents with Anomaly (±1) per S&P500 Anomaly")
+                plt.tight_layout()
+                plt.savefig(pm1_dir / f"cross_anomaly_bar_{algo}_w{window_size}_{overlap_type}.png")
                 plt.close()
 
 if __name__ == "__main__":

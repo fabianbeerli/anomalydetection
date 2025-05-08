@@ -2,7 +2,7 @@
   "ticker": "META",
   "algorithm": "aida",
   "subsequence_idx": 105,
-  "anomaly_score": 2.89536,
+  "anomaly_score": 3.09197,
   "start_date": "2023-10-24",
   "end_date": "2023-10-26"
 }

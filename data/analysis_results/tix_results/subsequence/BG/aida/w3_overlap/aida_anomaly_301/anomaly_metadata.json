@@ -2,7 +2,7 @@
   "ticker": "BG",
   "algorithm": "aida",
   "subsequence_idx": 301,
-  "anomaly_score": 4.77695,
+  "anomaly_score": 4.89077,
   "start_date": "2023-03-13",
   "end_date": "2023-03-15"
 }

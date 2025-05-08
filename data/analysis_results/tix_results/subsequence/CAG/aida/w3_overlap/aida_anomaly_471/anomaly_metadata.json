@@ -2,7 +2,7 @@
   "ticker": "CAG",
   "algorithm": "aida",
   "subsequence_idx": 471,
-  "anomaly_score": 2.64078,
+  "anomaly_score": 2.65296,
   "start_date": "2025-02-18",
   "end_date": "2025-02-20"
 }

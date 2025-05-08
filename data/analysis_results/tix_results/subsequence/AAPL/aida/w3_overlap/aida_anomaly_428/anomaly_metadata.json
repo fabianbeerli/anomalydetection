@@ -2,7 +2,7 @@
   "ticker": "AAPL",
   "algorithm": "aida",
   "subsequence_idx": 428,
-  "anomaly_score": 2.94728,
+  "anomaly_score": 2.84412,
   "start_date": "2024-12-19",
   "end_date": "2024-12-23"
 }

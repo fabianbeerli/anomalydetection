@@ -1,0 +1,8 @@
+{
+  "ticker": "NWS",
+  "algorithm": "aida",
+  "subsequence_idx": 67,
+  "anomaly_score": 2.39003,
+  "start_date": "2023-09-06",
+  "end_date": "2023-09-08"
+}
