@@ -1,0 +1,177 @@
+{
+    "anomaly_7": {
+      "is_true_positive": false,
+      "reason": "No significant market events or anomalies were reported during this period.",
+      "links": []
+    },
+    "anomaly_10": {
+      "is_true_positive": true,
+      "reason": "U.S. stocks closed lower due to Fed Chair Powell's testimony signaling more rate hikes ahead.",
+      "links": [
+        "https://www.reuters.com/markets/us/futures-fall-powells-hawkish-stance-sours-market-mood-2023-06-23/"
+      ]
+    },
+    "anomaly_11": {
+      "is_true_positive": true,
+      "reason": "Continued market decline following Fed's indication of more rate hikes.",
+      "links": [
+        "https://www.reuters.com/markets/us/futures-fall-powells-hawkish-stance-sours-market-mood-2023-06-23/"
+      ]
+    },
+    "anomaly_16": {
+      "is_true_positive": false,
+      "reason": "No significant market events or anomalies were reported during this period.",
+      "links": []
+    },
+    "anomaly_17": {
+      "is_true_positive": false,
+      "reason": "No significant market events or anomalies were reported during this period.",
+      "links": []
+    },
+    "anomaly_18": {
+      "is_true_positive": false,
+      "reason": "No significant market events or anomalies were reported during this period.",
+      "links": []
+    },
+    "anomaly_74": {
+      "is_true_positive": true,
+      "reason": "Stocks declined due to rising bond yields and concerns over prolonged high interest rates.",
+      "links": [
+        "https://www.nasdaq.com/articles/monthly-market-wrap-september-2023",
+        "https://www.wellington.com/en/insights/monthly-market-snapshot-september-2023"
+      ]
+    },
+    "anomaly_75": {
+      "is_true_positive": true,
+      "reason": "Continued market decline driven by high bond yields and economic uncertainty.",
+      "links": [
+        "https://www.nasdaq.com/articles/monthly-market-wrap-september-2023",
+        "https://www.wellington.com/en/insights/monthly-market-snapshot-september-2023"
+      ]
+    },
+    "anomaly_128": {
+      "is_true_positive": true,
+      "reason": "Markets rallied sharply in November due to positive economic data and investor optimism.",
+      "links": [
+        "https://www.nasdaq.com/articles/monthly-market-wrap-november-2023"
+      ]
+    },
+    "anomaly_129": {
+      "is_true_positive": true,
+      "reason": "Continued market rally fueled by strong economic indicators and investor confidence.",
+      "links": [
+        "https://www.nasdaq.com/articles/monthly-market-wrap-november-2023"
+      ]
+    },
+    "anomaly_130": {
+      "is_true_positive": true,
+      "reason": "Sustained market gains attributed to robust economic performance and positive investor sentiment.",
+      "links": [
+        "https://www.nasdaq.com/articles/monthly-market-wrap-november-2023"
+      ]
+    },
+    "anomaly_147": {
+      "is_true_positive": false,
+      "reason": "No significant market events or anomalies were reported during this period.",
+      "links": []
+    },
+    "anomaly_214": {
+      "is_true_positive": true,
+      "reason": "Markets experienced volatility due to geopolitical tensions and new tariffs impacting global trade.",
+      "links": [
+        "https://www.simplyethical.com/blog/monthly-market-review-march-2025/"
+      ]
+    },
+    "anomaly_287": {
+      "is_true_positive": true,
+      "reason": "Markets reacted to the Fed's decision to hold rates steady and project fewer cuts in 2024.",
+      "links": [
+        "https://www.reuters.com/markets/rates-bonds/fed-expected-hold-rates-steady-project-fewer-cuts-2024-2024-06-12/"
+      ]
+    },
+    "anomaly_288": {
+      "is_true_positive": true,
+      "reason": "Continued market response to the Fed's policy stance and economic projections.",
+      "links": [
+        "https://www.reuters.com/markets/rates-bonds/fed-expected-hold-rates-steady-project-fewer-cuts-2024-2024-06-12/"
+      ]
+    },
+    "anomaly_293": {
+      "is_true_positive": false,
+      "reason": "No significant market events or anomalies were reported during this period.",
+      "links": []
+    },
+    "anomaly_294": {
+      "is_true_positive": false,
+      "reason": "No significant market events or anomalies were reported during this period.",
+      "links": []
+    },
+    "anomaly_323": {
+      "is_true_positive": false,
+      "reason": "No significant market events or anomalies were reported during this period.",
+      "links": []
+    },
+    "anomaly_341": {
+      "is_true_positive": false,
+      "reason": "No significant market events or anomalies were reported during this period.",
+      "links": []
+    },
+    "anomaly_346": {
+      "is_true_positive": false,
+      "reason": "No significant market events or anomalies were reported during this period.",
+      "links": []
+    },
+    "anomaly_358": {
+      "is_true_positive": false,
+      "reason": "No significant market events or anomalies were reported during this period.",
+      "links": []
+    },
+    "anomaly_359": {
+      "is_true_positive": false,
+      "reason": "No significant market events or anomalies were reported during this period.",
+      "links": []
+    },
+    "anomaly_409": {
+      "is_true_positive": false,
+      "reason": "No significant market events or anomalies were reported during this period.",
+      "links": []
+    },
+    "anomaly_410": {
+      "is_true_positive": false,
+      "reason": "No significant market events or anomalies were reported during this period.",
+      "links": []
+    },
+    "anomaly_411": {
+      "is_true_positive": false,
+      "reason": "No significant market events or anomalies were reported during this period.",
+      "links": []
+    },
+    "anomaly_413": {
+      "is_true_positive": false,
+      "reason": "No significant market events or anomalies were reported during this period.",
+      "links": []
+    },
+    "anomaly_429": {
+      "is_true_positive": false,
+      "reason": "No significant market events or anomalies were reported during this period.",
+      "links": []
+    },
+    "anomaly_430": {
+      "is_true_positive": false,
+      "reason": "No significant market events or anomalies were reported during this period.",
+      "links": []
+    },
+    "anomaly_431": {
+      "is_true_positive": false,
+      "reason": "No significant market events or anomalies were reported during this period.",
+      "links": []
+    },
+    "anomaly_496": {
+      "is_true_positive": true,
+      "reason": "Markets experienced volatility due to new tariffs and geopolitical tensions affecting global trade.",
+      "links": [
+        "https://www.simplyethical.com/blog/monthly-market-review-march-2025/"
+      ]
+    }
+  }
+  

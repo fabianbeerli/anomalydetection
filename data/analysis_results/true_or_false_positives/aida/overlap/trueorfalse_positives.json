@@ -1,0 +1,251 @@
+{
+  "anomaly_6": {
+    "is_true_positive": true,
+    "reason": "Markets surged on June 15, 2023, as investors anticipated the end of the Fed's rate hikes, with the S&P 500 reaching a 14-month high.",
+    "links": [
+      "https://www.reuters.com/markets/us/futures-fall-fed-signals-more-rate-hikes-2023-06-15/",
+      "https://www.wsj.com/livecoverage/stock-market-today-dow-jones-06-15-2023"
+    ]
+  },
+  "anomaly_7": {
+    "is_true_positive": true,
+    "reason": "Markets experienced volatility on June 16, 2023, with the S&P 500 declining after a strong rally, reflecting investor caution.",
+    "links": [
+      "https://apnews.com/how-major-us-stock-indexes-fared-friday-6-16-2023-040b1afbf118d753884611da0403de8a",
+      "https://www.wsj.com/livecoverage/stock-market-today-dow-jones-06-16-2023"
+    ]
+  },
+  "anomaly_10": {
+    "is_true_positive": true,
+    "reason": "U.S. stocks declined following Fed Chair Powell's testimony indicating more rate hikes ahead.",
+    "links": [
+      "https://finance.yahoo.com/news/stock-market-news-jun-22-133300830.html",
+      "https://apnews.com/financial-markets-efa3864faac64b312cf322c86ab42846"
+    ]
+  },
+  "anomaly_74": {
+    "is_true_positive": true,
+    "reason": "Markets rose on September 14, 2023, driven by strong economic data and optimism about the Fed's rate decisions.",
+    "links": [
+      "https://finance.yahoo.com/news/stock-market-news-sep-14-132700177.html",
+      "https://www.investopedia.com/dow-jones-today-09142023-7969627"
+    ]
+  },
+  "anomaly_75": {
+    "is_true_positive": true,
+    "reason": "Continued market gains were observed due to positive economic indicators and investor sentiment.",
+    "links": [
+      "https://finance.yahoo.com/news/stock-market-news-sep-14-132700177.html",
+      "https://www.investopedia.com/dow-jones-today-09142023-7969627"
+    ]
+  },
+  "anomaly_144": {
+    "is_true_positive": true,
+    "reason": "Markets surged as the Federal Reserve signaled the end of its tightening cycle, boosting investor confidence.",
+    "links": [
+      "https://www.reuters.com/markets/us/futures-edge-higher-with-feds-final-verdict-year-tap-2023-12-13/",
+      "https://finance.yahoo.com/news/stock-market-news-dec-13-142200127.html"
+    ]
+  },
+  "anomaly_145": {
+    "is_true_positive": true,
+    "reason": "Positive momentum continued in the markets following the Fed's dovish stance.",
+    "links": [
+      "https://www.reuters.com/markets/us/futures-edge-higher-with-feds-final-verdict-year-tap-2023-12-13/",
+      "https://finance.yahoo.com/news/stock-market-news-dec-13-142200127.html"
+    ]
+  },
+  "anomaly_147": {
+    "is_true_positive": false,
+    "reason": "No significant market events or anomalies were reported during this period.",
+    "links": []
+  },
+  "anomaly_211": {
+    "is_true_positive": false,
+    "reason": "No significant market events or anomalies were reported during this period.",
+    "links": []
+  },
+  "anomaly_213": {
+    "is_true_positive": false,
+    "reason": "No significant market events or anomalies were reported during this period.",
+    "links": []
+  },
+  "anomaly_214": {
+    "is_true_positive": true,
+    "reason": "Markets rallied as the Federal Reserve maintained interest rates, citing economic strength.",
+    "links": [
+      "https://www.wsj.com/livecoverage/fed-interest-rate-decision-inflation-live-03-19-2025",
+      "https://apnews.com/article/547c45ea1fcf31e8ec11adcc470a92b9"
+    ]
+  },
+  "anomaly_287": {
+    "is_true_positive": true,
+    "reason": "Markets declined as investors evaluated economic data and Fed commentary on interest-rate cuts.",
+    "links": [
+      "https://www.reuters.com/markets/us/sp-nasdaq-futures-climb-nvidia-stretches-rally-2024-06-20/",
+      "https://www.wsj.com/livecoverage/stock-market-today-dow-sp500-nasdaq-live-06-20-2024"
+    ]
+  },
+  "anomaly_290": {
+    "is_true_positive": true,
+    "reason": "Markets plunged due to the collapse of Silicon Valley Bank, leading to significant sell-offs.",
+    "links": [
+      "https://finance.yahoo.com/news/stock-market-news-today-live-updates-march-10-2023-123845899.html",
+      "https://www.wsj.com/livecoverage/stock-market-news-today-03-10-2023"
+    ]
+  },
+  "anomaly_293": {
+    "is_true_positive": false,
+    "reason": "No significant market events or anomalies were reported during this period.",
+    "links": []
+  },
+  "anomaly_294": {
+    "is_true_positive": false,
+    "reason": "No significant market events or anomalies were reported during this period.",
+    "links": []
+  },
+  "anomaly_301": {
+    "is_true_positive": true,
+    "reason": "Markets remained volatile following the collapse of Silicon Valley Bank, with concerns about financial stability.",
+    "links": [
+      "https://finance.yahoo.com/news/stock-market-news-mar-13-130901901.html",
+      "https://www.wsj.com/livecoverage/stock-market-news-today-03-13-2023"
+    ]
+  },
+  "anomaly_312": {
+    "is_true_positive": true,
+    "reason": "Continued market volatility was observed due to banking sector concerns.",
+    "links": [
+      "https://finance.yahoo.com/news/stock-market-news-mar-13-130901901.html",
+      "https://www.wsj.com/livecoverage/stock-market-news-today-03-13-2023"
+    ]
+  },
+  "anomaly_323": {
+    "is_true_positive": true,
+    "reason": "Markets experienced turbulence due to the collapse of Credit Suisse and its impact on global banking.",
+    "links": [
+      "https://finance.yahoo.com/news/stock-market-news-mar-15-131001566.html",
+      "https://apnews.com/article/business-financial-markets-bc1f61c3c9a006b753e5921bc70e5d82"
+    ]
+  },
+  "anomaly_335": {
+    "is_true_positive": true,
+    "reason": "Markets were affected by ongoing concerns in the banking sector, leading to increased volatility.",
+    "links": [
+      "https://finance.yahoo.com/news/stock-market-news-mar-15-131001566.html",
+      "https://apnews.com/article/business-financial-markets-bc1f61c3c9a006b753e5921bc70e5d82"
+    ]
+  },
+  "anomaly_346": {
+    "is_true_positive": true,
+    "reason": "Continued instability in the banking sector contributed to market fluctuations.",
+    "links": [
+      "https://finance.yahoo.com/news/stock-market-news-mar-15-131001566.html",
+      "https://apnews.com/article/business-financial-markets-bc1f61c3c9a006b753e5921bc70e5d82"
+    ]
+  },
+  "anomaly_356": {
+    "is_true_positive": true,
+    "reason": "Markets dipped following a significant Fed rate cut, reflecting investor concerns.",
+    "links": [
+      "https://www.reuters.com/markets/global-markets-wrapup-1-2024-09-18/",
+      "https://www.reuters.com/markets/us/futures-tread-water-investors-brace-fed-rate-cut-2024-09-18/"
+    ]
+  },
+  "anomaly_358": {
+    "is_true_positive": true,
+    "reason": "Markets continued to react to the Fed's rate cut and economic projections.",
+    "links": [
+      "https://www.reuters.com/markets/global-markets-wrapup-1-2024-09-18/",
+      "https://www.reuters.com/markets/us/futures-tread-water-investors-brace-fed-rate-cut-2024-09-18/"
+    ]
+  },
+  "anomaly_359": {
+    "is_true_positive": true,
+    "reason": "Investor sentiment remained cautious following the Fed's policy decisions.",
+    "links": [
+      "https://www.reuters.com/markets/global-markets-wrapup-1-2024-09-18/",
+      "https://www.reuters.com/markets/us/futures-tread-water-investors-brace-fed-rate-cut-2024-09-18/"
+    ]
+  },
+  "anomaly_427": {
+    "is_true_positive": true,
+    "reason": "Markets plunged as the Fed projected fewer interest rate cuts, leading to significant declines.",
+    "links": [
+      "https://apnews.com/article/wall-street-stocks-dow-nasdaq-2a4577d95b70bcc3355c61eb9ebd82b7",
+      "https://www.wsj.com/livecoverage/federal-reserve-interest-rate-decision-live-12-18-2024"
+    ]
+  },
+  "anomaly_428": {
+    "is_true_positive": true,
+    "reason": "Continued market downturn following the Fed's projections on interest rates.",
+    "links": [
+      "https://apnews.com/article/wall-street-stocks-dow-nasdaq-2a4577d95b70bcc3355c61eb9ebd82b7",
+      "https://www.wsj.com/livecoverage/federal-reserve-interest-rate-decision-live-12-18-2024"
+    ]
+  },
+    "anomaly_429": {
+      "is_true_positive": true,
+      "reason": "Markets rallied on December 20, 2024, following a cooler-than-expected inflation report and dovish comments from Federal Reserve officials, easing worries about the path of interest rates.",
+      "links": [
+        "https://www.reuters.com/markets/us/futures-hit-by-government-shutdown-fears-ahead-inflation-data-2024-12-20/",
+        "https://finance.yahoo.com/news/stock-market-news-dec-20-142900120.html",
+        "https://www.wsj.com/livecoverage/stock-market-today-dow-sp500-nasdaq-live-12-20-2024"
+      ]
+    },
+    "anomaly_480": {
+      "is_true_positive": true,
+      "reason": "On February 28, 2025, markets rebounded after a volatile session, with the S&P 500 and Nasdaq gaining 1.6% each, driven by benign inflation data and strong performances from tech stocks.",
+      "links": [
+        "https://www.investopedia.com/dow-jones-today-02282025-11688195",
+        "https://finance.yahoo.com/news/stock-market-news-feb-28-142800758.html",
+        "https://www.wsj.com/livecoverage/stock-market-today-inflation-dow-sp500-nasdaq-02-28-2025"
+      ]
+    },
+    "anomaly_485": {
+      "is_true_positive": true,
+      "reason": "Markets closed higher on March 7, 2025, after Fed Chair Powell's comments suggested the economy was in good shape, although major indexes posted weekly losses due to ongoing concerns.",
+      "links": [
+        "https://www.investopedia.com/dow-jones-today-03072025-11692781",
+        "https://www.wsj.com/livecoverage/jobs-report-stock-market-today-dow-nasdaq-sp500-03-07-2025",
+        "https://finance.yahoo.com/news/stock-market-news-mar-07-2025-133800925.html"
+      ]
+    },
+    "anomaly_486": {
+      "is_true_positive": true,
+      "reason": "On March 10, 2025, U.S. stocks experienced their worst day of the year, with the Nasdaq falling 4% amid fears of a recession and escalating trade tensions due to new tariffs imposed by the Trump administration.",
+      "links": [
+        "https://www.reuters.com/markets/us/investors-flee-equities-trump-driven-uncertainty-sparks-economic-worry-2025-03-10/",
+        "https://www.marketwatch.com/livecoverage/stock-market-today-dow-s-p-and-nasdaq-eye-lower-open-as-growth-fears-linger",
+        "https://www.apnews.com/article/wall-street-stocks-dow-nasdaq-4d05406074f5cccc7d4bf39ee3d1e40e"
+      ]
+    },
+    "anomaly_494": {
+      "is_true_positive": true,
+      "reason": "Markets rallied on March 19, 2025, after the Federal Reserve kept interest rates unchanged and signaled confidence in the economy, leading to gains across major indexes.",
+      "links": [
+        "https://www.wsj.com/livecoverage/fed-interest-rate-decision-inflation-live-03-19-2025",
+        "https://www.investopedia.com/dow-jones-today-03192025-11699583",
+        "https://apnews.com/article/547c45ea1fcf31e8ec11adcc470a92b9"
+      ]
+    },
+    "anomaly_495": {
+      "is_true_positive": true,
+      "reason": "On March 20, 2025, markets closed slightly lower as investors weighed solid economic data against ongoing concerns about tariffs and global trade tensions.",
+      "links": [
+        "https://www.reuters.com/markets/us/futures-tick-up-after-fed-holds-rates-steady-2025-03-20/",
+        "https://www.wsj.com/livecoverage/stock-market-today-dow-nasdaq-sp500-03-20-2025",
+        "https://www.investopedia.com/dow-jones-today-03202025-11700293"
+      ]
+    },
+    "anomaly_496": {
+      "is_true_positive": true,
+      "reason": "Markets staged a late rally on March 21, 2025, snapping a four-week losing streak, as investor sentiment improved despite ongoing concerns over tariffs and economic growth.",
+      "links": [
+        "https://www.wsj.com/livecoverage/stock-market-today-dow-nasdaq-sp500-03-21-2025",
+        "https://www.investopedia.com/dow-jones-today-03212025-11701021",
+        "https://finance.yahoo.com/news/stock-market-news-mar-21-120500684.html"
+      ]
+    }
+  }
+  

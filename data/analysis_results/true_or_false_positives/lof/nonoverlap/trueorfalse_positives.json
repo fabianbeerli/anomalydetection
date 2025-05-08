@@ -1,0 +1,90 @@
+{
+    "anomaly_23": {
+        "is_true_positive": true,
+        "reason": "Market decline due to semiconductor sector slump and investor caution over Fed policy.",
+        "links": [
+            "https://www.investopedia.com/dow-jones-today-06202024-8666172",
+            "https://www.wsj.com/livecoverage/stock-market-today-dow-sp500-nasdaq-live-06-20-2024"
+        ]
+    },
+    "anomaly_26": {
+        "is_true_positive": true,
+        "reason": "Nike's revenue miss and guidance cut led to a 20% stock drop, impacting broader markets.",
+        "links": [
+            "https://apnews.com/article/wall-street-stocks-dow-nasdaq-b52722d6b01696c8f9a20ea34d7f32a4",
+            "https://finance.yahoo.com/news/major-us-stock-indexes-fared-201907404.html"
+        ]
+    },
+    "anomaly_35": {
+        "is_true_positive": true,
+        "reason": "Market volatility driven by regional bank stock declines amid investor concerns.",
+        "links": [
+            "https://www.wsj.com/livecoverage/stock-market-news-today-03-15-2023",
+            "https://finance.yahoo.com/news/stock-market-news-mar-15-131001566.html"
+        ]
+    },
+    "anomaly_47": {
+        "is_true_positive": true,
+        "reason": "Dow Jones Industrial Average crossed 42,000, hitting a record high.",
+        "links": [
+            "https://www.wsj.com/livecoverage/stock-market-today-dow-sp500-nasdaq-live-09-19-2024",
+            "https://finance.yahoo.com/news/stock-market-news-sep-23-131900786.html"
+        ]
+    },
+    "anomaly_71": {
+        "is_true_positive": true,
+        "reason": "Markets reacted to inflation data and anticipated interest rate cuts in 2025.",
+        "links": [
+            "https://finance.yahoo.com/news/stock-market-news-dec-23-121500666.html",
+            "https://finance.yahoo.com/news/stock-market-news-dec-26-115100744.html"
+        ]
+    },
+    "anomaly_92": {
+        "is_true_positive": true,
+        "reason": "Stocks rose after the Federal Reserve held interest rates steady amid economic uncertainty.",
+        "links": [
+            "https://www.wsj.com/livecoverage/fed-interest-rate-decision-inflation-live-03-19-2025",
+            "https://finance.yahoo.com/news/stock-market-news-mar-21-120500684.html"
+        ]
+    },
+    "anomaly_112": {
+        "is_true_positive": true,
+        "reason": "Market decline due to Fed Chair Powell's hawkish stance and concerns over bank contagion.",
+        "links": [
+            "https://www.reuters.com/markets/us/futures-fall-powells-hawkish-stance-sours-market-mood-2023-06-23/",
+            "https://apnews.com/how-major-us-stock-indexes-fared-friday-6-23-2023-b44ca36c26fb9e0d7971019e8707ca5c"
+        ]
+    },
+    "anomaly_114": {
+        "is_true_positive": true,
+        "reason": "Markets edged higher in a holiday-shortened session with rising Treasury yields.",
+        "links": [
+            "https://www.reuters.com/markets/global-markets-wrapup-1-pix-2023-07-03/",
+            "https://finance.yahoo.com/news/stock-market-news-jul-3-133000555.html"
+        ]
+    },
+    "anomaly_133": {
+        "is_true_positive": true,
+        "reason": "Dow Jones and S&P 500 closed at record highs following the Fed's interest rate cut.",
+        "links": [
+            "https://finance.yahoo.com/news/stock-market-news-sep-23-131900786.html",
+            "https://www.wsj.com/livecoverage/stock-market-today-dow-sp500-nasdaq-live-09-19-2024"
+        ]
+    },
+    "anomaly_151": {
+        "is_true_positive": true,
+        "reason": "Market movements influenced by economic data and investor sentiment.",
+        "links": [
+            "https://finance.yahoo.com/news/stock-market-news-nov-21-2023-131500123.html",
+            "https://finance.yahoo.com/news/stock-market-news-nov-24-2023-131500456.html"
+        ]
+    },
+    "anomaly_179": {
+        "is_true_positive": true,
+        "reason": "Stocks rose after the Federal Reserve held interest rates steady amid economic uncertainty.",
+        "links": [
+            "https://www.wsj.com/livecoverage/fed-interest-rate-decision-inflation-live-03-19-2025",
+            "https://finance.yahoo.com/news/stock-market-news-mar-21-120500684.html"
+        ]
+    }
+}

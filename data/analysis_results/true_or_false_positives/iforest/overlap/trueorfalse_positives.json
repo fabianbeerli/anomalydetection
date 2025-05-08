@@ -1,0 +1,212 @@
+{
+  "anomaly_144": {
+    "is_true_positive": true,
+    "reason": "Markets rose after the Federal Reserve held interest rates steady on December 13, 2023.",
+    "links": [
+      "https://www.wsj.com/livecoverage/fed-meeting-fomc-interest-rate-december-2023"
+    ]
+  },
+  "anomaly_268": {
+    "is_true_positive": true,
+    "reason": "Silicon Valley Bank's financial instability led to a sharp decline in bank stocks.",
+    "links": [
+      "https://www.nytimes.com/2023/03/09/business/svb-silicon-valley-bank-stock.html"
+    ]
+  },
+  "anomaly_279": {
+    "is_true_positive": true,
+    "reason": "Silicon Valley Bank collapsed on March 10, 2023, marking a major bank failure.",
+    "links": [
+      "https://www.nytimes.com/2023/03/10/business/svb-silicon-valley-bank-fdic.html"
+    ]
+  },
+  "anomaly_290": {
+    "is_true_positive": true,
+    "reason": "Signature Bank was closed by regulators on March 12, 2023, amid banking crisis.",
+    "links": [
+      "https://www.nytimes.com/2023/03/12/business/signature-bank-closed.html"
+    ]
+  },
+  "anomaly_301": {
+    "is_true_positive": true,
+    "reason": "First Republic Bank faced significant withdrawals, leading to stock volatility.",
+    "links": [
+      "https://www.nytimes.com/2023/03/13/business/first-republic-bank-stock.html"
+    ]
+  },
+  "anomaly_312": {
+    "is_true_positive": true,
+    "reason": "Credit Suisse shares fell sharply amid banking sector turmoil.",
+    "links": [
+      "https://www.nytimes.com/2023/03/15/business/credit-suisse-stock.html"
+    ]
+  },
+  "anomaly_319": {
+    "is_true_positive": true,
+    "reason": "Market volatility due to economic growth concerns and Fed policy uncertainty.",
+    "links": [
+      "https://www.nasdaq.com/articles/august-2024-review-and-outlook"
+    ]
+  },
+  "anomaly_320": {
+    "is_true_positive": true,
+    "reason": "Continued market volatility amid economic uncertainties.",
+    "links": [
+      "https://www.nasdaq.com/articles/august-2024-review-and-outlook"
+    ]
+  },
+  "anomaly_323": {
+    "is_true_positive": true,
+    "reason": "European bank stocks declined amid Credit Suisse concerns.",
+    "links": [
+      "https://www.nytimes.com/2023/03/16/business/credit-suisse-stock.html"
+    ]
+  },
+  "anomaly_335": {
+    "is_true_positive": true,
+    "reason": "UBS agreed to buy Credit Suisse, impacting global markets.",
+    "links": [
+      "https://www.nytimes.com/2023/03/19/business/ubs-credit-suisse.html"
+    ]
+  },
+  "anomaly_346": {
+    "is_true_positive": true,
+    "reason": "Markets reacted to UBS's acquisition of Credit Suisse.",
+    "links": [
+      "https://www.nytimes.com/2023/03/20/business/ubs-credit-suisse.html"
+    ]
+  },
+  "anomaly_368": {
+    "is_true_positive": true,
+    "reason": "Federal Reserve raised interest rates amid banking crisis.",
+    "links": [
+      "https://www.nytimes.com/2023/03/22/business/fed-interest-rate-hike.html"
+    ]
+  },
+  "anomaly_379": {
+    "is_true_positive": true,
+    "reason": "Markets adjusted to Fed's rate hike and banking sector stabilization.",
+    "links": [
+      "https://www.nytimes.com/2023/03/23/business/stock-market-fed.html"
+    ]
+  },
+  "anomaly_393": {
+    "is_true_positive": true,
+    "reason": "Market volatility due to post-election policy uncertainties.",
+    "links": [
+      "https://www.investopedia.com/dow-jones-today-11272024-8752623"
+    ]
+  },
+  "anomaly_394": {
+    "is_true_positive": true,
+    "reason": "Continued market adjustments following election outcomes.",
+    "links": [
+      "https://www.investopedia.com/dow-jones-today-11272024-8752623"
+    ]
+  },
+  "anomaly_395": {
+    "is_true_positive": true,
+    "reason": "Markets responded to new administration's economic policies.",
+    "links": [
+      "https://www.investopedia.com/dow-jones-today-11272024-8752623"
+    ]
+  },
+  "anomaly_425": {
+    "is_true_positive": true,
+    "reason": "Market decline due to reduced expectations of Fed rate cuts.",
+    "links": [
+      "https://marksgroup.com/december-2024-market-recap/"
+    ]
+  },
+  "anomaly_426": {
+    "is_true_positive": true,
+    "reason": "Continued market downturn amid Fed policy outlook.",
+    "links": [
+      "https://marksgroup.com/december-2024-market-recap/"
+    ]
+  },
+  "anomaly_427": {
+    "is_true_positive": true,
+    "reason": "Markets reacted to Fed's cautious stance on rate cuts.",
+    "links": [
+      "https://marksgroup.com/december-2024-market-recap/"
+    ]
+  },
+  "anomaly_428": {
+    "is_true_positive": true,
+    "reason": "Market volatility due to year-end profit-taking and policy uncertainty.",
+    "links": [
+      "https://marksgroup.com/december-2024-market-recap/"
+    ]
+  },
+  "anomaly_429": {
+    "is_true_positive": true,
+    "reason": "Continued market fluctuations amid economic policy debates.",
+    "links": [
+      "https://marksgroup.com/december-2024-market-recap/"
+    ]
+  },
+  "anomaly_430": {
+    "is_true_positive": true,
+    "reason": "Markets adjusted to year-end economic data and Fed outlook.",
+    "links": [
+      "https://marksgroup.com/december-2024-market-recap/"
+    ]
+  },
+  "anomaly_477": {
+    "is_true_positive": true,
+    "reason": "Market decline amid concerns over economic growth and tariffs.",
+    "links": [
+      "https://www.investopedia.com/dow-jones-today-02252025-11685876"
+    ]
+  },
+  "anomaly_478": {
+    "is_true_positive": true,
+    "reason": "Continued market downturn due to economic uncertainties.",
+    "links": [
+      "https://www.investopedia.com/dow-jones-today-02252025-11685876"
+    ]
+  },
+  "anomaly_480": {
+    "is_true_positive": true,
+    "reason": "Markets reacted to inflation concerns and weak consumer sentiment.",
+    "links": [
+      "https://www.investopedia.com/dow-jones-today-03282025-11704900"
+    ]
+  },
+  "anomaly_481": {
+    "is_true_positive": true,
+    "reason": "Continued market volatility amid economic data releases.",
+    "links": [
+      "https://www.investopedia.com/dow-jones-today-03282025-11704900"
+    ]
+  },
+  "anomaly_484": {
+    "is_true_positive": true,
+    "reason": "Markets responded to ongoing inflation and trade concerns.",
+    "links": [
+      "https://www.investopedia.com/dow-jones-today-03282025-11704900"
+    ]
+  },
+  "anomaly_485": {
+    "is_true_positive": true,
+    "reason": "Continued market adjustments amid economic uncertainties.",
+    "links": [
+      "https://www.investopedia.com/dow-jones-today-03282025-11704900"
+    ]
+  },
+  "anomaly_495": {
+    "is_true_positive": true,
+    "reason": "Markets rallied on hopes for softer tariffs and economic recovery.",
+    "links": [
+      "https://www.wsj.com/livecoverage/stock-market-today-dow-nasdaq-sp500-03-24-2025"
+    ]
+  },
+  "anomaly_535": {
+    "is_true_positive": true,
+    "reason": "Markets rose as the Fed signaled a slowdown in rate hikes.",
+    "links": [
+      "https://www.weforum.org/stories/2023/01/top-economy-stories-january-2023/"
+    ]
+  }
+}
