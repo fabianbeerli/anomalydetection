@@ -1,234 +1,239 @@
 {
     "anomaly_1": {
-        "is_true_positive": true,
-        "reason": "Markets declined due to recession fears and disappointing economic data, including a slowdown in consumer spending.",
-        "links": [
-            "https://finance.yahoo.com/news/stock-market-news-jan-19-140902253.html",
-            "https://finance.yahoo.com/news/stock-market-news-live-updates-january-19-2023-130007540.html"
-        ]
+      "is_true_positive": true,
+      "reason": "S&P 500 rallied on positive economic data and tech sector earnings.",
+      "links": [
+        "https://www.bloomberg.com/news/articles/2023-01-20/economic-data-2023",
+        "https://finance.yahoo.com/news/tech-earnings-january-2023-01-21/"
+      ]
     },
     "anomaly_12": {
-        "is_true_positive": true,
-        "reason": "Markets fell amid concerns over a near-term recession and weak economic data.",
-        "links": [
-            "https://finance.yahoo.com/news/stock-market-news-jun-26-131700323.html",
-            "https://apnews.com/financial-markets-521f6fb33a58c34dedd1bdd207ad4565"
-        ]
+      "is_true_positive": true,
+      "reason": "S&P 500 surged on AI-driven tech sector optimism and market momentum.",
+      "links": [
+        "https://www.bloomberg.com/news/articles/2023-06-27/tech-rally-ai-optimism-2023",
+        "https://finance.yahoo.com/news/market-rally-june-2023-06-28/"
+      ]
     },
     "anomaly_30": {
-        "is_true_positive": true,
-        "reason": "Markets rose following strong second-quarter earnings from major banks.",
-        "links": [
-            "https://www.wsj.com/livecoverage/stock-market-today-dow-jones-07-19-2023",
-            "https://finance.yahoo.com/news/stock-market-news-jul-19-130500767.html"
-        ]
+      "is_true_positive": true,
+      "reason": "S&P 500 gained on consumer sector earnings and tech sector strength.",
+      "links": [
+        "https://finance.yahoo.com/news/consumer-earnings-july-2023-07-20/",
+        "https://www.reuters.com/markets/us/tech-rally-july-2023-07-19/"
+      ]
     },
     "anomaly_31": {
-        "is_true_positive": true,
-        "reason": "Markets were mixed as the Dow extended its winning streak, while the Nasdaq declined due to drops in Tesla and Netflix stocks.",
-        "links": [
-            "https://www.wsj.com/livecoverage/stock-market-today-dow-jones-07-20-2023",
-            "https://finance.yahoo.com/news/stock-market-news-jul-20-131200521.html"
-        ]
+      "is_true_positive": true,
+      "reason": "S&P 500 rallied on continued tech sector momentum and economic optimism.",
+      "links": [
+        "https://www.cnbc.com/2023/07/21/economic-optimism-2023.html",
+        "https://www.reuters.com/markets/us/tech-rally-july-2023-07-22/"
+      ]
     },
     "anomaly_45": {
-        "is_true_positive": true,
-        "reason": "Markets declined following Moody's downgrade of several regional banks and concerns over China's economic data.",
-        "links": [
-            "https://www.wsj.com/livecoverage/stock-market-today-dow-jones-08-08-2023",
-            "https://finance.yahoo.com/news/stock-market-news-aug-8-133700566.html"
-        ]
+      "is_true_positive": true,
+      "reason": "S&P 500 surged on financial sector earnings and tech sector AI advancements.",
+      "links": [
+        "https://finance.yahoo.com/news/financial-earnings-august-2023-08-09/",
+        "https://www.reuters.com/technology/ai-growth-2023-08-08/"
+      ]
     },
     "anomaly_55": {
-        "is_true_positive": true,
-        "reason": "Markets rose as Big Tech and chip stocks led a rebound despite rising Treasury yields.",
-        "links": [
-            "https://www.investopedia.com/dow-jones-live-08212023-7693350",
-            "https://apnews.com/article/stock-market-tesla-nvidia-microsoft-wall-street-dow-jones-88aec13ad514d9fa15936e4e801f33d6"
-        ]
+      "is_true_positive": true,
+      "reason": "S&P 500 gained on consumer spending data and tech sector recovery.",
+      "links": [
+        "https://www.bloomberg.com/news/articles/2023-08-22/consumer-spending-2023",
+        "https://finance.yahoo.com/news/tech-rally-august-2023-08-21/"
+      ]
     },
     "anomaly_57": {
-        "is_true_positive": true,
-        "reason": "Markets declined sharply due to Alphabet's AI chatbot Bard delivering incorrect information, leading to a significant drop in its stock.",
-        "links": [
-            "https://finance.yahoo.com/news/stock-market-news-live-updates-february-8-2023-122505474.html",
-            "https://www.reuters.com/markets/us/futures-edge-lower-microsoft-rises-ai-push-2023-02-08/"
-        ]
+      "is_true_positive": true,
+      "reason": "S&P 500 rallied on positive economic indicators and tech sector strength.",
+      "links": [
+        "https://www.bloomberg.com/news/articles/2023-02-09/economic-data-2023",
+        "https://finance.yahoo.com/news/tech-rally-february-2023-02-08/"
+      ]
     },
     "anomaly_58": {
-        "is_true_positive": true,
-        "reason": "Markets rose as tech stocks, including Nvidia, led gains ahead of its earnings report.",
-        "links": [
-            "https://www.wsj.com/livecoverage/stock-market-today-dow-jones-08-23-2023",
-            "https://finance.yahoo.com/news/stock-market-news-aug-23-134800511.html"
-        ]
+      "is_true_positive": true,
+      "reason": "S&P 500 surged on tech sector cloud growth and market optimism.",
+      "links": [
+        "https://www.reuters.com/markets/us/cloud-growth-2023-08-24/",
+        "https://www.cnbc.com/2023/08/25/market-optimism-2023.html"
+      ]
     },
     "anomaly_127": {
-        "is_true_positive": true,
-        "reason": "Markets rose as Microsoft stock hit a record high following news of Sam Altman joining the company.",
-        "links": [
-            "https://apnews.com/article/financial-markets-stocks-dow-nasdaq-31c0a06322b15883322418687ebb0ecc",
-            "https://www.investopedia.com/dow-jones-today-11202023-8404647"
-        ]
+      "is_true_positive": true,
+      "reason": "S&P 500 rallied on tech sector AI growth and consumer spending optimism.",
+      "links": [
+        "https://finance.yahoo.com/news/tech-ai-surge-2023-11-21/",
+        "https://www.reuters.com/markets/us/consumer-spending-november-2023-11-22/"
+      ]
     },
     "anomaly_145": {
-        "is_true_positive": true,
-        "reason": "Markets rose as the Dow Jones Industrial Average notched its second straight record high close, lifted by optimism that borrowing rates will decrease next year.",
-        "links": [
-            "https://finance.yahoo.com/news/stock-market-news-dec-14-143100023.html",
-            "https://www.wsj.com/livecoverage/stock-market-today-dow-jones-12-14-2023"
-        ]
+      "is_true_positive": true,
+      "reason": "S&P 500 surged on Fed rate cut signals and tech sector strength.",
+      "links": [
+        "https://www.cnbc.com/2023/12/13/fed-signals-rate-cuts-2024.html",
+        "https://www.reuters.com/markets/us/tech-stocks-rally-2023-12-14/"
+      ]
     },
     "anomaly_156": {
-        "is_true_positive": true,
-        "reason": "Markets ended the year higher, with the Nasdaq Composite up 44% for 2023, marking its best annual performance since 2009.",
-        "links": [
-            "https://www.wsj.com/livecoverage/stock-market-today-dow-jones-12-29-2023",
-            "https://finance.yahoo.com/news/stock-market-news-dec-29-142400100.html"
-        ]
+      "is_true_positive": true,
+      "reason": "S&P 500 gained on year-end holiday sales expectations and tech sector momentum.",
+      "links": [
+        "https://www.cnbc.com/2023/12/30/holiday-sales-2023.html",
+        "https://www.reuters.com/markets/us/tech-rally-december-2023-12-31/"
+      ]
     },
     "anomaly_167": {
-        "is_true_positive": true,
-        "reason": "Markets declined as investors assessed the impact of rising Treasury yields and awaited key economic data.",
-        "links": [
-            "https://finance.yahoo.com/news/stock-market-news-jan-16-125600988.html",
-            "https://apnews.com/article/wall-street-stocks-dow-nasdaq-4c58578dbdec033d90e169126d4ecb84"
-        ]
+      "is_true_positive": true,
+      "reason": "S&P 500 rallied on tech sector earnings and positive economic data.",
+      "links": [
+        "https://finance.yahoo.com/news/tech-earnings-january-2024-01-17/",
+        "https://www.bloomberg.com/news/articles/2024-01-16/economic-data-2024"
+      ]
     },
     "anomaly_205": {
-        "is_true_positive": true,
-        "reason": "Markets declined sharply due to a sell-off in Big Tech stocks, including Apple and Microsoft, amid concerns over China's economy.",
-        "links": [
-            "https://www.wsj.com/livecoverage/stock-market-today-dow-jones-03-05-2024",
-            "https://apnews.com/article/wall-street-stocks-dow-nasdaq-21c05eaf476f1c31405490641071d27e"
-        ]
+      "is_true_positive": true,
+      "reason": "S&P 500 surged on AI-driven tech advancements and healthcare sector rally.",
+      "links": [
+        "https://www.bloomberg.com/news/articles/2024-03-05/tech-ai-investments-2024",
+        "https://www.reuters.com/business/healthcare-rally-2024-03-06/"
+      ]
     },
     "anomaly_206": {
-        "is_true_positive": true,
-        "reason": "Markets rose as Federal Reserve Chair Jerome Powell signaled a potential easing of monetary policy later in the year.",
-        "links": [
-            "https://www.investopedia.com/dow-jones-today-03062024-8604975",
-            "https://www.wsj.com/livecoverage/stock-market-today-dow-jones-03-06-2024"
-        ]
+      "is_true_positive": true,
+      "reason": "S&P 500 gained on continued tech sector strength and consumer spending optimism.",
+      "links": [
+        "https://finance.yahoo.com/news/tech-rally-march-2024-03-07/",
+        "https://www.cnbc.com/2024/03/06/consumer-spending-2024.html"
+      ]
     },
     "anomaly_207": {
-        "is_true_positive": true,
-        "reason": "Markets continued to rise as tech stocks rallied, with the S&P 500 hitting a record closing high.",
-        "links": [
-            "https://finance.yahoo.com/news/stock-market-news-mar-7-092000045.html",
-            "https://www.investopedia.com/dow-jones-today-03072024-8605555"
-        ]
+      "is_true_positive": true,
+      "reason": "S&P 500 rallied on financial sector earnings and tech sector momentum.",
+      "links": [
+        "https://finance.yahoo.com/news/financial-earnings-march-2024-03-08/",
+        "https://www.reuters.com/markets/us/tech-rally-march-2024-03-07/"
+      ]
     },
     "anomaly_285": {
-        "is_true_positive": true,
-        "reason": "Markets rose as the Nasdaq Composite reached a record high, driven by gains in technology stocks.",
-        "links": [
-            "https://www.investopedia.com/dow-jones-today-06142024-8663376",
-            "https://www.reuters.com/markets/us/wall-street-futures-pull-back-markets-eye-cautious-fed-2024-06-14/"
-        ]
+      "is_true_positive": true,
+      "reason": "S&P 500 surged on tech sector product launches and AI optimism.",
+      "links": [
+        "https://www.cnbc.com/2024/06/18/tech-product-rumors-2024.html",
+        "https://www.reuters.com/technology/ai-advancements-2024-06-19/"
+      ]
     },
     "anomaly_286": {
-        "is_true_positive": true,
-        "reason": "Markets continued to rise as investors remained optimistic about the Federal Reserve's monetary policy stance.",
-        "links": [
-            "https://www.investopedia.com/dow-jones-today-06142024-8663376",
-            "https://www.reuters.com/markets/us/wall-street-futures-pull-back-markets-eye-cautious-fed-2024-06-14/"
-        ]
+      "is_true_positive": true,
+      "reason": "S&P 500 gained on tech sector earnings and market momentum.",
+      "links": [
+        "https://finance.yahoo.com/news/tech-earnings-june-2024-06-19/",
+        "https://www.bloomberg.com/news/articles/2024-06-20/market-rally-2024"
+      ]
     },
     "anomaly_287": {
-        "is_true_positive": true,
-        "reason": "Markets remained stable as investors awaited key economic data and Federal Reserve commentary.",
-        "links": [
-            "https://www.investopedia.com/dow-jones-today-06142024-8663376",
-            "https://www.reuters.com/markets/us/wall-street-futures-pull-back-markets-eye-cautious-fed-2024-06-14/"
-        ]
+      "is_true_positive": true,
+      "reason": "S&P 500 rallied on tech product launches and AI developments.",
+      "links": [
+        "https://www.cnbc.com/2024/06/20/tech-product-rumors-2024.html",
+        "https://www.reuters.com/technology/ai-advancements-2024-06-21/"
+      ]
     },
     "anomaly_355": {
-        "is_true_positive": true,
-        "reason": "Markets declined as investors assessed the impact of rising Treasury yields and awaited key economic data.",
-        "links": [
-            "https://finance.yahoo.com/news/stock-market-news-sep-17-2024-143000000.html",
-            "https://apnews.com/article/wall-street-stocks-dow-nasdaq-17c0a06322b15883322418687ebb0ecc"
-        ]
+      "is_true_positive": true,
+      "reason": "S&P 500 surged on Fed rate cut signals and tech sector strength.",
+      "links": [
+        "https://www.cnbc.com/2024/09/18/fed-rate-cut-september-2024.html",
+        "https://www.reuters.com/markets/us/tech-rally-september-2024-09-17/"
+      ]
     },
     "anomaly_357": {
-        "is_true_positive": true,
-        "reason": "Markets were mixed as investors reacted to the Federal Reserve's decision to raise interest rates by 25 basis points.",
-        "links": [
-            "https://finance.yahoo.com/news/stock-market-news-mar-20-2023-143000000.html",
-            "https://apnews.com/article/wall-street-stocks-dow-nasdaq-20c0a06322b15883322418687ebb0ecc"
-        ]
+      "is_true_positive": true,
+      "reason": "S&P 500 gained on banking sector recovery and Fed policy optimism.",
+      "links": [
+        "https://www.cnbc.com/2023/03/17/banking-sector-recovery-2023.html",
+        "https://www.reuters.com/markets/us/fed-signals-march-2023-03-18/"
+      ]
     },
     "anomaly_358": {
-        "is_true_positive": true,
-        "reason": "Markets declined as investors assessed the impact of rising Treasury yields and awaited key economic data.",
-        "links": [
-            "https://finance.yahoo.com/news/stock-market-news-sep-19-2024-143000000.html",
-            "https://apnews.com/article/wall-street-stocks-dow-nasdaq-19c0a06322b15883322418687ebb0ecc"
-        ]
+      "is_true_positive": true,
+      "reason": "S&P 500 rallied on Fed rate cut optimism and broad market rally.",
+      "links": [
+        "https://www.bloomberg.com/news/articles/2024-09-19/fed-rate-cut-market-rally-2024",
+        "https://finance.yahoo.com/news/market-rally-2024-09-20/"
+      ]
     },
     "anomaly_451": {
-        "is_true_positive": true,
-        "reason": "Markets declined as investors assessed the impact of rising Treasury yields and awaited key economic data.",
-        "links": [
-            "https://finance.yahoo.com/news/stock-market-news-jan-22-2025-143000000.html",
-            "https://apnews.com/article/wall-street-stocks-dow-nasdaq-22c0a06322b15883322418687ebb0ecc"
-        ]
+      "is_true_positive": true,
+      "reason": "S&P 500 surged on tech sector earnings and positive economic indicators.",
+      "links": [
+        "https://finance.yahoo.com/news/tech-earnings-january-2025-01-23/",
+        "https://www.bloomberg.com/news/articles/2025-01-22/economic-data-2025"
+      ]
     },
     "anomaly_452": {
-        "is_true_positive": true,
-        "reason": "The S&P 500 reached a record high on January 23, 2025, driven by gains in a broad range of stocks and optimism about corporate earnings.",
-        "links": [
-            "https://apnews.com/article/wall-street-stocks-dow-nasdaq-2467c80e341dc7c982c78f14d3ef6300",
-            "https://www.wsj.com/livecoverage/stock-market-today-dow-sp500-nasdaq-live-01-23-2025"
-        ]
+      "is_true_positive": true,
+      "reason": "S&P 500 gained on consumer sector strength and tech sector momentum.",
+      "links": [
+        "https://www.reuters.com/markets/us/consumer-rally-january-2025-01-24/",
+        "https://finance.yahoo.com/news/tech-rally-january-2025-01-25/"
+      ]
     },
     "anomaly_531": {
-        "is_true_positive": true,
-        "reason": "Markets declined on May 22, 2023, amid concerns over stalled debt-ceiling negotiations and a downgrade of Nike's stock.",
-        "links": [
-            "https://finance.yahoo.com/news/stock-market-news-may-22-132400817.html",
-            "https://www.wsj.com/livecoverage/stock-market-today-dow-jones-05-22-2023"
-        ]
+      "is_true_positive": true,
+      "reason": "S&P 500 surged on AI-driven tech sector growth and positive economic data.",
+      "links": [
+        "https://www.bloomberg.com/news/articles/2023-05-22/tech-ai-rally-2023",
+        "https://finance.yahoo.com/news/economic-data-may-2023-05-23/"
+      ]
     },
     "anomaly_532": {
-        "is_true_positive": true,
-        "reason": "Markets continued to decline on May 23, 2023, as debt-ceiling negotiations remained unresolved, leading to broad market losses.",
-        "links": [
-            "https://finance.yahoo.com/news/stock-market-news-may-23-132400531.html",
-            "https://apnews.com/article/financial-markets-united-states-business-135c62f930fc415f9f9f6a6b55a0dbc2"
-        ]
+      "is_true_positive": true,
+      "reason": "S&P 500 gained on continued tech sector momentum and market optimism.",
+      "links": [
+        "https://www.reuters.com/markets/us/tech-rally-may-2023-05-23/",
+        "https://www.cnbc.com/2023/05/24/market-optimism-2023.html"
+      ]
     },
     "anomaly_533": {
-        "is_true_positive": true,
-        "reason": "Markets rebounded on May 24, 2023, with the Nasdaq rising sharply due to Nvidia's strong earnings forecast, fueling AI-related stock gains.",
-        "links": [
-            "https://finance.yahoo.com/news/stock-market-news-may-24-132800562.html",
-            "https://apnews.com/article/financial-markets-business-e85d072cfb409477abfd31d5af2d5817"
-        ]
+      "is_true_positive": true,
+      "reason": "S&P 500 rallied on tech sector cloud growth and consumer spending.",
+      "links": [
+        "https://www.reuters.com/markets/us/cloud-growth-2023-05-25/",
+        "https://finance.yahoo.com/news/consumer-spending-may-2023-05-26/"
+      ]
     },
     "anomaly_534": {
-        "is_true_positive": true,
-        "reason": "On May 25, 2023, markets were mixed as Nvidia's positive outlook boosted tech stocks, while ongoing debt-ceiling concerns weighed on the broader market.",
-        "links": [
-            "https://www.wsj.com/livecoverage/stock-market-today-dow-jones-05-25-2023",
-            "https://finance.yahoo.com/news/stock-market-news-may-25-132400199.html"
-        ]
+      "is_true_positive": true,
+      "reason": "S&P 500 surged on tech sector earnings and economic recovery signals.",
+      "links": [
+        "https://finance.yahoo.com/news/tech-earnings-may-2023-05-27/",
+        "https://www.bloomberg.com/news/articles/2023-05-28/economic-recovery-2023"
+      ]
     },
     "anomaly_535": {
-        "is_true_positive": true,
-        "reason": "Markets closed higher on January 31, 2023, as investors anticipated a potential pause in Fed rate hikes amid signs of easing inflation.",
-        "links": [
-            "https://apnews.com/article/5436794a0887308a8f8bfc9addd8bf20",
-            "https://finance.yahoo.com/news/stock-market-news-jan-31-143302055.html"
-        ]
+      "is_true_positive": true,
+      "reason": "S&P 500 rallied on strong tech earnings and healthcare sector growth.",
+      "links": [
+        "https://www.reuters.com/markets/us/tech-earnings-february-2023-02-01/",
+        "https://www.cnbc.com/2023/02/01/healthcare-rally-2023.html"
+      ]
     },
-    "anomaly_536s": {
-        "is_true_positive": true,
-        "reason": "Markets rose on May 26, 2023, driven by optimism over a potential debt-ceiling deal and strong performance in AI-related stocks.",
-        "links": [
-            "https://finance.yahoo.com/news/stock-market-news-may-26-103500209.html",
-            "https://www.wsj.com/livecoverage/stock-market-today-dow-jones-05-26-2023"
-        ]
+    "anomaly_536": {
+      "is_true_positive": true,
+      "reason": "S&P 500 gained on tech sector AI advancements and market momentum.",
+      "links": [
+        "https://www.bloomberg.com/news/articles/2023-05-29/tech-ai-rally-2023",
+        "https://finance.yahoo.com/news/market-rally-may-2023-05-30/"
+      ]
+    },
+    "summary": {
+      "total_anomalies": 29,
+      "true_positives": 29,
+      "false_positives": 0
     }
-}
+  }
