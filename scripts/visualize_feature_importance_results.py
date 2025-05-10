@@ -44,6 +44,7 @@ def load_feature_importance_summary(feature_importance_dir, ticker, algorithm, w
 def visualize_feature_importance_heatmap(feature_importance_dir, ticker, algorithm, window_size, overlap_type, output_dir):
     """
     Create a heatmap for all anomalies for a given (ticker, algorithm, window, overlap).
+    Also saves a summary JSON with the same basename as the PNG.
     """
     summary = load_feature_importance_summary(
         feature_importance_dir, ticker, algorithm, window_size, overlap_type
@@ -71,6 +72,26 @@ def visualize_feature_importance_heatmap(feature_importance_dir, ticker, algorit
         output_folder = Path(output_dir) / ticker / algorithm / f"w{window_size}_{overlap_type}"
         ensure_directory_exists(output_folder)
         output_file = output_folder / f"{algorithm}_feature_importance_heatmap_w{window_size}_{overlap_type}.png"
+
+        # --- Save summary JSON ---
+        summary_json = {
+            "anomalies": [
+                {
+                    "anomaly_index": anomaly_indices[i],
+                    "feature_importances": {
+                        feature: float(importance_matrix[i][j])
+                        for j, feature in enumerate(all_features)
+                    }
+                }
+                for i in range(len(anomaly_indices))
+            ]
+        }
+        summary_file = output_file.with_suffix('.json')
+        with open(summary_file, "w") as f:
+            json.dump(summary_json, f, indent=2)
+        logger.info(f"Summary JSON saved to {summary_file}")
+
+        # Plot heatmap
         plt.figure(figsize=(min(20, 0.5*len(all_features)), max(8, 0.3*len(anomaly_indices))))
         sns.heatmap(
             importance_matrix,

@@ -3,6 +3,47 @@ from pathlib import Path
 import pandas as pd
 import matplotlib.pyplot as plt
 import json
+import numpy as np
+
+def plot_combined_constituent_chart(output_dir, window_size, overlap_type, algorithms):
+    # Load all summaries
+    summaries = {}
+    anomaly_indices = set()
+    for algo in algorithms:
+        summary_file = Path(output_dir) / f"cross_summary_{algo}_w{window_size}_{overlap_type}.json"
+        if not summary_file.exists():
+            continue
+        with open(summary_file, "r") as f:
+            summary = json.load(f)
+            summaries[algo] = {s["sp500_anomaly_index"]: s["count"] for s in summary}
+            anomaly_indices.update(summaries[algo].keys())
+    if not summaries:
+        print(f"No summaries found for window {window_size}, {overlap_type}")
+        return
+    anomaly_indices = sorted(anomaly_indices)
+    x = np.arange(len(anomaly_indices))
+    width = 0.25  # width of each bar
+
+    # Define color mapping
+    algo_colors = {
+        "aida": "tab:red",
+        "iforest": "tab:blue",
+        "lof": "tab:green"
+    }
+    fig, ax = plt.subplots(figsize=(12, 5))
+    for i, algo in enumerate(algorithms):
+        counts = [summaries.get(algo, {}).get(idx, 0) for idx in anomaly_indices]
+        color = algo_colors.get(algo, None)
+        ax.bar(x + i*width, counts, width, label=algo, color=color)
+    ax.set_xlabel("S&P500 Anomaly Index")
+    ax.set_ylabel("Constituents with Anomaly")
+    ax.set_title(f"Constituent Anomalies per S&P500 Anomaly (w{window_size}, {overlap_type})")
+    ax.set_xticks(x + width * (len(algorithms)-1)/2)
+    ax.set_xticklabels(anomaly_indices, rotation=90)
+    ax.legend()
+    plt.tight_layout()
+    plt.savefig(Path(output_dir) / f"combined_constituent_bar_w{window_size}_{overlap_type}.png")
+    plt.close()
 
 def get_internal_ticker_name(ticker):
     return "sp500" if ticker.upper() == "GSPC" else ticker
@@ -88,6 +129,7 @@ def main():
                 plt.savefig(output_dir / f"cross_anomaly_bar_{algo}_w{window_size}_{overlap_type}.png")
                 plt.close()
 
+                
                 # --- ±1 subsequence match ---
                 pm1_dir = output_dir / "plusminus1"
                 pm1_dir.mkdir(parents=True, exist_ok=True)
@@ -105,6 +147,12 @@ def main():
                 plt.tight_layout()
                 plt.savefig(pm1_dir / f"cross_anomaly_bar_{algo}_w{window_size}_{overlap_type}.png")
                 plt.close()
+
+                # After all per-algo plots for this window_size and overlap_type:
+                plot_combined_constituent_chart(output_dir, window_size, overlap_type, algorithms)
+                pm1_dir = output_dir / "plusminus1"
+                plot_combined_constituent_chart(pm1_dir, window_size, overlap_type, algorithms)
+
 
 if __name__ == "__main__":
     main()

@@ -54,7 +54,8 @@ def load_price_data(data_file):
 
 def visualize_multi_ts_tix_per_anomaly_from_csv(multi_ts_dir, title_prefix="Multi-TS TIX Feature Importance"):
     """
-    For each anomaly in multi-TS TIX results (CSV), create a single-row heatmap of feature importances.
+    For each anomaly in multi-TS TIX results (CSV), create a single-row heatmap of feature importances,
+    and save a summary JSON with the same basename as the PNG.
     """
     multi_ts_dir = Path(multi_ts_dir)
     for anomaly_dir in multi_ts_dir.glob("anomaly_*_*"):
@@ -71,6 +72,18 @@ def visualize_multi_ts_tix_per_anomaly_from_csv(multi_ts_dir, title_prefix="Mult
         # Prepare data for single anomaly
         data = np.array(importance_scores).reshape(1, -1)
         output_file = anomaly_dir / f"feature_importance_heatmap_{ticker}_w{window_idx}_0.png"
+        # --- Save summary JSON ---
+        summary = {
+            "ticker": ticker,
+            "window_idx": window_idx,
+            "feature_names": feature_names,
+            "importance_scores": importance_scores
+        }
+        summary_file = output_file.with_suffix('.json')
+        with open(summary_file, "w") as f:
+            json.dump(summary, f, indent=2)
+        logger.info(f"Summary JSON saved to {summary_file}")
+        # Plot heatmap
         plt.figure(figsize=(max(8, 0.3*len(feature_names)), 2))
         sns.heatmap(
             data,
@@ -86,6 +99,7 @@ def visualize_multi_ts_tix_per_anomaly_from_csv(multi_ts_dir, title_prefix="Mult
         plt.savefig(output_file, dpi=200, bbox_inches='tight')
         plt.close()
         logger.info(f"Per-anomaly heatmap saved to {output_file}")
+
 
 def main():
     parser = argparse.ArgumentParser(description="Visualize TIX analysis results")
@@ -204,6 +218,26 @@ def main():
                 plt.ylabel("Anomalies")
                 output_file = subsequence_output_dir / ticker / f"{args.algorithm}_tix_heatmap_w{args.window_size}_{overlap_type}.png"
                 ensure_directory_exists(output_file.parent)
+
+                # --- Save summary JSON for subsequence heatmap ---
+                # Build new summary structure
+                summary_json = {
+                    "anomalies": [
+                        {
+                            "anomaly_index": anomaly_indices[i],
+                            "feature_importances": {
+                                feature: float(importance_matrix[i][j])
+                                for j, feature in enumerate(all_features)
+                            }
+                        }
+                        for i in range(len(anomaly_indices))
+                    ]
+                }
+                summary_file = output_file.with_suffix('.json')
+                with open(summary_file, "w") as f:
+                    json.dump(summary_json, f, indent=2)
+                logger.info(f"Summary JSON saved to {summary_file}")
+                
                 plt.tight_layout()
                 plt.savefig(output_file, dpi=300, bbox_inches='tight')
                 plt.close()

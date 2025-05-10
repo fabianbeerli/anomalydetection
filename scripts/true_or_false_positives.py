@@ -12,6 +12,9 @@ offsets = [40, -80, 120]  # y-offsets for each algo
 base_dir = Path("data/analysis_results/true_or_false_positives")
 sp500_file = Path("data/processed/index_GSPC_processed.csv")
 
+
+
+
 def load_anomalies_and_truth(algo, overlap_type, multi_ts=False):
     folder = base_dir / algo / overlap_type
     if multi_ts:
@@ -92,6 +95,7 @@ def main():
     plot_for_overlap_type("overlap", "sp500_anomalies_overlap_multi_ts.png", multi_ts=True)
     plot_for_overlap_type("nonoverlap", "sp500_anomalies_nonoverlap_multi_ts.png", multi_ts=True)
     print("Plots saved as sp500_anomalies_overlap.png, sp500_anomalies_nonoverlap.png, sp500_anomalies_overlap_multi_ts.png, and sp500_anomalies_nonoverlap_multi_ts.png")
+
 
 if __name__ == "__main__":
     main()
