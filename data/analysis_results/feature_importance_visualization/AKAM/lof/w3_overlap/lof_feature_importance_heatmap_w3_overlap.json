@@ -1,7 +1,7 @@
 {
   "anomalies": [
     {
-      "anomaly_index": 90,
+      "anomaly_index": 18,
       "feature_importances": {
         "Close_0": 2.1826809429983246e-10,
         "Close_1": 2.2426308190724022e-10,
@@ -54,7 +54,7 @@
       }
     },
     {
-      "anomaly_index": 255,
+      "anomaly_index": 328,
       "feature_importances": {
         "Close_0": 1.294037936323147e-10,
         "Close_1": 1.3200311991297067e-10,
@@ -107,7 +107,7 @@
       }
     },
     {
-      "anomaly_index": 256,
+      "anomaly_index": 329,
       "feature_importances": {
         "Close_0": 6.596498953360808e-11,
         "Close_1": 6.392592741740848e-11,
@@ -160,7 +160,7 @@
       }
     },
     {
-      "anomaly_index": 258,
+      "anomaly_index": 330,
       "feature_importances": {
         "Close_0": 5.762469234804835e-11,
         "Close_1": 5.294452783499942e-11,
@@ -213,7 +213,7 @@
       }
     },
     {
-      "anomaly_index": 395,
+      "anomaly_index": 454,
       "feature_importances": {
         "Close_0": 1.1543104164617638e-10,
         "Close_1": 1.1843071010685657e-10,
@@ -266,7 +266,7 @@
       }
     },
     {
-      "anomaly_index": 396,
+      "anomaly_index": 455,
       "feature_importances": {
         "Close_0": 7.131076990775226e-11,
         "Close_1": 7.33642726496283e-11,
@@ -319,7 +319,7 @@
       }
     },
     {
-      "anomaly_index": 397,
+      "anomaly_index": 456,
       "feature_importances": {
         "Close_0": 7.885968637832306e-11,
         "Close_1": 7.245640127483519e-11,
@@ -372,7 +372,7 @@
       }
     },
     {
-      "anomaly_index": 472,
+      "anomaly_index": 523,
       "feature_importances": {
         "Close_0": 7.393810592284217e-11,
         "Close_1": 7.622079490793964e-11,
@@ -425,7 +425,7 @@
       }
     },
     {
-      "anomaly_index": 473,
+      "anomaly_index": 524,
       "feature_importances": {
         "Close_0": 2.4932279386711918e-11,
         "Close_1": 2.2590735258242237e-11,
@@ -478,7 +478,7 @@
       }
     },
     {
-      "anomaly_index": 474,
+      "anomaly_index": 525,
       "feature_importances": {
         "Close_0": 2.9797920890388874e-11,
         "Close_1": 2.7631760342095103e-11,

@@ -1,0 +1,8 @@
+{
+  "ticker": "ATO",
+  "algorithm": "lof",
+  "subsequence_idx": 30,
+  "anomaly_score": 5.345836545982011,
+  "start_date": "2023-05-26",
+  "end_date": "2023-05-31"
+}

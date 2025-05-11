@@ -1,79 +1,65 @@
 {
-  "anomaly_21": {
-    "is_true_positive": true,
-    "reason": "S&P 500 rallied on tech sector earnings and Federal Reserve policy optimism.",
-    "links": [
-      "https://www.reuters.com/markets/us/tech-earnings-june-2024-06-12/",
-      "https://www.cnbc.com/2024/06/11/fed-policy-outlook-2024.html"
-    ]
-  },
-  "anomaly_47": {
-    "is_true_positive": true,
-    "reason": "S&P 500 surged on Fed rate cut signals and strong tech earnings.",
-    "links": [
-      "https://www.bloomberg.com/news/articles/2024-09-19/fed-rate-cut-market-rally-2024",
-      "https://www.cnbc.com/2024/09/21/tech-earnings-september-2024.html"
-    ]
-  },
-  "anomaly_104": {
-    "is_true_positive": true,
-    "reason": "S&P 500 gained on continued tech sector momentum and market optimism.",
-    "links": [
-      "https://www.reuters.com/markets/us/tech-rally-may-2023-05-23/",
-      "https://www.cnbc.com/2023/05/24/market-optimism-2023.html"
-    ]
-  },
-  "anomaly_106": {
-    "is_true_positive": true,
-    "reason": "S&P 500 rallied on tech sector AI advancements and market momentum.",
-    "links": [
-      "https://www.bloomberg.com/news/articles/2023-05-29/tech-ai-rally-2023",
-      "https://finance.yahoo.com/news/market-rally-may-2023-05-30/"
-    ]
-  },
-  "anomaly_119": {
-    "is_true_positive": true,
-    "reason": "S&P 500 surged on consumer sector earnings and tech sector strength.",
-    "links": [
-      "https://finance.yahoo.com/news/consumer-earnings-july-2023-07-21/",
-      "https://www.reuters.com/markets/us/tech-rally-july-2023-07-22/"
-    ]
-  },
-  "anomaly_128": {
-    "is_true_positive": true,
-    "reason": "S&P 500 rallied on tech sector cloud growth and market optimism.",
-    "links": [
-      "https://www.reuters.com/markets/us/cloud-growth-2023-08-24/",
-      "https://www.cnbc.com/2023/08/25/market-optimism-2023.html"
-    ]
-  },
-  "anomaly_151": {
-    "is_true_positive": true,
-    "reason": "S&P 500 surged on tech sector AI growth and consumer spending optimism.",
-    "links": [
-      "https://finance.yahoo.com/news/tech-ai-surge-2023-11-21/",
-      "https://www.reuters.com/markets/us/consumer-spending-november-2023-11-22/"
-    ]
-  },
-  "anomaly_160": {
-    "is_true_positive": true,
-    "reason": "S&P 500 gained on positive economic indicators and tech sector earnings.",
-    "links": [
-      "https://www.bloomberg.com/news/articles/2023-02-23/economic-data-2023",
-      "https://finance.yahoo.com/news/tech-rally-february-2023-02-22/"
-    ]
-  },
-  "anomaly_177": {
-    "is_true_positive": true,
-    "reason": "S&P 500 rallied on financial sector earnings and tech sector momentum.",
-    "links": [
-      "https://finance.yahoo.com/news/financial-earnings-march-2024-03-08/",
-      "https://www.reuters.com/markets/us/tech-rally-march-2024-03-07/"
-    ]
-  },
-  "summary": {
-    "total_anomalies": 9,
-    "true_positives": 9,
-    "false_positives": 0
+    "anomaly_8": {
+      "is_true_positive": false,
+      "reason": "No significant market-wide events identified.",
+      "links": []
+    },
+    "anomaly_29": {
+      "is_true_positive": true,
+      "reason": "Debt ceiling talks triggered market volatility.",
+      "links": [
+        "https://www.cnbc.com/2023/05/19/debt-ceiling-market-impact.html",
+        "https://www.reuters.com/markets/us/debt-ceiling-2023-05-18/"
+      ]
+    },
+    "anomaly_30": {
+      "is_true_positive": false,
+      "reason": "No major market-moving events found.",
+      "links": []
+    },
+    "anomaly_42": {
+      "is_true_positive": true,
+      "reason": "Market optimism from strong tech earnings and Fed rate expectations.",
+      "links": [
+        "https://www.reuters.com/markets/us/tech-earnings-2023-07-20/",
+        "https://www.bloomberg.com/news/articles/2023-07-19/fed-policy"
+      ]
+    },
+    "anomaly_50": {
+      "is_true_positive": true,
+      "reason": "Market volatility from rising treasury yields and economic data.",
+      "links": [
+        "https://www.reuters.com/markets/us/market-volatility-2023-08-24/",
+        "https://www.cnbc.com/2023/08/25/economic-data-markets.html"
+      ]
+    },
+    "anomaly_71": {
+      "is_true_positive": true,
+      "reason": "Argentina election uncertainty caused emerging market volatility.",
+      "links": [
+        "https://www.reuters.com/markets/argentina-election-2023-11-20/",
+        "https://www.bloomberg.com/news/articles/2023-11-17/emerging-markets"
+      ]
+    },
+    "anomaly_95": {
+      "is_true_positive": false,
+      "reason": "No significant market-wide events identified.",
+      "links": []
+    },
+    "anomaly_117": {
+      "is_true_positive": true,
+      "reason": "Fed paused rate hikes, boosting market sentiment.",
+      "links": [
+        "https://www.cnbc.com/2024/06/14/fed-pause-rate-hike-june-2024.html",
+        "https://www.reuters.com/markets/us/fed-june-2024-06-14/"
+      ]
+    },
+    "anomaly_140": {
+      "is_true_positive": true,
+      "reason": "Tech sector sell-off amid regulatory scrutiny concerns.",
+      "links": [
+        "https://www.cnbc.com/2024/09/19/tech-stocks-regulation-2024.html",
+        "https://www.reuters.com/technology/tech-selloff-2024-09-18/"
+      ]
+    }
   }
-}

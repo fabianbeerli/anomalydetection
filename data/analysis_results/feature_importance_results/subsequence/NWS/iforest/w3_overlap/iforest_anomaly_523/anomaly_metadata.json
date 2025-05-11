@@ -2,7 +2,7 @@
   "ticker": "NWS",
   "algorithm": "iforest",
   "subsequence_idx": 523,
-  "anomaly_score": 2.6436212303698077,
-  "start_date": "2023-05-11",
-  "end_date": "2023-05-15"
+  "anomaly_score": 4.299568626780644,
+  "start_date": "2025-02-19",
+  "end_date": "2025-02-21"
 }

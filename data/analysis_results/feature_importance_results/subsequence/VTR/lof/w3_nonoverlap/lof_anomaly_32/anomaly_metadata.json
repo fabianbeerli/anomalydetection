@@ -1,0 +1,8 @@
+{
+  "ticker": "VTR",
+  "algorithm": "lof",
+  "subsequence_idx": 32,
+  "anomaly_score": 2.383650815029135,
+  "start_date": "2023-06-06",
+  "end_date": "2023-06-08"
+}

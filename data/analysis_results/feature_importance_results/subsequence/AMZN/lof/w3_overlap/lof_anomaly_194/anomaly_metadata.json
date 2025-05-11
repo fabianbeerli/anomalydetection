@@ -1,0 +1,8 @@
+{
+  "ticker": "AMZN",
+  "algorithm": "lof",
+  "subsequence_idx": 194,
+  "anomaly_score": 2.1794985597327243,
+  "start_date": "2023-10-25",
+  "end_date": "2023-10-27"
+}

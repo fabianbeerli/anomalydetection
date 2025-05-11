@@ -1,63 +1,52 @@
 {
-  "anomaly_35": {
-    "is_true_positive": true,
-    "reason": "S&P 500 surged due to banking sector recovery and Fed rate hike concerns.",
-    "links": [
-      "https://www.cnbc.com/2023/03/13/banking-crisis-march-2023.html",
-      "https://www.reuters.com/markets/us/fed-rate-hike-concerns-2023-03-16/"
-    ]
-  },
-  "anomaly_59": {
-    "is_true_positive": true,
-    "reason": "S&P 500 gained on tech sector cloud growth and financial sector earnings.",
-    "links": [
-      "https://www.reuters.com/markets/us/cloud-growth-2024-11-06/",
-      "https://finance.yahoo.com/news/financial-earnings-2024-11-05/"
-    ]
-  },
-  "anomaly_70": {
-    "is_true_positive": true,
-    "reason": "S&P 500 rallied on strong holiday sales data and tech sector momentum.",
-    "links": [
-      "https://www.reuters.com/markets/us/holiday-sales-data-2024-12-19/",
-      "https://www.cnbc.com/2024/12/19/tech-rally-december-2024.html"
-    ]
-  },
-  "anomaly_78": {
-    "is_true_positive": true,
-    "reason": "S&P 500 surged on positive economic indicators and tech sector earnings.",
-    "links": [
-      "https://www.bloomberg.com/news/articles/2025-01-28/economic-data-january-2025",
-      "https://finance.yahoo.com/news/tech-earnings-january-2025-01-27/"
-    ]
-  },
-  "anomaly_81": {
-    "is_true_positive": true,
-    "reason": "S&P 500 gained on consumer sector strength and tech sector optimism.",
-    "links": [
-      "https://www.reuters.com/markets/us/consumer-rally-february-2025-02-05/",
-      "https://finance.yahoo.com/news/tech-rally-february-2025-02-04/"
-    ]
-  },
-  "anomaly_87": {
-    "is_true_positive": true,
-    "reason": "S&P 500 rallied on consumer sector demand and tech sector growth.",
-    "links": [
-      "https://finance.yahoo.com/news/consumer-rally-march-2025-03-03/",
-      "https://www.bloomberg.com/news/articles/2025-03-04/tech-stocks-march-2025"
-    ]
-  },
-  "anomaly_105": {
-    "is_true_positive": true,
-    "reason": "S&P 500 rallied on strong tech earnings and healthcare sector growth.",
-    "links": [
-      "https://www.reuters.com/markets/us/tech-earnings-february-2023-02-01/",
-      "https://www.cnbc.com/2023/02/01/healthcare-rally-2023.html"
-    ]
-  },
-  "summary": {
-    "total_anomalies": 7,
-    "true_positives": 7,
-    "false_positives": 0
+    "anomaly_3": {
+      "is_true_positive": true,
+      "reason": "Fed raised rates by 25 bps, impacting market volatility.",
+      "links": [
+        "https://www.cnbc.com/2023/02/01/fed-rate-hike-february-2023.html",
+        "https://www.reuters.com/markets/us/fed-policy-2023-02-01/"
+      ]
+    },
+    "anomaly_13": {
+      "is_true_positive": true,
+      "reason": "Silicon Valley Bank collapse triggered banking crisis fears.",
+      "links": [
+        "https://www.reuters.com/business/finance/svb-collapse-2023-03-16/",
+        "https://www.bloomberg.com/news/articles/2023-03-15/svb-crisis"
+      ]
+    },
+    "anomaly_151": {
+      "is_true_positive": true,
+      "reason": "Post-election market surge on policy expectations.",
+      "links": [
+        "https://www.cnbc.com/2024/11/06/election-market-rally-2024.html",
+        "https://www.bloomberg.com/news/articles/2024-11-05/us-election-markets"
+      ]
+    },
+    "anomaly_161": {
+      "is_true_positive": true,
+      "reason": "Market rallied on Fed rate cut expectations.",
+      "links": [
+        "https://www.bloomberg.com/news/articles/2024-12-18/fed-rate-cut",
+        "https://www.reuters.com/markets/us/fed-policy-2024-12-18/"
+      ]
+    },
+    "anomaly_169": {
+      "is_true_positive": false,
+      "reason": "No significant market-wide events identified.",
+      "links": []
+    },
+    "anomaly_171": {
+      "is_true_positive": false,
+      "reason": "No major market-moving events found.",
+      "links": []
+    },
+    "anomaly_177": {
+      "is_true_positive": true,
+      "reason": "Market volatility from tariff concerns and Tesla sales drop.",
+      "links": [
+        "https://www.reuters.com/business/autos-transportation/tesla-german-sales-2025-03-06/",
+        "https://www.cnn.com/2025/03/05/business/tesla-sales-europe"
+      ]
+    }
   }
-}

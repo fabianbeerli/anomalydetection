@@ -2,7 +2,7 @@
   "ticker": "BALL",
   "algorithm": "iforest",
   "subsequence_idx": 103,
-  "anomaly_score": 3.645496408544575,
-  "start_date": "2023-10-20",
-  "end_date": "2023-10-24"
+  "anomaly_score": 3.1778436921283015,
+  "start_date": "2023-06-15",
+  "end_date": "2023-06-20"
 }

@@ -2,7 +2,7 @@
   "ticker": "VTR",
   "algorithm": "iforest",
   "subsequence_idx": 543,
-  "anomaly_score": 2.471439628598749,
-  "start_date": "2023-06-07",
-  "end_date": "2023-06-09"
+  "anomaly_score": 2.921574210666139,
+  "start_date": "2025-03-19",
+  "end_date": "2025-03-21"
 }

@@ -1,0 +1,8 @@
+{
+  "ticker": "NWS",
+  "algorithm": "lof",
+  "subsequence_idx": 185,
+  "anomaly_score": 2.1312417770523777,
+  "start_date": "2023-10-12",
+  "end_date": "2023-10-16"
+}

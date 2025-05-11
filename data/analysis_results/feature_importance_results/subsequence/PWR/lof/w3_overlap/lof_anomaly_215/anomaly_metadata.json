@@ -1,0 +1,8 @@
+{
+  "ticker": "PWR",
+  "algorithm": "lof",
+  "subsequence_idx": 215,
+  "anomaly_score": 3.2722466651627578,
+  "start_date": "2023-11-24",
+  "end_date": "2023-11-28"
+}

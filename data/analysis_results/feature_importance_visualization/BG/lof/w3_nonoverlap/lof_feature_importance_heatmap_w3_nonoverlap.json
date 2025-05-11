@@ -1,7 +1,7 @@
 {
   "anomalies": [
     {
-      "anomaly_index": 24,
+      "anomaly_index": 12,
       "feature_importances": {
         "Close_0": 6.77392777838762e-11,
         "Close_1": 6.65049375679875e-11,
@@ -54,7 +54,7 @@
       }
     },
     {
-      "anomaly_index": 92,
+      "anomaly_index": 181,
       "feature_importances": {
         "Close_0": 9.346941132663926e-11,
         "Close_1": 9.332777825641823e-11,

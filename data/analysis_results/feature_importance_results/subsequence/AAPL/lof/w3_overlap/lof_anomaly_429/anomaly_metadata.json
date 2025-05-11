@@ -1,8 +1,0 @@
-{
-  "ticker": "AAPL",
-  "algorithm": "lof",
-  "subsequence_idx": 429,
-  "anomaly_score": 2.273329269649659,
-  "start_date": "2024-12-20",
-  "end_date": "2024-12-24"
-}

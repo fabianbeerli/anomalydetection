@@ -2,7 +2,7 @@
   "ticker": "AZO",
   "algorithm": "iforest",
   "subsequence_idx": 531,
-  "anomaly_score": 3.6511846676352833,
-  "start_date": "2023-05-22",
-  "end_date": "2023-05-24"
+  "anomaly_score": 2.547769764031108,
+  "start_date": "2025-03-03",
+  "end_date": "2025-03-05"
 }

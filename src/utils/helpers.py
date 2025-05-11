@@ -2,6 +2,7 @@
 Helper utility functions for the anomaly detection project.
 """
 import os
+import re
 import logging
 import pandas as pd
 import numpy as np
@@ -22,18 +23,12 @@ logger = logging.getLogger(__name__)
 
 
 def get_file_list(directory, pattern='*.csv'):
-    """
-    Get a list of files in a directory matching a pattern.
-    
-    Args:
-        directory (str or Path): Directory to search
-        pattern (str): Glob pattern to match
-        
-    Returns:
-        list: List of Path objects
-    """
     directory = Path(directory)
-    return list(directory.glob(pattern))
+    files = list(directory.glob(pattern))
+    def extract_idx(f):
+        match = re.search(r'_(\d+)\.csv$', f.name)
+        return int(match.group(1)) if match else -1
+    return sorted(files, key=extract_idx)
 
 
 def load_subsequence(file_path):

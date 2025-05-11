@@ -1,0 +1,8 @@
+{
+  "ticker": "DGX",
+  "algorithm": "aida",
+  "subsequence_idx": 508,
+  "anomaly_score": 2.59056,
+  "start_date": "2025-01-28",
+  "end_date": "2025-01-30"
+}

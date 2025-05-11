@@ -1,7 +1,7 @@
 {
   "anomalies": [
     {
-      "anomaly_index": 104,
+      "anomaly_index": 29,
       "feature_importances": {
         "Close_0": 1.0915487430815702e-05,
         "Close_1": 1.0463664611609597e-05,
@@ -54,7 +54,7 @@
       }
     },
     {
-      "anomaly_index": 106,
+      "anomaly_index": 30,
       "feature_importances": {
         "Close_0": 9.813632725909907e-06,
         "Close_1": 1.0024165098690418e-05,
@@ -107,7 +107,7 @@
       }
     },
     {
-      "anomaly_index": 110,
+      "anomaly_index": 34,
       "feature_importances": {
         "Close_0": 1.598141657788131e-05,
         "Close_1": 1.685487786606437e-05,
@@ -160,7 +160,7 @@
       }
     },
     {
-      "anomaly_index": 112,
+      "anomaly_index": 36,
       "feature_importances": {
         "Close_0": 1.4510697786200596e-05,
         "Close_1": 1.4690653474942396e-05,
@@ -213,7 +213,7 @@
       }
     },
     {
-      "anomaly_index": 156,
+      "anomaly_index": 76,
       "feature_importances": {
         "Close_0": 2.8199240715486185e-05,
         "Close_1": 2.8208211034250318e-05,
@@ -266,7 +266,7 @@
       }
     },
     {
-      "anomaly_index": 174,
+      "anomaly_index": 92,
       "feature_importances": {
         "Close_0": 1.920383893661277e-05,
         "Close_1": 1.9614465199092334e-05,

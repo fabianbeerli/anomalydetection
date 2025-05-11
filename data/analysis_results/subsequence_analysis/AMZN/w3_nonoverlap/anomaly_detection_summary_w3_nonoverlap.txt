@@ -4,22 +4,22 @@ Window Size: 3, Type: nonoverlap
 
 Execution Times:
 AIDA: 0.0200 seconds
-IFOREST: 0.0650 seconds
-LOF: 0.0299 seconds
+IFOREST: 0.0621 seconds
+LOF: 0.0333 seconds
 
 Anomaly Counts:
-AIDA: 8 anomalies
+AIDA: 10 anomalies
 IFOREST: 11 anomalies
 LOF: 8 anomalies
 
 Detailed Anomaly Statistics:
 
 AIDA:
-  Count: 8
-  Mean Score: 3.0636987500000004
-  Std Score: 0.357589552797118
-  Min Score: 2.47894
-  Max Score: 3.50016
+  Count: 10
+  Mean Score: 2.8902410000000005
+  Std Score: 0.32970697052079445
+  Min Score: 2.40997
+  Max Score: 3.32789
 
 IFOREST:
   Count: 11

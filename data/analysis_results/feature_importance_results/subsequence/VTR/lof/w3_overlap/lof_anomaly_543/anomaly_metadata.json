@@ -2,7 +2,7 @@
   "ticker": "VTR",
   "algorithm": "lof",
   "subsequence_idx": 543,
-  "anomaly_score": 2.000649177625911,
-  "start_date": "2023-06-07",
-  "end_date": "2023-06-09"
+  "anomaly_score": 5.1303096384178,
+  "start_date": "2025-03-19",
+  "end_date": "2025-03-21"
 }

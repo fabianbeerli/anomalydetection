@@ -66,7 +66,7 @@ def load_subsequence_dataset(subsequence_dir, ticker, window_size=3, overlap=Tru
         subsequence_data = []
         subsequence_dates = []
         
-        for file_path in sorted(subseq_files):
+        for file_path in subseq_files:
             subseq = load_subsequence(file_path)
             
             if subseq is not None and not subseq.empty:

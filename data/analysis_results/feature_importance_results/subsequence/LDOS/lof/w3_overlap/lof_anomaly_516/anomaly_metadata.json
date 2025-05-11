@@ -2,7 +2,7 @@
   "ticker": "LDOS",
   "algorithm": "lof",
   "subsequence_idx": 516,
-  "anomaly_score": 2.9803666093552144,
-  "start_date": "2023-05-02",
-  "end_date": "2023-05-04"
+  "anomaly_score": 2.0745107249654753,
+  "start_date": "2025-02-07",
+  "end_date": "2025-02-11"
 }

@@ -14,6 +14,8 @@ import tempfile
 import sys
 import json
 import time
+import re
+
 
 # Configure logging
 logging.basicConfig(
@@ -22,6 +24,10 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+
+def extract_idx(filename):
+    match = re.search(r'_(\d+)\.npz$', filename)
+    return int(match.group(1)) if match else -1
 
 def load_multi_ts_data(multi_ts_dir, prefix='multi_ts_len5_overlap'):
     """
@@ -52,7 +58,7 @@ def load_multi_ts_data(multi_ts_dir, prefix='multi_ts_len5_overlap'):
         multi_ts_data = []
         metadata_list = []
         
-        for file_path in sorted(multi_ts_files):
+        for file_path in sorted(multi_ts_files, key=lambda f: extract_idx(f.name)):
             try:
                 # Load NPZ file
                 npz_data = np.load(file_path, allow_pickle=True)
@@ -694,7 +700,7 @@ def run_multi_ts_analysis_windowwise(multi_ts_dir, output_dir, window_size=3, ov
     all_matrices = []
     all_metadata = []
     
-    for file_path in sorted(multi_ts_files):
+    for file_path in sorted(multi_ts_files, key=lambda f: extract_idx(f.name)):
         try:
             # Load NPZ file
             npz_data = np.load(file_path, allow_pickle=True)
@@ -764,9 +770,12 @@ def run_multi_ts_analysis_windowwise(multi_ts_dir, output_dir, window_size=3, ov
         elif algo == 'iforest':
             from sklearn.ensemble import IsolationForest
             logger.info("Running Isolation Forest for multi-TS windowwise anomaly detection")
+            start_time = time.time()
             model = IsolationForest(n_estimators=100, contamination=0.05, random_state=42)
             model.fit(combined_matrix)
             scores = -model.decision_function(combined_matrix)
+            end_time = time.time()
+            execution_time = end_time - start_time
             # Use mean+2std as threshold for anomaly
             threshold = scores.mean() + 2 * scores.std()
             anomaly_indices = np.where(scores > threshold)[0]
@@ -780,21 +789,24 @@ def run_multi_ts_analysis_windowwise(multi_ts_dir, output_dir, window_size=3, ov
                     'start_date': metadata.get('start_date', ''),
                     'end_date': metadata.get('end_date', '')
                 })
-            files = save_multi_ts_results('iforest', scores, anomaly_records, None, results_dir)
+            files = save_multi_ts_results('iforest', scores, anomaly_records, execution_time, results_dir)
             results['algorithms']['iforest'] = {
                 'success': True,
                 'anomaly_count': len(anomaly_indices),
-                'execution_time': None,
+                'execution_time': execution_time,
                 'files': files,
                 'windowlevel': 'windowwise'
             }
         elif algo == 'lof':
             from sklearn.neighbors import LocalOutlierFactor
             logger.info("Running LOF for multi-TS windowwise anomaly detection")
+            start_time = time.time()
             # LOF does not have a fit_predict for out-of-sample, so use fit_predict
             lof = LocalOutlierFactor(n_neighbors=20, contamination=0.05)
             lof_labels = lof.fit_predict(combined_matrix)
             scores = -lof.negative_outlier_factor_
+            end_time = time.time()
+            execution_time = end_time - start_time
             threshold = scores.mean() + 2 * scores.std()
             anomaly_indices = np.where(scores > threshold)[0]
             anomaly_records = []
@@ -807,11 +819,11 @@ def run_multi_ts_analysis_windowwise(multi_ts_dir, output_dir, window_size=3, ov
                     'start_date': metadata.get('start_date', ''),
                     'end_date': metadata.get('end_date', '')
                 })
-            files = save_multi_ts_results('lof', scores, anomaly_records, None, results_dir)
+            files = save_multi_ts_results('lof', scores, anomaly_records, execution_time, results_dir)
             results['algorithms']['lof'] = {
                 'success': True,
                 'anomaly_count': len(anomaly_indices),
-                'execution_time': None,
+                'execution_time': execution_time,
                 'files': files,
                 'windowlevel': 'windowwise'
             }

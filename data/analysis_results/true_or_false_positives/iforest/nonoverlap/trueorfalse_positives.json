@@ -1,95 +1,84 @@
 {
-  "anomaly_24": {
-    "is_true_positive": true,
-    "reason": "S&P 500 experienced volatility due to banking sector crisis and Fed policy concerns.",
-    "links": [
-      "https://www.reuters.com/markets/us/svb-collapse-2023-03-10/",
-      "https://www.cnbc.com/2023/03/13/banking-crisis-march-2023.html"
-    ]
-  },
-  "anomaly_34": {
-    "is_true_positive": true,
-    "reason": "S&P 500 rallied on strong tech earnings and positive economic data.",
-    "links": [
-      "https://www.reuters.com/markets/us/tech-earnings-august-2024-08-02/",
-      "https://www.bloomberg.com/news/articles/2024-08-03/us-economic-data-2024"
-    ]
-  },
-  "anomaly_35": {
-    "is_true_positive": true,
-    "reason": "S&P 500 surged due to banking sector recovery and Fed rate hike concerns.",
-    "links": [
-      "https://www.cnbc.com/2023/03/13/banking-crisis-march-2023.html",
-      "https://www.reuters.com/markets/us/fed-rate-hike-concerns-2023-03-16/"
-    ]
-  },
-  "anomaly_59": {
-    "is_true_positive": true,
-    "reason": "S&P 500 gained on tech sector cloud growth and financial sector earnings.",
-    "links": [
-      "https://www.reuters.com/markets/us/cloud-growth-2024-11-06/",
-      "https://finance.yahoo.com/news/financial-earnings-2024-11-05/"
-    ]
-  },
-  "anomaly_70": {
-    "is_true_positive": true,
-    "reason": "S&P 500 rallied on strong holiday sales data and tech sector momentum.",
-    "links": [
-      "https://www.reuters.com/markets/us/holiday-sales-data-2024-12-19/",
-      "https://www.cnbc.com/2024/12/19/tech-rally-december-2024.html"
-    ]
-  },
-  "anomaly_71": {
-    "is_true_positive": true,
-    "reason": "S&P 500 surged on year-end consumer spending and tech sector strength.",
-    "links": [
-      "https://www.bloomberg.com/news/articles/2024-12-21/us-economic-data-december-2024",
-      "https://finance.yahoo.com/news/tech-rally-2024-12-24/"
-    ]
-  },
-  "anomaly_86": {
-    "is_true_positive": true,
-    "reason": "S&P 500 rose on healthcare sector rally and positive economic indicators.",
-    "links": [
-      "https://www.cnbc.com/2025/02/27/healthcare-rally-2025.html",
-      "https://www.reuters.com/markets/us/economic-data-february-2025-02-28/"
-    ]
-  },
-  "anomaly_87": {
-    "is_true_positive": true,
-    "reason": "S&P 500 gained on consumer sector strength and tech sector optimism.",
-    "links": [
-      "https://finance.yahoo.com/news/consumer-rally-march-2025-03-03/",
-      "https://www.bloomberg.com/news/articles/2025-03-04/tech-stocks-march-2025"
-    ]
-  },
-  "anomaly_133": {
-    "is_true_positive": true,
-    "reason": "S&P 500 rallied on cloud computing demand and Fed policy expectations.",
-    "links": [
-      "https://www.reuters.com/markets/us/cloud-growth-2023-09-14/",
-      "https://www.cnbc.com/2023/09/15/fed-meeting-september-2023.html"
-    ]
-  },
-  "anomaly_156": {
-    "is_true_positive": true,
-    "reason": "S&P 500 surged on Fed rate cut signals and tech sector strength.",
-    "links": [
-      "https://www.cnbc.com/2023/12/13/fed-signals-rate-cuts-2024.html",
-      "https://www.reuters.com/markets/us/tech-stocks-rally-2023-12-14/"
-    ]
-  },
-  "anomaly_179": {
-    "is_true_positive": true,
-    "reason": "S&P 500 rallied on AI-driven tech advancements and healthcare sector growth.",
-    "links": [
-      "https://www.bloomberg.com/news/articles/2024-03-14/tech-ai-investments-2024",
-      "https://www.reuters.com/business/healthcare-rally-2024-03-16/"
-    ]
-  },
-  "summary": {
-    "total_anomalies": 11,
-    "true_positives": 11,
-    "false_positives": 0
+    "anomaly_12": {
+      "is_true_positive": true,
+      "reason": "Silicon Valley Bank collapse sparked banking sector panic.",
+      "links": [
+        "https://www.reuters.com/business/finance/svb-collapse-2023-03-16/",
+        "https://www.bloomberg.com/news/articles/2023-03-15/svb-crisis"
+      ]
+    },
+    "anomaly_13": {
+      "is_true_positive": true,
+      "reason": "Continued market volatility from banking crisis fears.",
+      "links": [
+        "https://www.cnbc.com/2023/03/17/banking-crisis-market-impact.html",
+        "https://www.reuters.com/markets/us/banking-turmoil-2023-03-15/"
+      ]
+    },
+    "anomaly_55": {
+      "is_true_positive": true,
+      "reason": "OPEC+ production cut talks drove oil price surge.",
+      "links": [
+        "https://www.reuters.com/business/energy/opec-cuts-2023-09-14/",
+        "https://www.bloomberg.com/news/articles/2023-09-15/oil-prices"
+      ]
+    },
+    "anomaly_76": {
+      "is_true_positive": true,
+      "reason": "Fed signaled dovish policy, boosting market optimism.",
+      "links": [
+        "https://www.cnbc.com/2023/12/13/fed-meeting-december-2023.html",
+        "https://www.reuters.com/markets/us/fed-policy-2023-12-13/"
+      ]
+    },
+    "anomaly_97": {
+      "is_true_positive": true,
+      "reason": "Middle East tensions increased oil price volatility.",
+      "links": [
+        "https://www.reuters.com/world/middle-east/tensions-2024-03-15/",
+        "https://www.bloomberg.com/news/articles/2024-03-16/oil-geopolitics"
+      ]
+    },
+    "anomaly_129": {
+      "is_true_positive": true,
+      "reason": "Global market sell-off amid yen carry trade unwind.",
+      "links": [
+        "https://www.bloomberg.com/news/articles/2024-08-05/yen-carry-trade-unwind",
+        "https://www.reuters.com/markets/global-selloff-2024-08-02/"
+      ]
+    },
+    "anomaly_151": {
+      "is_true_positive": true,
+      "reason": "Post-election market surge on policy expectations.",
+      "links": [
+        "https://www.cnbc.com/2024/11/06/election-market-rally-2024.html",
+        "https://www.bloomberg.com/news/articles/2024-11-05/us-election-markets"
+      ]
+    },
+    "anomaly_161": {
+      "is_true_positive": true,
+      "reason": "Fed rate cut expectations fueled market rally.",
+      "links": [
+        "https://www.bloomberg.com/news/articles/2024-12-18/fed-rate-cut",
+        "https://www.reuters.com/markets/us/fed-policy-2024-12-18/"
+      ]
+    },
+    "anomaly_162": {
+      "is_true_positive": false,
+      "reason": "No major market-moving events identified.",
+      "links": []
+    },
+    "anomaly_176": {
+      "is_true_positive": true,
+      "reason": "Tesla sales drop in Europe impacted tech stocks.",
+      "links": [
+        "https://www.reuters.com/business/autos-transportation/tesla-german-sales-2025-03-06/",
+        "https://www.cnn.com/2025/03/05/business/tesla-sales-europe"
+      ]
+    },
+    "anomaly_177": {
+      "is_true_positive": false,
+      "reason": "No significant market events found.",
+      "links": []
+    }
   }
-}
