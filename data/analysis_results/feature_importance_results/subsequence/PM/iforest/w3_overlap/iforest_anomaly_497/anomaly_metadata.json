@@ -1,0 +1,8 @@
+{
+  "ticker": "PM",
+  "algorithm": "iforest",
+  "subsequence_idx": 497,
+  "anomaly_score": 1.5412963807519713,
+  "start_date": "2025-01-10",
+  "end_date": "2025-01-14"
+}

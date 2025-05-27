@@ -1,8 +1,0 @@
-{
-  "ticker": "ORCL",
-  "algorithm": "aida",
-  "subsequence_idx": 163,
-  "anomaly_score": 3.34749,
-  "start_date": "2023-09-12",
-  "end_date": "2023-09-14"
-}

@@ -1,0 +1,8 @@
+{
+  "ticker": "JNJ",
+  "algorithm": "iforest",
+  "subsequence_idx": 496,
+  "anomaly_score": 1.9554464969946477,
+  "start_date": "2025-01-08",
+  "end_date": "2025-01-13"
+}

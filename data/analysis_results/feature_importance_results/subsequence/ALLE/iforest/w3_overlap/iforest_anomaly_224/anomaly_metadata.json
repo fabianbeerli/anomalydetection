@@ -1,8 +1,0 @@
-{
-  "ticker": "ALLE",
-  "algorithm": "iforest",
-  "subsequence_idx": 224,
-  "anomaly_score": 2.0534796617110125,
-  "start_date": "2023-12-07",
-  "end_date": "2023-12-11"
-}

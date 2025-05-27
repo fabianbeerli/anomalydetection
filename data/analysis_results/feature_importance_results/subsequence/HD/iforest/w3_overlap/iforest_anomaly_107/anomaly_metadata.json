@@ -1,0 +1,8 @@
+{
+  "ticker": "HD",
+  "algorithm": "iforest",
+  "subsequence_idx": 107,
+  "anomaly_score": 1.8277214986257857,
+  "start_date": "2023-06-22",
+  "end_date": "2023-06-26"
+}

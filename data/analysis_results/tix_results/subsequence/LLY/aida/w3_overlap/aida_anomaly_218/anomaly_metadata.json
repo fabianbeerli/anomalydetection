@@ -1,0 +1,8 @@
+{
+  "ticker": "LLY",
+  "algorithm": "aida",
+  "subsequence_idx": 218,
+  "anomaly_score": 2.03572,
+  "start_date": "2023-11-29",
+  "end_date": "2023-12-01"
+}

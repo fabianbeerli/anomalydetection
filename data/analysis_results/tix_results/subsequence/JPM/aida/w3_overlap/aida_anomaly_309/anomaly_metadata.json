@@ -1,8 +1,0 @@
-{
-  "ticker": "JPM",
-  "algorithm": "aida",
-  "subsequence_idx": 309,
-  "anomaly_score": 2.86011,
-  "start_date": "2024-04-11",
-  "end_date": "2024-04-15"
-}

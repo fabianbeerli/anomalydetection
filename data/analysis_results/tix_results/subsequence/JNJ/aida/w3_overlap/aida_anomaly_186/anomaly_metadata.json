@@ -1,0 +1,8 @@
+{
+  "ticker": "JNJ",
+  "algorithm": "aida",
+  "subsequence_idx": 186,
+  "anomaly_score": 2.00758,
+  "start_date": "2023-10-13",
+  "end_date": "2023-10-17"
+}

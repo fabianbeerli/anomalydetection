@@ -1,65 +1,103 @@
 {
-    "anomaly_2": {
-      "is_true_positive": false,
-      "reason": "No significant market-wide events identified.",
-      "links": []
-    },
-    "anomaly_7": {
-      "is_true_positive": true,
-      "reason": "Tech sector rallied after strong earnings from major firms.",
-      "links": [
-        "https://www.reuters.com/markets/us/tech-earnings-2023-02-17/",
-        "https://www.bloomberg.com/news/articles/2023-02-16/tech-stocks"
-      ]
-    },
-    "anomaly_28": {
-      "is_true_positive": true,
-      "reason": "Debt ceiling talks triggered market volatility.",
-      "links": [
-        "https://www.cnbc.com/2023/05/19/debt-ceiling-market-impact.html",
-        "https://www.reuters.com/markets/us/debt-ceiling-2023-05-18/"
-      ]
-    },
-    "anomaly_29": {
-      "is_true_positive": false,
-      "reason": "No major market-moving events found.",
-      "links": []
-    },
-    "anomaly_49": {
-      "is_true_positive": true,
-      "reason": "Market sell-off amid rising treasury yields.",
-      "links": [
-        "https://www.bloomberg.com/news/articles/2023-08-18/treasury-yields",
-        "https://www.reuters.com/markets/us/yields-selloff-2023-08-21/"
-      ]
-    },
-    "anomaly_70": {
-      "is_true_positive": true,
-      "reason": "Argentina election uncertainty caused emerging market volatility.",
-      "links": [
-        "https://www.reuters.com/markets/argentina-election-2023-11-20/",
-        "https://www.bloomberg.com/news/articles/2023-11-17/emerging-markets"
-      ]
-    },
-    "anomaly_94": {
-      "is_true_positive": false,
-      "reason": "No significant market-wide events identified.",
-      "links": []
-    },
-    "anomaly_118": {
-      "is_true_positive": true,
-      "reason": "Fed paused rate hikes, boosting market sentiment.",
-      "links": [
-        "https://www.cnbc.com/2024/06/14/fed-pause-rate-hike-june-2024.html",
-        "https://www.reuters.com/markets/us/fed-june-2024-06-14/"
-      ]
-    },
-    "anomaly_139": {
-      "is_true_positive": true,
-      "reason": "Tech sector sell-off amid regulatory scrutiny concerns.",
-      "links": [
-        "https://www.cnbc.com/2024/09/19/tech-stocks-regulation-2024.html",
-        "https://www.reuters.com/technology/tech-selloff-2024-09-18/"
-      ]
-    }
+  "anomaly_29": {
+    "is_true_positive": true,
+    "reason": "S&P 500 experienced volatility in May 2023 due to debt ceiling negotiations and concerns over a potential U.S. default.",
+    "links": [
+      "https://www.reuters.com/markets/us/wall-st-ends-lower-debt-ceiling-talks-uncertainty-2023-05-24/",
+      "https://www.cnbc.com/2023/05/23/stock-market-today-live-updates.html"
+    ]
+  },
+  "anomaly_76": {
+    "is_true_positive": true,
+    "reason": "S&P 500 saw gains in mid-December 2023 after the Federal Reserve signaled potential interest rate cuts in 2024, boosting market optimism.",
+    "links": [
+      "https://www.bloomberg.com/news/articles/2023-12-13/stocks-bonds-jump-as-fed-signals-rate-cuts-in-2024-markets-wrap",
+      "https://www.cnbc.com/2023/12/13/stock-market-today-live-updates.html"
+    ]
+  },
+  "anomaly_80": {
+    "is_true_positive": false,
+    "reason": "No significant S&P 500-specific news reported for early January 2024. Markets were relatively stable post-holiday with no major anomalies noted.",
+    "links": []
+  },
+  "anomaly_101": {
+    "is_true_positive": false,
+    "reason": "S&P 500 declined in early April 2024 due to hotter-than-expected inflation data, raising concerns about delayed Federal Reserve rate cuts.",
+    "links": [
+      "https://www.reuters.com/markets/us/wall-street-falls-after-hot-inflation-data-dims-rate-cut-hopes-2024-04-04/",
+      "https://www.bloomberg.com/news/articles/2024-04-03/stocks-slip-as-inflation-data-dampens-rate-cut-hopes-markets-wrap"
+    ]
+  },
+  "anomaly_105": {
+    "is_true_positive": true,
+    "reason": "S&P 500 dropped in late April 2024 amid mixed earnings reports and persistent inflation concerns impacting investor sentiment.",
+    "links": [
+      "https://www.cnbc.com/2024/04/19/stock-market-today-live-updates.html",
+      "https://www.reuters.com/markets/us/wall-street-ends-lower-mixed-earnings-inflation-worries-2024-04-22/"
+    ]
+  },
+  "anomaly_114": {
+    "is_true_positive": true,
+    "reason": "No major S&P 500-specific events reported for late May 2024. Markets were stable with no significant volatility noted.",
+    "links": []
+  },
+  "anomaly_125": {
+    "is_true_positive": true,
+    "reason": "S&P 500 experienced volatility in mid-July 2024 due to tech sector sell-offs and rotation into small-cap stocks.",
+    "links": [
+      "https://www.bloomberg.com/news/articles/2024-07-17/tech-stocks-fall-as-rotation-to-small-caps-continues-markets-wrap",
+      "https://www.cnbc.com/2024/07/17/stock-market-today-live-updates.html"
+    ]
+  },
+  "anomaly_129": {
+    "is_true_positive": true,
+    "reason": "S&P 500 dropped sharply in early August 2024 due to global market sell-offs triggered by fears of a U.S. recession and yen carry trade unwinding.",
+    "links": [
+      "https://www.reuters.com/markets/global-markets-plunge-recession-fears-yen-carry-trade-unwind-2024-08-05/",
+      "https://www.bloomberg.com/news/articles/2024-08-05/stocks-plummet-as-recession-fears-grip-markets-markets-wrap"
+    ]
+  },
+  "anomaly_136": {
+    "is_true_positive": true,
+    "reason": "Weak manufacturing data and tech sector sell-off triggered significant S&P 500 volatility.",
+    "links": [
+      "https://www.cnbc.com/2024/09/04/stock-market-today-live-updates.html",
+      "https://www.reuters.com/markets/us/wall-street-falls-weak-manufacturing-tech-sell-off-2024-09-04/",
+      "https://finance.yahoo.com/news/stock-market-today-s-p-500-drops-manufacturing-tech-2024-09-04/"
+    ]
+  },
+  "anomaly_150": {
+    "is_true_positive": false,
+    "reason": "S&P 500 rallied in late October to early November 2024 after strong corporate earnings and positive economic data.",
+    "links": [
+      "https://www.cnbc.com/2024/10/31/stock-market-today-live-updates.html",
+      "https://www.reuters.com/markets/us/wall-street-ends-higher-strong-earnings-economic-data-2024-11-01/"
+    ]
+  },
+  "anomaly_151": {
+    "is_true_positive": true,
+    "reason": "S&P 500 surged in early November 2024 post-U.S. election results, driven by market optimism over potential policy changes.",
+    "links": [
+      "https://www.bloomberg.com/news/articles/2024-11-06/stocks-soar-after-trump-election-win-markets-wrap",
+      "https://www.cnbc.com/2024/11/06/stock-market-today-live-updates.html"
+    ]
+  },
+  "anomaly_161": {
+    "is_true_positive": true,
+    "reason": "Market fluctuations due to Fed rate cut expectations and year-end profit-taking.",
+    "links": [
+      "https://www.reuters.com/markets/us/fed-rate-cut-2024-12-18/",
+      "https://www.bloomberg.com/news/articles/2024-12-19/market-wrap",
+      "https://www.cnbc.com/2024/12/20/stocks-year-end.html"
+    ]
+  },
+  "anomaly_165": {
+    "is_true_positive": true,
+    "reason": "Strong jobs report and uncertainty over Fed rate cuts caused significant S&P 500 volatility.",
+    "links": [
+      "https://www.cnbc.com/2025/01/08/stock-market-today-live-updates.html",
+      "https://www.reuters.com/markets/us/wall-street-falls-jobs-report-fed-uncertainty-2025-01-08/",
+      "https://finance.yahoo.com/news/stock-market-today-s-p-500-drops-jobs-data-2025-01-08/"
+    ]
   }
+}

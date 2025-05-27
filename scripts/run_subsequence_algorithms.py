@@ -263,17 +263,15 @@ int main(int argc, char** argv) {
             fres << scoresAIDA[i] << endl;
         }
         fres.close();
-        double mean_score = 0.0;
-        double std_score = 0.0;
-        for (int i = 0; i < n; ++i) {
-            mean_score += scoresAIDA[i];
-        }
-        mean_score /= n;
-        for (int i = 0; i < n; ++i) {
-            std_score += (scoresAIDA[i] - mean_score) * (scoresAIDA[i] - mean_score);
-        }
-        std_score = sqrt(std_score / n);
-        double threshold = mean_score + 2 * std_score;
+        // Compute mean and stddev
+        double mean = 0.0, stddev = 0.0;
+        for (int i = 0; i < n; ++i) mean += scoresAIDA[i];
+        mean /= n;
+        for (int i = 0; i < n; ++i) stddev += (scoresAIDA[i] - mean) * (scoresAIDA[i] - mean);
+        stddev = sqrt(stddev / n);
+        double threshold = mean + 1.5 * stddev;
+        cout << "mean: " << mean << ", stddev: " << stddev << ", threshold: " << threshold << endl;
+
         ofstream fanom(output_anomalies_file);
         int anomaly_count = 0;
         fanom << "index,subsequence_idx,score" << endl;

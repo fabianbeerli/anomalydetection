@@ -305,7 +305,7 @@ int main(int argc, char** argv) {
         }
         std_score = sqrt(std_score / n);
         
-        double threshold = mean_score + 2 * std_score;
+        double threshold = mean_score + 1.5 * std_score;
         
         // Write anomalies
         ofstream fanom(output_anomalies_file);

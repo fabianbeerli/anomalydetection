@@ -1,8 +1,0 @@
-{
-  "ticker": "BG",
-  "algorithm": "lof",
-  "subsequence_idx": 12,
-  "anomaly_score": 12.761009341512525,
-  "start_date": "2023-03-10",
-  "end_date": "2023-03-14"
-}

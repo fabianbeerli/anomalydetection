@@ -1,0 +1,8 @@
+{
+  "ticker": "PG",
+  "algorithm": "lof",
+  "subsequence_idx": 64,
+  "anomaly_score": 2.4813018216932585,
+  "start_date": "2023-04-20",
+  "end_date": "2023-04-24"
+}

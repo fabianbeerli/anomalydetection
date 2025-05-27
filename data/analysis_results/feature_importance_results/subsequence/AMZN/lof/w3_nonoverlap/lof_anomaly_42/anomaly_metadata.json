@@ -2,7 +2,7 @@
   "ticker": "AMZN",
   "algorithm": "lof",
   "subsequence_idx": 42,
-  "anomaly_score": 3.1775903509366814,
+  "anomaly_score": 2.438159204475189,
   "start_date": "2023-07-20",
   "end_date": "2023-07-24"
 }

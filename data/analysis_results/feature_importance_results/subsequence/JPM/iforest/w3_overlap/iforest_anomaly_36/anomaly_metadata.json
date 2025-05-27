@@ -2,7 +2,7 @@
   "ticker": "JPM",
   "algorithm": "iforest",
   "subsequence_idx": 36,
-  "anomaly_score": 3.143083338434063,
+  "anomaly_score": 2.2534613712093594,
   "start_date": "2023-03-10",
   "end_date": "2023-03-14"
 }

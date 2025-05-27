@@ -1,0 +1,8 @@
+{
+  "ticker": "BRK-B",
+  "algorithm": "aida",
+  "subsequence_idx": 12,
+  "anomaly_score": 2.22982,
+  "start_date": "2023-02-03",
+  "end_date": "2023-02-07"
+}

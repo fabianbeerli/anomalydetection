@@ -1,0 +1,8 @@
+{
+  "ticker": "CRM",
+  "algorithm": "aida",
+  "subsequence_idx": 244,
+  "anomaly_score": 2.30213,
+  "start_date": "2024-01-08",
+  "end_date": "2024-01-10"
+}

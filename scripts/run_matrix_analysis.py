@@ -107,7 +107,7 @@ def detect_anomalies_aida_intrawindow(multi_ts_data, metadata_list, multi_ts_dir
         # Adjust these paths as needed for your setup
         root_dir = Path(multi_ts_dir).parent.parent.parent
         aida_cpp_dir = root_dir / "AIDA" / "C++"
-        aida_executable = aida_cpp_dir / "build" / "aida_matrix_detection"
+        aida_executable = aida_cpp_dir / "build" / "aida_intrawindow_detection"
 
         scores = []
         anomaly_records = []
@@ -305,7 +305,7 @@ def detect_anomalies_aida_intrawindow(multi_ts_data, metadata_list, multi_ts_dir
 #     mean /= scores.size();
 #     for (double s : scores) stddev += (s - mean) * (s - mean);
 #     stddev = sqrt(stddev / scores.size());
-#     double threshold = mean + 2 * stddev;
+#     double threshold = mean + 1.5 * stddev;
 # 
 #     ofstream fanom(string(input_file) + "_AIDA_anomalies.csv");
 #     fanom << "index,score" << endl;
@@ -592,7 +592,7 @@ def save_matrix_as_csv(matrix, csv_path, feature_names=None):
         logger.info(f"Saving matrix to {csv_path} with generic header: {header}")
     
     df = pd.DataFrame(matrix_2d, columns=header)
-    df.to_csv(csv_path, index=False)
+    df.to_csv(csv_path, index=False, header=False)
 
 def save_multi_ts_results(algorithm, scores, anomaly_periods, execution_time, output_dir):
     """
@@ -777,7 +777,7 @@ def run_multi_ts_analysis_windowwise(multi_ts_dir, output_dir, window_size=3, ov
             end_time = time.time()
             execution_time = end_time - start_time
             # Use mean+2std as threshold for anomaly
-            threshold = scores.mean() + 2 * scores.std()
+            threshold = scores.mean() + 1.5 * scores.std()
             anomaly_indices = np.where(scores > threshold)[0]
             anomaly_records = []
             for idx in anomaly_indices:
@@ -807,7 +807,7 @@ def run_multi_ts_analysis_windowwise(multi_ts_dir, output_dir, window_size=3, ov
             scores = -lof.negative_outlier_factor_
             end_time = time.time()
             execution_time = end_time - start_time
-            threshold = scores.mean() + 2 * scores.std()
+            threshold = scores.mean() + 1.5 * scores.std()
             anomaly_indices = np.where(scores > threshold)[0]
             anomaly_records = []
             for idx in anomaly_indices:

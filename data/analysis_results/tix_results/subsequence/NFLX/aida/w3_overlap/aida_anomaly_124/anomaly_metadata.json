@@ -1,0 +1,8 @@
+{
+  "ticker": "NFLX",
+  "algorithm": "aida",
+  "subsequence_idx": 124,
+  "anomaly_score": 2.29335,
+  "start_date": "2023-07-18",
+  "end_date": "2023-07-20"
+}

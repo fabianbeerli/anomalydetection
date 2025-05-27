@@ -1,0 +1,8 @@
+{
+  "ticker": "sp500",
+  "algorithm": "lof",
+  "subsequence_idx": 365,
+  "anomaly_score": 1.691830986019354,
+  "start_date": "2024-07-02",
+  "end_date": "2024-07-05"
+}

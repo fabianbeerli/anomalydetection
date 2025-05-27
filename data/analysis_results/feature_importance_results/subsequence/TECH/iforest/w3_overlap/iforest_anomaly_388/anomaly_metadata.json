@@ -1,8 +1,0 @@
-{
-  "ticker": "TECH",
-  "algorithm": "iforest",
-  "subsequence_idx": 388,
-  "anomaly_score": 2.7747354563833535,
-  "start_date": "2024-08-05",
-  "end_date": "2024-08-07"
-}

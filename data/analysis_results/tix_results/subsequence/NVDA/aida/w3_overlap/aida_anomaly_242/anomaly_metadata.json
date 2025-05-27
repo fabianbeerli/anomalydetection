@@ -1,0 +1,8 @@
+{
+  "ticker": "NVDA",
+  "algorithm": "aida",
+  "subsequence_idx": 242,
+  "anomaly_score": 2.77765,
+  "start_date": "2024-01-04",
+  "end_date": "2024-01-08"
+}

@@ -1,8 +1,0 @@
-{
-  "ticker": "VTR",
-  "algorithm": "lof",
-  "subsequence_idx": 181,
-  "anomaly_score": 5.092872531698623,
-  "start_date": "2025-03-19",
-  "end_date": "2025-03-21"
-}

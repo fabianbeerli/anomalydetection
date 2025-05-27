@@ -1,0 +1,8 @@
+{
+  "ticker": "WMT",
+  "algorithm": "aida",
+  "subsequence_idx": 97,
+  "anomaly_score": 2.05436,
+  "start_date": "2024-03-15",
+  "end_date": "2024-03-19"
+}

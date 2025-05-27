@@ -1,0 +1,8 @@
+{
+  "ticker": "ORCL",
+  "algorithm": "iforest",
+  "subsequence_idx": 50,
+  "anomaly_score": 1.965623398844472,
+  "start_date": "2023-08-23",
+  "end_date": "2023-08-25"
+}

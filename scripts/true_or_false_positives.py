@@ -10,7 +10,7 @@ shapes = ['o', 's', '^']
 colors = ['tab:red', 'tab:blue', 'tab:green']
 offsets = [40, -80, 120]  # y-offsets for each algo
 base_dir = Path("data/analysis_results/true_or_false_positives")
-sp500_file = Path("data/processed/index_GSPC_processed.csv")
+sp500_file = Path("data/raw/index_GSPC.csv")
 
 
 

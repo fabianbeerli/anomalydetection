@@ -1,0 +1,8 @@
+{
+  "ticker": "AVGO",
+  "algorithm": "lof",
+  "subsequence_idx": 46,
+  "anomaly_score": 2.5937448367045906,
+  "start_date": "2023-08-07",
+  "end_date": "2023-08-09"
+}

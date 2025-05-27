@@ -1,0 +1,8 @@
+{
+  "ticker": "KO",
+  "algorithm": "iforest",
+  "subsequence_idx": 151,
+  "anomaly_score": 1.7130617927011889,
+  "start_date": "2024-11-05",
+  "end_date": "2024-11-07"
+}

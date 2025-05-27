@@ -1,8 +1,0 @@
-{
-  "ticker": "NVDA",
-  "algorithm": "iforest",
-  "subsequence_idx": 25,
-  "anomaly_score": 2.7257684898704397,
-  "start_date": "2023-02-23",
-  "end_date": "2023-02-27"
-}

@@ -1,0 +1,8 @@
+{
+  "ticker": "MA",
+  "algorithm": "iforest",
+  "subsequence_idx": 525,
+  "anomaly_score": 2.4684968641187273,
+  "start_date": "2025-02-21",
+  "end_date": "2025-02-25"
+}

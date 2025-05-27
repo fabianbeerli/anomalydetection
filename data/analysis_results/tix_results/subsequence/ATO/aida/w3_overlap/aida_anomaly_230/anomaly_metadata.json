@@ -1,8 +1,0 @@
-{
-  "ticker": "ATO",
-  "algorithm": "aida",
-  "subsequence_idx": 230,
-  "anomaly_score": 2.74849,
-  "start_date": "2023-12-15",
-  "end_date": "2023-12-19"
-}

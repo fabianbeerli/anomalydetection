@@ -1,0 +1,8 @@
+{
+  "ticker": "HD",
+  "algorithm": "lof",
+  "subsequence_idx": 516,
+  "anomaly_score": 1.5883399237193496,
+  "start_date": "2025-02-07",
+  "end_date": "2025-02-11"
+}

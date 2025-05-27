@@ -1,0 +1,8 @@
+{
+  "ticker": "TMUS",
+  "algorithm": "aida",
+  "subsequence_idx": 65,
+  "anomaly_score": 2.24722,
+  "start_date": "2023-10-26",
+  "end_date": "2023-10-30"
+}

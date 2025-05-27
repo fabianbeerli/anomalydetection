@@ -21,17 +21,72 @@ END_DATE = '2025-03-26'
 SP500_TICKER = '^GSPC'
 
 # Top 10 S&P 500 constituents by weight (as of 2025)
+# TOP_SP500_CONSTITUENTS = [
+#     'MSFT',   # Microsoft
+#     'NVDA',   # Nvidia
+#     'AAPL',   # Apple Inc.
+#     'AMZN',   # Amazon
+#     'GOOG',   # Alphabet Inc. (Class C)
+#     'GOOGL',  # Alphabet Inc. (Class A)
+#     'META',   # Meta Platforms
+#     'TSLA',   # Tesla, Inc.ß
+#     'BRK-B',  # Berkshire Hathaway
+#     'AVGO',   # Broadcom
+#     'WMT',    # Walmart
+#     'JPM',    # Jpmorgan Chase
+#     'V',      # Visa Inc.
+#     'LLY',    # Lilly (Eli)
+#     'MA',     # Mastercard
+#     'NFLX',   # Netflix
+#     'COST',   # Costco
+#     'XOM',    # Exxonmobil
+#     'ORCL',   # Oracle Corporation
+#     'PG',     # Procter & Gamble
+#     'JNJ',    # Johnson & Johnson
+#     'HD',     # Home Depotß
+#     'BAC',    # Bank of America
+#     'ABBV',   # Abbvie
+#     'KO',     # Coca-Cola Company
+#     'PLTR',   # Palantir Technologies
+#     'PM',     # Philip Morris International
+#     'TMUS',   # T-Mobile Us
+#     'UNH',    # Unitedhealth Group
+#     'CRM',    # Salesforce
+# ]
+
+# Top 10 S&P 500 constituents by weight (as of 2025)
 TOP_SP500_CONSTITUENTS = [
-    'AAPL',  # Apple Inc.
-    'MSFT',  # Microsoft Corporation
-    'AMZN',  # Amazon.com Inc.
-    'NVDA',  # NVIDIA Corporation
-    'GOOGL', # Alphabet Inc. Class A
-    'GOOG',  # Alphabet Inc. Class C
-    'META',  # Meta Platforms Inc.
-    'BRK-B', # Berkshire Hathaway Inc. Class B
-    'JPM',   # JPMorgan Chase & Co.
-    'LLY'    # Eli Lilly and Company
+    'MSFT',   # Microsoft
+    'NVDA',   # Nvidia
+    'AAPL',   # Apple Inc.
+    'AMZN',   # Amazon
+    'GOOG',   # Alphabet Inc. (Class C)
+    'GOOGL',  # Alphabet Inc. (Class A)
+    'META',   # Meta Platforms
+    'TSLA',   # Tesla, Inc.
+    'BRK-B',  # Berkshire Hathaway
+    'AVGO',   # Broadcom
+    "HSIC",   # Henry Schein
+    "IPG",    # Interpublic Group of Companies
+    "HII",    # Huntington Ingalls Industries
+    "MGM",    # Mgm Resorts
+    "MKTX",   # Marketaxess
+    "PARA",   # Paramount Global
+    "FRT",    # Federal Realty Investment Trust
+    "NCLH",   # Norwegian Cruise Line Holdings
+    "TECH",   # Bio-Techne
+    "GNRC",   # Generac
+    "MTCH",   # Match Group
+    "LW",     # Lamb Weston
+    "AES",    # Aes Corporation
+    "ALB",    # Albemarle Corporation
+    "CRL",    # Charles River Laboratories
+    "IVZ",    # Invesco
+    "MHK",    # Mohawk Industries
+    "APA",    # Apa Corporation
+    "CZR",    # Caesars Entertainment
+    "ENPH",   # Enphase Energy
+
 ]
 
 # Additional 20 stocks will be randomly selected from remaining S&P 500 constituents

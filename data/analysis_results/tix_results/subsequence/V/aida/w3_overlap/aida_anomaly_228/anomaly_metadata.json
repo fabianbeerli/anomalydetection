@@ -1,0 +1,8 @@
+{
+  "ticker": "V",
+  "algorithm": "aida",
+  "subsequence_idx": 228,
+  "anomaly_score": 1.86011,
+  "start_date": "2023-12-13",
+  "end_date": "2023-12-15"
+}

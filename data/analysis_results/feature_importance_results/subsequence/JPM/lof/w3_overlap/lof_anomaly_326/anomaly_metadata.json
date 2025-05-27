@@ -1,0 +1,8 @@
+{
+  "ticker": "JPM",
+  "algorithm": "lof",
+  "subsequence_idx": 326,
+  "anomaly_score": 1.7523206731032197,
+  "start_date": "2024-05-06",
+  "end_date": "2024-05-08"
+}

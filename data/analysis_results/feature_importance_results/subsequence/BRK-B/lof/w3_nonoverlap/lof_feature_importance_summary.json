@@ -1,13 +1,24 @@
 {
   "algorithm": "lof",
-  "total_anomalies_analyzed": 7,
+  "total_anomalies_analyzed": 18,
   "anomalies": [
+    4,
     13,
+    24,
+    46,
     55,
+    58,
+    73,
+    92,
+    113,
     119,
-    122,
+    129,
+    136,
+    143,
+    150,
+    151,
     161,
-    175,
-    181
+    165,
+    175
   ]
 }

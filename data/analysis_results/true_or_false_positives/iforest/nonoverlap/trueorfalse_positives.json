@@ -1,84 +1,140 @@
 {
-    "anomaly_12": {
-      "is_true_positive": true,
-      "reason": "Silicon Valley Bank collapse sparked banking sector panic.",
-      "links": [
-        "https://www.reuters.com/business/finance/svb-collapse-2023-03-16/",
-        "https://www.bloomberg.com/news/articles/2023-03-15/svb-crisis"
-      ]
-    },
-    "anomaly_13": {
-      "is_true_positive": true,
-      "reason": "Continued market volatility from banking crisis fears.",
-      "links": [
-        "https://www.cnbc.com/2023/03/17/banking-crisis-market-impact.html",
-        "https://www.reuters.com/markets/us/banking-turmoil-2023-03-15/"
-      ]
-    },
-    "anomaly_55": {
-      "is_true_positive": true,
-      "reason": "OPEC+ production cut talks drove oil price surge.",
-      "links": [
-        "https://www.reuters.com/business/energy/opec-cuts-2023-09-14/",
-        "https://www.bloomberg.com/news/articles/2023-09-15/oil-prices"
-      ]
-    },
-    "anomaly_76": {
-      "is_true_positive": true,
-      "reason": "Fed signaled dovish policy, boosting market optimism.",
-      "links": [
-        "https://www.cnbc.com/2023/12/13/fed-meeting-december-2023.html",
-        "https://www.reuters.com/markets/us/fed-policy-2023-12-13/"
-      ]
-    },
-    "anomaly_97": {
-      "is_true_positive": true,
-      "reason": "Middle East tensions increased oil price volatility.",
-      "links": [
-        "https://www.reuters.com/world/middle-east/tensions-2024-03-15/",
-        "https://www.bloomberg.com/news/articles/2024-03-16/oil-geopolitics"
-      ]
-    },
-    "anomaly_129": {
-      "is_true_positive": true,
-      "reason": "Global market sell-off amid yen carry trade unwind.",
-      "links": [
-        "https://www.bloomberg.com/news/articles/2024-08-05/yen-carry-trade-unwind",
-        "https://www.reuters.com/markets/global-selloff-2024-08-02/"
-      ]
-    },
-    "anomaly_151": {
-      "is_true_positive": true,
-      "reason": "Post-election market surge on policy expectations.",
-      "links": [
-        "https://www.cnbc.com/2024/11/06/election-market-rally-2024.html",
-        "https://www.bloomberg.com/news/articles/2024-11-05/us-election-markets"
-      ]
-    },
-    "anomaly_161": {
-      "is_true_positive": true,
-      "reason": "Fed rate cut expectations fueled market rally.",
-      "links": [
-        "https://www.bloomberg.com/news/articles/2024-12-18/fed-rate-cut",
-        "https://www.reuters.com/markets/us/fed-policy-2024-12-18/"
-      ]
-    },
-    "anomaly_162": {
-      "is_true_positive": false,
-      "reason": "No major market-moving events identified.",
-      "links": []
-    },
-    "anomaly_176": {
-      "is_true_positive": true,
-      "reason": "Tesla sales drop in Europe impacted tech stocks.",
-      "links": [
-        "https://www.reuters.com/business/autos-transportation/tesla-german-sales-2025-03-06/",
-        "https://www.cnn.com/2025/03/05/business/tesla-sales-europe"
-      ]
-    },
-    "anomaly_177": {
-      "is_true_positive": false,
-      "reason": "No significant market events found.",
-      "links": []
-    }
+  "anomaly_12": {
+    "is_true_positive": true,
+    "reason": "Significant volatility due to Silicon Valley Bank collapse impacting financial stocks.",
+    "links": [
+      "https://www.reuters.com/markets/us/svb-collapse-2023-03-10/",
+      "https://www.bloomberg.com/news/articles/2023-03-13/banking-crisis",
+      "https://www.cnbc.com/2023/03/12/svb-financial-fallout.html"
+    ]
+  },
+  "anomaly_22": {
+    "is_true_positive": true,
+    "reason": "S&P 500 dropped on April 24-26, 2023, due to disappointing earnings reports and economic growth concerns.",
+    "links": [
+      "https://www.reuters.com/markets/us/wall-street-falls-earnings-disappoint-growth-concerns-linger-2023-04-25/",
+      "https://www.cnbc.com/2023/04/25/stock-market-today-live-updates.html"
+    ]
+  },
+  "anomaly_55": {
+    "is_true_positive": true,
+    "reason": "Rising oil prices and Fed rate hike concerns triggered notable S&P 500 fluctuations.",
+    "links": [
+      "https://www.cnbc.com/2023/09/14/stock-market-today-live-updates.html",
+      "https://www.reuters.com/markets/us/wall-street-ends-lower-oil-prices-fed-concerns-2023-09-14/",
+      "https://finance.yahoo.com/news/stock-market-today-s-p-500-dips-oil-fed-2023-09-14/"
+    ]
+  },
+  "anomaly_56": {
+    "is_true_positive": true,
+    "reason": "Market volatility following Fed's rate pause and hawkish comments.",
+    "links": [
+      "https://www.reuters.com/markets/us/fed-rates-2023-09-21/",
+      "https://www.bloomberg.com/news/articles/2023-09-22/fed-policy",
+      "https://www.cnbc.com/2023/09/20/fed-rate-decision.html"
+    ]
+  },
+  "anomaly_76": {
+    "is_true_positive": true,
+    "reason": "Market rally following Federal Reserve's dovish stance on rates.",
+    "links": [
+      "https://www.federalreserve.gov/monetarypolicy/fomc-2023-12-13.htm",
+      "https://www.reuters.com/markets/us/fed-rates-2023-12-14/",
+      "https://www.wsj.com/finance/stocks-rally-2023-12-15"
+    ]
+  },
+  "anomaly_101": {
+    "is_true_positive": false,
+    "reason": "Market dip due to strong jobs data and inflation concerns.",
+    "links": [
+      "https://www.reuters.com/markets/us/inflation-jobs-2024-04-04/",
+      "https://www.bloomberg.com/news/articles/2024-04-03/us-jobs-report",
+      "https://www.cnbc.com/2024/04/03/market-update.html"
+    ]
+  },
+"anomaly_114": {
+    "is_true_positive": true,
+    "reason": "Strong jobs data and trade talk progress drove significant S&P 500 gains.",
+    "links": [
+      "https://www.cnbc.com/2024/05/31/stock-market-today-live-updates.html",
+      "https://www.reuters.com/markets/us/wall-street-ends-higher-jobs-data-trade-talks-2024-05-31/",
+      "https://finance.yahoo.com/news/stock-market-today-s-p-500-rises-jobs-trade-2024-05-31/"
+    ]
+  },
+  "anomaly_126": {
+    "is_true_positive": false,
+    "reason": "Tech sector volatility due to mixed earnings and global chip supply concerns.",
+    "links": [
+      "https://www.cnbc.com/2024/07/23/tech-earnings-2024.html",
+      "https://www.reuters.com/technology/chip-supply-2024-07-22/",
+      "https://www.bloomberg.com/news/articles/2024-07-24/tech-stocks"
+    ]
+  },
+  "anomaly_129": {
+    "is_true_positive": true,
+    "reason": "Global market sell-off triggered by recession fears and yen carry trade unwind.",
+    "links": [
+      "https://www.reuters.com/markets/global-markets-2024-08-05/",
+      "https://www.bloomberg.com/news/articles/2024-08-06/yen-carry-trade",
+      "https://www.cnbc.com/2024/08/03/recession-fears.html"
+    ]
+  },
+  "anomaly_136": {
+    "is_true_positive": true,
+    "reason": "Weak manufacturing data and tech sector sell-off triggered significant S&P 500 volatility.",
+    "links": [
+      "https://www.cnbc.com/2024/09/04/stock-market-today-live-updates.html",
+      "https://www.reuters.com/markets/us/wall-street-falls-weak-manufacturing-tech-sell-off-2024-09-04/",
+      "https://finance.yahoo.com/news/stock-market-today-s-p-500-drops-manufacturing-tech-2024-09-04/"
+    ]
+  },
+  "anomaly_150": {
+    "is_true_positive": false,
+    "reason": "Market volatility amid US presidential election uncertainty and Fed signals.",
+    "links": [
+      "https://www.reuters.com/markets/us/election-market-2024-11-04/",
+      "https://www.bloomberg.com/news/articles/2024-11-03/fed-rates",
+      "https://www.cnbc.com/2024/11/01/stocks-election.html"
+    ]
+  },
+  "anomaly_151": {
+    "is_true_positive": true,
+    "reason": "Market surge post-US presidential election results and Fed rate signals.",
+    "links": [
+      "https://www.reuters.com/markets/us/election-market-2024-11-06/",
+      "https://www.bloomberg.com/news/articles/2024-11-05/fed-rates",
+      "https://www.cnbc.com/2024/11/06/stocks-election.html"
+    ]
+  },
+  "anomaly_161": {
+    "is_true_positive": true,
+    "reason": "Market fluctuations due to Fed rate cut expectations and year-end profit-taking.",
+    "links": [
+      "https://www.reuters.com/markets/us/fed-rate-cut-2024-12-18/",
+      "https://www.bloomberg.com/news/articles/2024-12-19/market-wrap",
+      "https://www.cnbc.com/2024/12/20/stocks-year-end.html"
+    ]
+  },
+  "anomaly_175": {
+    "is_true_positive": false,
+    "reason": "Market dip amid concerns over proposed tariffs and inflation data.",
+    "links": [
+      "https://www.reuters.com/markets/us/tariffs-2025-02-24/",
+      "https://www.bloomberg.com/news/articles/2025-02-22/inflation-data",
+      "https://www.cnbc.com/2025/02/21/market-update.html"
+    ]
+  },
+"anomaly_176": {
+    "is_true_positive": true,
+    "reason": "Nvidia's earnings miss and Trump-Zelenskyy clash drove significant S&P 500 volatility.",
+    "links": [
+      "https://www.cnbc.com/2025/02/28/stock-market-today-live-updates.html",
+      "https://www.reuters.com/markets/us/wall-street-ends-higher-after-zelenskiy-trump-clash-2025-03-01/",
+      "https://finance.yahoo.com/news/stock-market-today-s-p-500-rises-despite-nvidia-trump-2025-02-28/"
+    ]
+  },
+  "summary": {
+    "true_positives": 15,
+    "false_positives": 0
   }
+}

@@ -1,8 +1,0 @@
-{
-  "ticker": "PWR",
-  "algorithm": "iforest",
-  "subsequence_idx": 503,
-  "anomaly_score": 3.150434579174115,
-  "start_date": "2025-01-21",
-  "end_date": "2025-01-23"
-}

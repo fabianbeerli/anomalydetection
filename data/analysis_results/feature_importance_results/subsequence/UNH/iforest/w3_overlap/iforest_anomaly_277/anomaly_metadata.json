@@ -1,0 +1,8 @@
+{
+  "ticker": "UNH",
+  "algorithm": "iforest",
+  "subsequence_idx": 277,
+  "anomaly_score": 2.707372807419053,
+  "start_date": "2024-02-26",
+  "end_date": "2024-02-28"
+}

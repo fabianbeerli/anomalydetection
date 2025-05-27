@@ -98,145 +98,151 @@ def preprocess_data(df):
     except Exception as e:
         logger.error(f"Error preprocessing data: {e}")
         return df
-
-
+    
 def engineer_features(df, ticker=None, sp500_df=None):
     """
     Engineer features from financial data.
-    
-    Args:
-        df (pandas.DataFrame): Preprocessed financial data
-        ticker (str, optional): Ticker symbol for the data
-        sp500_df (pandas.DataFrame, optional): S&P 500 index data for market-relative metrics
-    
-    Returns:
-        pandas.DataFrame: Data with engineered features
     """
     if df is None or df.empty:
         logger.warning("No data for feature engineering")
         return None
-    
+
     try:
         logger.info(f"Engineering features for {ticker if ticker else 'unknown ticker'}")
-        
-        # Make a copy to avoid modifying the original
         df_feat = df.copy()
-        
+
         # Convert all columns to numeric if they're not already
         for col in df_feat.columns:
             if not pd.api.types.is_numeric_dtype(df_feat[col]):
                 df_feat[col] = pd.to_numeric(df_feat[col], errors='coerce')
-        
+
         # 1. Return Metrics
-        # Daily returns
         df_feat['daily_return'] = df_feat['Close'].pct_change()
-        
-        # Log returns
         df_feat['log_return'] = np.log(df_feat['Close'] / df_feat['Close'].shift(1))
-        
+
         # 2. Volume Metrics
-        # Volume change
         df_feat['volume_change'] = df_feat['Volume'].pct_change()
-        
-        # Relative volume (compared to 10-day moving average)
-        df_feat['relative_volume'] = df_feat['Volume'] / df_feat['Volume'].rolling(
-            window=config.WINDOW_SIZES['volume']).mean()
-        
+        df_feat['relative_volume'] = df_feat['Volume'] / df_feat['Volume'].rolling(window=10).mean()
+
         # 3. Price Movement Characteristics
-        # High-low range
         df_feat['high_low_range'] = (df_feat['High'] - df_feat['Low']) / df_feat['Low']
-        
+
         # 4. Market-Relative Metrics (if S&P 500 data is provided)
         if sp500_df is not None and ticker != config.SP500_TICKER:
             try:
-                # Ensure the indices align
                 sp500_aligned = sp500_df.reindex(df_feat.index)
-                
-                # Calculate excess return (stock return - market return)
                 df_feat['excess_return'] = df_feat['daily_return'] - sp500_aligned['daily_return']
-                
                 logger.info("Added market-relative metrics")
             except Exception as e:
                 logger.error(f"Error calculating market-relative metrics: {e}")
-        
-        # 5. Statistical Normalization
-        
+
+        # 5. Statistical Normalization (rolling 10-day window)
+        window = 10
+
         # Z-score normalization for return-based features within a rolling window
         return_features = ['daily_return', 'log_return']
         for feature in return_features:
             if feature in df_feat.columns:
-                # Calculate rolling mean and std
-                roll_mean = df_feat[feature].rolling(window=config.WINDOW_SIZES['returns']).mean()
-                roll_std = df_feat[feature].rolling(window=config.WINDOW_SIZES['returns']).std()
-                
-                # Calculate z-score (with handling for division by zero)
+                roll_mean = df_feat[feature].rolling(window=window).mean()
+                roll_std = df_feat[feature].rolling(window=window).std()
                 roll_std_safe = np.where(roll_std == 0, np.nan, roll_std)
                 df_feat[f'{feature}_zscore'] = (df_feat[feature] - roll_mean) / roll_std_safe
-        
+
         # Z-score normalization for volume-based features
         volume_features = ['volume_change', 'relative_volume']
         for feature in volume_features:
             if feature in df_feat.columns:
-                # Calculate rolling mean and std
-                roll_mean = df_feat[feature].rolling(window=config.WINDOW_SIZES['volume']).mean()
-                roll_std = df_feat[feature].rolling(window=config.WINDOW_SIZES['volume']).std()
-                
-                # Calculate z-score (with handling for division by zero)
+                roll_mean = df_feat[feature].rolling(window=window).mean()
+                roll_std = df_feat[feature].rolling(window=window).std()
                 roll_std_safe = np.where(roll_std == 0, np.nan, roll_std)
                 df_feat[f'{feature}_zscore'] = (df_feat[feature] - roll_mean) / roll_std_safe
-        
+
+        # Z-score normalization for price columns
+        price_cols = ['Open', 'High', 'Low', 'Close']
+        for feature in price_cols:
+            if feature in df_feat.columns:
+                roll_mean = df_feat[feature].rolling(window=window).mean()
+                roll_std = df_feat[feature].rolling(window=window).std()
+                roll_std_safe = np.where(roll_std == 0, np.nan, roll_std)
+                df_feat[f'{feature.lower()}_std'] = (df_feat[feature] - roll_mean) / roll_std_safe
+
+        # Z-score normalization for high_low_range and excess_return
+        extra_features = ['high_low_range', 'excess_return']
+        for feature in extra_features:
+            if feature in df_feat.columns:
+                roll_mean = df_feat[feature].rolling(window=window).mean()
+                roll_std = df_feat[feature].rolling(window=window).std()
+                roll_std_safe = np.where(roll_std == 0, np.nan, roll_std)
+                df_feat[f'{feature}_zscore'] = (df_feat[feature] - roll_mean) / roll_std_safe
+
         # Logarithmic transformation for volume
         if 'Volume' in df_feat.columns:
-            # Ensure volume is positive before taking log
-            volume_positive = np.maximum(df_feat['Volume'], 1e-10)  # Small positive value to avoid log(0)
-            df_feat['log_volume'] = np.log1p(volume_positive)  # log(1+x) to handle zeros
-        
+            volume_positive = np.maximum(df_feat['Volume'], 1e-10)
+            df_feat['log_volume'] = np.log1p(volume_positive)
+
         # Remove the first few rows that have NaN due to rolling window calculations
-        df_feat = df_feat.iloc[max(config.WINDOW_SIZES.values()):]
-        
+        df_feat = df_feat.iloc[window:]
+
         # Replace any remaining infinities with NaN
         df_feat.replace([np.inf, -np.inf], np.nan, inplace=True)
-        
+
         # Fill any remaining NaNs with 0
         df_feat.fillna(0, inplace=True)
-        
+
         logger.info(f"Feature engineering complete, {len(df_feat)} records with {len(df_feat.columns)} features")
         return df_feat
-    
+
     except Exception as e:
         logger.error(f"Error engineering features: {e}")
         return df
+
+def select_model_features(df):
+    """
+    Select only standardized/log features for modeling.
+    Returns a DataFrame with only those columns, and renames for clarity.
+    """
+    model_features = [
+        'open_std', 'high_std', 'low_std', 'close_std',
+        'daily_return_zscore', 'log_return_zscore',
+        'volume_change_zscore', 'relative_volume_zscore',
+        'log_volume',
+        'high_low_range_zscore',
+        'excess_return_zscore'
+    ]
+    rename_map = {
+        'daily_return_zscore': 'daily_return_std',
+        'log_return_zscore': 'log_return_std',
+        'volume_change_zscore': 'volume_change_std',
+        'relative_volume_zscore': 'relative_volume_std',
+        'high_low_range_zscore': 'high_low_range_std',
+        'excess_return_zscore': 'excess_return_std'
+    }
+    # Only keep columns that exist (in case some are missing)
+    available = [col for col in model_features if col in df.columns]
+    selected = df[available].copy()
+    selected.rename(columns=rename_map, inplace=True)
+    return selected
 
 
 def save_processed_data(df, ticker, output_dir):
     """
     Save processed data to a CSV file.
-    
-    Args:
-        df (pandas.DataFrame): Processed data
-        ticker (str): Ticker symbol
-        output_dir (Path): Directory to save the file
-    
-    Returns:
-        Path: Path to the saved file or None if operation failed
     """
     if df is None or df.empty:
         logger.warning(f"No processed data to save for {ticker}")
         return None
-    
+
     try:
-        # Create the output directory if it doesn't exist
         output_dir.mkdir(exist_ok=True, parents=True)
-        
-        # Sanitize ticker for filename
         ticker_safe = ticker.replace('^', 'index_').replace('/', '_')
         filename = output_dir / f"{ticker_safe}_processed.csv"
-        
-        # Save the data
-        df.to_csv(filename)
+
+        # Only save model features
+        df_model = select_model_features(df)
+        df_model.to_csv(filename)
         logger.info(f"Saved processed data for {ticker} to {filename}")
         return filename
-    
+
     except Exception as e:
         logger.error(f"Error saving processed data for {ticker}: {e}")
         return None

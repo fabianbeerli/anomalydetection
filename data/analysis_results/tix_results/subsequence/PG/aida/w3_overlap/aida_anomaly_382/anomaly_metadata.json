@@ -1,0 +1,8 @@
+{
+  "ticker": "PG",
+  "algorithm": "aida",
+  "subsequence_idx": 382,
+  "anomaly_score": 2.64405,
+  "start_date": "2024-07-26",
+  "end_date": "2024-07-30"
+}

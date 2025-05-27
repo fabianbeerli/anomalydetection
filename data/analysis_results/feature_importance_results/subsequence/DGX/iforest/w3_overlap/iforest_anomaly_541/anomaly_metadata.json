@@ -1,8 +1,0 @@
-{
-  "ticker": "DGX",
-  "algorithm": "iforest",
-  "subsequence_idx": 541,
-  "anomaly_score": 2.2277953195867104,
-  "start_date": "2025-03-17",
-  "end_date": "2025-03-19"
-}

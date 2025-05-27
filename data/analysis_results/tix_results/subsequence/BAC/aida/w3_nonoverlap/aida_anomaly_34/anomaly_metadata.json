@@ -1,0 +1,8 @@
+{
+  "ticker": "BAC",
+  "algorithm": "aida",
+  "subsequence_idx": 34,
+  "anomaly_score": 1.8927,
+  "start_date": "2023-06-14",
+  "end_date": "2023-06-16"
+}

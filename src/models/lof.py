@@ -74,7 +74,7 @@ class LOF:
             scores = (scores - np.mean(scores)) / np.std(scores)
             
             # Use mean + 2*std threshold instead of contamination
-            threshold = np.mean(scores) + 2 * np.std(scores)
+            threshold = np.mean(scores) + 1.5 * np.std(scores)
             labels = np.ones(len(scores))
             labels[scores > threshold] = -1  # -1 for anomalies, 1 for normal points
             

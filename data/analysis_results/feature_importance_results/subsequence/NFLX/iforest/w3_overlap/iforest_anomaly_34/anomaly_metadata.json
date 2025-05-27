@@ -1,0 +1,8 @@
+{
+  "ticker": "NFLX",
+  "algorithm": "iforest",
+  "subsequence_idx": 34,
+  "anomaly_score": 1.5399634384216268,
+  "start_date": "2023-03-08",
+  "end_date": "2023-03-10"
+}

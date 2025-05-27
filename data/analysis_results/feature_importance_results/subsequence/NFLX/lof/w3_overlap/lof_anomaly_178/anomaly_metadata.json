@@ -1,0 +1,8 @@
+{
+  "ticker": "NFLX",
+  "algorithm": "lof",
+  "subsequence_idx": 178,
+  "anomaly_score": 2.14995436441009,
+  "start_date": "2023-10-03",
+  "end_date": "2023-10-05"
+}

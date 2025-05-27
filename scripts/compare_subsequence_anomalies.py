@@ -448,7 +448,7 @@ def main():
     parser.add_argument(
         "--data", 
         type=str, 
-        default=str(config.PROCESSED_DATA_DIR / "index_GSPC_processed.csv"),
+        default=str(config.RAW_DATA_DIR / "index_GSPC.csv"),
         help="Path to the original processed S&P 500 data"
     )
     parser.add_argument(

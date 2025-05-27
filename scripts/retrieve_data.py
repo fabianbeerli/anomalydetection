@@ -42,7 +42,7 @@ def main():
     
     # Select constituent stocks
     logger.info("Selecting constituent stocks")
-    constituents = select_constituent_stocks(top_n=10, additional_n=20)
+    constituents = select_constituent_stocks(top_n=30, additional_n=0)
     logger.info(f"Selected {len(constituents)} constituent stocks")
     
     # Retrieve constituent stock data

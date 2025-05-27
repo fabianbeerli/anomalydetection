@@ -60,7 +60,6 @@ int main(int argc, char** argv) {
 
     // Output scores
     ofstream fres(string(input_file) + "_AIDA_scores.dat");
-    fres << matrices.size() << endl;
     for (size_t i = 0; i < scores.size(); ++i)
         fres << scores[i] << endl;
     fres.close();
@@ -71,8 +70,8 @@ int main(int argc, char** argv) {
     mean /= scores.size();
     for (double s : scores) stddev += (s - mean) * (s - mean);
     stddev = sqrt(stddev / scores.size());
-    double threshold = mean + 2 * stddev;
-
+    double threshold = mean + 1.5 * stddev;
+    cout << "mean: " << mean << ", stddev: " << stddev << ", threshold: " << threshold << endl;
     ofstream fanom(string(input_file) + "_AIDA_anomalies.csv");
     fanom << "index,score" << endl;
     for (size_t i = 0; i < scores.size(); ++i) {

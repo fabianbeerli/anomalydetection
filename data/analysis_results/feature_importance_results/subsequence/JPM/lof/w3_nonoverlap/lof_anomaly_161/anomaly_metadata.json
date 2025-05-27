@@ -2,7 +2,7 @@
   "ticker": "JPM",
   "algorithm": "lof",
   "subsequence_idx": 161,
-  "anomaly_score": 2.9378554099657435,
+  "anomaly_score": 2.0964884099766765,
   "start_date": "2024-12-18",
   "end_date": "2024-12-20"
 }

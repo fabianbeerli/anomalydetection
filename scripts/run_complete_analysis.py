@@ -117,7 +117,7 @@ def run_individual_subsequence_analysis(config_args, ticker):
             sys.executable,
             str(Path(__file__).parent / "compare_subsequence_anomalies.py"),
             "--results-base", str(subsequence_results_dir),
-            "--data", str(Path(config_args.processed_dir) / "index_GSPC_processed.csv"),
+            "--data", str(Path(config_args.raw_dir) / "index_GSPC.csv"),
             "--output", str(Path(config_args.output_dir) / "subsequence_analysis" / ticker),
             "--all-configs"
         ]
@@ -477,7 +477,7 @@ def run_multi_ts_analysis_workflow_intrawindow(config_args):
                     "--output", str(config_output_dir / "intrawindow"),
                     "--window-size", str(window_size),
                     "--overlap-type", overlap_str,
-                    "--data", str(Path(config_args.processed_dir) / "index_GSPC_processed.csv"),
+                    "--data", str(Path(config_args.raw_dir) / "index_GSPC.csv"),
                     "--windowlevel", "intrawindow"
                 ]
                 logger.info(f"Running multi-TS comparison: {' '.join(compare_multi_ts_cmd)}")
@@ -591,7 +591,7 @@ def run_multi_ts_analysis_workflow_windowwise(config_args):
                     "--output", str(config_output_dir / "windowwise"),
                     "--window-size", str(window_size),
                     "--overlap-type", overlap_str,
-                    "--data", str(Path(config_args.processed_dir) / "index_GSPC_processed.csv"),
+                    "--data", str(Path(config_args.raw_dir) / "index_GSPC.csv"),
                     "--windowlevel", "windowwise"
                 ]
                 logger.info(f"Running multi-TS comparison: {' '.join(compare_multi_ts_cmd)}")

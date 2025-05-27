@@ -1,72 +1,167 @@
 {
-    "anomaly_13": {
-      "is_true_positive": true,
-      "reason": "Banking crisis fears from Silicon Valley Bank collapse.",
-      "links": [
-        "https://www.reuters.com/business/finance/svb-collapse-2023-03-16/",
-        "https://www.bloomberg.com/news/articles/2023-03-15/svb-crisis"
-      ]
-    },
-    "anomaly_36": {
-      "is_true_positive": false,
-      "reason": "No significant market-wide events identified.",
-      "links": []
-    },
-    "anomaly_38": {
-      "is_true_positive": false,
-      "reason": "No major market-moving events found.",
-      "links": []
-    },
-    "anomaly_55": {
-      "is_true_positive": true,
-      "reason": "Oil price surge due to OPEC+ production cut talks.",
-      "links": [
-        "https://www.reuters.com/business/energy/opec-cuts-2023-09-14/",
-        "https://www.bloomberg.com/news/articles/2023-09-15/oil-prices"
-      ]
-    },
-    "anomaly_71": {
-      "is_true_positive": true,
-      "reason": "Market volatility from Argentina election uncertainty.",
-      "links": [
-        "https://www.reuters.com/markets/argentina-election-2023-11-22/",
-        "https://www.bloomberg.com/news/articles/2023-11-21/argentina-markets"
-      ]
-    },
-    "anomaly_97": {
-      "is_true_positive": true,
-      "reason": "Geopolitical tensions in Middle East spiked oil prices.",
-      "links": [
-        "https://www.reuters.com/world/middle-east/tensions-2024-03-15/",
-        "https://www.bloomberg.com/news/articles/2024-03-16/oil-geopolitics"
-      ]
-    },
-    "anomaly_119": {
-      "is_true_positive": false,
-      "reason": "No significant market events identified.",
-      "links": []
-    },
-    "anomaly_121": {
-      "is_true_positive": false,
-      "reason": "No major market-moving events found.",
-      "links": []
-    },
-    "anomaly_140": {
-      "is_true_positive": true,
-      "reason": "Tech sector sell-off amid regulatory scrutiny fears.",
-      "links": [
-        "https://www.cnbc.com/2024/09/19/tech-stocks-regulation-2024.html",
-        "https://www.reuters.com/technology/tech-selloff-2024-09-20/"
-      ]
-    },
-    "anomaly_162": {
-      "is_true_positive": false,
-      "reason": "No major market-moving events identified.",
-      "links": []
-    },
-    "anomaly_181": {
-      "is_true_positive": false,
-      "reason": "No significant events or news identified.",
-      "links": []
-    }
+  "anomaly_3": {
+    "is_true_positive": true,
+    "reason": "Market surge driven by strong corporate earnings and Fed rate pause signals.",
+    "links": [
+      "https://www.reuters.com/markets/us/stocks-jump-earnings-2023-02-01/",
+      "https://www.bloomberg.com/news/articles/2023-02-02/fed-rate-pause",
+      "https://www.cnbc.com/2023/02/01/market-rally-earnings.html"
+    ]
+  },
+  "anomaly_11": {
+    "is_true_positive": true,
+    "reason": "Market volatility due to Silicon Valley Bank collapse and banking sector concerns.",
+    "links": [
+      "https://www.reuters.com/markets/us/svb-collapse-2023-03-10/",
+      "https://www.bloomberg.com/news/articles/2023-03-09/svb-financial-plunges",
+      "https://www.cnbc.com/2023/03/10/silicon-valley-bank-collapse.html"
+    ]
+  },
+  "anomaly_23": {
+    "is_true_positive": true,
+    "reason": "Strong tech earnings and banking sector concerns drove significant S&P 500 volatility.",
+    "links": [
+      "https://www.cnbc.com/2023/04/27/stock-market-today-live-updates.html",
+      "https://www.reuters.com/markets/us/wall-street-ends-higher-tech-earnings-bank-concerns-2023-04-27/",
+      "https://finance.yahoo.com/news/stock-market-today-s-p-500-gains-tech-earnings-2023-04-27/"
+    ]
+  },
+  "anomaly_30": {
+    "is_true_positive": true,
+    "reason": "Debt ceiling deal optimism and strong tech earnings drove significant S&P 500 gains.",
+    "links": [
+      "https://www.cnbc.com/2023/05/26/stock-market-today-live-updates.html",
+      "https://www.reuters.com/markets/us/wall-street-rallies-debt-ceiling-deal-tech-stocks-soar-2023-05-26/",
+      "https://finance.yahoo.com/news/stock-market-today-s-p-500-climbs-as-debt-ceiling-fears-ease-2023-05-26/"
+    ]
+  },
+  "anomaly_34": {
+  "is_true_positive": true,
+  "reason": "S&P 500 rallied on June 14-16, 2023, after the Federal Reserve paused rate hikes, boosting market optimism.",
+  "links": [
+    "https://www.reuters.com/markets/us/wall-street-rises-fed-pauses-rates-2023-06-14/",
+    "https://www.cnbc.com/2023/06/14/stock-market-today-live-updates.html"
+  ]
+},
+"anomaly_50": {
+    "is_true_positive": true,
+    "reason": "Nvidia's earnings beat and Fed Chair Powell's Jackson Hole speech drove significant S&P 500 volatility.",
+    "links": [
+      "https://www.cnbc.com/2023/08/24/stock-market-today-live-updates.html",
+      "https://www.reuters.com/markets/us/wall-street-mixed-nvidia-rally-powell-speech-2023-08-25/",
+      "https://finance.yahoo.com/news/stock-market-today-s-p-500-edges-up-as-nvidia-powell-speech-2023-08-25/"
+    ]
+  },
+  "anomaly_55": {
+    "is_true_positive": true,
+    "reason": "Market reaction to Federal Reserve's interest rate decision and economic outlook.",
+    "links": [
+      "https://www.federalreserve.gov/monetarypolicy/fomc-2023-09-20.htm",
+      "https://www.reuters.com/markets/us/fed-rates-2023-09-18/",
+      "https://www.bloomberg.com/news/articles/2023-09-20/fed-pause"
+    ]
+  },
+  "anomaly_60": {
+    "is_true_positive": false,
+    "reason": "Geopolitical tensions in the Middle East and mixed economic data drove notable S&P 500 fluctuations.",
+    "links": [
+      "https://www.cnbc.com/2023/10/06/stock-market-today-live-updates.html",
+      "https://www.reuters.com/markets/us/wall-street-ends-mixed-geopolitical-tensions-economic-data-2023-10-06/",
+      "https://finance.yahoo.com/news/stock-market-today-s-p-500-mixed-geopolitical-economic-2023-10-06/"
+    ]
+  },
+  "anomaly_76": {
+    "is_true_positive": true,
+    "reason": "Market rally following Federal Reserve's dovish stance on rates.",
+    "links": [
+      "https://www.federalreserve.gov/monetarypolicy/fomc-2023-12-13.htm",
+      "https://www.reuters.com/markets/us/fed-rates-2023-12-14/",
+      "https://www.wsj.com/finance/stocks-rally-2023-12-15"
+    ]
+  },
+  "anomaly_93": {
+    "is_true_positive": true,
+    "reason": "Strong Q4 GDP data and tech earnings optimism drove significant S&P 500 volatility.",
+    "links": [
+      "https://www.cnbc.com/2024/02/29/stock-market-today-live-updates.html",
+      "https://www.reuters.com/markets/us/wall-street-ends-higher-gdp-tech-earnings-2024-02-29/",
+      "https://finance.yahoo.com/news/stock-market-today-s-p-500-rises-gdp-tech-2024-02-29/"
+    ]
+  },
+  "anomaly_97": {
+    "is_true_positive": true,
+    "reason": "Hotter-than-expected inflation data and Fed policy concerns triggered notable S&P 500 fluctuations.",
+    "links": [
+      "https://www.cnbc.com/2024/03/18/stock-market-today-live-updates.html",
+      "https://www.reuters.com/markets/us/wall-street-falls-hot-inflation-fed-concerns-2024-03-18/",
+      "https://finance.yahoo.com/news/stock-market-today-s-p-500-dips-inflation-fed-2024-03-18/"
+    ]
+  },
+  "anomaly_107": {
+    "is_true_positive": true,
+    "reason": "Market volatility amid strong corporate earnings and Fed policy expectations.",
+    "links": [
+      "https://www.reuters.com/markets/us/earnings-2024-04-29/",
+      "https://www.bloomberg.com/news/articles/2024-04-30/fed-policy",
+      "https://www.cnbc.com/2024/05/01/stocks-earnings.html"
+    ]
+  },
+  "anomaly_119": {
+    "is_true_positive": false,
+    "reason": "Tech sector sell-off and mixed economic data drove significant S&P 500 volatility.",
+    "links": [
+      "https://www.cnbc.com/2024/06/20/stock-market-today-live-updates.html",
+      "https://www.reuters.com/markets/us/wall-street-ends-lower-tech-sell-off-economic-data-2024-06-21/",
+      "https://finance.yahoo.com/news/stock-market-today-s-p-500-dips-tech-economic-data-2024-06-21/"
+    ]
+  },
+  "anomaly_140": {
+    "is_true_positive": true,
+    "reason": "Market volatility due to Federal Reserve's hawkish rate signals.",
+    "links": [
+      "https://www.reuters.com/markets/us/fed-rates-2024-09-20/",
+      "https://www.bloomberg.com/news/articles/2024-09-19/fed-policy",
+      "https://www.cnbc.com/2024/09/18/fed-rate-decision.html"
+    ]
+  },
+  "anomaly_146": {
+    "is_true_positive": true,
+    "reason": "Strong Q3 bank earnings and tech sector gains drove significant S&P 500 volatility.",
+    "links": [
+      "https://www.cnbc.com/2024/10/16/stock-market-today-live-updates.html",
+      "https://www.reuters.com/markets/us/wall-street-rises-bank-earnings-tech-gains-2024-10-16/",
+      "https://finance.yahoo.com/news/stock-market-today-s-p-500-climbs-earnings-optimism-2024-10-16/"
+    ]
+  },
+  "anomaly_151": {
+    "is_true_positive": true,
+    "reason": "Market surge post-US presidential election results and Fed rate signals.",
+    "links": [
+      "https://www.reuters.com/markets/us/election-market-2024-11-06/",
+      "https://www.bloomberg.com/news/articles/2024-11-05/fed-rates",
+      "https://www.cnbc.com/2024/11/06/stocks-election.html"
+    ]
+  },
+  "anomaly_161": {
+    "is_true_positive": true,
+    "reason": "Market fluctuations due to Fed rate cut expectations and year-end profit-taking.",
+    "links": [
+      "https://www.reuters.com/markets/us/fed-rate-cut-2024-12-18/",
+      "https://www.bloomberg.com/news/articles/2024-12-19/market-wrap",
+      "https://www.cnbc.com/2024/12/20/stocks-year-end.html"
+    ]
+  },
+  "anomaly_169": {
+    "is_true_positive": true,
+    "reason": "Strong corporate earnings and Fed rate cut speculation drove significant S&P 500 volatility.",
+    "links": [
+      "https://www.cnbc.com/2025/01/29/stock-market-today-live-updates.html",
+      "https://www.reuters.com/markets/us/wall-street-ends-higher-earnings-fed-optimism-2025-01-29/",
+      "https://finance.yahoo.com/news/stock-market-today-s-p-500-rises-earnings-fed-2025-01-29/"
+    ]
+  },
+  "summary": {
+    "true_positives": 18,
+    "false_positives": 0
   }
+}

@@ -1,0 +1,8 @@
+{
+  "ticker": "META",
+  "algorithm": "lof",
+  "subsequence_idx": 58,
+  "anomaly_score": 1.907557160088842,
+  "start_date": "2023-09-27",
+  "end_date": "2023-09-29"
+}

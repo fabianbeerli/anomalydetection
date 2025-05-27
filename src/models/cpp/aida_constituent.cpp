@@ -130,30 +130,16 @@ int main(int argc, char** argv) {
         fres.close();
         
         // Calculate mean and std for anomaly threshold
-        double mean_score = 0.0;
-        double std_score = 0.0;
-        
-        for (int i = 0; i < n; ++i) {
-            mean_score += scoresAIDA[i];
-        }
-        mean_score /= n;
-        
-        for (int i = 0; i < n; ++i) {
-            std_score += (scoresAIDA[i] - mean_score) * (scoresAIDA[i] - mean_score);
-        }
-        std_score = sqrt(std_score / n);
-        
-        double threshold = mean_score + 2 * std_score;
-        
-        // Write anomalies
+        double threshold = 1.5;
+
         ofstream fanom(output_anomalies_file);
         int anomaly_count = 0;
-        
+
         fanom << "index,date,score,start_date,end_date" << endl;
         for (int i = 0; i < n; ++i) {
-            if (scoresAIDA[i] > threshold) {
+            if (fabs(scoresAIDA[i]) >= threshold) {
                 fanom << i << "," << dates[i] << "," << scoresAIDA[i] << "," 
-                      << dates[i] << "," << dates[i] << endl;
+                    << dates[i] << "," << dates[i] << endl;
                 anomaly_count++;
             }
         }

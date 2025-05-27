@@ -1,0 +1,8 @@
+{
+  "ticker": "AAPL",
+  "algorithm": "aida",
+  "subsequence_idx": 35,
+  "anomaly_score": 2.45092,
+  "start_date": "2023-03-09",
+  "end_date": "2023-03-13"
+}

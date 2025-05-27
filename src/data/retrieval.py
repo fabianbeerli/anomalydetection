@@ -170,7 +170,8 @@ def select_constituent_stocks(top_n=10, additional_n=20):
     """
     # Get all S&P 500 constituents
     all_constituents = get_sp500_constituents()
-    
+    # After retrieving all_constituents
+    all_constituents = [t.replace('-', '.') for t in all_constituents]
     # Use predefined top constituents
     top_constituents = config.TOP_SP500_CONSTITUENTS[:top_n]
     
@@ -319,9 +320,12 @@ def main():
     # Retrieve S&P 500 index data
     sp500_file = retrieve_sp500_index_data()
     
+    # Select only the top 30 stocks
+    constituents = select_constituent_stocks(top_n=30, additional_n=0)
+
     # Retrieve constituent stock data
-    constituent_files = retrieve_constituent_data()
-    
+    constituent_files = retrieve_constituent_data(constituents)
+
     logger.info("Data retrieval completed")
     return {
         'sp500_file': sp500_file,

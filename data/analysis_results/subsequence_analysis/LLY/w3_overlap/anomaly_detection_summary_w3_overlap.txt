@@ -3,34 +3,34 @@ Window Size: 3, Type: overlap
 ==================================================
 
 Execution Times:
-AIDA: 0.1130 seconds
-IFOREST: 0.0751 seconds
-LOF: 0.0356 seconds
+AIDA: 0.0750 seconds
+IFOREST: 0.0719 seconds
+LOF: 0.0552 seconds
 
 Anomaly Counts:
-AIDA: 32 anomalies
-IFOREST: 25 anomalies
-LOF: 18 anomalies
+AIDA: 43 anomalies
+IFOREST: 48 anomalies
+LOF: 46 anomalies
 
 Detailed Anomaly Statistics:
 
 AIDA:
-  Count: 32
-  Mean Score: 2.895974375
-  Std Score: 0.371504055532394
-  Min Score: 2.4727
-  Max Score: 3.81858
+  Count: 43
+  Mean Score: 2.1418013953488373
+  Std Score: 0.2373843357108126
+  Min Score: 1.85849
+  Max Score: 2.75616
 
 IFOREST:
-  Count: 25
-  Mean Score: 3.060026103062384
-  Std Score: 0.6904763764540272
-  Min Score: 2.0219068444777197
-  Max Score: 4.309763325840594
+  Count: 48
+  Mean Score: 2.211620328093545
+  Std Score: 0.5796901972836374
+  Min Score: 1.5010713371103732
+  Max Score: 3.761101363381377
 
 LOF:
-  Count: 18
-  Mean Score: 4.137822357424101
-  Std Score: 2.0049371763479154
-  Min Score: 2.1455420003661145
-  Max Score: 8.377009074012504
+  Count: 46
+  Mean Score: 2.203195559183839
+  Std Score: 0.6981780293819705
+  Min Score: 1.531933881231292
+  Max Score: 4.4816300536839755

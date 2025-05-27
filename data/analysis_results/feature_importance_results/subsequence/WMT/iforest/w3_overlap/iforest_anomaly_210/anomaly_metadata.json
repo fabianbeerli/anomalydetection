@@ -1,0 +1,8 @@
+{
+  "ticker": "WMT",
+  "algorithm": "iforest",
+  "subsequence_idx": 210,
+  "anomaly_score": 3.053765518151477,
+  "start_date": "2023-11-16",
+  "end_date": "2023-11-20"
+}

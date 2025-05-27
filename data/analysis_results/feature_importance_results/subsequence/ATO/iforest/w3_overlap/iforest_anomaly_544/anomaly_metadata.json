@@ -1,8 +1,0 @@
-{
-  "ticker": "ATO",
-  "algorithm": "iforest",
-  "subsequence_idx": 544,
-  "anomaly_score": 2.980199972957311,
-  "start_date": "2025-03-20",
-  "end_date": "2025-03-24"
-}

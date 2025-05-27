@@ -1,0 +1,8 @@
+{
+  "ticker": "KO",
+  "algorithm": "lof",
+  "subsequence_idx": 146,
+  "anomaly_score": 2.4334855646834264,
+  "start_date": "2023-08-17",
+  "end_date": "2023-08-21"
+}

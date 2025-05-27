@@ -1,0 +1,8 @@
+{
+  "ticker": "V",
+  "algorithm": "iforest",
+  "subsequence_idx": 437,
+  "anomaly_score": 2.61259183624593,
+  "start_date": "2024-10-14",
+  "end_date": "2024-10-16"
+}

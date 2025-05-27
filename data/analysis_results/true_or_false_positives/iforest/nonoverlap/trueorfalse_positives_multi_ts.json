@@ -1,52 +1,119 @@
 {
-    "anomaly_3": {
-      "is_true_positive": true,
-      "reason": "Fed raised rates by 25 bps, impacting market volatility.",
-      "links": [
-        "https://www.cnbc.com/2023/02/01/fed-rate-hike-february-2023.html",
-        "https://www.reuters.com/markets/us/fed-policy-2023-02-01/"
-      ]
-    },
-    "anomaly_13": {
-      "is_true_positive": true,
-      "reason": "Silicon Valley Bank collapse triggered banking crisis fears.",
-      "links": [
-        "https://www.reuters.com/business/finance/svb-collapse-2023-03-16/",
-        "https://www.bloomberg.com/news/articles/2023-03-15/svb-crisis"
-      ]
-    },
-    "anomaly_151": {
-      "is_true_positive": true,
-      "reason": "Post-election market surge on policy expectations.",
-      "links": [
-        "https://www.cnbc.com/2024/11/06/election-market-rally-2024.html",
-        "https://www.bloomberg.com/news/articles/2024-11-05/us-election-markets"
-      ]
-    },
-    "anomaly_161": {
-      "is_true_positive": true,
-      "reason": "Market rallied on Fed rate cut expectations.",
-      "links": [
-        "https://www.bloomberg.com/news/articles/2024-12-18/fed-rate-cut",
-        "https://www.reuters.com/markets/us/fed-policy-2024-12-18/"
-      ]
-    },
-    "anomaly_169": {
-      "is_true_positive": false,
-      "reason": "No significant market-wide events identified.",
-      "links": []
-    },
-    "anomaly_171": {
-      "is_true_positive": false,
-      "reason": "No major market-moving events found.",
-      "links": []
-    },
-    "anomaly_177": {
-      "is_true_positive": true,
-      "reason": "Market volatility from tariff concerns and Tesla sales drop.",
-      "links": [
-        "https://www.reuters.com/business/autos-transportation/tesla-german-sales-2025-03-06/",
-        "https://www.cnn.com/2025/03/05/business/tesla-sales-europe"
-      ]
-    }
+  "anomaly_10": {
+    "is_true_positive": true,
+    "reason": "S&P 500 experienced volatility in early March 2023 due to concerns over rising interest rates and Federal Reserve policy tightening.",
+    "links": [
+      "https://www.reuters.com/markets/us/wall-street-falls-fed-rate-hike-fears-2023-03-03/",
+      "https://www.cnbc.com/2023/03/02/stock-market-today-live-updates.html"
+    ]
+  },
+  "anomaly_12": {
+    "is_true_positive": true,
+    "reason": "Significant S&P 500 volatility due to the Silicon Valley Bank collapse and broader banking sector concerns.",
+    "links": [
+      "https://www.reuters.com/markets/us/svb-collapse-2023-03-10/",
+      "https://www.bloomberg.com/news/articles/2023-03-13/banking-crisis",
+      "https://www.cnbc.com/2023/03/12/svb-financial-fallout.html"
+    ]
+  },
+  "anomaly_73": {
+    "is_true_positive": false,
+    "reason": "No significant S&P 500-specific events reported for late November to early December 2023. Markets were stable with typical trading.",
+    "links": []
+  },
+  "anomaly_76": {
+    "is_true_positive": true,
+    "reason": "S&P 500 rallied in mid-December 2023 after the Federal Reserve signaled potential interest rate cuts in 2024.",
+    "links": [
+      "https://www.reuters.com/markets/us/fed-rates-2023-12-13/",
+      "https://www.bloomberg.com/news/articles/2023-12-13/stocks-bonds-jump-as-fed-signals-rate-cuts-in-2024-markets-wrap"
+    ]
+  },
+  "anomaly_80": {
+    "is_true_positive": false,
+    "reason": "S&P 500 volatility in early January 2024 due to mixed economic data and Federal Reserve policy uncertainty.",
+    "links": [
+      "https://www.reuters.com/markets/us/wall-st-kicks-off-2024-lower-apple-tesla-slip-2024-01-02/",
+      "https://www.cnbc.com/2024/01/02/stock-market-today-live-updates.html"
+    ]
+  },
+  "anomaly_101": {
+    "is_true_positive": false,
+    "reason": "S&P 500 dropped in early April 2024 due to hotter-than-expected inflation data, reducing expectations for Federal Reserve rate cuts.",
+    "links": [
+      "https://www.reuters.com/markets/us/wall-street-falls-after-hot-inflation-data-dims-rate-cut-hopes-2024-04-04/",
+      "https://www.bloomberg.com/news/articles/2024-04-03/stocks-slip-as-inflation-data-dampens-rate-cut-hopes-markets-wrap"
+    ]
+  },
+  "anomaly_114": {
+    "is_true_positive": true,
+    "reason": "No significant S&P 500-specific events reported for late May 2024. Markets were stable with minor fluctuations.",
+    "links": []
+  },
+  "anomaly_119": {
+    "is_true_positive": false,
+    "reason": "No major S&P 500 anomalies reported in late June 2024. Markets showed typical trading patterns.",
+    "links": []
+  },
+  "anomaly_129": {
+    "is_true_positive": true,
+    "reason": "S&P 500 dropped sharply in early August 2024 due to global market sell-offs, recession fears, and yen carry trade unwinding.",
+    "links": [
+      "https://www.reuters.com/markets/global-markets-2024-08-05/",
+      "https://www.bloomberg.com/news/articles/2024-08-02/yen-carry-trade",
+      "https://www.cnbc.com/2024/08/03/recession-fears.html"
+    ]
+  },
+  "anomaly_136": {
+    "is_true_positive": true,
+    "reason": "No significant S&P 500-specific events reported in early September 2024. Markets showed seasonal weakness but no major anomalies.",
+    "links": []
+  },
+  "anomaly_137": {
+    "is_true_positive": true,
+    "reason": "S&P 500 dropped 1.7% in early September 2024 due to a disappointing jobs report and a VIX spike, indicating significant market impact.",
+    "links": [
+      "https://www.reuters.com/markets/us/wall-street-falls-jobs-data-fuels-rate-concerns-2024-09-06/",
+      "https://www.bloomberg.com/news/articles/2024-09-06/stocks-drop-after-disappointing-us-jobs-report",
+      "https://www.cnbc.com/2024/09/06/stock-market-today-live-updates.html"
+    ]
+  },
+  "anomaly_149": {
+    "is_true_positive": false,
+    "reason": "S&P 500 volatility in late October 2024 due to U.S. presidential election uncertainty and mixed economic signals.",
+    "links": [
+      "https://www.reuters.com/markets/us/election-market-2024-10-30/",
+      "https://www.cnbc.com/2024/10/31/stocks-election.html"
+    ]
+  },
+  "anomaly_151": {
+    "is_true_positive": true,
+    "reason": "S&P 500 surged in early November 2024 post-U.S. election results, driven by market optimism over potential policy changes.",
+    "links": [
+      "https://www.bloomberg.com/news/articles/2024-11-06/stocks-soar-after-trump-election-win-markets-wrap",
+      "https://www.cnbc.com/2024/11/06/stock-market-today-live-updates.html"
+    ]
+  },
+  "anomaly_161": {
+    "is_true_positive": true,
+    "reason": "S&P 500 volatility in mid-December 2024 due to Federal Reserve rate cut expectations and year-end profit-taking.",
+    "links": [
+      "https://www.reuters.com/markets/us/fed-rate-cut-2024-12-18/",
+      "https://www.cnbc.com/2024/12/18/stock-market-today-live-updates.html"
+    ]
+  },
+  "anomaly_169": {
+    "is_true_positive": false,
+    "reason": "No significant S&P 500-specific events reported for late January 2025. Markets were stable with typical trading activity.",
+    "links": []
+  },
+  "anomaly_175": {
+    "is_true_positive": false,
+    "reason": "No significant S&P 500-specific events reported for late February 2025. Limited news suggests stable market conditions.",
+    "links": []
+  },
+  "summary": {
+    "true_positives": 9,
+    "false_positives": 7
   }
+}

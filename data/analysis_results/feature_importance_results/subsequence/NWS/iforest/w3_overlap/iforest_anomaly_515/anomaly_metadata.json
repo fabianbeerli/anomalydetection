@@ -1,8 +1,0 @@
-{
-  "ticker": "NWS",
-  "algorithm": "iforest",
-  "subsequence_idx": 515,
-  "anomaly_score": 3.601994622217752,
-  "start_date": "2025-02-06",
-  "end_date": "2025-02-10"
-}

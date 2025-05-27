@@ -2,7 +2,7 @@
   "ticker": "AAPL",
   "algorithm": "iforest",
   "subsequence_idx": 167,
-  "anomaly_score": 2.413671203498053,
+  "anomaly_score": 1.9772819411381783,
   "start_date": "2025-01-16",
   "end_date": "2025-01-21"
 }
