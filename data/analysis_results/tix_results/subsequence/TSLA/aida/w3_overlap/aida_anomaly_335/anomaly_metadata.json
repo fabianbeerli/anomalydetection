@@ -1,8 +1,0 @@
-{
-  "ticker": "TSLA",
-  "algorithm": "aida",
-  "subsequence_idx": 335,
-  "anomaly_score": 1.98191,
-  "start_date": "2024-05-17",
-  "end_date": "2024-05-21"
-}

@@ -1,8 +1,0 @@
-{
-  "ticker": "CRM",
-  "algorithm": "lof",
-  "subsequence_idx": 214,
-  "anomaly_score": 2.1384677861311405,
-  "start_date": "2023-11-22",
-  "end_date": "2023-11-27"
-}

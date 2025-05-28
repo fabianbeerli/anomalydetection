@@ -1,8 +1,0 @@
-{
-  "ticker": "COST",
-  "algorithm": "aida",
-  "subsequence_idx": 174,
-  "anomaly_score": 1.96237,
-  "start_date": "2023-09-27",
-  "end_date": "2023-09-29"
-}

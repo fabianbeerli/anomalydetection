@@ -1,8 +1,0 @@
-{
-  "ticker": "JNJ",
-  "algorithm": "lof",
-  "subsequence_idx": 408,
-  "anomaly_score": 1.5364384796921835,
-  "start_date": "2024-09-03",
-  "end_date": "2024-09-05"
-}

@@ -1,8 +1,0 @@
-{
-  "ticker": "COST",
-  "algorithm": "iforest",
-  "subsequence_idx": 49,
-  "anomaly_score": 1.529907355034371,
-  "start_date": "2023-08-18",
-  "end_date": "2023-08-22"
-}

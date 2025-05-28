@@ -1,8 +1,0 @@
-{
-  "ticker": "TMUS",
-  "algorithm": "iforest",
-  "subsequence_idx": 283,
-  "anomaly_score": 3.773101069142034,
-  "start_date": "2024-03-05",
-  "end_date": "2024-03-07"
-}

@@ -1,8 +1,0 @@
-{
-  "ticker": "sp500",
-  "algorithm": "iforest",
-  "subsequence_idx": 228,
-  "anomaly_score": 2.635635769085527,
-  "start_date": "2023-12-13",
-  "end_date": "2023-12-15"
-}

@@ -1,8 +1,0 @@
-{
-  "ticker": "UNH",
-  "algorithm": "lof",
-  "subsequence_idx": 215,
-  "anomaly_score": 2.475619014984419,
-  "start_date": "2023-11-24",
-  "end_date": "2023-11-28"
-}

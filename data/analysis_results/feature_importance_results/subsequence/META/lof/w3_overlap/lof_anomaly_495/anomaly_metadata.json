@@ -1,8 +1,0 @@
-{
-  "ticker": "META",
-  "algorithm": "lof",
-  "subsequence_idx": 495,
-  "anomaly_score": 2.1514978454066616,
-  "start_date": "2025-01-07",
-  "end_date": "2025-01-10"
-}

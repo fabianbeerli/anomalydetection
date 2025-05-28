@@ -1,8 +1,0 @@
-{
-  "ticker": "AVGO",
-  "algorithm": "iforest",
-  "subsequence_idx": 205,
-  "anomaly_score": 1.7699952524308724,
-  "start_date": "2023-11-09",
-  "end_date": "2023-11-13"
-}

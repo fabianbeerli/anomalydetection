@@ -1,8 +1,0 @@
-{
-  "ticker": "V",
-  "algorithm": "lof",
-  "subsequence_idx": 258,
-  "anomaly_score": 2.305208019942504,
-  "start_date": "2024-01-29",
-  "end_date": "2024-01-31"
-}

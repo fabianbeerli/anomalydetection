@@ -1,8 +1,0 @@
-{
-  "ticker": "GOOG",
-  "algorithm": "iforest",
-  "subsequence_idx": 149,
-  "anomaly_score": 1.790071255823987,
-  "start_date": "2023-08-22",
-  "end_date": "2023-08-24"
-}

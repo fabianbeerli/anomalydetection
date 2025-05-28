@@ -1,8 +1,0 @@
-{
-  "ticker": "PLTR",
-  "algorithm": "aida",
-  "subsequence_idx": 66,
-  "anomaly_score": 2.17384,
-  "start_date": "2023-10-31",
-  "end_date": "2023-11-02"
-}

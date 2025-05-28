@@ -1,8 +1,0 @@
-{
-  "ticker": "HD",
-  "algorithm": "iforest",
-  "subsequence_idx": 517,
-  "anomaly_score": 2.2653737008553803,
-  "start_date": "2025-02-10",
-  "end_date": "2025-02-12"
-}

@@ -1,8 +1,0 @@
-{
-  "ticker": "GOOGL",
-  "algorithm": "aida",
-  "subsequence_idx": 153,
-  "anomaly_score": 1.82225,
-  "start_date": "2024-11-13",
-  "end_date": "2024-11-15"
-}

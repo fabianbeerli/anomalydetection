@@ -1,8 +1,0 @@
-{
-  "ticker": "PM",
-  "algorithm": "aida",
-  "subsequence_idx": 94,
-  "anomaly_score": 2.34153,
-  "start_date": "2023-06-02",
-  "end_date": "2023-06-06"
-}

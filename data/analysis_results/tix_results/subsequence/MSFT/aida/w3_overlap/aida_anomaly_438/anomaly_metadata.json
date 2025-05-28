@@ -1,8 +1,0 @@
-{
-  "ticker": "MSFT",
-  "algorithm": "aida",
-  "subsequence_idx": 438,
-  "anomaly_score": 2.17334,
-  "start_date": "2024-10-15",
-  "end_date": "2024-10-17"
-}

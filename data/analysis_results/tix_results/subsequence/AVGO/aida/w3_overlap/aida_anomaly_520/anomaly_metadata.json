@@ -1,8 +1,0 @@
-{
-  "ticker": "AVGO",
-  "algorithm": "aida",
-  "subsequence_idx": 520,
-  "anomaly_score": 1.95824,
-  "start_date": "2025-02-13",
-  "end_date": "2025-02-18"
-}

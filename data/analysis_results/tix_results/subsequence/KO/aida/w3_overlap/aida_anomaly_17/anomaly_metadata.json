@@ -1,8 +1,0 @@
-{
-  "ticker": "KO",
-  "algorithm": "aida",
-  "subsequence_idx": 17,
-  "anomaly_score": 2.0104,
-  "start_date": "2023-02-10",
-  "end_date": "2023-02-14"
-}

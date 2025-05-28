@@ -1,8 +1,0 @@
-{
-  "ticker": "ABBV",
-  "algorithm": "lof",
-  "subsequence_idx": 532,
-  "anomaly_score": 1.5528213763665923,
-  "start_date": "2025-03-04",
-  "end_date": "2025-03-06"
-}

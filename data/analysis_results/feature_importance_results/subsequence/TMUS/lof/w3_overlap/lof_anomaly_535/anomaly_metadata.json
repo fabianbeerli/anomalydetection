@@ -1,8 +1,0 @@
-{
-  "ticker": "TMUS",
-  "algorithm": "lof",
-  "subsequence_idx": 535,
-  "anomaly_score": 1.647897252352599,
-  "start_date": "2025-03-07",
-  "end_date": "2025-03-11"
-}

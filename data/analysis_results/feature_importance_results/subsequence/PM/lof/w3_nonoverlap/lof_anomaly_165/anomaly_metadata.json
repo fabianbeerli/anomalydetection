@@ -1,8 +1,0 @@
-{
-  "ticker": "PM",
-  "algorithm": "lof",
-  "subsequence_idx": 165,
-  "anomaly_score": 1.63475416503656,
-  "start_date": "2025-01-07",
-  "end_date": "2025-01-10"
-}

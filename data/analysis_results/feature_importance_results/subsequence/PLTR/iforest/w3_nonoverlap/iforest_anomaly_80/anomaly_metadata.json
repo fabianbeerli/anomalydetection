@@ -1,8 +1,0 @@
-{
-  "ticker": "PLTR",
-  "algorithm": "iforest",
-  "subsequence_idx": 80,
-  "anomaly_score": 1.9651078403003497,
-  "start_date": "2024-01-02",
-  "end_date": "2024-01-04"
-}

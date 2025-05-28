@@ -1,8 +1,0 @@
-{
-  "ticker": "JNJ",
-  "algorithm": "aida",
-  "subsequence_idx": 493,
-  "anomaly_score": 1.97602,
-  "start_date": "2025-01-03",
-  "end_date": "2025-01-07"
-}

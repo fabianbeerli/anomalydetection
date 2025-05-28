@@ -1,8 +1,0 @@
-{
-  "ticker": "MA",
-  "algorithm": "lof",
-  "subsequence_idx": 34,
-  "anomaly_score": 1.6999288024851842,
-  "start_date": "2023-06-14",
-  "end_date": "2023-06-16"
-}

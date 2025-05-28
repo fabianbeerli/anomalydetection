@@ -1,8 +1,0 @@
-{
-  "ticker": "UNH",
-  "algorithm": "aida",
-  "subsequence_idx": 361,
-  "anomaly_score": 1.91214,
-  "start_date": "2024-06-26",
-  "end_date": "2024-06-28"
-}

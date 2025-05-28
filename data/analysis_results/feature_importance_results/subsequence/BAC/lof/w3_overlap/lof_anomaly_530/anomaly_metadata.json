@@ -1,8 +1,0 @@
-{
-  "ticker": "BAC",
-  "algorithm": "lof",
-  "subsequence_idx": 530,
-  "anomaly_score": 2.744657581722605,
-  "start_date": "2025-02-28",
-  "end_date": "2025-03-04"
-}

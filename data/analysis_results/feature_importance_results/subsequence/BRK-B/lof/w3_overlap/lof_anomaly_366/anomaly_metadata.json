@@ -1,8 +1,0 @@
-{
-  "ticker": "BRK-B",
-  "algorithm": "lof",
-  "subsequence_idx": 366,
-  "anomaly_score": 1.5130257101785736,
-  "start_date": "2024-07-03",
-  "end_date": "2024-07-08"
-}

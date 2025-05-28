@@ -1,8 +1,0 @@
-{
-  "ticker": "ABBV",
-  "algorithm": "aida",
-  "subsequence_idx": 436,
-  "anomaly_score": 2.19325,
-  "start_date": "2024-10-11",
-  "end_date": "2024-10-15"
-}

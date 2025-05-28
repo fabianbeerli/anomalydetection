@@ -1,8 +1,0 @@
-{
-  "ticker": "ABBV",
-  "algorithm": "iforest",
-  "subsequence_idx": 15,
-  "anomaly_score": 2.326013883940282,
-  "start_date": "2023-02-08",
-  "end_date": "2023-02-10"
-}

@@ -1,8 +1,0 @@
-{
-  "ticker": "MA",
-  "algorithm": "iforest",
-  "subsequence_idx": 164,
-  "anomaly_score": 1.609990743042519,
-  "start_date": "2023-09-13",
-  "end_date": "2023-09-15"
-}

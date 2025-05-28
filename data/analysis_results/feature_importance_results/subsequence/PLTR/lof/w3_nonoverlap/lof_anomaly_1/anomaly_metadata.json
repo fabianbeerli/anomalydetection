@@ -1,8 +1,0 @@
-{
-  "ticker": "PLTR",
-  "algorithm": "lof",
-  "subsequence_idx": 1,
-  "anomaly_score": 2.0249972608599864,
-  "start_date": "2023-01-23",
-  "end_date": "2023-01-25"
-}

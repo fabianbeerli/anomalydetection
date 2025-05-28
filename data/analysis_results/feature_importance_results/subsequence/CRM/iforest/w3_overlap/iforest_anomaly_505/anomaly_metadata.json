@@ -1,8 +1,0 @@
-{
-  "ticker": "CRM",
-  "algorithm": "iforest",
-  "subsequence_idx": 505,
-  "anomaly_score": 2.3670778755633486,
-  "start_date": "2025-01-23",
-  "end_date": "2025-01-27"
-}

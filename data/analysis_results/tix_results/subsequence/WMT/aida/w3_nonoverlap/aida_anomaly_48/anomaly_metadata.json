@@ -1,8 +1,0 @@
-{
-  "ticker": "WMT",
-  "algorithm": "aida",
-  "subsequence_idx": 48,
-  "anomaly_score": 2.1918,
-  "start_date": "2023-08-15",
-  "end_date": "2023-08-17"
-}

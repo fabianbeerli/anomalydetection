@@ -1,8 +1,0 @@
-{
-  "ticker": "HD",
-  "algorithm": "aida",
-  "subsequence_idx": 412,
-  "anomaly_score": 2.16721,
-  "start_date": "2024-09-09",
-  "end_date": "2024-09-11"
-}

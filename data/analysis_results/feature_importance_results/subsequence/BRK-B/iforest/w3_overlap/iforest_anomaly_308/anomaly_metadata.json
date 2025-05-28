@@ -1,8 +1,0 @@
-{
-  "ticker": "BRK-B",
-  "algorithm": "iforest",
-  "subsequence_idx": 308,
-  "anomaly_score": 2.1539066713952475,
-  "start_date": "2024-04-10",
-  "end_date": "2024-04-12"
-}

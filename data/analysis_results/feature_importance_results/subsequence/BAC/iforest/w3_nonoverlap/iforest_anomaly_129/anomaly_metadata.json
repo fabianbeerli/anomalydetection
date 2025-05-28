@@ -1,8 +1,0 @@
-{
-  "ticker": "BAC",
-  "algorithm": "iforest",
-  "subsequence_idx": 129,
-  "anomaly_score": 2.0694138821741186,
-  "start_date": "2024-08-02",
-  "end_date": "2024-08-06"
-}

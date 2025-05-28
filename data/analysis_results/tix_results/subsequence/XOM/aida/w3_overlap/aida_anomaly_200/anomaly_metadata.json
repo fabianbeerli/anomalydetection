@@ -1,8 +1,0 @@
-{
-  "ticker": "XOM",
-  "algorithm": "aida",
-  "subsequence_idx": 200,
-  "anomaly_score": 2.06851,
-  "start_date": "2023-11-02",
-  "end_date": "2023-11-06"
-}

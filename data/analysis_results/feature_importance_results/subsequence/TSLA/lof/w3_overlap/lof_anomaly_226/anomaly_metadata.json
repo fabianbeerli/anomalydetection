@@ -1,8 +1,0 @@
-{
-  "ticker": "TSLA",
-  "algorithm": "lof",
-  "subsequence_idx": 226,
-  "anomaly_score": 2.2481792024527514,
-  "start_date": "2023-12-11",
-  "end_date": "2023-12-13"
-}

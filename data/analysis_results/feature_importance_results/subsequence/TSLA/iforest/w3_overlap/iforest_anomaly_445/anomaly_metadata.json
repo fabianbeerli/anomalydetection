@@ -1,8 +1,0 @@
-{
-  "ticker": "TSLA",
-  "algorithm": "iforest",
-  "subsequence_idx": 445,
-  "anomaly_score": 2.2867030598327456,
-  "start_date": "2024-10-24",
-  "end_date": "2024-10-28"
-}

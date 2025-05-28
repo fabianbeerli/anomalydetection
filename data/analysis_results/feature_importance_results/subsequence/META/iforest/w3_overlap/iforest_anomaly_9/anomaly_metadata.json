@@ -1,8 +1,0 @@
-{
-  "ticker": "META",
-  "algorithm": "iforest",
-  "subsequence_idx": 9,
-  "anomaly_score": 3.1969066700309816,
-  "start_date": "2023-01-31",
-  "end_date": "2023-02-02"
-}

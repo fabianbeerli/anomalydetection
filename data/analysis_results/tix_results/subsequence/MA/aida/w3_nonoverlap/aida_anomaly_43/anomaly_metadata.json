@@ -1,8 +1,0 @@
-{
-  "ticker": "MA",
-  "algorithm": "aida",
-  "subsequence_idx": 43,
-  "anomaly_score": 2.30756,
-  "start_date": "2023-07-25",
-  "end_date": "2023-07-27"
-}

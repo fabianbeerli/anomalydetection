@@ -1,8 +1,0 @@
-{
-  "ticker": "sp500",
-  "algorithm": "lof",
-  "subsequence_idx": 181,
-  "anomaly_score": 2.9002439898559667,
-  "start_date": "2023-10-06",
-  "end_date": "2023-10-10"
-}

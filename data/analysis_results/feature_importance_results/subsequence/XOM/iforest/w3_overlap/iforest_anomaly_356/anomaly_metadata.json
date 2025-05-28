@@ -1,8 +1,0 @@
-{
-  "ticker": "XOM",
-  "algorithm": "iforest",
-  "subsequence_idx": 356,
-  "anomaly_score": 2.0372379749082077,
-  "start_date": "2024-06-18",
-  "end_date": "2024-06-21"
-}

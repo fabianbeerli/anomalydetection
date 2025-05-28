@@ -1,8 +1,0 @@
-{
-  "ticker": "PG",
-  "algorithm": "iforest",
-  "subsequence_idx": 101,
-  "anomaly_score": 2.3414123113279643,
-  "start_date": "2024-04-03",
-  "end_date": "2024-04-05"
-}

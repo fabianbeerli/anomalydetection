@@ -1,8 +1,0 @@
-{
-  "ticker": "XOM",
-  "algorithm": "lof",
-  "subsequence_idx": 70,
-  "anomaly_score": 2.498728359719151,
-  "start_date": "2023-04-28",
-  "end_date": "2023-05-02"
-}

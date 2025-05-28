@@ -1,8 +1,0 @@
-{
-  "ticker": "COST",
-  "algorithm": "lof",
-  "subsequence_idx": 127,
-  "anomaly_score": 1.70032746828085,
-  "start_date": "2023-07-21",
-  "end_date": "2023-07-25"
-}

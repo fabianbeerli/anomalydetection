@@ -1,8 +1,0 @@
-{
-  "ticker": "WMT",
-  "algorithm": "lof",
-  "subsequence_idx": 85,
-  "anomaly_score": 1.6596283854282736,
-  "start_date": "2024-01-24",
-  "end_date": "2024-01-26"
-}
