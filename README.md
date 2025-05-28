@@ -25,6 +25,9 @@ brew install libomp
 
 ---
 
+> **Note:** During the run of the scripts, the `data` folder and all necessary subfolders are created automatically.  
+> You only need to manually create or organize folders for the true/false positive visualization as described below.
+
 ## 🚀 Run the Analysis
 
 ### Step 1: Retrieve Data
